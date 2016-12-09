@@ -1,0 +1,9 @@
+{
+  "frameworks": {
+    "net46":{
+      "dependencies": {
+        "Microsoft.Azure.Search": "2.0.4-preview"
+      }
+    }
+   }
+}
