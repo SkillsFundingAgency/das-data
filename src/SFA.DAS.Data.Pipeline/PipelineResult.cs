@@ -27,6 +27,9 @@ namespace SFA.DAS.Data.Pipeline
     {
         public static Success<T> Return<T>(this T instance)
             => new Success<T>(instance, new List<ResultMessage>());
+
+        public static Success<T> Return<T>(this T instance, Action rolback)
+            => new Success<T>(instance, new List<ResultMessage>(), rolback);
     }
 
     public class Result
@@ -42,13 +45,17 @@ namespace SFA.DAS.Data.Pipeline
         }
     }
 
-    public abstract class Result<T>
+    public abstract class PipelineResult<T>
     {
         protected List<ResultMessage> _messages = new List<ResultMessage>();
+        protected List<Action> _rollbacks = new List<Action>();
 
         protected T _instance;
-        public Result<TO> Bind<TO>(Func<T, Result<TO>> func)
+        public PipelineResult<TO> Step<TO>(Func<T, PipelineResult<TO>> func)
         {
+            if (!IsSuccess())
+                return new Failure<TO>(_messages);
+
             try
             {
                 var result = func(_instance);
@@ -56,8 +63,14 @@ namespace SFA.DAS.Data.Pipeline
                 _messages.AddRange(result._messages);
                 result._messages = _messages.ToList();
 
+                _rollbacks.AddRange(result._rollbacks);
+                result._rollbacks = _rollbacks.ToList();
+
                 if (result is Success<TO>)
                     return result;
+
+                foreach (var rollback in _rollbacks)
+                    rollback();
 
                 return new Failure<TO>(_messages);
             }
@@ -65,6 +78,12 @@ namespace SFA.DAS.Data.Pipeline
             {
                 return new Failure<TO>(ex);
             }
+        }
+
+        public PipelineResult<TO> Step<TO>(Func<T, PipelineResult<TO>> func, Action rollback)
+        {
+            _rollbacks.Add(rollback);
+            return Step(func);
         }
 
         public abstract bool IsSuccess();
@@ -77,7 +96,7 @@ namespace SFA.DAS.Data.Pipeline
         }
     }
 
-    public class Success<T> : Result<T>
+    public class Success<T> : PipelineResult<T>
     {
         public Success(T instance, List<ResultMessage> messages)
         {
@@ -85,13 +104,18 @@ namespace SFA.DAS.Data.Pipeline
             _instance = instance;
         }
 
+        public Success(T instance, List<ResultMessage> messages, Action rollback) : this(instance, messages)
+        {
+            _rollbacks.Add(rollback);
+        } 
+
         public Success(T instance, string message) : this (instance, 
             new List<ResultMessage> { new SuccessResultMessage { Message = message } }){}
-        
+
         public override bool IsSuccess() => true;
     }
 
-    public class Failure<T> : Result<T>
+    public class Failure<T> : PipelineResult<T>
     {
         public Failure(List<ResultMessage> messages)
         {

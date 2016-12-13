@@ -23,7 +23,7 @@ namespace SFA.DAS.Data.Pipeline.Tests
             var m = new TestMessage { Message = "bob" };
 
             var result = m.Return()
-                .Bind(x => Result.Win(
+                .Step(x => Result.Win(
                    new TestMessage { Message = "hello " + x.Message },
                    "said hello"));
 
@@ -39,7 +39,7 @@ namespace SFA.DAS.Data.Pipeline.Tests
             var m = new TestMessage { Message = "bob" };
 
             var result = m.Return()
-                .Bind(x => Result.Fail<TestMessage>("it go bang"));
+                .Step(x => Result.Fail<TestMessage>("it go bang"));
 
             Assert.IsInstanceOfType(result, typeof(Failure<TestMessage>));
             Assert.IsFalse(result.IsSuccess());
@@ -53,7 +53,7 @@ namespace SFA.DAS.Data.Pipeline.Tests
             var m = new TestMessage { Message = "bob" };
 
             var result = m.Return()
-                .Bind(x =>
+                .Step(x =>
                 {
                     throw new Exception("big bang");
                     return Result.Win(
@@ -72,10 +72,10 @@ namespace SFA.DAS.Data.Pipeline.Tests
             var m = new TestMessage { Message = "bob" };
 
             var result = m.Return()
-                .Bind(x => Result.Win(
+                .Step(x => Result.Win(
                     new TestMessage {Message = "hello " + x.Message},
                     "said hello"))
-                .Bind(x =>
+                .Step(x =>
                 {
                     var r = new TestResult {Transformed = x.Message.Length};
                     return Result.Win(r, "string to int");
@@ -90,10 +90,10 @@ namespace SFA.DAS.Data.Pipeline.Tests
             var m = new TestMessage { Message = "bob" };
 
             var result = m.Return()
-                .Bind(x => Result.Win(
+                .Step(x => Result.Win(
                     new TestMessage { Message = "hello " + x.Message },
                     "said hello"))
-                .Bind<TestResult>(x =>
+                .Step<TestResult>(x =>
                 {
                     if (x.Message.Length != 5)
                         return Result.Fail<TestResult>("not good");
@@ -103,6 +103,43 @@ namespace SFA.DAS.Data.Pipeline.Tests
                 });
 
             Assert.IsFalse(result.IsSuccess());
+        }
+
+        [TestMethod]
+        public void EarlyFail()
+        {
+            var m = new TestMessage { Message = "bob" };
+
+            bool beenRun = false;
+
+            var result = m.Return()
+                .Step(x => Result.Fail<TestMessage>("bang"))
+                .Step(x =>
+                {
+                    beenRun = true;
+
+                    var r = new TestResult { Transformed = x.Message.Length };
+                    return Result.Win(r, "string to int");
+                });
+
+            Assert.IsFalse(result.IsSuccess());
+            Assert.IsFalse(beenRun);
+        }
+
+        [TestMethod]
+        public void Rollback()
+        {
+            var m = new TestMessage { Message = "bob" };
+            bool rolledback = false;
+
+            var result = m.Return()
+                .Step(x => Result.Win(
+                    new TestMessage {Message = "hello " + x.Message},
+                    "said hello"), () => { rolledback = true; })
+                .Step(x => Result.Fail<TestMessage>("bang"));
+
+            Assert.IsFalse(result.IsSuccess());
+            Assert.IsTrue(rolledback);
         }
     }
 }

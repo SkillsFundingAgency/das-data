@@ -40,6 +40,9 @@ namespace SFA.DAS.Data.Pipeline
         }
 
 
+        // this is going to be replaced with monads
+        
+
         public async Task Handle()
         {
             Message<TMessage> message = null;

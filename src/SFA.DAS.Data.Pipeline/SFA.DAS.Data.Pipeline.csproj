@@ -48,10 +48,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\DatabaseHelpers.cs" />
+    <Compile Include="Helpers\MessageHelpers.cs" />
     <Compile Include="LogLevels.cs" />
     <Compile Include="Pipeline.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Result.cs" />
+    <Compile Include="PipelineResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
