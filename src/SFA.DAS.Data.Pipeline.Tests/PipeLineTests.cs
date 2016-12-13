@@ -39,9 +39,9 @@ namespace SFA.DAS.Data.Pipeline.Tests
             var m = new TestMessage { Message = "bob" };
 
             var result = m.Return()
-                .Bind(x => Result.Fail("it go bang"));
+                .Bind(x => Result.Fail<TestMessage>("it go bang"));
 
-            Assert.IsInstanceOfType(result, typeof(Failure<string>));
+            Assert.IsInstanceOfType(result, typeof(Failure<TestMessage>));
             Assert.IsFalse(result.IsSuccess());
             Assert.IsNull(result.Content);
             Assert.AreEqual("Failure: it go bang", result.Messages.First());
@@ -82,6 +82,27 @@ namespace SFA.DAS.Data.Pipeline.Tests
                 });
 
             Assert.IsTrue(result.IsSuccess());
+        }
+
+        [TestMethod]
+        public void FlowControll()
+        {
+            var m = new TestMessage { Message = "bob" };
+
+            var result = m.Return()
+                .Bind(x => Result.Win(
+                    new TestMessage { Message = "hello " + x.Message },
+                    "said hello"))
+                .Bind<TestResult>(x =>
+                {
+                    if (x.Message.Length != 5)
+                        return Result.Fail<TestResult>("not good");
+
+                    var r = new TestResult {Transformed = x.Message.Length};
+                    return Result.Win(r, "string to int");
+                });
+
+            Assert.IsFalse(result.IsSuccess());
         }
     }
 }

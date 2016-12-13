@@ -31,9 +31,9 @@ namespace SFA.DAS.Data.Pipeline
 
     public class Result
     {
-        public static Failure<string> Fail(string message)
+        public static Failure<T> Fail<T>(string message)
         {
-            return new Failure<string>(message);
+            return new Failure<T>(message);
         }
 
         public static Success<T> Win<T>(T result, string message)
@@ -73,7 +73,7 @@ namespace SFA.DAS.Data.Pipeline
 
         public IEnumerable<string> Messages
         {
-            get { return this._messages.Select(m => m.ToString()); }
+            get { return _messages.Select(m => m.ToString()); }
         }
     }
 
