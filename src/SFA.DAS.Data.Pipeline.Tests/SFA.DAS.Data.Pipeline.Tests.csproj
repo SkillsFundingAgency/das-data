@@ -43,6 +43,10 @@
       <HintPath>..\packages\SFA.DAS.Messaging.3.0.0.8308\lib\net45\SFA.DAS.Messaging.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Simple.Data, Version=0.19.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Simple.Data.Core.0.19.0.0\lib\net40\Simple.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <Choose>
@@ -58,6 +62,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="DatabaseExtensionTests.cs" />
     <Compile Include="MessageHelperTests.cs" />
     <Compile Include="PipeLineTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
