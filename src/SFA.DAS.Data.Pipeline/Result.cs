@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SFA.DAS.Data.Pipeline
 {
@@ -19,6 +17,11 @@ namespace SFA.DAS.Data.Pipeline
         public override string ToString() => "Failure: " + Message;
     }
 
+    public class ExceptionResultMessage : ResultMessage
+    {
+        public override string ToString() => "Exception: " + Message;
+    }
+
 
     public static class ResultExtensions
     {
@@ -28,14 +31,14 @@ namespace SFA.DAS.Data.Pipeline
 
     public class Result
     {
-        public static Failure<T> Fail<T>(string message)
+        public static Failure<string> Fail(string message)
         {
-            return new Failure<T>(new List<ResultMessage> { new FailureResultMessage { Message = message } });
+            return new Failure<string>(message);
         }
 
         public static Success<T> Win<T>(T result, string message)
         {
-            return new Success<T>(result, new List<ResultMessage> { new SuccessResultMessage { Message = message } });
+            return new Success<T>(result, message);
         }
     }
 
@@ -43,23 +46,30 @@ namespace SFA.DAS.Data.Pipeline
     {
         protected List<ResultMessage> _messages = new List<ResultMessage>();
 
-        protected T Instance;
+        protected T _instance;
         public Result<TO> Bind<TO>(Func<T, Result<TO>> func)
         {
-            var result = func(Instance);
+            try
+            {
+                var result = func(_instance);
 
-            _messages.AddRange(result._messages);
-            result._messages = _messages.ToList();
+                _messages.AddRange(result._messages);
+                result._messages = _messages.ToList();
 
-            if (result is Success<T>)
-                return result;
+                if (result is Success<T>)
+                    return result;
 
-            return new Failure<TO>(_messages);
+                return new Failure<TO>(_messages);
+            }
+            catch (Exception ex)
+            {
+                return new Failure<TO>(ex);
+            }
         }
 
         public abstract bool IsSuccess();
 
-        public T Content => Instance;
+        public virtual T Content => _instance;
 
         public IEnumerable<string> Messages
         {
@@ -72,9 +82,12 @@ namespace SFA.DAS.Data.Pipeline
         public Success(T instance, List<ResultMessage> messages)
         {
             _messages = messages;
-            Instance = instance;
+            _instance = instance;
         }
 
+        public Success(T instance, string message) : this (instance, 
+            new List<ResultMessage> { new SuccessResultMessage { Message = message } }){}
+        
         public override bool IsSuccess() => true;
     }
 
@@ -84,6 +97,12 @@ namespace SFA.DAS.Data.Pipeline
         {
             _messages = messages;
         }
+
+        public Failure(string message) : this(new List<ResultMessage>
+            { new FailureResultMessage {Message = message} }) {}
+
+        public Failure(Exception e) : this(new List<ResultMessage>
+            { new ExceptionResultMessage {Message = e.Message} }) {}
 
         public override bool IsSuccess() => false;
     }

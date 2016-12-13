@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace SFA.DAS.Data.Pipeline.Tests
@@ -33,13 +34,31 @@ namespace SFA.DAS.Data.Pipeline.Tests
             var m = new TestMessage { Message = "bob" };
 
             var result = m.Return()
-                .Bind(x => Result.Fail<TestMessage>(
-                   "said hello"));
+                .Bind(x => Result.Fail("it go bang"));
+
+            Assert.IsInstanceOfType(result, typeof(Failure<string>));
+            Assert.IsFalse(result.IsSuccess());
+            Assert.IsNull(result.Content);
+            Assert.AreEqual("Failure: it go bang", result.Messages.First());
+        }
+
+        [TestMethod]
+        public void SingleStageException()
+        {
+            var m = new TestMessage { Message = "bob" };
+
+            var result = m.Return()
+                .Bind(x =>
+                {
+                    throw new Exception("big bang");
+                    return Result.Win(
+                        new TestMessage {Message = "hello " + x.Message},
+                        "said hello");
+                });
 
             Assert.IsInstanceOfType(result, typeof(Failure<TestMessage>));
             Assert.IsFalse(result.IsSuccess());
-            Assert.IsNull(result.Content);
-            Assert.AreEqual("Failure: said hello", result.Messages.First());
+            Assert.AreEqual("Exception: big bang", result.Messages.First());
         }
     }
 }
