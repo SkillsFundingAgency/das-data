@@ -6,53 +6,29 @@ using System.Threading.Tasks;
 
 namespace SFA.DAS.Data.Pipeline
 {
-    //public class Event<T>
-    //{
-    //    T _instance;
-
-    //    public Event(T instance)
-    //    {
-    //        _instance = instance;
-    //    }
-
-    //    public Event<TO> Bind<TO>(Func<T, Event<TO>> func)
-    //    {
-    //        return func(_instance);
-    //    }
-
-    //    public Event<TO> Map<TO>(Func<T, TO> func)
-    //    {
-    //        return new Event<TO>(func(_instance));
-    //    }
-    //}
-
-    //public static class EventExtensions
-    //{
-    //    public static Event<T> Return<T>(this T instance) => new Event<T>(instance);
-    //}
-
     public abstract class ResultMessage
     {
         public string Message { get; set; }
     }
-    public class SuccessResultMessage : ResultMessage { }
-    public class FailureResultMessage : ResultMessage { }
+    public class SuccessResultMessage : ResultMessage
+    {
+        public override string ToString() => "Success: " + Message;
+    }
+    public class FailureResultMessage : ResultMessage
+    {
+        public override string ToString() => "Failure: " + Message;
+    }
 
 
     public static class ResultExtensions
     {
         public static Success<T> Return<T>(this T instance)
             => new Success<T>(instance, new List<ResultMessage>());
-
-        //public static Task<Success<T>> Return<T>(this T instance)
-        //{
-        //    return new Task<Success<T>>(() => new Success<T>(instance, new List<ResultMessage>()));
-        //}
     }
 
     public class Result
     {
-        public static Failure<T> FailWith<T>(string message)
+        public static Failure<T> Fail<T>(string message)
         {
             return new Failure<T>(new List<ResultMessage> { new FailureResultMessage { Message = message } });
         }
@@ -67,27 +43,27 @@ namespace SFA.DAS.Data.Pipeline
     {
         protected List<ResultMessage> _messages = new List<ResultMessage>();
 
-        protected T _instance;
+        protected T Instance;
         public Result<TO> Bind<TO>(Func<T, Result<TO>> func)
         {
-            var result = func(_instance);
+            var result = func(Instance);
 
             _messages.AddRange(result._messages);
             result._messages = _messages.ToList();
 
             if (result is Success<T>)
-            {
                 return result;
-            }
 
             return new Failure<TO>(_messages);
         }
 
         public abstract bool IsSuccess();
 
-        public T Content
+        public T Content => Instance;
+
+        public IEnumerable<string> Messages
         {
-            get { return _instance; }
+            get { return this._messages.Select(m => m.ToString()); }
         }
     }
 
@@ -96,7 +72,7 @@ namespace SFA.DAS.Data.Pipeline
         public Success(T instance, List<ResultMessage> messages)
         {
             _messages = messages;
-            _instance = instance;
+            Instance = instance;
         }
 
         public override bool IsSuccess() => true;

@@ -1,10 +1,10 @@
-﻿using System;
+﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace SFA.DAS.Data.Pipeline.Tests
 {
     [TestClass]
-    public class ResultTests
+    public class PipelineTests
     {
         public class TestMessage
         {
@@ -12,7 +12,7 @@ namespace SFA.DAS.Data.Pipeline.Tests
         }
 
         [TestMethod]
-        public void SingleStage()
+        public void SingleStageSuccess()
         {
             var m = new TestMessage { Message = "bob" };
 
@@ -24,6 +24,22 @@ namespace SFA.DAS.Data.Pipeline.Tests
             Assert.IsInstanceOfType(result, typeof(Success<TestMessage>));
             Assert.IsTrue(result.IsSuccess());
             Assert.AreEqual("hello bob", result.Content.Message);
+            Assert.AreEqual("Success: said hello", result.Messages.First());
+        }
+
+        [TestMethod]
+        public void SingleStageFailure()
+        {
+            var m = new TestMessage { Message = "bob" };
+
+            var result = m.Return()
+                .Bind(x => Result.Fail<TestMessage>(
+                   "said hello"));
+
+            Assert.IsInstanceOfType(result, typeof(Failure<TestMessage>));
+            Assert.IsFalse(result.IsSuccess());
+            Assert.IsNull(result.Content);
+            Assert.AreEqual("Failure: said hello", result.Messages.First());
         }
     }
 }
