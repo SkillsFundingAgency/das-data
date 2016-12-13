@@ -12,6 +12,11 @@ namespace SFA.DAS.Data.Pipeline.Tests
             public string Message { get; set; }
         }
 
+        public class TestResult
+        {
+            public int Transformed { get; set; }
+        }
+
         [TestMethod]
         public void SingleStageSuccess()
         {
@@ -59,6 +64,24 @@ namespace SFA.DAS.Data.Pipeline.Tests
             Assert.IsInstanceOfType(result, typeof(Failure<TestMessage>));
             Assert.IsFalse(result.IsSuccess());
             Assert.AreEqual("Exception: big bang", result.Messages.First());
+        }
+
+        [TestMethod]
+        public void MultipleStageSuccess()
+        {
+            var m = new TestMessage { Message = "bob" };
+
+            var result = m.Return()
+                .Bind(x => Result.Win(
+                    new TestMessage {Message = "hello " + x.Message},
+                    "said hello"))
+                .Bind(x =>
+                {
+                    var r = new TestResult {Transformed = x.Message.Length};
+                    return Result.Win(r, "string to int");
+                });
+
+            Assert.IsTrue(result.IsSuccess());
         }
     }
 }

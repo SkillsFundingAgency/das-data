@@ -56,7 +56,7 @@ namespace SFA.DAS.Data.Pipeline
                 _messages.AddRange(result._messages);
                 result._messages = _messages.ToList();
 
-                if (result is Success<T>)
+                if (result is Success<TO>)
                     return result;
 
                 return new Failure<TO>(_messages);
