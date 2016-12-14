@@ -30,46 +30,52 @@ namespace SFA.DAS.Data.Pipeline
 
     public abstract class PipelineResult<T>
     {
-        protected string _message;
-        protected List<Action> _rollbacks = new List<Action>();
-        protected Action<LogLevel, string> _log;
+        protected string Message;
+        protected List<Action> Rollbacks = new List<Action>();
+        protected Action<LogLevel, string> Log = ((level, s) => { });
+        
+        private TRes Error<TRes>(TRes obj)
+        {
+            Log(LogLevel.Error, obj.ToString());
+            return obj;
+        }
+
+        private TRes Info<TRes>(TRes obj)
+        {
+            Log(LogLevel.Info, obj.ToString());
+            return obj;
+        }
 
         protected T _instance;
         public PipelineResult<TO> Step<TO>(Func<T, PipelineResult<TO>> func)
         {
             if (!IsSuccess())
-                return new Failure<TO>(_message,_log);
+                return new Failure<TO>(Message,Log);
             try
             {
                 var result = func(_instance);
                 
-                _rollbacks.AddRange(result._rollbacks);
-                result._rollbacks = _rollbacks.ToList();
-                result._log = _log;
+                Rollbacks.AddRange(result.Rollbacks);
+                result.Rollbacks = Rollbacks;
+                result.Log = Log;
 
                 if (result is Success<TO>)
-                {
-                    _log(LogLevel.Info, result.ToString());
-                    return result;
-                }
-
-                _log(LogLevel.Error, result.ToString());
-                foreach (var rollback in _rollbacks)
+                    return Info(result);
+                
+                foreach (var rollback in Rollbacks)
                     rollback();
 
-                return new Failure<TO>(_message, _log);
+                return Error(result);
             }
             catch (Exception ex)
             {
-                var result = new ExceptionFailure<TO>(ex,_log);
-                _log(LogLevel.Error, result.ToString());
-                return result;
+                return Error(new ExceptionFailure<TO>(ex, Log));
             }
         }
 
         public PipelineResult<TO> Step<TO>(Func<T, PipelineResult<TO>> func, Action rollback)
         {
-            _rollbacks.Add(rollback);
+            Rollbacks.Add(rollback);
             return Step(func);
         }
 
@@ -82,21 +88,21 @@ namespace SFA.DAS.Data.Pipeline
     {
         public Success(T instance, string message, Action<LogLevel, string> log = null)
         {
-            _log = log ?? ((level, s) => { });
-            _message = message;
+            Log = log ?? ((level, s) => { });
+            Message = message;
             _instance = instance;
         }
 
         public Success(
             T instance, string message, Action rollback, Action<LogLevel,string> log = null) : this(instance, message)
         {
-            _log = log ?? ((level, s) => { });
-            _rollbacks.Add(rollback);
+            Log = log ?? ((level, s) => { });
+            Rollbacks.Add(rollback);
         }
 
         public override string ToString()
         {
-            return "Success: " + _message;
+            return "Success: " + Message;
         }
 
         public override bool IsSuccess() => true;
@@ -106,13 +112,13 @@ namespace SFA.DAS.Data.Pipeline
     {
         public Failure(string message, Action<LogLevel, string> log = null)
         {
-            _log = log ?? ((level, s) => { });
-            _message = message;
+            Log = log ?? ((level, s) => { });
+            Message = message;
         }
         
         public override string ToString()
         {
-            return "Failure: " + _message;
+            return "Failure: " + Message;
         }
 
         public override bool IsSuccess() => false;
@@ -122,17 +128,17 @@ namespace SFA.DAS.Data.Pipeline
     {
         public ExceptionFailure(string message, Action<LogLevel, string> log = null) : base(message)
         {
-            _log = log ?? ((level, s) => { });
+            Log = log ?? ((level, s) => { });
         }
 
         public ExceptionFailure(Exception e, Action<LogLevel, string> log = null) : this(e.Message, log)
         {
-            _log = log ?? ((level, s) => { });
+            Log = log ?? ((level, s) => { });
         }
 
         public override string ToString()
         {
-            return "Exception: " + _message;
+            return "Exception: " + Message;
         }
     }
 }
