@@ -37,6 +37,14 @@
     <ServiceConfiguration Include="ServiceConfiguration.Cloud.cscfg" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SFA.DAS.Data.AccountBalance\SFA.DAS.Data.AccountBalance.csproj">
+      <Name>SFA.DAS.Data.AccountBalance</Name>
+      <Project>{de52e169-d423-41fb-8102-1f81f7cb14ee}</Project>
+      <Private>True</Private>
+      <RoleType>Worker</RoleType>
+      <RoleName>SFA.DAS.Data.AccountBalance</RoleName>
+      <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
+    </ProjectReference>
     <ProjectReference Include="..\SFA.DAS.Data.AccountRegistration\SFA.DAS.Data.AccountRegistration.csproj">
       <Name>SFA.DAS.Data.AccountRegistration</Name>
       <Project>{4f62125d-8c51-458d-96d3-8a47b87ab9eb}</Project>
@@ -47,9 +55,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="SFA.DAS.Data.AccountBalanceContent\" />
     <Folder Include="SFA.DAS.Data.AccountRegistrationContent\" />
   </ItemGroup>
   <ItemGroup>
+    <DiagnosticsConfiguration Include="SFA.DAS.Data.AccountBalanceContent\diagnostics.wadcfgx" />
     <DiagnosticsConfiguration Include="SFA.DAS.Data.AccountRegistrationContent\diagnostics.wadcfgx" />
   </ItemGroup>
   <!-- Import the target files for this project template -->

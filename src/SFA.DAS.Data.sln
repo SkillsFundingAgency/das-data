@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Data.Pipeline", "SF
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Data.Pipeline.Tests", "SFA.DAS.Data.Pipeline.Tests\SFA.DAS.Data.Pipeline.Tests.csproj", "{F1CD67F6-2346-43D2-9B3E-5D7C3DE9BE3D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Data.AccountBalance", "SFA.DAS.Data.AccountBalance\SFA.DAS.Data.AccountBalance.csproj", "{DE52E169-D423-41FB-8102-1F81F7CB14EE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{F1CD67F6-2346-43D2-9B3E-5D7C3DE9BE3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1CD67F6-2346-43D2-9B3E-5D7C3DE9BE3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1CD67F6-2346-43D2-9B3E-5D7C3DE9BE3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE52E169-D423-41FB-8102-1F81F7CB14EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE52E169-D423-41FB-8102-1F81F7CB14EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE52E169-D423-41FB-8102-1F81F7CB14EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE52E169-D423-41FB-8102-1F81F7CB14EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,9 +1,25 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace SFA.DAS.Data.Pipeline.Tests
 {
+    public class LogToList
+    {
+        public LogToList()
+        {
+            Messages = new List<string>();
+        }
+
+        public List<string> Messages { get; set; }
+
+        public void Log(LogLevel level, string message)
+        {
+            Messages.Add(message);
+        }
+    }
+
     [TestClass]
     public class PipelineTests
     {
@@ -20,9 +36,10 @@ namespace SFA.DAS.Data.Pipeline.Tests
         [TestMethod]
         public void SingleStageSuccess()
         {
+            var log = new LogToList();
             var m = new TestMessage { Message = "bob" };
 
-            var result = m.Return()
+            var result = m.Return(log.Log)
                 .Step(x => Result.Win(
                    new TestMessage { Message = "hello " + x.Message },
                    "said hello"));
@@ -30,29 +47,31 @@ namespace SFA.DAS.Data.Pipeline.Tests
             Assert.IsInstanceOfType(result, typeof(Success<TestMessage>));
             Assert.IsTrue(result.IsSuccess());
             Assert.AreEqual("hello bob", result.Content.Message);
-            Assert.AreEqual("Success: said hello", result.Messages.First());
+            Assert.AreEqual("Success: said hello", log.Messages.First());
         }
 
         [TestMethod]
         public void SingleStageFailure()
         {
+            var log = new LogToList();
             var m = new TestMessage { Message = "bob" };
 
-            var result = m.Return()
+            var result = m.Return(log.Log)
                 .Step(x => Result.Fail<TestMessage>("it go bang"));
 
             Assert.IsInstanceOfType(result, typeof(Failure<TestMessage>));
             Assert.IsFalse(result.IsSuccess());
             Assert.IsNull(result.Content);
-            Assert.AreEqual("Failure: it go bang", result.Messages.First());
+            Assert.AreEqual("Failure: it go bang", log.Messages.First());
         }
 
         [TestMethod]
         public void SingleStageException()
         {
+            var log = new LogToList();
             var m = new TestMessage { Message = "bob" };
 
-            var result = m.Return()
+            var result = m.Return(log.Log)
                 .Step(x =>
                 {
                     throw new Exception("big bang");
@@ -63,7 +82,7 @@ namespace SFA.DAS.Data.Pipeline.Tests
 
             Assert.IsInstanceOfType(result, typeof(Failure<TestMessage>));
             Assert.IsFalse(result.IsSuccess());
-            Assert.AreEqual("Exception: big bang", result.Messages.First());
+            Assert.AreEqual("Exception: big bang", log.Messages.First());
         }
 
         [TestMethod]
