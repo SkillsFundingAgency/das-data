@@ -7,10 +7,7 @@ namespace SFA.DAS.Data.Pipeline.Tests
 {
     public class TestMessage<T> : Message<T>
     {
-        public TestMessage(T thing) : base(thing)
-        {
-            
-        }
+        public TestMessage(T thing) : base(thing) {}
 
         public override Task CompleteAsync()
         {
@@ -33,14 +30,13 @@ namespace SFA.DAS.Data.Pipeline.Tests
 
         public async Task<Message<Test>> GetMessage()
         {
-            return await Task.Run(() => new TestMessage<Test>(new Test() {Value = "bob"}));
+            return await Task.Run(() => new TestMessage<Test>(new Test {Value = "bob"}));
         }
 
         public async Task<Message<Test>> GetEmptyMessage()
         {
             return await Task.Run(() => new TestMessage<Test>(null));
         }
-
 
         [TestMethod]
         public void FetchMessage()
