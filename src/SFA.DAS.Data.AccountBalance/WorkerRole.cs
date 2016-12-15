@@ -80,3 +80,40 @@ namespace SFA.DAS.Data.AccountBalance
         }
     }
 }
+
+
+//public override bool OnStart()
+//{
+//    ISchedulerFactory sf = new StdSchedulerFactory();
+//    var sched = sf.GetScheduler();
+
+//    LoadJobs(sched);
+
+//    sched.Start();
+
+//    return base.OnStart();
+//}
+
+//public static void LoadJobs(IScheduler sched)
+//{
+//    IJobDetail job = JobBuilder.Create()
+//                    .WithIdentity("job1", "group1")
+//                    .Build();
+
+//    ITrigger trigger = TriggerBuilder.Create<DatabaseMaintenanceJob>()
+//        .WithIdentity("trigger1", "group1")
+//        .ForJob(job)
+//        .StartNow()
+//        .WithSimpleSchedule(x => x.RepeatForever().WithIntervalInHours(1))
+//        .Build();
+
+//    sched.ScheduleJob(job, trigger);
+//}
+
+//class DatabaseMaintenanceJob : IJob
+//{
+//    public void Execute(IJobExecutionContext context)
+//    {
+//        // Code to do the db maintenance here
+//    }
+//}

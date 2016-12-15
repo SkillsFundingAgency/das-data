@@ -13,12 +13,12 @@ namespace SFA.DAS.Data.Pipeline.Tests
     [TestClass]
     public class EventListPollTest
     {
-        public class Some : EventListPoll<string, string>
+        public class Some : EntityListPoll<string, string>
         {
             public LogToList Log = new LogToList(); 
             public List<string> output = new List<string>();
 
-            public override void Configure(EventListPoll<string, string> cfg)
+            public override void Configure(EntityListPoll<string, string> cfg)
             {
                 cfg
                     .SetLog(Log.Log)
