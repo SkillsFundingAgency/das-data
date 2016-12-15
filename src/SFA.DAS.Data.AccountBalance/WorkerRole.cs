@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
@@ -9,6 +10,7 @@ using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Diagnostics;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using Microsoft.WindowsAzure.Storage;
+using SFA.DAS.EAS.Account.Api.Client;
 
 namespace SFA.DAS.Data.AccountBalance
 {
@@ -60,6 +62,15 @@ namespace SFA.DAS.Data.AccountBalance
 
         private async Task RunAsync(CancellationToken cancellationToken)
         {
+            var configuration = new AccountApiConfiguration
+            {
+                ApiBaseUrl = ConfigurationManager.AppSettings["ApiBaseUrl"],
+                ClientSecret = ConfigurationManager.AppSettings["ClientSecret"]
+            };
+            var client = new AccountApiClient(configuration);
+            var source = new ApiWrapper(client);
+
+
             // TODO: Replace the following with your own logic.
             while (!cancellationToken.IsCancellationRequested)
             {
