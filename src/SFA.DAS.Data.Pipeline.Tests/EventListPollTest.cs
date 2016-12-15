@@ -21,6 +21,7 @@ namespace SFA.DAS.Data.Pipeline.Tests
             public override void Configure(EntityListPoll<string, string> cfg)
             {
                 cfg
+                    .SetSource(() => new List<string> { "bob", "fred", "jim" })
                     .SetLog(Log.Log)
                     .BuildPipeline(
                         r => r
@@ -30,8 +31,7 @@ namespace SFA.DAS.Data.Pipeline.Tests
                                     output.Add(s2);
                                     return Result.Win(s2, "stashed");
                                 }))
-                            )
-                    .SetSource(() => new List<string> {"bob","fred","jim"});
+                            );
             }
         }
 
