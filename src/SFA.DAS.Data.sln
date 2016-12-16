@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "SFA.DAS.Data", "SFA.DAS.Data\SFA.DAS.Data.ccproj", "{52E3443E-ABB9-4BBD-9C15-8EA6B900D272}"
 EndProject
@@ -12,6 +12,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Data.Pipeline.Tests", "SFA.DAS.Data.Pipeline.Tests\SFA.DAS.Data.Pipeline.Tests.csproj", "{F1CD67F6-2346-43D2-9B3E-5D7C3DE9BE3D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Data.AccountBalance", "SFA.DAS.Data.AccountBalance\SFA.DAS.Data.AccountBalance.csproj", "{DE52E169-D423-41FB-8102-1F81F7CB14EE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{808AA0D0-5470-4B62-AAE5-C399E7C1B2AD}"
+	ProjectSection(SolutionItems) = preProject
+		Build.fsx = Build.fsx
+		Tools\Nuget\NuGet.exe = Tools\Nuget\NuGet.exe
+		RunBuild.bat = RunBuild.bat
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
