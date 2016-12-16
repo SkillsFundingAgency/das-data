@@ -11,7 +11,7 @@ namespace SFA.DAS.Data.Pipeline.Tests
 
         public List<string> Messages { get; set; }
 
-        public void Log(LogLevel level, string message)
+        public void Log(LoggingLevel level, string message)
         {
             Messages.Add(message);
         }

@@ -1,6 +1,6 @@
 ﻿namespace SFA.DAS.Data.Pipeline
 {
-    public enum LogLevel
+    public enum LoggingLevel
     {
         Info,
         Error,

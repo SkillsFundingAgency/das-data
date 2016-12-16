@@ -1,7 +1,5 @@
-using System;
 using System.Configuration;
 using System.Diagnostics;
-using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.ServiceRuntime;
@@ -25,14 +23,15 @@ namespace SFA.DAS.Data.AccountBalance
             };
             var client = new AccountApiClient(configuration);
             var source = new ApiWrapper(client);
-
-            //this will need a connection string etc.
-            var db = Database.Open();
+            
+            var db = Database.OpenNamedConnection("staging");
             var conn = new DbWrapper {Wrapper = db};
 
-            //still need to set up logging
+            //no need to modify the view model
             cfg.SetSource(source.GetAccounts)
-                .BuildPipeline(v => v.Store(conn, "balance"));
+                .SetLog(Logging.Log)
+                .BuildPipeline(v => 
+                    v.Store(conn, "balance"));
         }
     }
 
@@ -93,11 +92,10 @@ namespace SFA.DAS.Data.AccountBalance
 
         private async Task RunAsync(CancellationToken cancellationToken)
         {
-            // TODO: Replace the following with your own logic.
             while (!cancellationToken.IsCancellationRequested)
             {
                 Trace.TraceInformation("Working");
-                await Task.Delay(1000);
+                await Task.Delay(10000);
             }
         }
     }

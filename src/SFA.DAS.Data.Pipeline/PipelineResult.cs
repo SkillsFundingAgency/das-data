@@ -7,11 +7,11 @@ namespace SFA.DAS.Data.Pipeline
     public static class ResultExtensions
     {
         public static Success<T> Return<T>(
-            this T instance, Action<LogLevel,string> log = null)
+            this T instance, Action<LoggingLevel,string> log = null)
             => new Success<T>(instance, "",log);
 
         public static Success<T> Return<T>(
-            this T instance, Action rolback, Action<LogLevel, string> log = null)
+            this T instance, Action rolback, Action<LoggingLevel, string> log = null)
             => new Success<T>(instance, "", rolback,log);
     }
 
@@ -32,17 +32,17 @@ namespace SFA.DAS.Data.Pipeline
     {
         protected string Message;
         protected List<Action> Rollbacks = new List<Action>();
-        protected Action<LogLevel, string> Log = ((level, s) => { });
+        protected Action<LoggingLevel, string> Log = ((level, s) => { });
         
         private TRes Error<TRes>(TRes obj)
         {
-            Log(LogLevel.Error, obj.ToString());
+            Log(LoggingLevel.Error, obj.ToString());
             return obj;
         }
 
         private TRes Info<TRes>(TRes obj)
         {
-            Log(LogLevel.Info, obj.ToString());
+            Log(LoggingLevel.Info, obj.ToString());
             return obj;
         }
 
@@ -86,7 +86,7 @@ namespace SFA.DAS.Data.Pipeline
 
     public class Success<T> : PipelineResult<T>
     {
-        public Success(T instance, string message, Action<LogLevel, string> log = null)
+        public Success(T instance, string message, Action<LoggingLevel, string> log = null)
         {
             Log = log ?? ((level, s) => { });
             Message = message;
@@ -94,7 +94,7 @@ namespace SFA.DAS.Data.Pipeline
         }
 
         public Success(
-            T instance, string message, Action rollback, Action<LogLevel,string> log = null) : this(instance, message)
+            T instance, string message, Action rollback, Action<LoggingLevel,string> log = null) : this(instance, message)
         {
             Log = log ?? ((level, s) => { });
             Rollbacks.Add(rollback);
@@ -110,7 +110,7 @@ namespace SFA.DAS.Data.Pipeline
 
     public class Failure<T> : PipelineResult<T>
     {
-        public Failure(string message, Action<LogLevel, string> log = null)
+        public Failure(string message, Action<LoggingLevel, string> log = null)
         {
             Log = log ?? ((level, s) => { });
             Message = message;
@@ -126,12 +126,12 @@ namespace SFA.DAS.Data.Pipeline
 
     public class ExceptionFailure<T> : Failure<T>
     {
-        public ExceptionFailure(string message, Action<LogLevel, string> log = null) : base(message)
+        public ExceptionFailure(string message, Action<LoggingLevel, string> log = null) : base(message)
         {
             Log = log ?? ((level, s) => { });
         }
 
-        public ExceptionFailure(Exception e, Action<LogLevel, string> log = null) : this(e.Message, log)
+        public ExceptionFailure(Exception e, Action<LoggingLevel, string> log = null) : this(e.Message, log)
         {
             Log = log ?? ((level, s) => { });
         }

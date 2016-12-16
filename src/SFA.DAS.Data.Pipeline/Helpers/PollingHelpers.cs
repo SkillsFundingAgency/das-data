@@ -6,13 +6,13 @@ namespace SFA.DAS.Data.Pipeline.Helpers
 {
     public abstract class Poll<T, TOut> : IJob
     {
-        protected Action<LogLevel, string> Log { get; set; }
+        protected Action<LoggingLevel, string> Log { get; set; }
 
         protected Func<PipelineResult<T>, PipelineResult<TOut>> Pipeline { get; set; }
 
         public abstract void Execute(IJobExecutionContext context);
 
-        public Poll<T, TOut> SetLog(Action<LogLevel, string> log)
+        public Poll<T, TOut> SetLog(Action<LoggingLevel, string> log)
         {
             Log = log;
             return this;
