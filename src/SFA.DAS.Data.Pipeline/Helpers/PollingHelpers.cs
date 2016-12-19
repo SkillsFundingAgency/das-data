@@ -6,9 +6,14 @@ namespace SFA.DAS.Data.Pipeline.Helpers
 {
     public abstract class Poll<T, TOut> : IJob
     {
-        protected Action<LoggingLevel, string> Log { get; set; }
+        protected Poll()
+        {
+            Log = (level, s) => { };
+        }
 
-        protected Func<PipelineResult<T>, PipelineResult<TOut>> Pipeline { get; set; }
+        protected Action<LoggingLevel, string> Log { get; private set; }
+
+        protected Func<PipelineResult<T>, PipelineResult<TOut>> Pipeline { get; private set; }
 
         public abstract void Execute(IJobExecutionContext context);
 
@@ -31,7 +36,6 @@ namespace SFA.DAS.Data.Pipeline.Helpers
 
         protected EntityListPoll()
         {
-            Log = (level, s) => { };
             Source = () => new List<T>();
             Configure(this);
         }
@@ -57,7 +61,6 @@ namespace SFA.DAS.Data.Pipeline.Helpers
         
         protected EntityPoll()
         {
-            Log = (level, s) => { };
             Configure(this);
             if (Source == null)
                 throw new ArgumentException("Must configure source");

@@ -13,20 +13,20 @@ namespace SFA.DAS.Data.Pipeline.UnitTests
     {
         public class Some : EntityListPoll<string, string>
         {
-            public LogToList Log = new LogToList(); 
-            public List<string> output = new List<string>();
+            public LogToList Logger = new LogToList(); 
+            public List<string> Output = new List<string>();
 
             public override void Configure(EntityListPoll<string, string> cfg)
             {
                 cfg
                     .SetSource(() => new List<string> { "bob", "fred", "jim" })
-                    .SetLog(Log.Log)
+                    .SetLog(Logger.Log)
                     .BuildPipeline(
                         r => r
                             .Step(s => Result.Win("Hi " + s, "not much")
                             .Step(s2 =>
                                 {
-                                    output.Add(s2);
+                                    Output.Add(s2);
                                     return Result.Win(s2, "stashed");
                                 }))
                             );
@@ -40,8 +40,8 @@ namespace SFA.DAS.Data.Pipeline.UnitTests
             var job = new Some();
             job.Execute(mock.Object);
 
-            Assert.AreEqual(3, job.output.Count);
-            Assert.AreEqual("Hi bob",job.output.First());
+            Assert.AreEqual(3, job.Output.Count);
+            Assert.AreEqual("Hi bob",job.Output.First());
         }
     }
 }
