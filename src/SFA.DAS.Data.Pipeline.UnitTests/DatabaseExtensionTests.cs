@@ -3,7 +3,7 @@ using SFA.DAS.Data.Pipeline.Helpers;
 using Simple.Data;
 using Assert = NUnit.Framework.Assert;
 
-namespace SFA.DAS.Data.Pipeline.Tests
+namespace SFA.DAS.Data.Pipeline.UnitTests
 {
     [TestFixture]
     public class DatabaseExtensionTests

@@ -3,7 +3,7 @@ using NUnit.Framework;
 using SFA.DAS.Data.Pipeline.Helpers;
 using SFA.DAS.Messaging;
 
-namespace SFA.DAS.Data.Pipeline.Tests
+namespace SFA.DAS.Data.Pipeline.UnitTests
 {
     public class TestMessage<T> : Message<T>
     {

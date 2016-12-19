@@ -6,8 +6,8 @@
     <ProjectGuid>{F1CD67F6-2346-43D2-9B3E-5D7C3DE9BE3D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SFA.DAS.Data.Pipeline.Tests</RootNamespace>
-    <AssemblyName>SFA.DAS.Data.Pipeline.Tests</AssemblyName>
+    <RootNamespace>SFA.DAS.Data.Pipeline.UnitTests</RootNamespace>
+    <AssemblyName>SFA.DAS.Data.Pipeline.UnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>

@@ -2,7 +2,7 @@
 using System.Linq;
 using NUnit.Framework;
 
-namespace SFA.DAS.Data.Pipeline.Tests
+namespace SFA.DAS.Data.Pipeline.UnitTests
 {
     [TestFixture]
     public class PipelineTests

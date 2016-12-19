@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SFA.DAS.Data.Pipeline.Tests
+namespace SFA.DAS.Data.Pipeline.UnitTests
 {
     public class LogToList
     {

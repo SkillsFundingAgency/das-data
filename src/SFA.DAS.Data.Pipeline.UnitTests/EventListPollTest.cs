@@ -3,11 +3,9 @@ using System.Linq;
 using Moq;
 using NUnit.Framework;
 using Quartz;
-using Quartz.Impl;
-using Quartz.Simpl;
 using SFA.DAS.Data.Pipeline.Helpers;
 
-namespace SFA.DAS.Data.Pipeline.Tests
+namespace SFA.DAS.Data.Pipeline.UnitTests
 {
 
     [TestFixture]
