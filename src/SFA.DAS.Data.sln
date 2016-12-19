@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Data.AccountRegistr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Data.Pipeline", "SFA.DAS.Data.Pipeline\SFA.DAS.Data.Pipeline.csproj", "{8AAB8A86-15FB-4A8D-A0C3-97B1941F0367}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Data.Pipeline.UnitTests", "SFA.DAS.Data.Pipeline.Tests\SFA.DAS.Data.Pipeline.UnitTests.csproj", "{F1CD67F6-2346-43D2-9B3E-5D7C3DE9BE3D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Data.Pipeline.UnitTests", "SFA.DAS.Data.Pipeline.UnitTests\SFA.DAS.Data.Pipeline.UnitTests.csproj", "{F1CD67F6-2346-43D2-9B3E-5D7C3DE9BE3D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Data.AccountBalance", "SFA.DAS.Data.AccountBalance\SFA.DAS.Data.AccountBalance.csproj", "{DE52E169-D423-41FB-8102-1F81F7CB14EE}"
 EndProject
