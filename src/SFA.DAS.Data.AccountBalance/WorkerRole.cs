@@ -18,8 +18,11 @@ namespace SFA.DAS.Data.AccountBalance
         {
             var configuration = new AccountApiConfiguration
             {
-                ApiBaseUrl = ConfigurationManager.AppSettings["ApiBaseUrl"],
-                ClientSecret = ConfigurationManager.AppSettings["ClientSecret"]
+                ApiBaseUrl = ConfigurationManager.AppSettings["AccountApi.ApiBaseUrl"],
+                ClientSecret = ConfigurationManager.AppSettings["AccountApi.ClientSecret"],
+                ClientId = ConfigurationManager.AppSettings["AccountApi.ClientId"],
+                IdentifierUri = ConfigurationManager.AppSettings["AccountApi.IdentifierUri"],
+                Tenant = ConfigurationManager.AppSettings["AccountApi.Tenant"]
             };
             var client = new AccountApiClient(configuration);
             var source = new ApiWrapper(client);
