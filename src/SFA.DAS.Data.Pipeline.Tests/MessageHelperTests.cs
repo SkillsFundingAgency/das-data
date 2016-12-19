@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using SFA.DAS.Data.Pipeline.Helpers;
 using SFA.DAS.Messaging;
 
@@ -20,7 +20,7 @@ namespace SFA.DAS.Data.Pipeline.Tests
         }
     }
 
-    [TestClass]
+    [TestFixture]
     public class MessageHelperTests
     {
         public class Test
@@ -38,7 +38,7 @@ namespace SFA.DAS.Data.Pipeline.Tests
             return await Task.Run(() => new TestMessage<Test>(null));
         }
 
-        [TestMethod]
+        [Test]
         public void FetchMessage()
         {
             var result = MessageQueue
@@ -49,7 +49,7 @@ namespace SFA.DAS.Data.Pipeline.Tests
             Assert.AreEqual("hello bob", result.Content.Value);
         }
 
-        [TestMethod]
+        [Test]
         public void EmptyMessage()
         {
             var result = MessageQueue

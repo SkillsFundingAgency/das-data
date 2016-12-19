@@ -1,10 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using SFA.DAS.Data.Pipeline.Helpers;
 using Simple.Data;
+using Assert = NUnit.Framework.Assert;
 
 namespace SFA.DAS.Data.Pipeline.Tests
 {
-    [TestClass]
+    [TestFixture]
     public class DatabaseExtensionTests
     {
         public class Message
@@ -12,7 +13,7 @@ namespace SFA.DAS.Data.Pipeline.Tests
             public string Value { get; set; }
         }
 
-        [TestMethod]
+        [Test]
         public void StoreItem()
         {
             Database.UseMockAdapter(new InMemoryAdapter());

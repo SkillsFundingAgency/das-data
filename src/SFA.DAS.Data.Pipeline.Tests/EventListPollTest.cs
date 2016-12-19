@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using NUnit.Framework;
 using Quartz;
 using Quartz.Impl;
 using Quartz.Simpl;
@@ -10,7 +10,7 @@ using SFA.DAS.Data.Pipeline.Helpers;
 namespace SFA.DAS.Data.Pipeline.Tests
 {
 
-    [TestClass]
+    [TestFixture]
     public class EventListPollTest
     {
         public class Some : EntityListPoll<string, string>
@@ -35,7 +35,7 @@ namespace SFA.DAS.Data.Pipeline.Tests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void ProcessList()
         {
             var mock = new Mock<IJobExecutionContext>();

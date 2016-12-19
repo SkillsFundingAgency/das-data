@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace SFA.DAS.Data.Pipeline.Tests
 {
-    [TestClass]
+    [TestFixture]
     public class PipelineTests
     {
         public class TestMessage
@@ -17,7 +17,7 @@ namespace SFA.DAS.Data.Pipeline.Tests
             public int Transformed { get; set; }
         }
 
-        [TestMethod]
+        [Test]
         public void SingleStageSuccess()
         {
             var log = new LogToList();
@@ -28,13 +28,13 @@ namespace SFA.DAS.Data.Pipeline.Tests
                    new TestMessage { Message = "hello " + x.Message },
                    "said hello"));
 
-            Assert.IsInstanceOfType(result, typeof(Success<TestMessage>));
+            Assert.IsInstanceOf<Success<TestMessage>>(result);
             Assert.IsTrue(result.IsSuccess());
             Assert.AreEqual("hello bob", result.Content.Message);
             Assert.AreEqual("Success: said hello", log.Messages.First());
         }
 
-        [TestMethod]
+        [Test]
         public void SingleStageFailure()
         {
             var log = new LogToList();
@@ -43,13 +43,13 @@ namespace SFA.DAS.Data.Pipeline.Tests
             var result = m.Return(log.Log)
                 .Step(x => Result.Fail<TestMessage>("it go bang"));
 
-            Assert.IsInstanceOfType(result, typeof(Failure<TestMessage>));
+            Assert.IsInstanceOf<Failure<TestMessage>>(result);
             Assert.IsFalse(result.IsSuccess());
             Assert.IsNull(result.Content);
             Assert.AreEqual("Failure: it go bang", log.Messages.First());
         }
 
-        [TestMethod]
+        [Test]
         public void SingleStageException()
         {
             var log = new LogToList();
@@ -64,12 +64,12 @@ namespace SFA.DAS.Data.Pipeline.Tests
                         "said hello");
                 });
 
-            Assert.IsInstanceOfType(result, typeof(Failure<TestMessage>));
+            Assert.IsInstanceOf<Failure<TestMessage>>(result);
             Assert.IsFalse(result.IsSuccess());
             Assert.AreEqual("Exception: big bang", log.Messages.First());
         }
 
-        [TestMethod]
+        [Test]
         public void MultipleStageSuccess()
         {
             var m = new TestMessage { Message = "bob" };
@@ -87,7 +87,7 @@ namespace SFA.DAS.Data.Pipeline.Tests
             Assert.IsTrue(result.IsSuccess());
         }
 
-        [TestMethod]
+        [Test]
         public void FlowControll()
         {
             var m = new TestMessage { Message = "bob" };
@@ -108,7 +108,7 @@ namespace SFA.DAS.Data.Pipeline.Tests
             Assert.IsFalse(result.IsSuccess());
         }
 
-        [TestMethod]
+        [Test]
         public void EarlyFail()
         {
             var m = new TestMessage { Message = "bob" };
@@ -129,7 +129,7 @@ namespace SFA.DAS.Data.Pipeline.Tests
             Assert.IsFalse(beenRun);
         }
 
-        [TestMethod]
+        [Test]
         public void Rollback()
         {
             var m = new TestMessage { Message = "bob" };
