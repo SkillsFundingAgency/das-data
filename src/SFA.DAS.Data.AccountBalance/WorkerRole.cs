@@ -21,7 +21,11 @@ namespace SFA.DAS.Data.AccountBalance
     {
         public class ToStore : TableEntity
         {
-            public ToStore() {}
+            public ToStore()
+            {
+                PartitionKey = "test";
+                RowKey = Guid.NewGuid().ToString();
+            }
 
             public ToStore(AccountWithBalanceViewModel model)
             {
@@ -69,6 +73,18 @@ namespace SFA.DAS.Data.AccountBalance
 
     public class WorkerRole : RoleEntryPoint
     {
+        public void JustStore()
+        {
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(
+                CloudConfigurationManager.GetSetting("Storage"));
+            var tableClient = storageAccount.CreateCloudTableClient();
+            var table = tableClient.GetTableReference("test");
+            table.CreateIfNotExists();
+            var insertOperation = TableOperation.Insert(new AccountBalanceJob.ToStore());
+            table.Execute(insertOperation);
+        }
+
+
         private readonly CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         private readonly ManualResetEvent runCompleteEvent = new ManualResetEvent(false);
         private IScheduler sched;
@@ -91,12 +107,14 @@ namespace SFA.DAS.Data.AccountBalance
         {
             Trace.TraceInformation("SFA.DAS.Data.AccountBalance is starting");
 
-            ISchedulerFactory sf = new StdSchedulerFactory();
-            sched = sf.GetScheduler();
+            //ISchedulerFactory sf = new StdSchedulerFactory();
+            //sched = sf.GetScheduler();
 
-            LoadJobs(sched);
+            //LoadJobs(sched);
 
-            sched.Start();
+            //sched.Start();
+
+            JustStore();
 
             return base.OnStart();
         }
