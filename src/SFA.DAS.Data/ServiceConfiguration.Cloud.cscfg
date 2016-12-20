@@ -10,6 +10,12 @@
     <Instances count="1" />
     <ConfigurationSettings>
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="__StorageConnectionString__" />
+      <Setting name="AccountApi.ApiBaseUrl" value="https://some-server/"/>
+      <Setting name="AccountApi.ClientSecret" value="YOUR_SECURE_TOKEN"/>
+      <Setting name="AccountApi.ClientId" value="YOUR_CLIENT_ID"/>
+      <Setting name="AccountApi.IdentifierUri" value="YOUR_ID_URI"/>
+      <Setting name="AccountApi.Tenant" value="YOUR_TENANT_ID"/>
+      <Setting name="StagingConnectionString" value="Data Source=.\SQLEXPRESS;Initial Catalog=DatabaseName;Integrated Security=True;MultipleActiveResultSets=True"/>
     </ConfigurationSettings>
   </Role>
 </ServiceConfiguration>
