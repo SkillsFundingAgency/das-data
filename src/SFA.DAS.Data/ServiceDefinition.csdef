@@ -15,5 +15,8 @@
       <Setting name="AccountApi.Tenant"/>
       <Setting name="StagingConnectionString"/>
     </ConfigurationSettings>
+    <Imports>
+      <Import moduleName="Diagnostics" />
+    </Imports>
   </WorkerRole>
 </ServiceDefinition>

@@ -2,7 +2,9 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Azure;
+using Microsoft.WindowsAzure.Diagnostics.Management;
 using Microsoft.WindowsAzure.ServiceRuntime;
+using Microsoft.WindowsAzure.Storage;
 using Quartz;
 using Quartz.Impl;
 using SFA.DAS.Data.Pipeline.Helpers;
@@ -60,6 +62,8 @@ namespace SFA.DAS.Data.AccountBalance
 
         public override bool OnStart()
         {
+            Trace.TraceInformation("SFA.DAS.Data.AccountBalance is starting");
+
             ISchedulerFactory sf = new StdSchedulerFactory();
             sched = sf.GetScheduler();
 
