@@ -57,7 +57,7 @@ namespace SFA.DAS.Data.Pipeline.Helpers
             }
             catch (Exception e)
             {
-                Log(LoggingLevel.Error, e.Message);
+                Log(LoggingLevel.Error, e.StackTrace);
                 throw;
             }
             

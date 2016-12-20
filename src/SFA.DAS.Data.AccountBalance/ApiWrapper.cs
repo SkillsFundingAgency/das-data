@@ -20,12 +20,12 @@ namespace SFA.DAS.Data.AccountBalance
             foreach (var accountWithBalanceViewModel in page.Data)
                 yield return accountWithBalanceViewModel;
             
-            for (var p = 2; p <= page.TotalPages; p++)
-            {
-                page = Client.GetPageOfAccounts(p).Result;
-                foreach (var accountWithBalanceViewModel in page.Data)
-                    yield return accountWithBalanceViewModel;
-            }
+            //for (var p = 2; p <= page.TotalPages; p++)
+            //{
+            //    page = Client.GetPageOfAccounts(p).Result;
+            //    foreach (var accountWithBalanceViewModel in page.Data)
+            //        yield return accountWithBalanceViewModel;
+            //}
         }
     }
 }
