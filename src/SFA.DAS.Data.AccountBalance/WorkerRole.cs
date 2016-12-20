@@ -43,8 +43,23 @@ namespace SFA.DAS.Data.AccountBalance
             public decimal Balance { get; set; }
         }
 
+        public void DumbLog(LoggingLevel level, string message)
+        {
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(
+                CloudConfigurationManager.GetSetting("Storage"));
+            var tableClient = storageAccount.CreateCloudTableClient();
+            var table = tableClient.GetTableReference("test");
+            table.CreateIfNotExists();
+            var insertOperation =
+                TableOperation.Insert(
+                    new AccountBalanceJob.ToStore(new AccountWithBalanceViewModel { AccountName = message }));
+            table.Execute(insertOperation);
+        }
+
         public override void Configure(EntityListPoll<AccountWithBalanceViewModel, AccountBalanceJob.ToStore> cfg)
         {
+            DumbLog(LoggingLevel.Info, "Configure");
+
             var configuration = new AccountApiConfiguration
             {
                 ApiBaseUrl = CloudConfigurationManager.GetSetting("AccountApi.ClientSecret"),
@@ -64,10 +79,12 @@ namespace SFA.DAS.Data.AccountBalance
 
             //no need to modify the view model
             cfg.SetSource(source.GetAccounts)
-                .SetLog(Logging.Log)
+                .SetLog(DumbLog)
                 .BuildPipeline(v =>
                     v.Step(i => Result.Win(new ToStore(i), "converted to table entity"))
                         .Store(storageAccount, "balance"));
+
+            DumbLog(LoggingLevel.Info, "Configure Done");
         }
     }
 
