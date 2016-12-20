@@ -16,7 +16,7 @@
       <Setting name="AccountApi.IdentifierUri" value="__IdentifierUri__"/>
       <Setting name="AccountApi.Tenant" value="__Tenant__"/>
       <Setting name="StagingConnectionString" value="__StagingConnectionString__"/>
-      <Setting name="Storage" value="__StagingConnectionString__"/>
+      <Setting name="Storage" value="__StorageConnectionString__"/>
     </ConfigurationSettings>
   </Role>
 </ServiceConfiguration>
