@@ -65,22 +65,24 @@ namespace SFA.DAS.Data.AccountBalance
             //no need to modify the view model
             cfg.SetSource(source.GetAccounts)
                 .SetLog(Logging.Log)
-                .BuildPipeline(v => 
+                .BuildPipeline(v =>
                     v.Step(i => Result.Win(new ToStore(i), "converted to table entity"))
-                     .Store(storageAccount, "balance"));
+                        .Store(storageAccount, "balance"));
         }
     }
 
     public class WorkerRole : RoleEntryPoint
     {
-        public void JustStore()
+        public void JustStore(string sometext)
         {
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(
                 CloudConfigurationManager.GetSetting("Storage"));
             var tableClient = storageAccount.CreateCloudTableClient();
             var table = tableClient.GetTableReference("test");
             table.CreateIfNotExists();
-            var insertOperation = TableOperation.Insert(new AccountBalanceJob.ToStore());
+            var insertOperation =
+                TableOperation.Insert(
+                    new AccountBalanceJob.ToStore(new AccountWithBalanceViewModel {AccountName = sometext}));
             table.Execute(insertOperation);
         }
 
@@ -107,15 +109,21 @@ namespace SFA.DAS.Data.AccountBalance
         {
             Trace.TraceInformation("SFA.DAS.Data.AccountBalance is starting");
 
-            //ISchedulerFactory sf = new StdSchedulerFactory();
-            //sched = sf.GetScheduler();
+            try
+            {
+                ISchedulerFactory sf = new StdSchedulerFactory();
+                sched = sf.GetScheduler();
 
-            //LoadJobs(sched);
+                LoadJobs(sched);
 
-            //sched.Start();
-
-            JustStore();
-
+                sched.Start();
+            }
+            catch (Exception e)
+            {
+                JustStore(e.Message);
+                throw;
+            }
+            
             return base.OnStart();
         }
 
