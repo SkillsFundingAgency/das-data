@@ -2,6 +2,7 @@ using System.Configuration;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Azure;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using Quartz;
 using Quartz.Impl;
@@ -18,16 +19,16 @@ namespace SFA.DAS.Data.AccountBalance
         {
             var configuration = new AccountApiConfiguration
             {
-                ApiBaseUrl = ConfigurationManager.AppSettings["AccountApi.ApiBaseUrl"],
-                ClientSecret = ConfigurationManager.AppSettings["AccountApi.ClientSecret"],
-                ClientId = ConfigurationManager.AppSettings["AccountApi.ClientId"],
-                IdentifierUri = ConfigurationManager.AppSettings["AccountApi.IdentifierUri"],
-                Tenant = ConfigurationManager.AppSettings["AccountApi.Tenant"]
+                ApiBaseUrl = CloudConfigurationManager.GetSetting("AccountApi.ClientSecret"),
+                ClientSecret = CloudConfigurationManager.GetSetting("AccountApi.ClientSecret"),
+                ClientId = CloudConfigurationManager.GetSetting("AccountApi.ClientId"),
+                IdentifierUri = CloudConfigurationManager.GetSetting("AccountApi.IdentifierUri"),
+                Tenant = CloudConfigurationManager.GetSetting("AccountApi.Tenant")
             };
             var client = new AccountApiClient(configuration);
             var source = new ApiWrapper(client);
             
-            var db = Database.OpenNamedConnection("staging");
+            var db = Database.OpenConnection(CloudConfigurationManager.GetSetting("StagingConnectionString"));
             var conn = new DbWrapper {Wrapper = db};
 
             //no need to modify the view model
