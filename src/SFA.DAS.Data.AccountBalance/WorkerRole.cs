@@ -53,7 +53,7 @@ namespace SFA.DAS.Data.AccountBalance
             var source = new ApiWrapper(client);
 
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(
-                CloudConfigurationManager.GetSetting("StorageConnectionString"));
+                CloudConfigurationManager.GetSetting("Storage"));
 
             //var db = Database.OpenConnection(CloudConfigurationManager.GetSetting("StagingConnectionString"));
             //var conn = new DbWrapper {Wrapper = db};
