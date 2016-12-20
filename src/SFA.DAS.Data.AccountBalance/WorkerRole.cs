@@ -90,20 +90,6 @@ namespace SFA.DAS.Data.AccountBalance
 
     public class WorkerRole : RoleEntryPoint
     {
-        public void JustStore(string sometext)
-        {
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(
-                CloudConfigurationManager.GetSetting("Storage"));
-            var tableClient = storageAccount.CreateCloudTableClient();
-            var table = tableClient.GetTableReference("test");
-            table.CreateIfNotExists();
-            var insertOperation =
-                TableOperation.Insert(
-                    new AccountBalanceJob.ToStore(new AccountWithBalanceViewModel {AccountName = sometext}));
-            table.Execute(insertOperation);
-        }
-
-
         private readonly CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         private readonly ManualResetEvent runCompleteEvent = new ManualResetEvent(false);
         private IScheduler sched;
@@ -125,22 +111,14 @@ namespace SFA.DAS.Data.AccountBalance
         public override bool OnStart()
         {
             Trace.TraceInformation("SFA.DAS.Data.AccountBalance is starting");
+            
+            ISchedulerFactory sf = new StdSchedulerFactory();
+            sched = sf.GetScheduler();
 
-            try
-            {
-                ISchedulerFactory sf = new StdSchedulerFactory();
-                sched = sf.GetScheduler();
+            LoadJobs(sched);
 
-                LoadJobs(sched);
-
-                sched.Start();
-                JustStore("started");
-            }
-            catch (Exception e)
-            {
-                JustStore(e.Message);
-                throw;
-            }
+            sched.Start();
+            
             
             return base.OnStart();
         }

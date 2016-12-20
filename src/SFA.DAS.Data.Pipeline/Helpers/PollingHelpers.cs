@@ -30,7 +30,7 @@ namespace SFA.DAS.Data.Pipeline.Helpers
         }
     }
 
-    public abstract class EntityListPoll<T,TOut> : Poll<T, TOut>
+    public abstract class EntityListPoll<T, TOut> : Poll<T, TOut>
     {
         private Func<IEnumerable<T>> Source { get; set; }
 
@@ -40,8 +40,8 @@ namespace SFA.DAS.Data.Pipeline.Helpers
             Configure(this);
         }
 
-        public abstract void Configure(EntityListPoll<T,TOut> cfg);
-        
+        public abstract void Configure(EntityListPoll<T, TOut> cfg);
+
         public EntityListPoll<T, TOut> SetSource(Func<IEnumerable<T>> source)
         {
             Source = source;
@@ -50,8 +50,17 @@ namespace SFA.DAS.Data.Pipeline.Helpers
 
         public override void Execute(IJobExecutionContext context)
         {
-            foreach (var item in Source())
-                Pipeline(item.Return(Log));
+            try
+            {
+                foreach (var item in Source())
+                    Pipeline(item.Return(Log));
+            }
+            catch (Exception e)
+            {
+                Log(LoggingLevel.Error, e.Message);
+                throw;
+            }
+            
         }
     }
 
