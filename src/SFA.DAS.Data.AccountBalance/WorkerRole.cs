@@ -112,11 +112,12 @@ namespace SFA.DAS.Data.AccountBalance
             try
             {
                 ISchedulerFactory sf = new StdSchedulerFactory();
-                //sched = sf.GetScheduler();
+                sched = sf.GetScheduler();
 
-                //LoadJobs(sched);
+                LoadJobs(sched);
 
-                //sched.Start();
+                sched.Start();
+                JustStore("started");
             }
             catch (Exception e)
             {
