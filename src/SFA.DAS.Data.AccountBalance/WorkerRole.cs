@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
@@ -5,8 +6,10 @@ using Microsoft.Azure;
 using Microsoft.WindowsAzure.Diagnostics.Management;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Table;
 using Quartz;
 using Quartz.Impl;
+using SFA.DAS.Data.Pipeline;
 using SFA.DAS.Data.Pipeline.Helpers;
 using SFA.DAS.EAS.Account.Api.Client;
 using SFA.DAS.EAS.Account.Api.Client.Dtos;
@@ -14,9 +17,29 @@ using Simple.Data;
 
 namespace SFA.DAS.Data.AccountBalance
 {
-    public class AccountBalanceJob : EntityListPoll<AccountWithBalanceViewModel, AccountWithBalanceViewModel>
+    public class AccountBalanceJob : EntityListPoll<AccountWithBalanceViewModel, AccountBalanceJob.ToStore>
     {
-        public override void Configure(EntityListPoll<AccountWithBalanceViewModel, AccountWithBalanceViewModel> cfg)
+        public class ToStore : TableEntity
+        {
+            public ToStore() {}
+
+            public ToStore(AccountWithBalanceViewModel model)
+            {
+                PartitionKey = "test";
+                RowKey = Guid.NewGuid().ToString();
+                AccountName = model.AccountName;
+                AccountHashId = model.AccountHashId;
+                AccountId = model.AccountId;
+                Balance = model.Balance;
+            }
+
+            public string AccountName { get; set; }
+            public string AccountHashId { get; set; }
+            public long AccountId { get; set; }
+            public decimal Balance { get; set; }
+        }
+
+        public override void Configure(EntityListPoll<AccountWithBalanceViewModel, AccountBalanceJob.ToStore> cfg)
         {
             var configuration = new AccountApiConfiguration
             {
@@ -28,15 +51,19 @@ namespace SFA.DAS.Data.AccountBalance
             };
             var client = new AccountApiClient(configuration);
             var source = new ApiWrapper(client);
-            
-            var db = Database.OpenConnection(CloudConfigurationManager.GetSetting("StagingConnectionString"));
-            var conn = new DbWrapper {Wrapper = db};
+
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(
+                CloudConfigurationManager.GetSetting("StorageConnectionString"));
+
+            //var db = Database.OpenConnection(CloudConfigurationManager.GetSetting("StagingConnectionString"));
+            //var conn = new DbWrapper {Wrapper = db};
 
             //no need to modify the view model
             cfg.SetSource(source.GetAccounts)
                 .SetLog(Logging.Log)
                 .BuildPipeline(v => 
-                    v.Store(conn, "balance"));
+                    v.Step(i => Result.Win(new ToStore(i), "converted to table entity"))
+                     .Store(storageAccount, "balance"));
         }
     }
 

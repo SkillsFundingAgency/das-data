@@ -16,6 +16,7 @@
       <Setting name="AccountApi.IdentifierUri" value="YOUR_ID_URI"/>
       <Setting name="AccountApi.Tenant" value="YOUR_TENANT_ID"/>
       <Setting name="StagingConnectionString" value="Data Source=.\SQLEXPRESS;Initial Catalog=DatabaseName;Integrated Security=True;MultipleActiveResultSets=True"/>
+      <Setting name="Storage" value="__StagingConnectionString__"/>   
     </ConfigurationSettings>
   </Role>
 </ServiceConfiguration>
