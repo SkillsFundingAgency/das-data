@@ -50,6 +50,8 @@ namespace SFA.DAS.Data.AccountBalance
 
         public static void StorageLog(LoggingLevel level, string message)
         {
+            if (level != LoggingLevel.Error) return;
+
             var storageAccount = CloudStorageAccount.Parse(
                 CloudConfigurationManager.GetSetting("Storage"));
             var tableClient = storageAccount.CreateCloudTableClient();

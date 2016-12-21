@@ -15,17 +15,17 @@ using SFA.DAS.EAS.Account.Api.Client.Dtos;
 
 namespace SFA.DAS.Data.AccountBalance
 {
-    public class AccountBalanceJob : EntityListPoll<AccountWithBalanceViewModel, AccountBalanceJob.ToStore>
+    public class AccountBalanceJob : EntityListPoll<AccountWithBalanceViewModel, AccountBalanceJob.BalanceEntity>
     {
-        public class ToStore : TableEntity
+        public class BalanceEntity : TableEntity
         {
-            public ToStore()
+            public BalanceEntity()
             {
                 PartitionKey = "test";
                 RowKey = Guid.NewGuid().ToString();
             }
 
-            public ToStore(AccountWithBalanceViewModel model)
+            public BalanceEntity(AccountWithBalanceViewModel model)
             {
                 PartitionKey = "test";
                 RowKey = Guid.NewGuid().ToString();
@@ -42,7 +42,7 @@ namespace SFA.DAS.Data.AccountBalance
         }
         
 
-        public override void Configure(EntityListPoll<AccountWithBalanceViewModel, AccountBalanceJob.ToStore> cfg)
+        public override void Configure(EntityListPoll<AccountWithBalanceViewModel, AccountBalanceJob.BalanceEntity> cfg)
         {
             StorageLogging.StorageLog(LoggingLevel.Info, "Configure");
 
@@ -63,12 +63,11 @@ namespace SFA.DAS.Data.AccountBalance
             //connection for inserting into sqlserver
             //var db = Database.OpenConnection(CloudConfigurationManager.GetSetting("StagingConnectionString"));
             //var conn = new DbWrapper {Wrapper = db};
-
-            //no need to modify the view model
+            
             cfg.SetSource(source.GetAccounts)
                 .SetLog(StorageLogging.StorageLog)
                 .BuildPipeline(v =>
-                    v.Step(i => Result.Win(new ToStore(i), "converted to table entity"))
+                    v.Step(i => Result.Win(new BalanceEntity(i), "converted to table entity"))
                      .Store(storageAccount, "balance"));
 
             StorageLogging.StorageLog(LoggingLevel.Info, "Configure Done");
@@ -87,11 +86,11 @@ namespace SFA.DAS.Data.AccountBalance
 
             try
             {
-                this.RunAsync(this.cancellationTokenSource.Token).Wait();
+                RunAsync(cancellationTokenSource.Token).Wait();
             }
             finally
             {
-                this.runCompleteEvent.Set();
+                runCompleteEvent.Set();
             }
         }
 
@@ -120,7 +119,7 @@ namespace SFA.DAS.Data.AccountBalance
                 .WithIdentity("trigger1", "group1")
                 .ForJob(job)
                 .StartNow()
-                .WithSimpleSchedule(x => x.RepeatForever().WithIntervalInMinutes(5))
+                .WithSimpleSchedule(x => x.RepeatForever().WithIntervalInHours(1))
                 .Build();
 
             sched.ScheduleJob(job, trigger);
@@ -133,12 +132,12 @@ namespace SFA.DAS.Data.AccountBalance
             base.OnStop();
         }
 
-        private async Task RunAsync(CancellationToken cancellationToken)
+        private static async Task RunAsync(CancellationToken cancellationToken)
         {
             while (!cancellationToken.IsCancellationRequested)
             {
                 Trace.TraceInformation("Working");
-                await Task.Delay(10000);
+                await Task.Delay(10000, cancellationToken);
             }
         }
     }
