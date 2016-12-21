@@ -120,7 +120,7 @@ namespace SFA.DAS.Data.AccountBalance
                 .WithIdentity("trigger1", "group1")
                 .ForJob(job)
                 .StartNow()
-                .WithSimpleSchedule(x => x.RepeatForever().WithIntervalInHours(1))
+                .WithSimpleSchedule(x => x.RepeatForever().WithIntervalInMinutes(1))
                 .Build();
 
             sched.ScheduleJob(job, trigger);
