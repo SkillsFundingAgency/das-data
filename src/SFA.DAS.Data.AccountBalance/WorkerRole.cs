@@ -12,6 +12,7 @@ using SFA.DAS.Data.Pipeline;
 using SFA.DAS.Data.Pipeline.Helpers;
 using SFA.DAS.EAS.Account.Api.Client;
 using SFA.DAS.EAS.Account.Api.Client.Dtos;
+using Simple.Data;
 
 namespace SFA.DAS.Data.AccountBalance
 {
@@ -57,18 +58,18 @@ namespace SFA.DAS.Data.AccountBalance
             var client = new AccountApiClient(configuration);
             var source = new ApiWrapper(client);
 
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(
-                CloudConfigurationManager.GetSetting("Storage"));
+            //CloudStorageAccount storageAccount = CloudStorageAccount.Parse(
+            //    CloudConfigurationManager.GetSetting("Storage"));
 
             //connection for inserting into sqlserver
-            //var db = Database.OpenConnection(CloudConfigurationManager.GetSetting("StagingConnectionString"));
-            //var conn = new DbWrapper {Wrapper = db};
+            var db = Database.OpenConnection(CloudConfigurationManager.GetSetting("StagingConnectionString"));
+            var conn = new DbWrapper {Wrapper = db};
             
             cfg.SetSource(source.GetAccounts)
                 .SetLog(StorageLogging.StorageLog)
                 .BuildPipeline(v =>
                     v.Step(i => Result.Win(new BalanceEntity(i), "converted to table entity"))
-                     .Store(storageAccount, "balance"));
+                     .Store(conn, "balance"));
 
             StorageLogging.StorageLog(LoggingLevel.Info, "Configure Done");
         }
