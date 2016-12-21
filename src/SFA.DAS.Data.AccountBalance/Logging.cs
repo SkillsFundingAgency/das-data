@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.Azure;
 using Microsoft.WindowsAzure.Storage;
@@ -40,6 +41,7 @@ namespace SFA.DAS.Data.AccountBalance
             public LogMessage()
             {
                 PartitionKey = "logs";
+                RowKey = Guid.NewGuid().ToString();
             }
 
             public LoggingLevel Level { get; set; }
