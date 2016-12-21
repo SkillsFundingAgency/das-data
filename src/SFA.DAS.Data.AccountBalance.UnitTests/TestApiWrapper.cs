@@ -50,7 +50,7 @@ namespace SFA.DAS.Data.AccountBalance.UnitTests
         {
             var accountApiClientConfiguration = new AccountApiConfiguration
             {
-                ApiBaseUrl = "https://at-accounts.apprenticeships.sfa.bis.gov.uk",
+                ApiBaseUrl = "https://test-accounts.apprenticeships.sfa.bis.gov.uk",
                 ClientId = "58a3a7b2-bae2-4333-8a79-8f39720b2a6e",
                 ClientSecret = @"7PrJ57WnGwHog6N7SanpXduDGdTrN/redY/22iKEulE=",
                 IdentifierUri = "https://citizenazuresfabisgov.onmicrosoft.com/eas-api",

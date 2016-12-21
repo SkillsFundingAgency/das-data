@@ -62,7 +62,8 @@ namespace SFA.DAS.Data.AccountBalance
 
             var configuration = new AccountApiConfiguration
             {
-                ApiBaseUrl = CloudConfigurationManager.GetSetting("AccountApi.ApiBaseUrl"),
+                //ApiBaseUrl = CloudConfigurationManager.GetSetting("AccountApi.ApiBaseUrl"),
+                ApiBaseUrl = "https://test-accounts.apprenticeships.sfa.bis.gov.uk",
                 ClientSecret = CloudConfigurationManager.GetSetting("AccountApi.ClientSecret"),
                 ClientId = CloudConfigurationManager.GetSetting("AccountApi.ClientId"),
                 IdentifierUri = CloudConfigurationManager.GetSetting("AccountApi.IdentifierUri"),
