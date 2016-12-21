@@ -58,18 +58,18 @@ namespace SFA.DAS.Data.AccountBalance
             var client = new AccountApiClient(configuration);
             var source = new ApiWrapper(client);
 
-            //CloudStorageAccount storageAccount = CloudStorageAccount.Parse(
-            //    CloudConfigurationManager.GetSetting("Storage"));
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(
+                CloudConfigurationManager.GetSetting("Storage"));
 
             //connection for inserting into sqlserver
-            var db = Database.OpenConnection(CloudConfigurationManager.GetSetting("StagingConnectionString"));
-            var conn = new DbWrapper {Wrapper = db};
+            //var db = Database.OpenConnection(CloudConfigurationManager.GetSetting("StagingConnectionString"));
+            //var conn = new DbWrapper {Wrapper = db};
             
             cfg.SetSource(source.GetAccounts)
                 .SetLog(StorageLogging.StorageLog)
                 .BuildPipeline(v =>
                     v.Step(i => Result.Win(new BalanceEntity(i), "converted to table entity"))
-                     .Store(conn, "balance"));
+                     .Store(storageAccount, "balance"));
 
             StorageLogging.StorageLog(LoggingLevel.Info, "Configure Done");
         }
@@ -120,7 +120,7 @@ namespace SFA.DAS.Data.AccountBalance
                 .WithIdentity("trigger1", "group1")
                 .ForJob(job)
                 .StartNow()
-                .WithSimpleSchedule(x => x.RepeatForever().WithIntervalInMinutes(1))
+                .WithSimpleSchedule(x => x.RepeatForever().WithIntervalInHours(1))
                 .Build();
 
             sched.ScheduleJob(job, trigger);
