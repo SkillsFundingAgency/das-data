@@ -62,7 +62,7 @@ namespace SFA.DAS.Data.AccountBalance
 
             var configuration = new AccountApiConfiguration
             {
-                ApiBaseUrl = CloudConfigurationManager.GetSetting("AccountApi.ClientSecret"),
+                ApiBaseUrl = CloudConfigurationManager.GetSetting("AccountApi.ApiBaseUrl"),
                 ClientSecret = CloudConfigurationManager.GetSetting("AccountApi.ClientSecret"),
                 ClientId = CloudConfigurationManager.GetSetting("AccountApi.ClientId"),
                 IdentifierUri = CloudConfigurationManager.GetSetting("AccountApi.IdentifierUri"),
