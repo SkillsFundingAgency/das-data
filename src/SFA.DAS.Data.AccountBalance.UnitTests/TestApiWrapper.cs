@@ -40,4 +40,27 @@ namespace SFA.DAS.Data.AccountBalance.UnitTests
             var reults = wrapper.GetAccounts().ToList();
         }
     }
+
+    [TestFixture]
+    public class IntegrationTest
+    {
+        [Ignore("jsut for integration")]
+        public void CanCall()
+        {
+            var accountApiClientConfiguration = new AccountApiConfiguration
+            {
+                ApiBaseUrl = "https://at-accounts.apprenticeships.sfa.bis.gov.uk",
+                ClientId = "58a3a7b2-bae2-4333-8a79-8f39720b2a6e",
+                ClientSecret = @"7PrJ57WnGwHog6N7SanpXduDGdTrN/redY/22iKEulE=",
+                IdentifierUri = "https://citizenazuresfabisgov.onmicrosoft.com/eas-api",
+                Tenant = "citizenazuresfabisgov.onmicrosoft.com"
+            };
+
+            var client = new AccountApiClient(accountApiClientConfiguration);
+
+            var page = client.GetPageOfAccounts().Result;
+
+            Assert.NotNull(page);
+        }
+    }
 }
