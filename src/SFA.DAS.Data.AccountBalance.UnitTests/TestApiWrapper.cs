@@ -45,6 +45,7 @@ namespace SFA.DAS.Data.AccountBalance.UnitTests
     public class IntegrationTest
     {
         [Ignore("jsut for integration")]
+        //[Test]
         public void CanCall()
         {
             var accountApiClientConfiguration = new AccountApiConfiguration

@@ -55,6 +55,13 @@ namespace SFA.DAS.Data.Pipeline.Helpers
                 foreach (var item in Source())
                     Pipeline(item.Return(Log));
             }
+            catch (AggregateException ax)
+            {
+                foreach (var innerException in ax.InnerExceptions)
+                    Log(LoggingLevel.Error, 
+                        innerException.Message + ":" + innerException.StackTrace);
+                throw;
+            }
             catch (Exception e)
             {
                 Log(LoggingLevel.Error, e.StackTrace);
