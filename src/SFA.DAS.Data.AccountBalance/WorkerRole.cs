@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Azure;
-using Microsoft.WindowsAzure.Diagnostics.Management;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
@@ -13,7 +12,6 @@ using SFA.DAS.Data.Pipeline;
 using SFA.DAS.Data.Pipeline.Helpers;
 using SFA.DAS.EAS.Account.Api.Client;
 using SFA.DAS.EAS.Account.Api.Client.Dtos;
-using Simple.Data;
 
 namespace SFA.DAS.Data.AccountBalance
 {
@@ -42,23 +40,11 @@ namespace SFA.DAS.Data.AccountBalance
             public long AccountId { get; set; }
             public decimal Balance { get; set; }
         }
-
-        public void DumbLog(LoggingLevel level, string message)
-        {
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(
-                CloudConfigurationManager.GetSetting("Storage"));
-            var tableClient = storageAccount.CreateCloudTableClient();
-            var table = tableClient.GetTableReference("test");
-            table.CreateIfNotExists();
-            var insertOperation =
-                TableOperation.Insert(
-                    new AccountBalanceJob.ToStore(new AccountWithBalanceViewModel { AccountName = message }));
-            table.Execute(insertOperation);
-        }
+        
 
         public override void Configure(EntityListPoll<AccountWithBalanceViewModel, AccountBalanceJob.ToStore> cfg)
         {
-            DumbLog(LoggingLevel.Info, "Configure");
+            StorageLogging.StorageLog(LoggingLevel.Info, "Configure");
 
             var configuration = new AccountApiConfiguration
             {
@@ -75,17 +61,18 @@ namespace SFA.DAS.Data.AccountBalance
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(
                 CloudConfigurationManager.GetSetting("Storage"));
 
+            //connection for inserting into sqlserver
             //var db = Database.OpenConnection(CloudConfigurationManager.GetSetting("StagingConnectionString"));
             //var conn = new DbWrapper {Wrapper = db};
 
             //no need to modify the view model
             cfg.SetSource(source.GetAccounts)
-                .SetLog(DumbLog)
+                .SetLog(StorageLogging.StorageLog)
                 .BuildPipeline(v =>
                     v.Step(i => Result.Win(new ToStore(i), "converted to table entity"))
-                        .Store(storageAccount, "balance"));
+                     .Store(storageAccount, "balance"));
 
-            DumbLog(LoggingLevel.Info, "Configure Done");
+            StorageLogging.StorageLog(LoggingLevel.Info, "Configure Done");
         }
     }
 
