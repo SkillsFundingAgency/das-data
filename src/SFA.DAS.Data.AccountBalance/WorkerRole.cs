@@ -68,7 +68,7 @@ namespace SFA.DAS.Data.AccountBalance
             cfg.SetSource(source.GetAccounts)
                 .SetLog(StorageLogging.StorageLog)
                 .BuildPipeline(v =>
-                    v.Step(i => Result.Win(new BalanceEntity(i), "converted to table entity"))
+                    v.Transform(i => new BalanceEntity(i), "converted to table entity")
                      .Store(storageAccount, "balance"));
 
             StorageLogging.StorageLog(LoggingLevel.Info, "Configure Done");

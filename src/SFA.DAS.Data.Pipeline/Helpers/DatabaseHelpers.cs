@@ -1,5 +1,4 @@
-﻿
-using Microsoft.WindowsAzure.Storage;
+﻿using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
 
 namespace SFA.DAS.Data.Pipeline.Helpers

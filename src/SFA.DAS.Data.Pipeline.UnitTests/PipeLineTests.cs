@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using NUnit.Framework;
+using SFA.DAS.Data.Pipeline.Helpers;
 
 namespace SFA.DAS.Data.Pipeline.UnitTests
 {
@@ -28,6 +29,21 @@ namespace SFA.DAS.Data.Pipeline.UnitTests
                    new TestMessage { Message = "hello " + x.Message },
                    "said hello"));
 
+            Assert.IsInstanceOf<Success<TestMessage>>(result);
+            Assert.IsTrue(result.IsSuccess());
+            Assert.AreEqual("hello bob", result.Content.Message);
+            Assert.AreEqual("Success: said hello", log.Messages.First());
+        }
+
+        [Test]
+        public void SingleStageTransform()
+        {
+            var log = new LogToList();
+            var m = new TestMessage { Message = "bob" };
+
+            var result = m.Return(log.Log)
+                .Transform(x => new TestMessage { Message = "hello " + x.Message }, "said hello");
+            
             Assert.IsInstanceOf<Success<TestMessage>>(result);
             Assert.IsTrue(result.IsSuccess());
             Assert.AreEqual("hello bob", result.Content.Message);
