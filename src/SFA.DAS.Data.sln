@@ -30,6 +30,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Data.Infrastructure
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Data.Application", "SFA.DAS.Data.Application\SFA.DAS.Data.Application.csproj", "{E2794B6D-456B-4FD2-8694-CCFB141F5A02}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Data.Application.UnitTests", "SFA.DAS.Data.Application.UnitTests\SFA.DAS.Data.Application.UnitTests.csproj", "{3A94F38B-7B28-4F77-B448-A643DA30EF69}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -74,6 +76,10 @@ Global
 		{E2794B6D-456B-4FD2-8694-CCFB141F5A02}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E2794B6D-456B-4FD2-8694-CCFB141F5A02}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E2794B6D-456B-4FD2-8694-CCFB141F5A02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A94F38B-7B28-4F77-B448-A643DA30EF69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A94F38B-7B28-4F77-B448-A643DA30EF69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A94F38B-7B28-4F77-B448-A643DA30EF69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A94F38B-7B28-4F77-B448-A643DA30EF69}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -81,5 +87,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{F1CD67F6-2346-43D2-9B3E-5D7C3DE9BE3D} = {FA405FFF-76C8-4D29-A6C1-FE0A3670A249}
 		{7ED202E0-6C28-4389-997F-D8372DFA50F7} = {FA405FFF-76C8-4D29-A6C1-FE0A3670A249}
+		{3A94F38B-7B28-4F77-B448-A643DA30EF69} = {FA405FFF-76C8-4D29-A6C1-FE0A3670A249}
 	EndGlobalSection
 EndGlobal
