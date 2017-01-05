@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Net;
 using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.Azure;
 using Microsoft.ServiceBus;
 using Microsoft.ServiceBus.Messaging;
@@ -19,11 +20,12 @@ namespace SFA.DAS.Data.Bus
 
         public override void Run()
         {
-            Trace.WriteLine("Starting processing of messages");
+            Trace.WriteLine("SFA.DAS.Data.Bus.WorkerRole has been started");
 
             _client.OnMessage((receivedMessage) =>
             {
-                Trace.WriteLine("Processing Service Bus message: " + receivedMessage.SequenceNumber.ToString());
+                Trace.WriteLine("SFA.DAS.Data.Bus.WorkerRole processing message: " + receivedMessage.SequenceNumber.ToString());
+                DispatchMessage(receivedMessage).Wait();
             });
 
             _completedEvent.WaitOne();
@@ -37,6 +39,13 @@ namespace SFA.DAS.Data.Bus
             _container = ConfigureIocContainer();
 
             return base.OnStart();
+        }
+
+        public override void OnStop()
+        {
+            _client.Close();
+            _completedEvent.Set();
+            base.OnStop();
         }
 
         private QueueClient ConfigureServiceBusQueueClient()
@@ -59,11 +68,10 @@ namespace SFA.DAS.Data.Bus
             return container;
         }
 
-        public override void OnStop()
+        private async Task DispatchMessage(BrokeredMessage receivedMessage)
         {
-            _client.Close();
-            _completedEvent.Set();
-            base.OnStop();
+            var dispatcher = _container.GetInstance<IMessageDispatcher>();
+            await dispatcher.Dispatch(receivedMessage);
         }
     }
 }
