@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="1ee17435-820e-4376-a007-ed803a3cfa2e" ChangeDateTime="01/04/2017 13:35:41">
+    <Property Name="ElementName" Value="[data].[Registration].[OrganisationCreatedDate]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[data].[Registration]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="LegalEntityCreatedDate" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="24be903f-c7fc-4bf2-b360-3e2afc391d3c" ChangeDateTime="01/04/2017 13:36:06">
+    <Property Name="ElementName" Value="[data].[Registration].[OrganisationName]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[data].[Registration]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="LegalEntityName" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="eecbb2ad-bf1f-4a71-9b02-265015ba489e" ChangeDateTime="01/04/2017 13:36:12">
+    <Property Name="ElementName" Value="[data].[Registration].[OrganisationStatus]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[data].[Registration]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="LegalEntityStatus" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="f90268ec-3569-4535-8fed-652953a836a1" ChangeDateTime="01/04/2017 13:36:16">
+    <Property Name="ElementName" Value="[data].[Registration].[OrganisationSource]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[data].[Registration]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="LegalEntitySource" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="8bf88b29-6278-4308-a3b3-f6e138bc7a8a" ChangeDateTime="01/04/2017 13:36:20">
+    <Property Name="ElementName" Value="[data].[Registration].[OrganisationRegisteredAddress]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[data].[Registration]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="LegalEntityRegisteredAddress" />
+  </Operation>
+</Operations>
