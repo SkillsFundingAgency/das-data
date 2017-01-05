@@ -1,15 +1,15 @@
 ﻿CREATE TABLE [data].[Registration]
 (
 	[Id] INT IDENTITY NOT NULL PRIMARY KEY,
-	[DasAccountName] NVARCHAR(255),
-	[DasRegistered] DATETIME,
-	[LegalEntityRegisteredAddress] NVARCHAR(MAX),
-	[LegalEntitySource] NVARCHAR(255),
-	[LegalEntityStatus] NVARCHAR(255),
-	[LegalEntityName] NVARCHAR(255),
+	[DasAccountName] NVARCHAR(100) NOT NULL,
+	[DasRegistered] DATETIME NOT NULL,
+	[LegalEntityRegisteredAddress] NVARCHAR(256) NULL,
+	[LegalEntitySource] NVARCHAR(50) NOT NULL,
+	[LegalEntityStatus] NVARCHAR(50),
+	[LegalEntityName] NVARCHAR(100) NOT NULL,
 	[LegalEntityCreatedDate] DATETIME,
-	[OwnerEmail] NVARCHAR(255),
-	[DasAccountId] NVARCHAR(255), 
+	[OwnerEmail] NVARCHAR(255) NOT NULL,
+	[DasAccountId] NVARCHAR(100), 
     [LegalEntityId] INT NULL, 
     [CompaniesHouseNumber] INT NULL,
 	[UpdateDateTime] DATETIME NOT NULL DEFAULT(GETDATE())
