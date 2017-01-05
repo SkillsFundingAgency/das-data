@@ -49,7 +49,6 @@
     <Compile Include="Dtos\PagedApiResponseViewModel.cs" />
     <Compile Include="Dtos\RegistrationViewModel.cs" />
     <Compile Include="Interfaces\Gateways\IRegistrationGateway.cs" />
-    <Compile Include="Interfaces\IConfiguration.cs" />
     <Compile Include="Interfaces\Repositories\IRegistrationRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

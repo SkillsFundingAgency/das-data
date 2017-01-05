@@ -10,13 +10,20 @@
     <Instances count="1" />
     <ConfigurationSettings>
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
-      <Setting name="AccountApi.ApiBaseUrl" value="https://some-server/"/>
-      <Setting name="AccountApi.ClientSecret" value="YOUR_SECURE_TOKEN"/>
-      <Setting name="AccountApi.ClientId" value="YOUR_CLIENT_ID"/>
-      <Setting name="AccountApi.IdentifierUri" value="YOUR_ID_URI"/>
-      <Setting name="AccountApi.Tenant" value="YOUR_TENANT_ID"/>
-      <Setting name="StagingConnectionString" value="Data Source=.\SQLEXPRESS;Initial Catalog=DatabaseName;Integrated Security=True;MultipleActiveResultSets=True"/>
-      <Setting name="Storage" value="__StagingConnectionString__"/>   
+      <Setting name="AccountApi.ApiBaseUrl" value="https://some-server/" />
+      <Setting name="AccountApi.ClientSecret" value="YOUR_SECURE_TOKEN" />
+      <Setting name="AccountApi.ClientId" value="YOUR_CLIENT_ID" />
+      <Setting name="AccountApi.IdentifierUri" value="YOUR_ID_URI" />
+      <Setting name="AccountApi.Tenant" value="YOUR_TENANT_ID" />
+      <Setting name="StagingConnectionString" value="Data Source=.\SQLEXPRESS;Initial Catalog=DatabaseName;Integrated Security=True;MultipleActiveResultSets=True" />
+      <Setting name="Storage" value="__StagingConnectionString__" />
+    </ConfigurationSettings>
+  </Role>
+  <Role name="SFA.DAS.Data.Bus">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="Microsoft.ServiceBus.ConnectionString" value="Endpoint=sb://[your namespace].servicebus.windows.net;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=[your key]" />
     </ConfigurationSettings>
   </Role>
 </ServiceConfiguration>

@@ -10,13 +10,20 @@
     <Instances count="1" />
     <ConfigurationSettings>
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="__StorageConnectionString__" />
-      <Setting name="AccountApi.ApiBaseUrl" value="__ApiBaseUrl__"/>
-      <Setting name="AccountApi.ClientSecret" value="__ClientSecret__"/>
-      <Setting name="AccountApi.ClientId" value="__ClientId__"/>
-      <Setting name="AccountApi.IdentifierUri" value="__IdentifierUri__"/>
-      <Setting name="AccountApi.Tenant" value="__Tenant__"/>
-      <Setting name="StagingConnectionString" value="__StagingConnectionString__"/>
-      <Setting name="Storage" value="__StorageConnectionString__"/>
+      <Setting name="AccountApi.ApiBaseUrl" value="__ApiBaseUrl__" />
+      <Setting name="AccountApi.ClientSecret" value="__ClientSecret__" />
+      <Setting name="AccountApi.ClientId" value="__ClientId__" />
+      <Setting name="AccountApi.IdentifierUri" value="__IdentifierUri__" />
+      <Setting name="AccountApi.Tenant" value="__Tenant__" />
+      <Setting name="StagingConnectionString" value="__StagingConnectionString__" />
+      <Setting name="Storage" value="__StorageConnectionString__" />
+    </ConfigurationSettings>
+  </Role>
+  <Role name="SFA.DAS.Data.Bus">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="Microsoft.ServiceBus.ConnectionString" value="Endpoint=sb://[your namespace].servicebus.windows.net;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=[your key]" />
     </ConfigurationSettings>
   </Role>
 </ServiceConfiguration>

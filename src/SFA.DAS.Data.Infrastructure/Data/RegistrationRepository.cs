@@ -9,10 +9,6 @@ namespace SFA.DAS.Data.Infrastructure.Data
 {
     public class RegistrationRepository : BaseRepository, IRegistrationRepository 
     {
-        public RegistrationRepository(IConfiguration configuration) : base(configuration)
-        {
-        }
-
         public async Task SaveRegistration(RegistrationViewModel registration)
         {
             await WithConnection(async c =>

@@ -53,14 +53,24 @@
       <RoleName>SFA.DAS.Data.AccountRegistration</RoleName>
       <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
     </ProjectReference>
+    <ProjectReference Include="..\SFA.DAS.Data.Bus\SFA.DAS.Data.Bus.csproj">
+      <Name>SFA.DAS.Data.Bus</Name>
+      <Project>{5bd7deda-daad-4d8c-ab8f-a0f3d4e9eb82}</Project>
+      <Private>True</Private>
+      <RoleType>Worker</RoleType>
+      <RoleName>SFA.DAS.Data.Bus</RoleName>
+      <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="SFA.DAS.Data.AccountBalanceContent\" />
     <Folder Include="SFA.DAS.Data.AccountRegistrationContent\" />
+    <Folder Include="SFA.DAS.Data.BusContent\" />
   </ItemGroup>
   <ItemGroup>
     <DiagnosticsConfiguration Include="SFA.DAS.Data.AccountBalanceContent\diagnostics.wadcfgx" />
     <DiagnosticsConfiguration Include="SFA.DAS.Data.AccountRegistrationContent\diagnostics.wadcfgx" />
+    <DiagnosticsConfiguration Include="SFA.DAS.Data.BusContent\diagnostics.wadcfgx" />
   </ItemGroup>
   <!-- Import the target files for this project template -->
   <PropertyGroup>

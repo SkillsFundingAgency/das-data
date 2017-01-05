@@ -8,16 +8,22 @@
   <WorkerRole name="SFA.DAS.Data.AccountBalance" vmsize="Small">
     <ConfigurationSettings>
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" />
-      <Setting name="AccountApi.ApiBaseUrl"/>
-      <Setting name="AccountApi.ClientSecret"/>
-      <Setting name="AccountApi.ClientId"/>
-      <Setting name="AccountApi.IdentifierUri"/>
-      <Setting name="AccountApi.Tenant"/>
-      <Setting name="StagingConnectionString"/>
-      <Setting name="Storage"/>
+      <Setting name="AccountApi.ApiBaseUrl" />
+      <Setting name="AccountApi.ClientSecret" />
+      <Setting name="AccountApi.ClientId" />
+      <Setting name="AccountApi.IdentifierUri" />
+      <Setting name="AccountApi.Tenant" />
+      <Setting name="StagingConnectionString" />
+      <Setting name="Storage" />
     </ConfigurationSettings>
     <Imports>
       <Import moduleName="Diagnostics" />
     </Imports>
+  </WorkerRole>
+  <WorkerRole name="SFA.DAS.Data.Bus" vmsize="Small">
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" />
+      <Setting name="Microsoft.ServiceBus.ConnectionString" />
+    </ConfigurationSettings>
   </WorkerRole>
 </ServiceDefinition>
