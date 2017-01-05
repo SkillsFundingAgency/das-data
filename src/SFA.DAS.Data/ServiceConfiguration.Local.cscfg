@@ -1,24 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ServiceConfiguration serviceName="SFA.DAS.Data" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="4" osVersion="*" schemaVersion="2015-04.2.6">
-  <Role name="SFA.DAS.Data.AccountRegistration">
-    <Instances count="1" />
-    <ConfigurationSettings>
-      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
-    </ConfigurationSettings>
-  </Role>
-  <Role name="SFA.DAS.Data.AccountBalance">
-    <Instances count="1" />
-    <ConfigurationSettings>
-      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
-      <Setting name="AccountApi.ApiBaseUrl" value="https://some-server/" />
-      <Setting name="AccountApi.ClientSecret" value="YOUR_SECURE_TOKEN" />
-      <Setting name="AccountApi.ClientId" value="YOUR_CLIENT_ID" />
-      <Setting name="AccountApi.IdentifierUri" value="YOUR_ID_URI" />
-      <Setting name="AccountApi.Tenant" value="YOUR_TENANT_ID" />
-      <Setting name="StagingConnectionString" value="Data Source=.\SQLEXPRESS;Initial Catalog=DatabaseName;Integrated Security=True;MultipleActiveResultSets=True" />
-      <Setting name="Storage" value="__StagingConnectionString__" />
-    </ConfigurationSettings>
-  </Role>
   <Role name="SFA.DAS.Data.Bus">
     <Instances count="1" />
     <ConfigurationSettings>
