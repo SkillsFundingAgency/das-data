@@ -27,12 +27,17 @@ namespace SFA.DAS.Data.Application.Gateways
             var accountInformation = await _accountApiClient.GetPageOfAccountInformation(DateTime.MinValue, DateTime.MaxValue, page);
             var registrationsForAccount = accountInformation.Data.Where(i => i.DasAccountId == dasAccountId).ToList();
 
-            if (MatchedAccountIsLastResult(accountInformation, registrationsForAccount) && ResultContainsMorePages(page, accountInformation))
+            if ((NoMatchingAccounts(registrationsForAccount) || MatchedAccountIsLastResult(accountInformation, registrationsForAccount)) && ResultContainsMorePages(page, accountInformation))
             {
                 var nextPageOfRegistrations = await GetRegistrations(dasAccountId, page + 1);
                 registrationsForAccount.AddRange(nextPageOfRegistrations);
             }
             return registrationsForAccount;
+        }
+
+        private bool NoMatchingAccounts(List<AccountInformationViewModel> registrationsForAccount)
+        {
+            return registrationsForAccount.Count == 0;
         }
 
         private static bool ResultContainsMorePages(int page, PagedApiResponseViewModel<AccountInformationViewModel> accountInformation)

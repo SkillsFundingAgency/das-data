@@ -82,6 +82,7 @@
   <ItemGroup>
     <Compile Include="Builders\AccountInformationViewModelBuilder.cs" />
     <Compile Include="Commands\CreateRegistrationTests\WhenICreateARegistration.cs" />
+    <Compile Include="Gateways\RegistrationGatewayTests\RegistrationGatewayTestsBase.cs" />
     <Compile Include="Gateways\RegistrationGatewayTests\WhenTheRegistrationIsInThePageOfAccountsInformation.cs" />
     <Compile Include="Gateways\RegistrationGatewayTests\WhenTheRegistrationIsNotInThePageOfAccountsInformation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
