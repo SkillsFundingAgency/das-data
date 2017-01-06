@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
-using SFA.DAS.Data.Application.Dtos;
+using SFA.DAS.EAS.Account.Api.Client.Dtos;
 
 namespace SFA.DAS.Data.Application.Interfaces.Repositories
 {
     public interface IRegistrationRepository
     {
-        Task SaveRegistration(RegistrationViewModel registration);
+        Task SaveRegistration(AccountInformationViewModel registration);
     }
 }

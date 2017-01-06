@@ -23,12 +23,12 @@ namespace SFA.DAS.Data.Bus.UnitTests.MessageDispatcherTests
         [Test]
         public async Task ThenTheCreateRegistrationCommandIsCalled()
         {
-            var organisationId = 375;
-            var message = new BrokeredMessage(organisationId);
+            var dasAccountId = "375";
+            var message = new BrokeredMessage(dasAccountId);
 
             await _messageDispatcher.Dispatch(message);
 
-            _mediator.Verify(m => m.SendAsync(It.Is<CreateRegistrationCommand>(c => c.OrganisationId == organisationId)));
+            _mediator.Verify(m => m.SendAsync(It.Is<CreateRegistrationCommand>(c => c.DasAccountId == dasAccountId)));
         }
     }
 }

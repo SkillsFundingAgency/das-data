@@ -12,7 +12,7 @@ namespace SFA.DAS.Data.Infrastructure.Data
 
         protected BaseRepository()
         {
-            _connectionString = CloudConfigurationManager.GetSetting("StorageConnectionString");
+            _connectionString = CloudConfigurationManager.GetSetting("DataConnectionString");
         }
 
         protected async Task<T> WithConnection<T>(Func<IDbConnection, Task<T>> getData)

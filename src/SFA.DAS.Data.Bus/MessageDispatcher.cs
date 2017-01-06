@@ -19,8 +19,8 @@ namespace SFA.DAS.Data.Bus
         {
             // This ridiculously simple implementation will only work for a single message type and needs to be replaced by something much better.
             // Only option for this will be to use something like MassTransit or NServiceBus on top of Azure Service Bus as it'll handle message dispatching, and a whole lot more.
-            var organisationId = receivedMessage.GetBody<int>();
-            await _mediator.SendAsync(new CreateRegistrationCommand {OrganisationId = organisationId});
+            var dasAccountId = receivedMessage.GetBody<string>();
+            await _mediator.SendAsync(new CreateRegistrationCommand {DasAccountId = dasAccountId});
         }
     }
 }

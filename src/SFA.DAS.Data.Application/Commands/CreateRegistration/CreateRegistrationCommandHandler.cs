@@ -18,8 +18,11 @@ namespace SFA.DAS.Data.Application.Commands.CreateRegistration
 
         protected override async Task HandleCore(CreateRegistrationCommand message)
         {
-            var registration = await _registrationGateway.GetRegistration(message.OrganisationId);
-            await _registrationRepository.SaveRegistration(registration);
+            var registrations = await _registrationGateway.GetRegistration(message.DasAccountId);
+            foreach (var registration in registrations)
+            {
+                await _registrationRepository.SaveRegistration(registration);
+            }
         }
     }
 }

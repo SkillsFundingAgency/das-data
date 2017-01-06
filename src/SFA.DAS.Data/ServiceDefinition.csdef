@@ -4,6 +4,14 @@
     <ConfigurationSettings>
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" />
       <Setting name="Microsoft.ServiceBus.ConnectionString" />
+
+      <Setting name="AccountApi.ApiBaseUrl" />
+      <Setting name="AccountApi.ClientSecret" />
+      <Setting name="AccountApi.ClientId" />
+      <Setting name="AccountApi.IdentifierUri" />
+      <Setting name="AccountApi.Tenant" />
+
+      <Setting name="DataConnectionString" />
     </ConfigurationSettings>
   </WorkerRole>
 </ServiceDefinition>

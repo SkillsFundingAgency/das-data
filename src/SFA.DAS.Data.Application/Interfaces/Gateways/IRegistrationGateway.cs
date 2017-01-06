@@ -1,10 +1,11 @@
-﻿using System.Threading.Tasks;
-using SFA.DAS.Data.Application.Dtos;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using SFA.DAS.EAS.Account.Api.Client.Dtos;
 
 namespace SFA.DAS.Data.Application.Interfaces.Gateways
 {
     public interface IRegistrationGateway
     {
-        Task<RegistrationViewModel> GetRegistration(int organisationId);
+        Task<IEnumerable<AccountInformationViewModel>> GetRegistration(string dasAccountId);
     }
 }
