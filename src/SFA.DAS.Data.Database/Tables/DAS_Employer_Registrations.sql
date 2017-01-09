@@ -1,6 +1,7 @@
-﻿CREATE TABLE [data].[Registration]
+﻿CREATE TABLE [Data_Load].[DAS_Employer_Registrations]
 (
-	[Id] INT IDENTITY NOT NULL PRIMARY KEY,
+	[Id] BIGINT IDENTITY NOT NULL PRIMARY KEY,
+	[DasAccountId] NVARCHAR(100), 
 	[DasAccountName] NVARCHAR(100) NOT NULL,
 	[DasRegistered] DATETIME NOT NULL,
 	[LegalEntityRegisteredAddress] NVARCHAR(256) NULL,
@@ -8,9 +9,8 @@
 	[LegalEntityStatus] NVARCHAR(50),
 	[LegalEntityName] NVARCHAR(100) NOT NULL,
 	[LegalEntityCreatedDate] DATETIME,
+	[LegalEntityNumber] INT NULL,
 	[OwnerEmail] NVARCHAR(255) NOT NULL,
-	[DasAccountId] NVARCHAR(100), 
     [LegalEntityId] INT NULL, 
-    [CompaniesHouseNumber] INT NULL,
 	[UpdateDateTime] DATETIME NOT NULL DEFAULT(GETDATE())
 )

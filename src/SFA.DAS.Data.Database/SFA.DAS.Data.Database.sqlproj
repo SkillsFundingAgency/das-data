@@ -62,8 +62,8 @@
     <Folder Include="Tables" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Schemas\Data.sql" />
-    <Build Include="Tables\Registration.sql" />
+    <Build Include="Schemas\Data_Load.sql" />
+    <Build Include="Tables\DAS_Employer_Registrations.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SFA.DAS.Data.Database.refactorlog" />
