@@ -9,7 +9,7 @@
 	[LegalEntityStatus] NVARCHAR(50),
 	[LegalEntityName] NVARCHAR(100) NOT NULL,
 	[LegalEntityCreatedDate] DATETIME,
-	[LegalEntityNumber] INT NULL,
+	[LegalEntityNumber] NVARCHAR(50) NULL,
 	[OwnerEmail] NVARCHAR(255) NOT NULL,
     [LegalEntityId] INT NULL, 
 	[UpdateDateTime] DATETIME NOT NULL DEFAULT(GETDATE())
