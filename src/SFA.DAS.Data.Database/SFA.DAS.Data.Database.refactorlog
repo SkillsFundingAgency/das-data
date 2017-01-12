@@ -42,4 +42,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="DateRegistered" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="a1d0b791-287c-4a52-8c50-866c142069f4" ChangeDateTime="01/12/2017 13:28:14">
+    <Property Name="ElementName" Value="[Data_Pub].[DAS_LoadedEvents].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[Data_Pub].[DAS_LoadedEvents]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="EventFeed" />
+  </Operation>
 </Operations>

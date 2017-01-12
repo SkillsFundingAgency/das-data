@@ -61,11 +61,13 @@
     <Folder Include="Schemas" />
     <Folder Include="Tables" />
     <Folder Include="Views" />
+    <Folder Include="SeedData" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Schemas\Data_Load.sql" />
     <Build Include="Tables\DAS_Employer_Registrations.sql" />
     <Build Include="Views\DAS_Employer_Registrations.sql" />
+    <Build Include="Tables\DAS_LoadedEvents.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SFA.DAS.Data.Database.refactorlog" />
@@ -73,5 +75,8 @@
   <ItemGroup>
     <None Include="Database.publish.xml" />
     <Build Include="Schemas\Data_Pub.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="SeedData\LoadedEventsSeedData.sql" />
   </ItemGroup>
 </Project>

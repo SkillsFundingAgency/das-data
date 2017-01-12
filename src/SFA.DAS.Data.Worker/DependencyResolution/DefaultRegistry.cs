@@ -1,4 +1,6 @@
 ﻿using MediatR;
+using SFA.DAS.Events.Api.Client;
+using SFA.DAS.Events.Api.Client.Configuration;
 using StructureMap;
 
 namespace SFA.DAS.Data.Worker.DependencyResolution
@@ -13,7 +15,10 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
                 scan.AssembliesFromApplicationBaseDirectory(a => a.GetName().Name.StartsWith("SFA.DAS."));
                 scan.RegisterConcreteTypesAgainstTheFirstInterface();
             });
-            
+
+            //TODO
+            //For<IEventsApi>().Use<EventsApi>().Ctor<IEventsApiClientConfiguration>().Is(config.EventsApi);
+
             AddMediatrRegistrations();
         }
 

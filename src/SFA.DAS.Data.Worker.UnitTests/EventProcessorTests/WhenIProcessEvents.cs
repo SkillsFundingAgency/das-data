@@ -27,7 +27,7 @@ namespace SFA.DAS.Data.Worker.UnitTests.EventProcessorTests
             _eventRepository = new Mock<IEventRepository>();
             _eventsApi = new Mock<IEventsApi>();
 
-            _eventRepository.Setup(x => x.GetLastProcessedEventId()).ReturnsAsync(CurrentEventId);
+            _eventRepository.Setup(x => x.GetLastProcessedEventId("AccountEvents")).ReturnsAsync(CurrentEventId);
 
             _eventProcessor = new EventProcessor(_eventRepository.Object, _eventsApi.Object, _mediator.Object);
         }
@@ -39,7 +39,7 @@ namespace SFA.DAS.Data.Worker.UnitTests.EventProcessorTests
 
             await _eventProcessor.ProcessEvents();
 
-            _eventRepository.Verify(x => x.StoreLastProcessedEventId(It.IsAny<long>()), Times.Never);
+            _eventRepository.Verify(x => x.StoreLastProcessedEventId("AccountEvents", It.IsAny<long>()), Times.Never);
         }
 
         [Test]
@@ -63,7 +63,7 @@ namespace SFA.DAS.Data.Worker.UnitTests.EventProcessorTests
                 _mediator.Verify(x => x.SendAsync(It.Is<CreateRegistrationCommand>(r => r.DasAccountId == @event.EmployerAccountId)), Times.Once);
             }
 
-            _eventRepository.Verify(x => x.StoreLastProcessedEventId(lastEventId), Times.Once);
+            _eventRepository.Verify(x => x.StoreLastProcessedEventId("AccountEvents", lastEventId), Times.Once);
         }
     }
 }

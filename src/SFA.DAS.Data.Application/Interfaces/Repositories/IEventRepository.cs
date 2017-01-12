@@ -4,8 +4,8 @@ namespace SFA.DAS.Data.Application.Interfaces.Repositories
 {
     public interface IEventRepository
     {
-        Task<long> GetLastProcessedEventId();
+        Task<long> GetLastProcessedEventId(string eventFeed);
 
-        Task StoreLastProcessedEventId(long id);
+        Task StoreLastProcessedEventId(string eventFeed, long id);
     }
 }

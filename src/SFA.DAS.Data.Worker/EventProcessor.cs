@@ -11,6 +11,8 @@ namespace SFA.DAS.Data.Worker
 {
     public class EventProcessor : IEventProcessor
     {
+        private const string EventStream = "AccountEvents";
+
         private readonly IEventRepository _eventRepository;
         private readonly IEventsApi _eventsApi;
         private readonly IMediator _mediator;
@@ -39,7 +41,7 @@ namespace SFA.DAS.Data.Worker
         private async Task UpdateLastEventId(IEnumerable<AccountEventView> events)
         {
             var lastEventId = events.Max(x => x.Id);
-            await _eventRepository.StoreLastProcessedEventId(lastEventId);
+            await _eventRepository.StoreLastProcessedEventId(EventStream, lastEventId);
         }
 
         private async Task CreateRegistrationsFromEvent(IEnumerable<AccountEventView> events)
@@ -65,7 +67,7 @@ namespace SFA.DAS.Data.Worker
 
         private async Task<long> GetNextEventId()
         {
-            var currentEventId = await _eventRepository.GetLastProcessedEventId();
+            var currentEventId = await _eventRepository.GetLastProcessedEventId(EventStream);
             return currentEventId + 1;
         }
     }
