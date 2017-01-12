@@ -5,14 +5,18 @@
     <ConfigurationSettings>
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
       <Setting name="Microsoft.ServiceBus.ConnectionString" value="sb://das-at-data-ns.servicebus.windows.net/;SharedAccessKeyName=Manage;SharedAccessKey=X0ARku1l0NK0xEM0s+mGJ9vYX3jFJ4UczgwNn5Q/oQs=" />
-
       <Setting name="AccountApi.ApiBaseUrl" value="https://test-accounts.apprenticeships.sfa.bis.gov.uk" />
       <Setting name="AccountApi.ClientSecret" value="2FL+Gz+ULP9HpsnPP3caTgllmOfj2WfSlVx00j4TN/Q=" />
       <Setting name="AccountApi.ClientId" value="58a3a7b2-bae2-4333-8a79-8f39720b2a6e" />
       <Setting name="AccountApi.IdentifierUri" value="https://citizenazuresfabisgov.onmicrosoft.com/eas-api" />
       <Setting name="AccountApi.Tenant" value="citizenazuresfabisgov.onmicrosoft.com" />
-
-      <Setting name="DataConnectionString" value="Server=localhost;Database=Data;Trusted_Connection=True;"  />
+      <Setting name="DataConnectionString" value="Server=localhost;Database=Data;Trusted_Connection=True;" />
+    </ConfigurationSettings>
+  </Role>
+  <Role name="SFA.DAS.Data.Worker">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
     </ConfigurationSettings>
   </Role>
 </ServiceConfiguration>

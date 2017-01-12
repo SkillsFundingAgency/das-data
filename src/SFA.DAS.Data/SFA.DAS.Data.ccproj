@@ -45,12 +45,22 @@
       <RoleName>SFA.DAS.Data.Bus</RoleName>
       <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
     </ProjectReference>
+    <ProjectReference Include="..\SFA.DAS.Data.Worker\SFA.DAS.Data.Worker.csproj">
+      <Name>SFA.DAS.Data.Worker</Name>
+      <Project>{4ec2ea06-3477-4f22-98b4-70dc29fc67a8}</Project>
+      <Private>True</Private>
+      <RoleType>Worker</RoleType>
+      <RoleName>SFA.DAS.Data.Worker</RoleName>
+      <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="SFA.DAS.Data.BusContent\" />
+    <Folder Include="SFA.DAS.Data.WorkerContent\" />
   </ItemGroup>
   <ItemGroup>
     <DiagnosticsConfiguration Include="SFA.DAS.Data.BusContent\diagnostics.wadcfgx" />
+    <DiagnosticsConfiguration Include="SFA.DAS.Data.WorkerContent\diagnostics.wadcfgx" />
   </ItemGroup>
   <!-- Import the target files for this project template -->
   <PropertyGroup>
