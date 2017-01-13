@@ -24,7 +24,7 @@ namespace SFA.DAS.Data.Application.Gateways
 
         private async Task<IEnumerable<AccountInformationViewModel>> GetRegistrations(string dasAccountId, int page)
         {
-            var accountInformation = await _accountApiClient.GetPageOfAccountInformation(DateTime.MinValue, DateTime.MaxValue, page);
+            var accountInformation = await _accountApiClient.GetPageOfAccountInformation(DateTime.Now.AddYears(-1).Date, DateTime.Now.Date, page);
             var registrationsForAccount = accountInformation.Data.Where(i => i.DasAccountId == dasAccountId).ToList();
 
             if ((NoMatchingAccounts(registrationsForAccount) || MatchedAccountIsLastResult(accountInformation, registrationsForAccount)) && ResultContainsMorePages(page, accountInformation))

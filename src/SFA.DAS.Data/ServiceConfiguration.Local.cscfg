@@ -10,7 +10,7 @@
 
       <Setting name="AccountsApiBaseUrl" value="https://at-accounts.apprenticeships.sfa.bis.gov.uk" />
       <Setting name="AccountsApiClientId" value="58a3a7b2-bae2-4333-8a79-8f39720b2a6e" />
-      <Setting name="AccountsApiClientSecret" value="7PrJ57WnGwHog6N7SanpXduDGdTrN/redY/22iKEulE=" />
+      <Setting name="AccountsApiClientSecret" value="2FL+Gz+ULP9HpsnPP3caTgllmOfj2WfSlVx00j4TN/Q=" />
       <Setting name="AccountsApiIdentifierUri" value="https://citizenazuresfabisgov.onmicrosoft.com/eas-api" />
       <Setting name="AccountsApiTenant" value="citizenazuresfabisgov.onmicrosoft.com" />
     </ConfigurationSettings>
