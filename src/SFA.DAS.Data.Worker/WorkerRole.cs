@@ -3,6 +3,7 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.ServiceRuntime;
+using SFA.DAS.Data.Worker.DependencyResolution;
 using StructureMap;
 
 namespace SFA.DAS.Data.Worker
@@ -67,6 +68,7 @@ namespace SFA.DAS.Data.Worker
         {
             var container = new Container(c =>
             {
+                c.AddRegistry<DefaultRegistry>();
             });
             return container;
         }

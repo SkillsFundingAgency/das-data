@@ -22,7 +22,7 @@ namespace SFA.DAS.Data.Infrastructure.Data
                 return await c.QuerySingleAsync<long>(
                     sql: "SELECT LastProcessedEventId FROM [Data_Load].[DAS_LoadedEvents] WHERE EventFeed = @eventFeed",
                     param: parameters,
-                    commandType: CommandType.StoredProcedure);
+                    commandType: CommandType.Text);
             });
 
             return result;
