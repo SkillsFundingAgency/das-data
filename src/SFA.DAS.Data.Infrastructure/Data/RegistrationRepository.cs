@@ -18,7 +18,7 @@ namespace SFA.DAS.Data.Infrastructure.Data
             {
                 var parameters = new DynamicParameters();
                 parameters.Add("@dasAccountName", registration.DasAccountName, DbType.String);
-                parameters.Add("@dasRegistered", registration.DateRegistered, DbType.DateTime);
+                parameters.Add("@dateRegistered", registration.DateRegistered, DbType.DateTime);
                 parameters.Add("@legalEntityRegisteredAddress", registration.OrganisationRegisteredAddress, DbType.String);
                 parameters.Add("@legalEntitySource", registration.OrganisationSource, DbType.String);
                 parameters.Add("@legalEntityStatus", registration.OrganisationStatus, DbType.String);
@@ -30,8 +30,8 @@ namespace SFA.DAS.Data.Infrastructure.Data
                 parameters.Add("@legalEntityNumber", 0, DbType.Int32);
 
                 return await c.ExecuteAsync(
-                    sql: "INSERT INTO [Data_Load].[DAS_Employer_Registrations] ([DasAccountName],[DasRegistered],[LegalEntityRegisteredAddress],[LegalEntitySource],[LegalEntityStatus],[LegalEntityName], [LegalEntityCreatedDate], [OwnerEmail], [DasAccountId], [LegalEntityId], [LegalEntityNumber]) " +
-                         "VALUES (@dasAccountName, @dasRegistered, @legalEntityRegisteredAddress, @legalEntitySource, @legalEntityStatus, @legalEntityName, @legalEntityCreatedDate, @ownerEmail, @dasAccountId, @legalEntityId, @legalEntityNumber)",
+                    sql: "INSERT INTO [Data_Load].[DAS_Employer_Registrations] ([DasAccountName],[DateRegistered],[LegalEntityRegisteredAddress],[LegalEntitySource],[LegalEntityStatus],[LegalEntityName], [LegalEntityCreatedDate], [OwnerEmail], [DasAccountId], [LegalEntityId], [LegalEntityNumber]) " +
+                         "VALUES (@dasAccountName, @dateRegistered, @legalEntityRegisteredAddress, @legalEntitySource, @legalEntityStatus, @legalEntityName, @legalEntityCreatedDate, @ownerEmail, @dasAccountId, @legalEntityId, @legalEntityNumber)",
                     param: parameters,
                     commandType: CommandType.Text);
             });

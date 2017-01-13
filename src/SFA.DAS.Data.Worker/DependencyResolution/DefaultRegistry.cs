@@ -11,9 +11,6 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
 {
     public class DefaultRegistry : Registry
     {
-        private const string ServiceName = "SFA.DAS.Data";
-        private const string Version = "1.0";
-
         public DefaultRegistry()
         {
 
