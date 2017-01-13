@@ -7,6 +7,12 @@
       <Setting name="DataConnectionString" value="Server=(localdb)\ProjectsV13;Database=SFA.DAS.Data.Database;Integrated Security = true;Trusted_Connection=True;Pooling=False;Connect Timeout=30;MultipleActiveResultSets=True"/>
       <Setting name="EventsApiBaseUrl" value="https://at-events.apprenticeships.sfa.bis.gov.uk/" />
       <Setting name="EventsApiClientToken" value="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRhIjoiUmVhZEFjY291bnRFdmVudCIsImlzcyI6Imh0dHA6Ly9kYXMtYXQtZXZ0LWNzIiwiYXVkIjoiaHR0cDovL2Rhcy1hdC1kYXRhLWNzIiwiZXhwIjoxNDg2ODkyNzAyLCJuYmYiOjE0ODQzMDA3MDJ9.miwbG7B1nuKDa8QfrZL6e3hIJODdUWcff78clgoTRsQ" />
+
+      <Setting name="AccountsApiBaseUrl" value="https://at-accounts.apprenticeships.sfa.bis.gov.uk" />
+      <Setting name="AccountsApiClientId" value="58a3a7b2-bae2-4333-8a79-8f39720b2a6e" />
+      <Setting name="AccountsApiClientSecret" value="7PrJ57WnGwHog6N7SanpXduDGdTrN/redY/22iKEulE=" />
+      <Setting name="AccountsApiIdentifierUri" value="https://citizenazuresfabisgov.onmicrosoft.com/eas-api" />
+      <Setting name="AccountsApiTenant" value="citizenazuresfabisgov.onmicrosoft.com" />
     </ConfigurationSettings>
   </Role>
 </ServiceConfiguration>

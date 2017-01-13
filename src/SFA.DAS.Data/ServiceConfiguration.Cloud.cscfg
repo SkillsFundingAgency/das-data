@@ -7,6 +7,12 @@
       <Setting name="DataConnectionString" value="__DataConnectionString__"/>
       <Setting name="EventsApiBaseUrl" value="__EventsApiBaseUrl__" />
       <Setting name="EventsApiClientToken" value="__EventsApiClientToken__" />
+
+      <Setting name="AccountsApiBaseUrl" value="__AccountsApiBaseUrl__" />
+      <Setting name="AccountsApiClientId" value="__AccountsApiClientId__" />
+      <Setting name="AccountsApiClientSecret" value="__AccountsApiClientSecret__" />
+      <Setting name="AccountsApiIdentifierUri" value="__AccountsApiIdentifierUri__" />
+      <Setting name="AccountsApiTenant" value="__AccountsApiTenant__" />
     </ConfigurationSettings>
   </Role>
 </ServiceConfiguration>

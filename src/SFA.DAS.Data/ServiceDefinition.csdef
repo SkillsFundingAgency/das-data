@@ -6,6 +6,12 @@
       <Setting name="DataConnectionString" />
       <Setting name="EventsApiBaseUrl" />
       <Setting name="EventsApiClientToken" />
+
+      <Setting name="AccountsApiBaseUrl" />
+      <Setting name="AccountsApiClientId" />
+      <Setting name="AccountsApiClientSecret" />
+      <Setting name="AccountsApiIdentifierUri" />
+      <Setting name="AccountsApiTenant" />
     </ConfigurationSettings>
   </WorkerRole>
 </ServiceDefinition>

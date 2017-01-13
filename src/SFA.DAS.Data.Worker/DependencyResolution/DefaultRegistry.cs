@@ -2,6 +2,7 @@
 using SFA.DAS.Data.Application.Configuration;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.Data.Infrastructure.Data;
+using SFA.DAS.EAS.Account.Api.Client;
 using SFA.DAS.Events.Api.Client;
 using SFA.DAS.Events.Api.Client.Configuration;
 using StructureMap;
@@ -33,6 +34,8 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
         private void RegisterApis(DataConfiguration config)
         {
             For<IEventsApi>().Use<EventsApi>().Ctor<IEventsApiClientConfiguration>().Is(config.EventsApi);
+
+            For<IAccountApiClient>().Use<AccountApiClient>().Ctor<AccountApiConfiguration>().Is(config.AccountsApi);
         }
 
         private void RegisterRepositories(string connectionString)
