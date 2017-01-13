@@ -37,14 +37,6 @@
     <ServiceConfiguration Include="ServiceConfiguration.Cloud.cscfg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SFA.DAS.Data.Bus\SFA.DAS.Data.Bus.csproj">
-      <Name>SFA.DAS.Data.Bus</Name>
-      <Project>{5bd7deda-daad-4d8c-ab8f-a0f3d4e9eb82}</Project>
-      <Private>True</Private>
-      <RoleType>Worker</RoleType>
-      <RoleName>SFA.DAS.Data.Bus</RoleName>
-      <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
-    </ProjectReference>
     <ProjectReference Include="..\SFA.DAS.Data.Worker\SFA.DAS.Data.Worker.csproj">
       <Name>SFA.DAS.Data.Worker</Name>
       <Project>{4ec2ea06-3477-4f22-98b4-70dc29fc67a8}</Project>
