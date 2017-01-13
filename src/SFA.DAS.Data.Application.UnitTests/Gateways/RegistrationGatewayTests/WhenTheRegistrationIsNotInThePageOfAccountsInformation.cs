@@ -18,12 +18,12 @@ namespace SFA.DAS.Data.Application.UnitTests.Gateways.RegistrationGatewayTests
 
             var accountInformationListPage1 = GenerateAccountList(10);
             var accountInformationResponsePage1 = CreateGetPageOfAccountInformationResponse(accountInformationListPage1, 1, 3);
-            AccountApiClient.Setup(x => x.GetPageOfAccountInformation(DateTime.MinValue, DateTime.MaxValue, 1, 1000)).ReturnsAsync(accountInformationResponsePage1);
+            AccountApiClient.Setup(x => x.GetPageOfAccountInformation(DateTime.Now.AddYears(-1).Date, It.IsAny<DateTime>(), 1, 1000)).ReturnsAsync(accountInformationResponsePage1);
 
             var accountInformationListPage2 = GenerateAccountList(8);
             accountInformationListPage2.InsertRange(4, expectedAccountInformation);
             var accountInformationResponsePage2 = CreateGetPageOfAccountInformationResponse(accountInformationListPage2, 2, 3);
-            AccountApiClient.Setup(x => x.GetPageOfAccountInformation(DateTime.MinValue, DateTime.MaxValue, 2, 1000)).ReturnsAsync(accountInformationResponsePage2);
+            AccountApiClient.Setup(x => x.GetPageOfAccountInformation(DateTime.Now.AddYears(-1).Date, It.IsAny<DateTime>(), 2, 1000)).ReturnsAsync(accountInformationResponsePage2);
 
             var result = await RegistrationGateway.GetRegistration(dasAccountId);
 
@@ -38,15 +38,15 @@ namespace SFA.DAS.Data.Application.UnitTests.Gateways.RegistrationGatewayTests
 
             var accountInformationListPage1 = GenerateAccountList(10);
             var accountInformationResponsePage1 = CreateGetPageOfAccountInformationResponse(accountInformationListPage1, 1, 3);
-            AccountApiClient.Setup(x => x.GetPageOfAccountInformation(DateTime.MinValue, DateTime.MaxValue, 1, 1000)).ReturnsAsync(accountInformationResponsePage1);
+            AccountApiClient.Setup(x => x.GetPageOfAccountInformation(DateTime.Now.AddYears(-1).Date, It.IsAny<DateTime>(), 1, 1000)).ReturnsAsync(accountInformationResponsePage1);
 
             var accountInformationListPage2 = GenerateAccountList(10);
             var accountInformationResponsePage2 = CreateGetPageOfAccountInformationResponse(accountInformationListPage2, 2, 3);
-            AccountApiClient.Setup(x => x.GetPageOfAccountInformation(DateTime.MinValue, DateTime.MaxValue, 2, 1000)).ReturnsAsync(accountInformationResponsePage2);
+            AccountApiClient.Setup(x => x.GetPageOfAccountInformation(DateTime.Now.AddYears(-1).Date, It.IsAny<DateTime>(), 2, 1000)).ReturnsAsync(accountInformationResponsePage2);
 
             var accountInformationListPage3 = GenerateAccountList(10);
             var accountInformationResponsePage3 = CreateGetPageOfAccountInformationResponse(accountInformationListPage3, 3, 3);
-            AccountApiClient.Setup(x => x.GetPageOfAccountInformation(DateTime.MinValue, DateTime.MaxValue, 3, 1000)).ReturnsAsync(accountInformationResponsePage3);
+            AccountApiClient.Setup(x => x.GetPageOfAccountInformation(DateTime.Now.AddYears(-1).Date, It.IsAny<DateTime>(), 3, 1000)).ReturnsAsync(accountInformationResponsePage3);
 
             var result = await RegistrationGateway.GetRegistration(dasAccountId);
 
