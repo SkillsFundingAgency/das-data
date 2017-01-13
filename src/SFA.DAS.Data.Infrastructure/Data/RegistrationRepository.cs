@@ -1,7 +1,6 @@
 ﻿using System.Data;
 using System.Threading.Tasks;
 using Dapper;
-using SFA.DAS.Data.Application.Interfaces;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.EAS.Account.Api.Client.Dtos;
 
@@ -9,6 +8,10 @@ namespace SFA.DAS.Data.Infrastructure.Data
 {
     public class RegistrationRepository : BaseRepository, IRegistrationRepository 
     {
+        public RegistrationRepository(string connectionString) : base(connectionString)
+        {
+        }
+
         public async Task SaveRegistration(AccountInformationViewModel registration)
         {
             await WithConnection(async c =>

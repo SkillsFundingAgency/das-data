@@ -106,6 +106,10 @@
       <Project>{E2794B6D-456B-4FD2-8694-CCFB141F5A02}</Project>
       <Name>SFA.DAS.Data.Application</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SFA.DAS.Data.Infrastructure\SFA.DAS.Data.Infrastructure.csproj">
+      <Project>{1634D299-63E6-45DC-B161-AD8BDBDB0C40}</Project>
+      <Name>SFA.DAS.Data.Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

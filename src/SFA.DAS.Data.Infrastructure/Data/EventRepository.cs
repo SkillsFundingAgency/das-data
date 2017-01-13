@@ -6,8 +6,12 @@ using SFA.DAS.Data.Application.Interfaces.Repositories;
 
 namespace SFA.DAS.Data.Infrastructure.Data
 {
-    public class EventsRepository : BaseRepository, IEventRepository
+    public class EventRepository : BaseRepository, IEventRepository
     {
+        public EventRepository(string connectionString) : base(connectionString)
+        {
+        }
+
         public async Task<long> GetLastProcessedEventId(string eventFeed)
         {
             var result = await WithConnection(async c =>

@@ -2,7 +2,6 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
-using Microsoft.Azure;
 
 namespace SFA.DAS.Data.Infrastructure.Data
 {
@@ -10,9 +9,9 @@ namespace SFA.DAS.Data.Infrastructure.Data
     {
         private readonly string _connectionString;
 
-        protected BaseRepository()
+        protected BaseRepository(string connectionString)
         {
-            _connectionString = CloudConfigurationManager.GetSetting("DataConnectionString");
+            _connectionString = connectionString;
         }
 
         protected async Task<T> WithConnection<T>(Func<IDbConnection, Task<T>> getData)
