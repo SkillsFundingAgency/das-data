@@ -17,6 +17,7 @@
       <Setting name="LoggingRedisConnectionString" value=""/>
       <Setting name="LoggingRedisKey" value=""/>
       <Setting name="InstrumentationKey" value="" />
+      <Setting name="EnvironmentName" value="LOCAL" />
     </ConfigurationSettings>
   </Role>
 </ServiceConfiguration>
