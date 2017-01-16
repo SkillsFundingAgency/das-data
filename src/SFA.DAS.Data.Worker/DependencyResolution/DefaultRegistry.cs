@@ -5,6 +5,7 @@ using SFA.DAS.Data.Infrastructure.Data;
 using SFA.DAS.EAS.Account.Api.Client;
 using SFA.DAS.Events.Api.Client;
 using SFA.DAS.Events.Api.Client.Configuration;
+using SFA.DAS.NLog.Logger;
 using StructureMap;
 
 namespace SFA.DAS.Data.Worker.DependencyResolution
@@ -26,6 +27,8 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             RegisterApis(config);
 
             AddMediatrRegistrations();
+
+            ConfigureLogging();
         }
 
         private void RegisterApis(DataConfiguration config)
@@ -52,6 +55,11 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
         private DataConfiguration GetConfiguration()
         {
             return new DataConfiguration();
+        }
+
+        private void ConfigureLogging()
+        {
+            For<ILog>().Use(x => new NLogLogger(x.ParentType, null)).AlwaysUnique();
         }
     }
 }

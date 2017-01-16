@@ -12,6 +12,10 @@
       <Setting name="AccountsApiClientSecret" />
       <Setting name="AccountsApiIdentifierUri" />
       <Setting name="AccountsApiTenant" />
+
+      <Setting name="LoggingRedisConnectionString"/>
+      <Setting name="LoggingRedisKey"/>
+      <Setting name="InstrumentationKey" />
     </ConfigurationSettings>
   </WorkerRole>
 </ServiceDefinition>

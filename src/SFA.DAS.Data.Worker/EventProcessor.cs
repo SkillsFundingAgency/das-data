@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
@@ -6,6 +7,7 @@ using SFA.DAS.Data.Application.Commands.CreateRegistration;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.Events.Api.Client;
 using SFA.DAS.Events.Api.Types;
+using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Worker
 {
@@ -16,26 +18,36 @@ namespace SFA.DAS.Data.Worker
         private readonly IEventRepository _eventRepository;
         private readonly IEventsApi _eventsApi;
         private readonly IMediator _mediator;
+        private readonly ILog _logger;
 
-        public EventProcessor(IEventRepository eventRepository, IEventsApi eventsApi, IMediator mediator)
+        public EventProcessor(IEventRepository eventRepository, IEventsApi eventsApi, IMediator mediator, ILog logger)
         {
             _eventRepository = eventRepository;
             _eventsApi = eventsApi;
             _mediator = mediator;
+            _logger = logger;
         }
 
         public async Task ProcessEvents()
         {
-            var events = await GetEvents();
-
-            if (NoEventsToProcess(events))
+            try
             {
-                return;
+                var events = await GetEvents();
+
+                if (NoEventsToProcess(events))
+                {
+                    _logger.Info("No events to process.");
+                    return;
+                }
+
+                await CreateRegistrationsFromEvent(events);
+
+                await UpdateLastEventId(events);
             }
-
-            await CreateRegistrationsFromEvent(events);
-
-            await UpdateLastEventId(events);
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Unexcepted exception when processing events.");
+            }
         }
 
         private async Task UpdateLastEventId(IEnumerable<AccountEventView> events)
@@ -49,6 +61,7 @@ namespace SFA.DAS.Data.Worker
             foreach (var @event in events)
             {
                 await _mediator.SendAsync(new CreateRegistrationCommand {DasAccountId = @event.EmployerAccountId});
+                _logger.Info($"Event {@event.Id} processed");
             }
         }
 

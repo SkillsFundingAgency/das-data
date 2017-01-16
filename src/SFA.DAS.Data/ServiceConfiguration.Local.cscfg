@@ -13,6 +13,10 @@
       <Setting name="AccountsApiClientSecret" value="2FL+Gz+ULP9HpsnPP3caTgllmOfj2WfSlVx00j4TN/Q=" />
       <Setting name="AccountsApiIdentifierUri" value="https://citizenazuresfabisgov.onmicrosoft.com/eas-api" />
       <Setting name="AccountsApiTenant" value="citizenazuresfabisgov.onmicrosoft.com" />
+    
+      <Setting name="LoggingRedisConnectionString" value=""/>
+      <Setting name="LoggingRedisKey" value=""/>
+      <Setting name="InstrumentationKey" value="" />
     </ConfigurationSettings>
   </Role>
 </ServiceConfiguration>
