@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Threading.Tasks;
 using Dapper;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
@@ -23,7 +24,7 @@ namespace SFA.DAS.Data.Infrastructure.Data
                 parameters.Add("@legalEntitySource", registration.OrganisationSource, DbType.String);
                 parameters.Add("@legalEntityStatus", registration.OrganisationStatus, DbType.String);
                 parameters.Add("@legalEntityName", registration.OrganisationName, DbType.String);
-                parameters.Add("@legalEntityCreatedDate", registration.OrgansiationCreatedDate, DbType.DateTime);
+                parameters.Add("@legalEntityCreatedDate", registration.OrgansiationCreatedDate == DateTime.MinValue ? (DateTime?)null : registration.OrgansiationCreatedDate, DbType.DateTime);
                 parameters.Add("@ownerEmail", registration.OwnerEmail, DbType.String);
                 parameters.Add("@dasAccountId", registration.DasAccountId, DbType.String);
                 parameters.Add("@legalEntityId", 0, DbType.Int32);
