@@ -5,7 +5,7 @@ using SFA.DAS.Data.Application.Interfaces.Repositories;
 
 namespace SFA.DAS.Data.Application.Commands.CreateRegistration
 {
-    public class CreateRegistrationCommandHandler : AsyncRequestHandler<CreateRegistrationCommand>
+    public class CreateRegistrationCommandHandler : IAsyncNotificationHandler<CreateRegistrationCommand>
     {
         private readonly IRegistrationRepository _registrationRepository;
         private readonly IRegistrationGateway _registrationGateway;
@@ -16,9 +16,9 @@ namespace SFA.DAS.Data.Application.Commands.CreateRegistration
             _registrationGateway = registrationGateway;
         }
 
-        protected override async Task HandleCore(CreateRegistrationCommand message)
+        public async Task Handle(CreateRegistrationCommand notification)
         {
-            var registrations = await _registrationGateway.GetRegistration(message.DasAccountId);
+            var registrations = await _registrationGateway.GetRegistration(notification.DasAccountId);
             foreach (var registration in registrations)
             {
                 await _registrationRepository.SaveRegistration(registration);

@@ -26,7 +26,7 @@ namespace SFA.DAS.Data.Worker.UnitTests.EventProcessorTests
 
             EventsApi.Setup(x => x.GetAccountEventsById(CurrentEventId + 1, 1000, 1)).ReturnsAsync(expectedEvents);
             var expectedException = new Exception();
-            Mediator.Setup(x => x.SendAsync(It.Is<CreateRegistrationCommand>(c => c.DasAccountId == failedDasAccountId))).ThrowsAsync(expectedException);
+            Mediator.Setup(x => x.PublishAsync(It.Is<CreateRegistrationCommand>(c => c.DasAccountId == failedDasAccountId))).Throws(expectedException);
 
             await EventProcessor.ProcessEvents();
 

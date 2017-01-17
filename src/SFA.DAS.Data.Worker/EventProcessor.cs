@@ -62,7 +62,7 @@ namespace SFA.DAS.Data.Worker
             {
                 try
                 {
-                    await _mediator.SendAsync(new CreateRegistrationCommand {DasAccountId = @event.EmployerAccountId});
+                    await _mediator.PublishAsync(new CreateRegistrationCommand {DasAccountId = @event.EmployerAccountId});
                     _logger.Info($"Event {@event.Id} processed");
                 }
                 catch (Exception)
