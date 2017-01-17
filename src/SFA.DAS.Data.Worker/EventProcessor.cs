@@ -65,8 +65,9 @@ namespace SFA.DAS.Data.Worker
                     await _mediator.PublishAsync(new CreateRegistrationCommand {DasAccountId = @event.EmployerAccountId});
                     _logger.Info($"Event {@event.Id} processed");
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    _logger.Error(ex, $"Unexcepted exception when processing event {@event.Id} from event stream {EventStream}.");
                     await _eventRepository.StoreLastProcessedEventId(EventStream, @event.Id - 1);
                     throw;
                 }
