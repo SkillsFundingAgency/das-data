@@ -18,6 +18,8 @@
       <Setting name="LoggingRedisKey" value="__LoggingRedisKey__"/>
       <Setting name="InstrumentationKey" value="__InstrumentationKey__" />
       <Setting name="EnvironmentName" value="__EnvironmentName__" />
+
+      <Setting name="EventFailureTolerance" value="10" />
     </ConfigurationSettings>
   </Role>
 </ServiceConfiguration>

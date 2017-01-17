@@ -7,6 +7,8 @@ namespace SFA.DAS.Data.Application.Configuration
     {
         public string DatabaseConnectionString => CloudConfigurationManager.GetSetting("DataConnectionString");
 
+        public int FailureTolerance => int.Parse(CloudConfigurationManager.GetSetting("EventFailureTolerance"));
+
         public EventsApiClientConfiguration EventsApi => new EventsApiClientConfiguration();
 
         public AccountApiConfiguration AccountsApi => new AccountApiConfiguration

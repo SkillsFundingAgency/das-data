@@ -16,6 +16,7 @@ namespace SFA.DAS.Data.Worker.UnitTests.EventProcessorTests
         protected EventProcessor EventProcessor;
 
         protected const long CurrentEventId = 2345;
+        protected const int FailureTolerance = 3;
 
         [SetUp]
         public void Arrange()
@@ -27,7 +28,7 @@ namespace SFA.DAS.Data.Worker.UnitTests.EventProcessorTests
 
             EventRepository.Setup(x => x.GetLastProcessedEventId("AccountEvents")).ReturnsAsync(CurrentEventId);
 
-            EventProcessor = new EventProcessor(EventRepository.Object, EventsApi.Object, Mediator.Object, Logger.Object);
+            EventProcessor = new EventProcessor(EventRepository.Object, EventsApi.Object, Mediator.Object, Logger.Object, FailureTolerance);
         }
     }
 }

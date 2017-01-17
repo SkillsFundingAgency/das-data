@@ -68,6 +68,7 @@
     <Build Include="Tables\DAS_Employer_Registrations.sql" />
     <Build Include="Views\DAS_Employer_Registrations.sql" />
     <Build Include="Tables\DAS_LoadedEvents.sql" />
+    <Build Include="Tables\DAS_FailedEvents.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SFA.DAS.Data.Database.refactorlog" />
