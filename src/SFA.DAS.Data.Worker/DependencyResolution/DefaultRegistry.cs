@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.WindowsAzure.Storage.File;
 using SFA.DAS.Data.Application.Configuration;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.Data.Infrastructure.Data;
@@ -33,8 +34,8 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
 
         private void RegisterApis(DataConfiguration config)
         {
-            For<IEventsApi>().Use<EventsApi>().Ctor<IEventsApiClientConfiguration>().Is(config.EventsApi);
-
+            For<IEventsApi>().Use(new EventsApi(config.EventsApi));
+            
             For<IAccountApiClient>().Use<AccountApiClient>().Ctor<AccountApiConfiguration>().Is(config.AccountsApi);
         }
 
