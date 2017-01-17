@@ -12,5 +12,6 @@
 	[LegalEntityNumber] NVARCHAR(50) NULL,
 	[OwnerEmail] NVARCHAR(255) NOT NULL,
     [LegalEntityId] INT NULL, 
-	[UpdateDateTime] DATETIME NOT NULL DEFAULT(GETDATE())
+	[UpdateDateTime] DATETIME NOT NULL DEFAULT(GETDATE()), 
+    [PayeSchemeName] NVARCHAR(100) NULL
 )

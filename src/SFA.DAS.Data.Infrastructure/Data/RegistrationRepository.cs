@@ -28,11 +28,12 @@ namespace SFA.DAS.Data.Infrastructure.Data
                 parameters.Add("@ownerEmail", registration.OwnerEmail, DbType.String);
                 parameters.Add("@dasAccountId", registration.DasAccountId, DbType.String);
                 parameters.Add("@legalEntityId", 0, DbType.Int32);
-                parameters.Add("@legalEntityNumber", 0, DbType.Int32);
+                parameters.Add("@legalEntityNumber", registration.OrganisationNumber, DbType.String);
+                parameters.Add("@payeSchemeName", registration.PayeSchemeName, DbType.String);
 
                 return await c.ExecuteAsync(
-                    sql: "INSERT INTO [Data_Load].[DAS_Employer_Registrations] ([DasAccountName],[DateRegistered],[LegalEntityRegisteredAddress],[LegalEntitySource],[LegalEntityStatus],[LegalEntityName], [LegalEntityCreatedDate], [OwnerEmail], [DasAccountId], [LegalEntityId], [LegalEntityNumber]) " +
-                         "VALUES (@dasAccountName, @dateRegistered, @legalEntityRegisteredAddress, @legalEntitySource, @legalEntityStatus, @legalEntityName, @legalEntityCreatedDate, @ownerEmail, @dasAccountId, @legalEntityId, @legalEntityNumber)",
+                    sql: "INSERT INTO [Data_Load].[DAS_Employer_Registrations] ([DasAccountName],[DateRegistered],[LegalEntityRegisteredAddress],[LegalEntitySource],[LegalEntityStatus],[LegalEntityName], [LegalEntityCreatedDate], [OwnerEmail], [DasAccountId], [LegalEntityId], [LegalEntityNumber], [PayeSchemeName]) " +
+                         "VALUES (@dasAccountName, @dateRegistered, @legalEntityRegisteredAddress, @legalEntitySource, @legalEntityStatus, @legalEntityName, @legalEntityCreatedDate, @ownerEmail, @dasAccountId, @legalEntityId, @legalEntityNumber, @payeSchemeName)",
                     param: parameters,
                     commandType: CommandType.Text);
             });

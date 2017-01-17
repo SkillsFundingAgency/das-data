@@ -66,8 +66,8 @@
       <HintPath>..\packages\NUnit.3.5.0\lib\net45\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SFA.DAS.EAS.Account.Api.Client, Version=1.0.0.18933, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.Account.Api.Client.1.0.0.18933\lib\net45\SFA.DAS.EAS.Account.Api.Client.dll</HintPath>
+    <Reference Include="SFA.DAS.EAS.Account.Api.Client, Version=1.0.0.19390, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Account.Api.Client.1.0.0.19390\lib\net45\SFA.DAS.EAS.Account.Api.Client.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
