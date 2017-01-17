@@ -60,8 +60,16 @@ namespace SFA.DAS.Data.Worker
         {
             foreach (var @event in events)
             {
-                await _mediator.SendAsync(new CreateRegistrationCommand {DasAccountId = @event.EmployerAccountId});
-                _logger.Info($"Event {@event.Id} processed");
+                try
+                {
+                    await _mediator.SendAsync(new CreateRegistrationCommand {DasAccountId = @event.EmployerAccountId});
+                    _logger.Info($"Event {@event.Id} processed");
+                }
+                catch (Exception)
+                {
+                    await _eventRepository.StoreLastProcessedEventId(EventStream, @event.Id - 1);
+                    throw;
+                }
             }
         }
 

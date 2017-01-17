@@ -77,8 +77,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EventProcessorTests\EventProcessorTests.cs" />
-    <Compile Include="EventProcessorTests\WhenIProcessEvents.cs" />
     <Compile Include="EventProcessorTests\WhenProcessingAnEventFails.cs" />
+    <Compile Include="EventProcessorTests\WhenIProcessEvents.cs" />
+    <Compile Include="EventProcessorTests\WhenGettingEventsFails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
