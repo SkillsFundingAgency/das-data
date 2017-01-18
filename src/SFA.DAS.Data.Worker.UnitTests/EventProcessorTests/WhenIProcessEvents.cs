@@ -11,7 +11,7 @@ namespace SFA.DAS.Data.Worker.UnitTests.EventProcessorTests
     public class WhenIProcessEvents : EventProcessorTests
     {
         [Test]
-        public async Task AndNoEventsAreReturned()
+        public async Task AndNoEventsAreReturnedThenALogEntryIsCreated()
         {
             EventsApi.Setup(x => x.GetAccountEventsById(CurrentEventId + 1, 1000, 1)).ReturnsAsync(new List<AccountEventView>());
 

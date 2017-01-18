@@ -32,7 +32,7 @@ namespace SFA.DAS.Data.Application.UnitTests.Gateways.RegistrationGatewayTests
         }
 
         [Test]
-        public async Task IfItDoesNotExist()
+        public async Task IfItDoesNotExistThenNoAccountInformationIsReturned()
         {
             var dasAccountId = "2385";
 

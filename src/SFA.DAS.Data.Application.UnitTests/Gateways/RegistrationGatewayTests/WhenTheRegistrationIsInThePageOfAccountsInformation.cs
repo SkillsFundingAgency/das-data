@@ -29,7 +29,7 @@ namespace SFA.DAS.Data.Application.UnitTests.Gateways.RegistrationGatewayTests
         }
 
         [Test]
-        public async Task IfTheAccountInformationSpansMultiplePagesAndThereAreMorePages()
+        public async Task IfTheAccountInformationSpansMultiplePagesAndThereAreMorePagesThenTheAccountInformationIsReturned()
         {
             var dasAccountId = "2385";
             var expectedAccountInformation = CreateExpectedAccountInformation(dasAccountId);
@@ -51,7 +51,7 @@ namespace SFA.DAS.Data.Application.UnitTests.Gateways.RegistrationGatewayTests
         }
 
         [Test]
-        public async Task IfTheAccountInformationSpansMultiplePagesAndThereAreNoMorePages()
+        public async Task IfTheAccountInformationSpansMultiplePagesAndThereAreNoMorePagesThenTheAccountInformationIsReturned()
         {
             var dasAccountId = "2385";
             var expectedAccountInformation = CreateExpectedAccountInformation(dasAccountId);

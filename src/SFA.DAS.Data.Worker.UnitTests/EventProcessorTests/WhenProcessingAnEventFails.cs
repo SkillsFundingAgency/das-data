@@ -13,7 +13,7 @@ namespace SFA.DAS.Data.Worker.UnitTests.EventProcessorTests
     public class WhenProcessingAnEventFails : EventProcessorTests
     {
         [Test]
-        public async Task ThenTheExceptionIsLoggedAndTheLastProcessedEventIsUpdated()
+        public async Task ThenTheExceptionIsLoggedAndTheEventWillBeRetried()
         {
             long failedEventId = 43908;
             var failedDasAccountId = "cfdvklt4";
@@ -38,7 +38,7 @@ namespace SFA.DAS.Data.Worker.UnitTests.EventProcessorTests
         }
 
         [Test]
-        public async Task AndTheEventHasExceededTheFailureThreshold()
+        public async Task AndTheEventHasExceededTheFailureThresholdThenTheEventIsNoLongerRetried()
         {
             long failedEventId = 43908;
             var failedDasAccountId = "cfdvklt4";
