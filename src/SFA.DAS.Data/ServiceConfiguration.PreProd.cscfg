@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ServiceConfiguration serviceName="SFA.DAS.Data" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="4" osVersion="*" schemaVersion="2015-04.2.6">
+  <Role name="SFA.DAS.Data.Worker">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="DataConnectionString" value="__DataConnectionString__"/>
+      <Setting name="EventsApiBaseUrl" value="__EventsApiBaseUrl__" />
+      <Setting name="EventsApiClientToken" value="__EventsApiClientToken__" />
+
+      <Setting name="AccountsApiBaseUrl" value="__AccountsApiBaseUrl__" />
+      <Setting name="AccountsApiClientId" value="__AccountsApiClientId__" />
+      <Setting name="AccountsApiClientSecret" value="__AccountsApiClientSecret__" />
+      <Setting name="AccountsApiIdentifierUri" value="__AccountsApiIdentifierUri__" />
+      <Setting name="AccountsApiTenant" value="__AccountsApiTenant__" />
+
+      <Setting name="LoggingRedisConnectionString" value="__LoggingRedisConnectionString__"/>
+      <Setting name="LoggingRedisKey" value="__LoggingRedisKey__"/>
+      <Setting name="InstrumentationKey" value="__InstrumentationKey__" />
+      <Setting name="EnvironmentName" value="__EnvironmentName__" />
+
+      <Setting name="EventFailureTolerance" value="10" />
+    </ConfigurationSettings>
+  </Role>
+  <NetworkConfiguration>
+    <VirtualNetworkSite name="__vnet__" />
+    <AddressAssignments>
+      <InstanceAddress roleName="SFA.DAS.Data.Worker">
+        <Subnets>
+          <Subnet name="__subnet__" />
+        </Subnets>
+      </InstanceAddress>
+    </AddressAssignments>
+    <LoadBalancers>
+      <LoadBalancer name="__ilbname__">
+        <FrontendIPConfiguration type="private" subnet="__subnet__" staticVirtualNetworkIPAddress="10.78.124.20" />
+      </LoadBalancer>
+    </LoadBalancers>
+  </NetworkConfiguration>
+</ServiceConfiguration>
