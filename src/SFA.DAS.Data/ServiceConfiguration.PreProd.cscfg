@@ -31,10 +31,5 @@
         </Subnets>
       </InstanceAddress>
     </AddressAssignments>
-    <LoadBalancers>
-      <LoadBalancer name="__ilbname__">
-        <FrontendIPConfiguration type="private" subnet="__subnet__" staticVirtualNetworkIPAddress="10.78.124.20" />
-      </LoadBalancer>
-    </LoadBalancers>
   </NetworkConfiguration>
 </ServiceConfiguration>
