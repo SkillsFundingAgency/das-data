@@ -375,7 +375,7 @@ Target "Run NUnit Tests" (fun _ ->
                 })
 )
 
-Target "Cleaning Integration Tests" (fun _ ->
+Target "Cleaning Acceptance Tests" (fun _ ->
 
     trace "Cleaning Acceptance Tests"
     !! (".\**\*.AcceptanceTests.csproj")
@@ -384,9 +384,9 @@ Target "Cleaning Integration Tests" (fun _ ->
 
 )
 
-Target "Building Integration Tests" (fun _ ->
+Target "Building Acceptance Tests" (fun _ ->
 
-    trace "Building Integration Tests"
+    trace "Building Acceptance Tests"
     !! (".\**\*.AcceptanceTests.csproj")
       |> myBuildConfig "" "Rebuild"
       |> Log "AppBuild-Output: "
@@ -540,8 +540,8 @@ Target "Create Nuget Package" (fun _ ->
 "Set version number"
    ==>"Set Solution Name"
     ==>"Build Acceptance Solution"
-    ==>"Cleaning Integration Tests"
-    ==>"Building Integration Tests"
+    ==>"Cleaning Acceptance Tests"
+    ==>"Building Acceptance Tests"
     //==>"Run Acceptance Tests"
 
 "Set version number"

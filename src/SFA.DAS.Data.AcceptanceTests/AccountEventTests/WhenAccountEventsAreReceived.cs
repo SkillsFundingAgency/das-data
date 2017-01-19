@@ -4,14 +4,14 @@ using System.Configuration;
 using System.Threading;
 using System.Threading.Tasks;
 using NUnit.Framework;
-using SFA.DAS.Data.IntegrationTests.ApiSubstitute;
-using SFA.DAS.Data.IntegrationTests.Data;
+using SFA.DAS.Data.AcceptanceTests.ApiSubstitute;
+using SFA.DAS.Data.AcceptanceTests.Data;
 using SFA.DAS.Data.Tests.Builders;
 using SFA.DAS.Data.Worker;
 using SFA.DAS.EAS.Account.Api.Client.Dtos;
 using SFA.DAS.Events.Api.Types;
 
-namespace SFA.DAS.Data.IntegrationTests.AccountEventTests
+namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
 {
     [TestFixture]
     public class WhenAccountEventsAreReceived

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Dapper;
 using SFA.DAS.Data.Infrastructure.Data;
 
-namespace SFA.DAS.Data.IntegrationTests.Data
+namespace SFA.DAS.Data.AcceptanceTests.Data
 {
     public class EventTestsRepository
     {

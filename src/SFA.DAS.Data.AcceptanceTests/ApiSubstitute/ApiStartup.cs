@@ -1,7 +1,7 @@
 ﻿using System.Web.Http;
 using Owin;
 
-namespace SFA.DAS.Data.IntegrationTests.ApiSubstitute
+namespace SFA.DAS.Data.AcceptanceTests.ApiSubstitute
 {
     public class ApiStartup
     {

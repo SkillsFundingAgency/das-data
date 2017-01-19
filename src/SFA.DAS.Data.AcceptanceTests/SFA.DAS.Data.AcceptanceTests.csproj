@@ -7,8 +7,8 @@
     <ProjectGuid>{2FB7D98B-ACA6-4F8B-8B5C-EDF48778860A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SFA.DAS.Data.IntegrationTests</RootNamespace>
-    <AssemblyName>SFA.DAS.Data.IntegrationTests</AssemblyName>
+    <RootNamespace>SFA.DAS.Data.AcceptanceTests</RootNamespace>
+    <AssemblyName>SFA.DAS.Data.AcceptanceTests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

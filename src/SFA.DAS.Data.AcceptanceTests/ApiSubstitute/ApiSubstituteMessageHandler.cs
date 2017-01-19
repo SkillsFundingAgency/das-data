@@ -4,7 +4,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SFA.DAS.Data.IntegrationTests.ApiSubstitute
+namespace SFA.DAS.Data.AcceptanceTests.ApiSubstitute
 {
     public class ApiSubstituteMessageHandler : DelegatingHandler
     {
