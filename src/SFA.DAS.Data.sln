@@ -26,7 +26,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Data.Worker", "SFA.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Data.Worker.UnitTests", "SFA.DAS.Data.Worker.UnitTests\SFA.DAS.Data.Worker.UnitTests.csproj", "{677DDD47-E2DD-482F-9804-7B5BC61BE7B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Data.IntegrationTests", "SFA.DAS.Data.IntegrationTests\SFA.DAS.Data.IntegrationTests.csproj", "{2FB7D98B-ACA6-4F8B-8B5C-EDF48778860A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Data.AcceptanceTests", "SFA.DAS.Data.AcceptanceTests\SFA.DAS.Data.AcceptanceTests.csproj", "{2FB7D98B-ACA6-4F8B-8B5C-EDF48778860A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Data.Tests.Builders", "SFA.DAS.Data.Tests.Builders\SFA.DAS.Data.Tests.Builders.csproj", "{D25D12F9-952C-484F-8E23-CA4F207FEC79}"
 EndProject
