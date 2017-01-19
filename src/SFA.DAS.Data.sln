@@ -26,6 +26,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Data.Worker", "SFA.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Data.Worker.UnitTests", "SFA.DAS.Data.Worker.UnitTests\SFA.DAS.Data.Worker.UnitTests.csproj", "{677DDD47-E2DD-482F-9804-7B5BC61BE7B8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Data.AcceptanceTests", "SFA.DAS.Data.AcceptanceTests\SFA.DAS.Data.AcceptanceTests.csproj", "{2FB7D98B-ACA6-4F8B-8B5C-EDF48778860A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Data.Tests.Builders", "SFA.DAS.Data.Tests.Builders\SFA.DAS.Data.Tests.Builders.csproj", "{D25D12F9-952C-484F-8E23-CA4F207FEC79}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,6 +66,14 @@ Global
 		{677DDD47-E2DD-482F-9804-7B5BC61BE7B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{677DDD47-E2DD-482F-9804-7B5BC61BE7B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{677DDD47-E2DD-482F-9804-7B5BC61BE7B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FB7D98B-ACA6-4F8B-8B5C-EDF48778860A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FB7D98B-ACA6-4F8B-8B5C-EDF48778860A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FB7D98B-ACA6-4F8B-8B5C-EDF48778860A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FB7D98B-ACA6-4F8B-8B5C-EDF48778860A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D25D12F9-952C-484F-8E23-CA4F207FEC79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D25D12F9-952C-484F-8E23-CA4F207FEC79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D25D12F9-952C-484F-8E23-CA4F207FEC79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D25D12F9-952C-484F-8E23-CA4F207FEC79}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -69,5 +81,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{3A94F38B-7B28-4F77-B448-A643DA30EF69} = {FA405FFF-76C8-4D29-A6C1-FE0A3670A249}
 		{677DDD47-E2DD-482F-9804-7B5BC61BE7B8} = {FA405FFF-76C8-4D29-A6C1-FE0A3670A249}
+		{2FB7D98B-ACA6-4F8B-8B5C-EDF48778860A} = {FA405FFF-76C8-4D29-A6C1-FE0A3670A249}
+		{D25D12F9-952C-484F-8E23-CA4F207FEC79} = {FA405FFF-76C8-4D29-A6C1-FE0A3670A249}
 	EndGlobalSection
 EndGlobal

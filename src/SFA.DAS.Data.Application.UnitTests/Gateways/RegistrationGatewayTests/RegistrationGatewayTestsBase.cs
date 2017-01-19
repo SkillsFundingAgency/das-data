@@ -2,7 +2,7 @@
 using Moq;
 using NUnit.Framework;
 using SFA.DAS.Data.Application.Gateways;
-using SFA.DAS.Data.Application.UnitTests.Builders;
+using SFA.DAS.Data.Tests.Builders;
 using SFA.DAS.EAS.Account.Api.Client;
 using SFA.DAS.EAS.Account.Api.Client.Dtos;
 
