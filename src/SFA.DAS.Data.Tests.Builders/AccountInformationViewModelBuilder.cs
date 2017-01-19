@@ -1,7 +1,7 @@
 ﻿using System;
 using SFA.DAS.EAS.Account.Api.Client.Dtos;
 
-namespace SFA.DAS.Data.Application.UnitTests.Builders
+namespace SFA.DAS.Data.Tests.Builders
 {
     public class AccountInformationViewModelBuilder
     {
@@ -14,7 +14,9 @@ namespace SFA.DAS.Data.Application.UnitTests.Builders
         private DateTime _organsiationCreatedDate = DateTime.Now.AddYears(-1);
         private string _organisationSource = "Companies House";
         private string _organisationRegisteredAddress = "Some Street, Some Town";
-        
+        private string _organisationNumber = "ORGNO";
+        private string _payeSchemeName = "PAYESCHEME";
+
         public AccountInformationViewModelBuilder WithDasAccountId(string dasAccountId)
         {
             _dasAccountId = dasAccountId;
@@ -33,7 +35,9 @@ namespace SFA.DAS.Data.Application.UnitTests.Builders
                 OrganisationName = _organisationName,
                 OrgansiationCreatedDate = _organsiationCreatedDate,
                 OrganisationSource = _organisationSource,
-                OrganisationRegisteredAddress = _organisationRegisteredAddress
+                OrganisationRegisteredAddress = _organisationRegisteredAddress,
+                OrganisationNumber = _organisationNumber,
+                PayeSchemeName = _payeSchemeName
             };
         }
     }
