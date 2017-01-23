@@ -15,6 +15,7 @@ namespace SFA.DAS.Data.Tests.Builders
         private string _organisationSource = "Companies House";
         private string _organisationRegisteredAddress = "Some Street, Some Town";
         private string _organisationNumber = "ORGNO";
+        private long _organisationId = 83475;
         private string _payeSchemeName = "PAYESCHEME";
 
         public AccountInformationViewModelBuilder WithDasAccountId(string dasAccountId)
@@ -37,7 +38,8 @@ namespace SFA.DAS.Data.Tests.Builders
                 OrganisationSource = _organisationSource,
                 OrganisationRegisteredAddress = _organisationRegisteredAddress,
                 OrganisationNumber = _organisationNumber,
-                PayeSchemeName = _payeSchemeName
+                OrganisationId = _organisationId,
+                PayeSchemeName = _payeSchemeName,
             };
         }
     }

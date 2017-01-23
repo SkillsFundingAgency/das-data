@@ -27,7 +27,7 @@ namespace SFA.DAS.Data.Infrastructure.Data
                 parameters.Add("@legalEntityCreatedDate", registration.OrgansiationCreatedDate == DateTime.MinValue ? (DateTime?)null : registration.OrgansiationCreatedDate, DbType.DateTime);
                 parameters.Add("@ownerEmail", registration.OwnerEmail, DbType.String);
                 parameters.Add("@dasAccountId", registration.DasAccountId, DbType.String);
-                parameters.Add("@legalEntityId", 0, DbType.Int32);
+                parameters.Add("@legalEntityId", registration.OrganisationId, DbType.Int32);
                 parameters.Add("@legalEntityNumber", registration.OrganisationNumber, DbType.String);
                 parameters.Add("@payeSchemeName", registration.PayeSchemeName, DbType.String);
 
