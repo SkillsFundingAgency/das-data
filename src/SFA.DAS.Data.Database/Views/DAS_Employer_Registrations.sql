@@ -5,7 +5,7 @@ AS
           , [A].[DasAccountName]
           , CONVERT(DATE,[A].[DateRegistered]) AS [DateRegistered]
 		  , [A].[DateRegistered] AS [DateTimeRegistered]
-		  , COALESCE(C.LegalEnityID, [A].[Id]) AS LegalEntityID
+		  , [A].[LegalEntityID] AS [LegalEntityId]
 		  , [A].[LegalEntityName]
           , [A].[LegalEntityRegisteredAddress]
           , [A].[LegalEntitySource]
@@ -64,32 +64,3 @@ AS
      ) AS B ON A.DASAccountID = B.DASAccountID
                AND A.LegalEntityName = B.LegalEntityName
                AND A.UpdateDateTime = B.Max_UpdateDateTime
-    LEFT JOIN (
-
-SELECT UniqueLegalEntitID, Row_number() OVER(ORDER BY UniqueLegalEntitID) AS LegalEnityID
-FROM (
-SELECT
-          UniqueLegalEntitID = CASE WHEN [A].[LegalEntitySource] IN ('Charities','Companies House') THEN
-          (CASE WHEN [A].[LegalEntityNumber] IS NULL OR [A].[LegalEntityNumber] = '0' THEN [A].[LegalEntityName] ELSE CAST([A].[LegalEntityNumber] AS VARCHAR(255)) END)
-                ELSE [A].[LegalEntityName] END
-FROM
-        Data_Load.DAS_Employer_Registrations AS A
-        LEFT JOIN
-     (
-         SELECT [DASAccountID]
-              , [LegalEntityName]
-              , MAX([UpdateDateTime]) AS [Max_UpdateDateTime]
-              , 1 AS [Flag_Latest]
-         FROM
-            Data_Load.DAS_Employer_Registrations
-         GROUP BY [DASAccountID]
-                , [LegalEntityName]
-     ) AS B ON A.DASAccountID = B.DASAccountID
-               AND A.LegalEntityName = B.LegalEntityName
-               AND A.UpdateDateTime = B.Max_UpdateDateTime
-                ) AS C
-GROUP BY UniqueLegalEntitID
-
-) AS C ON CASE WHEN [A].[LegalEntitySource] IN ('Charities','Companies House') THEN
-          (CASE WHEN [A].[LegalEntityNumber] IS NULL OR [A].[LegalEntityNumber] = '0' THEN [A].[LegalEntityName] ELSE CAST([A].[LegalEntityNumber] AS VARCHAR(255)) END)
-                ELSE [A].[LegalEntityName] END = C.UniqueLegalEntitID
