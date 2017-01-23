@@ -48,6 +48,15 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
             return _eventRepository.GetLastProcessedEventId(eventFeed);
         }
 
+        public async Task<int> GetNumberOfRegistrations()
+        {
+            return await WithConnection(async c =>
+                await c.QuerySingleAsync<int>(
+                    sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_Employer_Registrations]",
+                    commandType: CommandType.Text)
+            );
+        }
+
         private async Task<T> WithConnection<T>(Func<IDbConnection, Task<T>> getData)
         {
             using (var connection = new SqlConnection(_connectionString))

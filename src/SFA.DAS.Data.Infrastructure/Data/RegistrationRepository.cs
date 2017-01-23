@@ -32,10 +32,9 @@ namespace SFA.DAS.Data.Infrastructure.Data
                 parameters.Add("@payeSchemeName", registration.PayeSchemeName, DbType.String);
 
                 return await c.ExecuteAsync(
-                    sql: "INSERT INTO [Data_Load].[DAS_Employer_Registrations] ([DasAccountName],[DateRegistered],[LegalEntityRegisteredAddress],[LegalEntitySource],[LegalEntityStatus],[LegalEntityName], [LegalEntityCreatedDate], [OwnerEmail], [DasAccountId], [LegalEntityId], [LegalEntityNumber], [PayeSchemeName]) " +
-                         "VALUES (@dasAccountName, @dateRegistered, @legalEntityRegisteredAddress, @legalEntitySource, @legalEntityStatus, @legalEntityName, @legalEntityCreatedDate, @ownerEmail, @dasAccountId, @legalEntityId, @legalEntityNumber, @payeSchemeName)",
+                    sql: "[Data_Load].[SaveRegistration]",
                     param: parameters,
-                    commandType: CommandType.Text);
+                    commandType: CommandType.StoredProcedure);
             });
         }
     }

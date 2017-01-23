@@ -23,7 +23,7 @@
     <SqlServerVerification>False</SqlServerVerification>
     <IncludeCompositeObjects>True</IncludeCompositeObjects>
     <TargetDatabaseSet>True</TargetDatabaseSet>
-    <DefaultSchema>Data_Pub</DefaultSchema>
+    <DefaultSchema>Data_Load</DefaultSchema>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -62,6 +62,7 @@
     <Folder Include="Tables" />
     <Folder Include="Views" />
     <Folder Include="SeedData" />
+    <Folder Include="StoredProcedures" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Schemas\Data_Load.sql" />
@@ -69,6 +70,7 @@
     <Build Include="Views\DAS_Employer_Registrations.sql" />
     <Build Include="Tables\DAS_LoadedEvents.sql" />
     <Build Include="Tables\DAS_FailedEvents.sql" />
+    <Build Include="StoredProcedures\SaveRegistration.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SFA.DAS.Data.Database.refactorlog" />

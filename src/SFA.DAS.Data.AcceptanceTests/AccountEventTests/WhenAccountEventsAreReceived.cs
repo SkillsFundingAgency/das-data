@@ -32,7 +32,7 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
         [Test]
         public void ThenTheAccountDetailsAreStored()
         {
-            var events = ConfigureAccountsApi();
+            var events = ConfigureEventsApi();
             ConfigureAccountsApi(events);
 
             var cancellationTokenSource = new CancellationTokenSource();
@@ -45,9 +45,14 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
             {
                 var lastProcessedEventId = _eventTestsRepository.GetLastProcessedEventId("AccountEvents");
                 lastProcessedEventId.Wait();
-                if (lastProcessedEventId.Result == 4)
+                if (lastProcessedEventId.Result == 5)
                 {
-                    databaseAsExpected = true;
+                    var numberOfRegistrations = _eventTestsRepository.GetNumberOfRegistrations();
+                    numberOfRegistrations.Wait();
+                    if (numberOfRegistrations.Result == 2)
+                    {
+                        databaseAsExpected = true;
+                    }
                     break;
                 }
                 Thread.Sleep(100);
@@ -78,7 +83,7 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
                 accountsResponse);
         }
 
-        private List<AccountEventView> ConfigureAccountsApi()
+        private List<AccountEventView> ConfigureEventsApi()
         {
             var events = new List<AccountEventView>
             {
@@ -95,6 +100,13 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
                     Id = 4,
                     EmployerAccountId = "ZZZ999",
                     Event = "Account Created"
+                },
+                new AccountEventView
+                {
+                    CreatedOn = DateTime.Now.AddDays(-1),
+                    Id = 5,
+                    EmployerAccountId = "ZZZ999",
+                    Event = "Account Renamed"
                 }
             };
 
