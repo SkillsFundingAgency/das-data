@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using SFA.DAS.Data.Worker.DependencyResolution;
 using StructureMap;
+using Microsoft.ApplicationInsights.Extensibility;
+using Microsoft.Azure;
 
 namespace SFA.DAS.Data.Worker
 {
@@ -32,7 +34,7 @@ namespace SFA.DAS.Data.Worker
         public override bool OnStart()
         {
             ServicePointManager.DefaultConnectionLimit = 12;
-
+            TelemetryConfiguration.Active.InstrumentationKey = CloudConfigurationManager.GetSetting("InstrumentationKey");
             _container = ConfigureIocContainer();
             _eventProcessor = _container.GetInstance<IEventProcessor>();
 
