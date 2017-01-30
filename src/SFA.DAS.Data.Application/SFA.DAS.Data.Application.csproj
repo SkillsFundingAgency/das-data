@@ -50,8 +50,12 @@
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SFA.DAS.EAS.Account.Api.Client, Version=1.0.0.20590, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.Account.Api.Client.1.0.0.20590\lib\net45\SFA.DAS.EAS.Account.Api.Client.dll</HintPath>
+    <Reference Include="SFA.DAS.EAS.Account.Api.Client, Version=1.0.0.21311, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Account.Api.Client.1.0.0.21311\lib\net45\SFA.DAS.EAS.Account.Api.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SFA.DAS.EAS.Account.Api.Types, Version=1.0.0.21311, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Account.Api.Types.1.0.0.21311\lib\net45\SFA.DAS.EAS.Account.Api.Types.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="SFA.DAS.Events.Api.Client, Version=1.11.0.19990, Culture=neutral, processorArchitecture=MSIL">
@@ -72,19 +76,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\CreateRegistration\CreateRegistrationCommand.cs" />
-    <Compile Include="Commands\CreateRegistration\CreateRegistrationCommandHandler.cs" />
+    <Compile Include="Commands\CreateLegalEntity\CreateLegalEntityCommand.cs" />
+    <Compile Include="Commands\CreatePayeScheme\CreatePayeSchemeCommand.cs" />
+    <Compile Include="Commands\CreateRegistration\CreateAccountCommand.cs" />
+    <Compile Include="Commands\CreateRegistration\CreateAccountCommandHandler.cs" />
     <Compile Include="Configuration\DataConfiguration.cs" />
     <Compile Include="Configuration\EventsApiClientConfiguration.cs" />
-    <Compile Include="Gateways\RegistrationGateway.cs" />
-    <Compile Include="Interfaces\Gateways\IRegistrationGateway.cs" />
+    <Compile Include="Gateways\AccountGateway.cs" />
+    <Compile Include="Interfaces\Gateways\IAccountGateway.cs" />
     <Compile Include="Interfaces\Repositories\IEventRepository.cs" />
-    <Compile Include="Interfaces\Repositories\IRegistrationRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IAccountRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

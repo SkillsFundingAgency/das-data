@@ -18,12 +18,12 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
             _eventRepository = new EventRepository(connectionString);
         }
 
-        public async Task DeleteRegistrations()
+        public async Task DeleteAccounts()
         {
             await WithConnection(async c =>
             {
                 return await c.ExecuteAsync(
-                    sql: "DELETE FROM [Data_Load].[DAS_Employer_Registrations]",
+                    sql: "DELETE FROM [Data_Load].[DAS_Employer_Accounts]",
                     commandType: CommandType.Text);
             });
         }
@@ -48,11 +48,11 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
             return _eventRepository.GetLastProcessedEventId(eventFeed);
         }
 
-        public async Task<int> GetNumberOfRegistrations()
+        public async Task<int> GetNumberOfAccounts()
         {
             return await WithConnection(async c =>
                 await c.QuerySingleAsync<int>(
-                    sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_Employer_Registrations]",
+                    sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_Employer_Accounts]",
                     commandType: CommandType.Text)
             );
         }

@@ -71,13 +71,13 @@
     <Build Include="Views\DAS_Employer_Registrations.sql" />
     <Build Include="Tables\DAS_LoadedEvents.sql" />
     <Build Include="Tables\DAS_FailedEvents.sql" />
-    <Build Include="StoredProcedures\SaveRegistration.sql" />
+    <Build Include="StoredProcedures\SaveAccount.sql" />
     <Build Include="Schemas\Utility.sql" />
     <Build Include="Functions\fn_ValidatePostCodeUK.sql" />
     <Build Include="Functions\fn_ExtractPostCodeUKForAddress.sql" />
-    <Build Include="Tables\DAS_Employer_Account.sql" />
-    <Build Include="Tables\DAS_Employer_LegalEntity.sql" />
-    <Build Include="Tables\DAS_Employer_PayeScheme.sql" />
+    <Build Include="Tables\DAS_Employer_Accounts.sql" />
+    <Build Include="Tables\DAS_Employer_LegalEntities.sql" />
+    <Build Include="Tables\DAS_Employer_PayeSchemes.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SFA.DAS.Data.Database.refactorlog" />

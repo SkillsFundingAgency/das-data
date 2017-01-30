@@ -77,7 +77,7 @@ namespace SFA.DAS.Data.Worker
 
         private async Task CreateRegistration(AccountEventView @event)
         {
-            await _mediator.PublishAsync(new CreateRegistrationCommand {DasAccountId = @event.EmployerAccountId});
+            await _mediator.PublishAsync(new CreateAccountCommand {AccountHref = @event.EmployerAccountId});
         }
 
         private async Task HandleEventProcessingException(Exception ex, AccountEventView @event)

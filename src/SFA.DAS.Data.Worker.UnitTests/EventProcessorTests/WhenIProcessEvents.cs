@@ -39,7 +39,7 @@ namespace SFA.DAS.Data.Worker.UnitTests.EventProcessorTests
 
             foreach (var @event in expectedEvents)
             {
-                Mediator.Verify(x => x.PublishAsync(It.Is<CreateRegistrationCommand>(r => r.DasAccountId == @event.EmployerAccountId)), Times.Once);
+                Mediator.Verify(x => x.PublishAsync(It.Is<CreateAccountCommand>(r => r.AccountHref == @event.EmployerAccountId)), Times.Once);
                 Logger.Verify(x => x.Info($"Event {@event.Id} processed"));
             }
 

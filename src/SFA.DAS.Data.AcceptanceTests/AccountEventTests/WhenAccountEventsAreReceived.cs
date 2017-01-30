@@ -8,7 +8,6 @@ using SFA.DAS.Data.AcceptanceTests.ApiSubstitute;
 using SFA.DAS.Data.AcceptanceTests.Data;
 using SFA.DAS.Data.Tests.Builders;
 using SFA.DAS.Data.Worker;
-using SFA.DAS.EAS.Account.Api.Client.Dtos;
 using SFA.DAS.Events.Api.Types;
 
 namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
@@ -45,9 +44,9 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
             {
                 var lastProcessedEventId = _eventTestsRepository.GetLastProcessedEventId("AccountEvents");
                 lastProcessedEventId.Wait();
-                if (lastProcessedEventId.Result == 5)
+                if (lastProcessedEventId.Result == 4)
                 {
-                    var numberOfRegistrations = _eventTestsRepository.GetNumberOfRegistrations();
+                    var numberOfRegistrations = _eventTestsRepository.GetNumberOfAccounts();
                     numberOfRegistrations.Wait();
                     if (numberOfRegistrations.Result == 2)
                     {
@@ -64,23 +63,8 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
 
         private void ConfigureAccountsApi(List<AccountEventView> events)
         {
-            var accounts = new List<AccountInformationViewModel>
-            {
-                new AccountInformationViewModelBuilder().WithDasAccountId("ABC111").Build(),
-                new AccountInformationViewModelBuilder().WithDasAccountId(events[0].EmployerAccountId).Build(),
-                new AccountInformationViewModelBuilder().WithDasAccountId(events[1].EmployerAccountId).Build(),
-                new AccountInformationViewModelBuilder().WithDasAccountId("ZZZ888").Build()
-            };
-            var accountsResponse = new PagedApiResponseViewModel<AccountInformationViewModel>
-            {
-                Page = 1,
-                TotalPages = 1,
-                Data = accounts
-            };
-            var fromDate = DateTime.Now.AddYears(-1).ToString("yyyy-MM-dd");
-            var toDate = DateTime.Now.ToString("yyyy-MM-dd");
-            _accountsApi.SetupGet($"api/accountsinformation?fromDate={fromDate}&toDate={toDate}&page=1&pageSize=1000",
-                accountsResponse);
+            _accountsApi.SetupGet("api/accounts/ABC123", new AccountDetailViewModelBuilder().WithDasAccountId("ABC123").Build());
+            _accountsApi.SetupGet("api/accounts/ZZZ999", new AccountDetailViewModelBuilder().WithDasAccountId("ZZZ999").Build());
         }
 
         private List<AccountEventView> ConfigureEventsApi()
@@ -91,22 +75,15 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
                 {
                     CreatedOn = DateTime.Now.AddDays(-2),
                     Id = 3,
-                    EmployerAccountId = "ABC123",
+                    EmployerAccountId = "api/accounts/ABC123",
                     Event = "Account Created"
                 },
                 new AccountEventView
                 {
                     CreatedOn = DateTime.Now.AddDays(-1),
                     Id = 4,
-                    EmployerAccountId = "ZZZ999",
+                    EmployerAccountId = "api/accounts/ZZZ999",
                     Event = "Account Created"
-                },
-                new AccountEventView
-                {
-                    CreatedOn = DateTime.Now.AddDays(-1),
-                    Id = 5,
-                    EmployerAccountId = "ZZZ999",
-                    Event = "Account Renamed"
                 }
             };
 
@@ -124,7 +101,7 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
         private static void SetupDatabase()
         {
             _eventTestsRepository = new EventTestsRepository(ConfigurationManager.AppSettings["DataConnectionString"]);
-            _eventTestsRepository.DeleteRegistrations().Wait();
+            _eventTestsRepository.DeleteAccounts().Wait();
             _eventTestsRepository.DeleteFailedEvents().Wait();
             _eventTestsRepository.StoreLastProcessedEventId("AccountEvents", 2).Wait();
         }

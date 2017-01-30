@@ -43,7 +43,7 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
         private void RegisterRepositories(string connectionString)
         {
             For<IEventRepository>().Use<EventRepository>().Ctor<string>().Is(connectionString);
-            For<IRegistrationRepository>().Use<RegistrationRepository>().Ctor<string>().Is(connectionString);
+            For<IAccountRepository>().Use<AccountRepository>().Ctor<string>().Is(connectionString);
         }
 
         private void AddMediatrRegistrations()

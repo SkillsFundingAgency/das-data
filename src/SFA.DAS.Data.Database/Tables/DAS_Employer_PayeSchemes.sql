@@ -1,4 +1,4 @@
-﻿CREATE TABLE [Data_Load].[DAS_Employer_PayeScheme]
+﻿CREATE TABLE [Data_Load].[DAS_Employer_PayeSchemes]
 (
 	[Id] BIGINT NOT NULL PRIMARY KEY IDENTITY, 
     [DasAccountId] NVARCHAR(100) NOT NULL, 
