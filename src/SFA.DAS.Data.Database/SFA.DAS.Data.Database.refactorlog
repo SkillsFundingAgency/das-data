@@ -49,4 +49,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="EventFeed" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="99cd0ee0-138f-417b-b0c3-b32ffb85d3d0" ChangeDateTime="01/30/2017 10:34:45">
+    <Property Name="ElementName" Value="[Data_Load].[DAS_Employer_LegalEntity].[DASAccountId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[Data_Load].[DAS_Employer_LegalEntity]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="DasAccountId" />
+  </Operation>
 </Operations>
