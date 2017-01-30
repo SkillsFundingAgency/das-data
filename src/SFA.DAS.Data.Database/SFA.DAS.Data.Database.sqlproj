@@ -63,6 +63,7 @@
     <Folder Include="Views" />
     <Folder Include="SeedData" />
     <Folder Include="StoredProcedures" />
+    <Folder Include="Functions" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Schemas\Data_Load.sql" />
@@ -71,6 +72,9 @@
     <Build Include="Tables\DAS_LoadedEvents.sql" />
     <Build Include="Tables\DAS_FailedEvents.sql" />
     <Build Include="StoredProcedures\SaveRegistration.sql" />
+    <Build Include="Schemas\Utility.sql" />
+    <Build Include="Functions\fn_ValidatePostCodeUK.sql" />
+    <Build Include="Functions\fn_ExtractPostCodeUKForAddress.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SFA.DAS.Data.Database.refactorlog" />
