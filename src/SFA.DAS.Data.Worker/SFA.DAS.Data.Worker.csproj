@@ -165,7 +165,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DependencyResolution\DefaultRegistry.cs" />
+    <Compile Include="EventHandlers\AccountRenamedEventHandler.cs" />
     <Compile Include="EventHandlers\AccountCreatedEventHandler.cs" />
+    <Compile Include="EventHandlers\IAccountRenamedEventHandler.cs" />
     <Compile Include="EventHandlers\IAccountCreatedEventHandler.cs" />
     <Compile Include="EventProcessor.cs" />
     <Compile Include="IEventProcessor.cs" />

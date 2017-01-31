@@ -32,6 +32,12 @@ namespace SFA.DAS.Data.Tests.Builders
             return this;
         }
 
+        public AccountDetailViewModelBuilder WithName(string name)
+        {
+            _dasAccountName = name;
+            return this;
+        }
+
         public AccountDetailViewModel Build()
         {
             if (!_legalEntities.Any())

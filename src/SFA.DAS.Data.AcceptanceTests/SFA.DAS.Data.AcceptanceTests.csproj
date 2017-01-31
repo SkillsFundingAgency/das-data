@@ -102,6 +102,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountEventTests\WhenAnAccountIsRenamed.cs" />
     <Compile Include="AccountEventTests\WhenAccountsAreCreated.cs" />
     <Compile Include="ApiSubstitute\ApiStartup.cs" />
     <Compile Include="ApiSubstitute\ApiSubstituteMessageHandler.cs" />

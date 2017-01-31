@@ -82,6 +82,7 @@ namespace SFA.DAS.Data.Worker
         {
             var dispatcher = container.GetInstance<IEventDispatcher>();
             dispatcher.RegisterHandler(container.GetInstance<IAccountCreatedEventHandler>(), "AccountCreated");
+            dispatcher.RegisterHandler(container.GetInstance<IAccountRenamedEventHandler>(), "AccountRenamed");
         }
     }
 }
