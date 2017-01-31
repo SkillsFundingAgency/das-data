@@ -165,12 +165,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DependencyResolution\DefaultRegistry.cs" />
+    <Compile Include="EventHandlers\PayeSchemeAddedEventHandler.cs" />
     <Compile Include="EventHandlers\LegalEntityCreatedEventHandler.cs" />
     <Compile Include="EventHandlers\AccountRenamedEventHandler.cs" />
     <Compile Include="EventHandlers\AccountCreatedEventHandler.cs" />
-    <Compile Include="EventHandlers\ILegalEntityCreatedEventHandler.cs" />
-    <Compile Include="EventHandlers\IAccountRenamedEventHandler.cs" />
-    <Compile Include="EventHandlers\IAccountCreatedEventHandler.cs" />
+    <Compile Include="Interfaces\EventHandlers\IPayeSchemeAddedEventHandler.cs" />
+    <Compile Include="Interfaces\EventHandlers\ILegalEntityCreatedEventHandler.cs" />
+    <Compile Include="Interfaces\EventHandlers\IAccountRenamedEventHandler.cs" />
+    <Compile Include="Interfaces\EventHandlers\IAccountCreatedEventHandler.cs" />
     <Compile Include="EventProcessor.cs" />
     <Compile Include="IEventProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

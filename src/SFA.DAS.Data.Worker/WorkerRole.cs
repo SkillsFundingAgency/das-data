@@ -8,6 +8,7 @@ using StructureMap;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.Azure;
 using SFA.DAS.Data.Worker.EventHandlers;
+using SFA.DAS.Data.Worker.Interfaces.EventHandlers;
 using SFA.DAS.Events.Dispatcher;
 
 namespace SFA.DAS.Data.Worker
@@ -84,6 +85,7 @@ namespace SFA.DAS.Data.Worker
             dispatcher.RegisterHandler(container.GetInstance<IAccountCreatedEventHandler>(), "AccountCreated");
             dispatcher.RegisterHandler(container.GetInstance<IAccountRenamedEventHandler>(), "AccountRenamed");
             dispatcher.RegisterHandler(container.GetInstance<ILegalEntityCreatedEventHandler>(), "LegalEntityCreated");
+            dispatcher.RegisterHandler(container.GetInstance<IPayeSchemeAddedEventHandler>(), "PayeSchemeAdded");
         }
     }
 }
