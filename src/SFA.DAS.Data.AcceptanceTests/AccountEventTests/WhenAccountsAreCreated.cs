@@ -39,7 +39,7 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
             Task.Run(() => _workerRole.Run(), cancellationToken);
 
             var databaseAsExpected = false;
-            var timeout = DateTime.Now.AddSeconds(30);
+            var timeout = DateTime.Now.AddSeconds(45);
             while (DateTime.Now < timeout)
             {
                 var isDatabaseInExpectedState = IsDatabaseInExpectedState();
@@ -76,6 +76,12 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
                 return false;
             }
 
+            var numberOfPayeSchemes = await _eventTestsRepository.GetNumberOfPayeSchemes();
+            if (numberOfPayeSchemes != 3)
+            {
+                return false;
+            }
+
             return true;
         }
 
@@ -84,16 +90,22 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
             _accountsApi.SetupGet("api/accounts/ABC123",
                 new AccountDetailViewModelBuilder().WithDasAccountId("ABC123")
                     .WithLegalEntity(new ResourceViewModelBuilder().WithHref("api/accounts/ABC123/legalentities/123"))
+                    .WithPayeScheme(new ResourceViewModelBuilder().WithHref("api/accounts/ABC123/payeschemes/1234"))
+                    .WithPayeScheme(new ResourceViewModelBuilder().WithHref("api/accounts/ABC123/payeschemes/5678"))
                     .Build());
             _accountsApi.SetupGet("api/accounts/ZZZ999",
                 new AccountDetailViewModelBuilder().WithDasAccountId("ZZZ999")
                     .WithLegalEntity(new ResourceViewModelBuilder().WithHref("api/accounts/ZZZ999/legalentities/9876"))
                     .WithLegalEntity(new ResourceViewModelBuilder().WithHref("api/accounts/ZZZ999/legalentities/5432"))
+                    .WithPayeScheme(new ResourceViewModelBuilder().WithHref("api/accounts/ZZZ999/payeschemes/9876"))
                     .Build());
 
             _accountsApi.SetupGet("api/accounts/ABC123/legalentities/123", new LegalEntityViewModelBuilder().WithDasAccountId("ABC123").WithLegalEntityId(123).Build());
+            _accountsApi.SetupGet("api/accounts/ABC123/payeschemes/1234", new PayeSchemeViewModelBuilder().WithDasAccountId("ABC123").WithRef("1234").Build());
+            _accountsApi.SetupGet("api/accounts/ABC123/payeschemes/5678", new PayeSchemeViewModelBuilder().WithDasAccountId("ABC123").WithRef("5678").Build());
             _accountsApi.SetupGet("api/accounts/ZZZ999/legalentities/9876", new LegalEntityViewModelBuilder().WithDasAccountId("ZZZ999").WithLegalEntityId(9876).Build());
             _accountsApi.SetupGet("api/accounts/ZZZ999/legalentities/5432", new LegalEntityViewModelBuilder().WithDasAccountId("ZZZ999").WithLegalEntityId(5432).Build());
+            _accountsApi.SetupGet("api/accounts/ZZZ999/payeschemes/9876", new PayeSchemeViewModelBuilder().WithDasAccountId("ZZZ999").WithRef("9876").Build());
         }
 
         private List<AccountEventView> ConfigureEventsApi()

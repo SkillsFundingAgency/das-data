@@ -23,5 +23,10 @@ namespace SFA.DAS.Data.Application.Gateways
         {
             return await _accountApiClient.GetResource<LegalEntityViewModel>(legalEntityHref);
         }
+
+        public async Task<PayeSchemeViewModel> GetPayeScheme(string payeSchemeHref)
+        {
+            return await _accountApiClient.GetResource<PayeSchemeViewModel>(payeSchemeHref);
+        }
     }
 }

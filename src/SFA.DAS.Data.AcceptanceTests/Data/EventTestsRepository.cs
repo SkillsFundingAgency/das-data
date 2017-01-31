@@ -27,12 +27,8 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
                     commandType: CommandType.Text);
             });
 
-            await WithConnection(async c =>
-            {
-                return await c.ExecuteAsync(
-                    sql: "DELETE FROM [Data_Load].[DAS_Employer_LegalEntities]",
-                    commandType: CommandType.Text);
-            });
+            await DeleteLegalEntities();
+            await DeletePayeSchemes();
         }
 
         public async Task DeleteFailedEvents()
@@ -71,6 +67,35 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
                     sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_Employer_LegalEntities]",
                     commandType: CommandType.Text)
             );
+        }
+
+        public async Task<int> GetNumberOfPayeSchemes()
+        {
+            return await WithConnection(async c =>
+                await c.QuerySingleAsync<int>(
+                    sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_Employer_PayeSchemes]",
+                    commandType: CommandType.Text)
+            );
+        }
+
+        private async Task DeletePayeSchemes()
+        {
+            await WithConnection(async c =>
+            {
+                return await c.ExecuteAsync(
+                    sql: "DELETE FROM [Data_Load].[DAS_Employer_PayeSchemes]",
+                    commandType: CommandType.Text);
+            });
+        }
+
+        private async Task DeleteLegalEntities()
+        {
+            await WithConnection(async c =>
+            {
+                return await c.ExecuteAsync(
+                    sql: "DELETE FROM [Data_Load].[DAS_Employer_LegalEntities]",
+                    commandType: CommandType.Text);
+            });
         }
 
         private async Task<T> WithConnection<T>(Func<IDbConnection, Task<T>> getData)

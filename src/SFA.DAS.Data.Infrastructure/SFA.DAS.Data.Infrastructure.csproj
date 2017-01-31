@@ -64,6 +64,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\PayeSchemeRepository.cs" />
     <Compile Include="Data\LegalEntityRepository.cs" />
     <Compile Include="Data\BaseRepository.cs" />
     <Compile Include="Data\EventRepository.cs" />

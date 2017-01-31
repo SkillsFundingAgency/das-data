@@ -1,11 +1,9 @@
 ﻿using MediatR;
-using Microsoft.WindowsAzure.Storage.File;
 using SFA.DAS.Data.Application.Configuration;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.Data.Infrastructure.Data;
 using SFA.DAS.EAS.Account.Api.Client;
 using SFA.DAS.Events.Api.Client;
-using SFA.DAS.Events.Api.Client.Configuration;
 using SFA.DAS.NLog.Logger;
 using StructureMap;
 
@@ -45,6 +43,7 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             For<IEventRepository>().Use<EventRepository>().Ctor<string>().Is(connectionString);
             For<IAccountRepository>().Use<AccountRepository>().Ctor<string>().Is(connectionString);
             For<ILegalEntityRepository>().Use<LegalEntityRepository>().Ctor<string>().Is(connectionString);
+            For<IPayeSchemeRepository>().Use<PayeSchemeRepository>().Ctor<string>().Is(connectionString);
         }
 
         private void AddMediatrRegistrations()

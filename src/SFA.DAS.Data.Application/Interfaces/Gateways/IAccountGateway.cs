@@ -7,5 +7,6 @@ namespace SFA.DAS.Data.Application.Interfaces.Gateways
     {
         Task<AccountDetailViewModel> GetAccount(string accountHref);
         Task<LegalEntityViewModel> GetLegalEntity(string legalEntityHref);
+        Task<PayeSchemeViewModel> GetPayeScheme(string payeSchemeHref);
     }
 }

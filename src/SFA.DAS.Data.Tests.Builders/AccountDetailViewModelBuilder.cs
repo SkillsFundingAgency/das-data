@@ -26,6 +26,12 @@ namespace SFA.DAS.Data.Tests.Builders
             return this;
         }
 
+        public AccountDetailViewModelBuilder WithPayeScheme(ResourceViewModelBuilder payeScheme)
+        {
+            _payeSchemes.Add(payeScheme);
+            return this;
+        }
+
         public AccountDetailViewModel Build()
         {
             if (!_legalEntities.Any())

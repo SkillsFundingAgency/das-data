@@ -78,6 +78,7 @@
   <ItemGroup>
     <Compile Include="Commands\CreateLegalEntity\CreateLegalEntityCommandHandler.cs" />
     <Compile Include="Commands\CreateLegalEntity\CreateLegalEntityCommand.cs" />
+    <Compile Include="Commands\CreatePayeScheme\CreatePayeSchemeCommandHandler.cs" />
     <Compile Include="Commands\CreatePayeScheme\CreatePayeSchemeCommand.cs" />
     <Compile Include="Commands\CreateAccount\CreateAccountCommand.cs" />
     <Compile Include="Commands\CreateAccount\CreateAccountCommandHandler.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="Configuration\EventsApiClientConfiguration.cs" />
     <Compile Include="Gateways\AccountGateway.cs" />
     <Compile Include="Interfaces\Gateways\IAccountGateway.cs" />
+    <Compile Include="Interfaces\Repositories\IPayeSchemeRepository.cs" />
     <Compile Include="Interfaces\Repositories\ILegalEntityRepository.cs" />
     <Compile Include="Interfaces\Repositories\IEventRepository.cs" />
     <Compile Include="Interfaces\Repositories\IAccountRepository.cs" />
