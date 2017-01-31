@@ -117,14 +117,14 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
                     CreatedOn = DateTime.Now.AddDays(-2),
                     Id = 3,
                     ResourceUri = "api/accounts/ABC123",
-                    Event = "Account Created"
+                    Event = "AccountCreated"
                 },
                 new AccountEventView
                 {
                     CreatedOn = DateTime.Now.AddDays(-1),
                     Id = 4,
                     ResourceUri = "api/accounts/ZZZ999",
-                    Event = "Account Created"
+                    Event = "AccountCreated"
                 }
             };
 

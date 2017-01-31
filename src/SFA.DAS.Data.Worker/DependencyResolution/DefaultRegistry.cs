@@ -1,11 +1,14 @@
 ﻿using MediatR;
+using Microsoft.WindowsAzure.Storage.File;
 using SFA.DAS.Data.Application.Configuration;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.Data.Infrastructure.Data;
 using SFA.DAS.EAS.Account.Api.Client;
 using SFA.DAS.Events.Api.Client;
+using SFA.DAS.Events.Dispatcher;
 using SFA.DAS.NLog.Logger;
 using StructureMap;
+using StructureMap.Pipeline;
 
 namespace SFA.DAS.Data.Worker.DependencyResolution
 {
@@ -25,6 +28,8 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             For<IEventProcessor>().Use<EventProcessor>().Ctor<int>().Is(config.FailureTolerance);
             RegisterRepositories(config.DatabaseConnectionString);
             RegisterApis(config);
+
+            For<IEventDispatcher>().LifecycleIs(new SingletonLifecycle());
 
             AddMediatrRegistrations();
 

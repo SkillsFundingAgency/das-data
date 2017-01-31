@@ -1,15 +1,15 @@
-﻿using MediatR;
-using Moq;
+﻿using Moq;
 using NUnit.Framework;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.Events.Api.Client;
+using SFA.DAS.Events.Dispatcher;
 using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Worker.UnitTests.EventProcessorTests
 {
     public abstract class EventProcessorTests
     {
-        protected Mock<IMediator> Mediator;
+        protected Mock<IEventDispatcher> EventDispatcher;
         protected Mock<IEventRepository> EventRepository;
         protected Mock<IEventsApi> EventsApi;
         protected Mock<ILog> Logger;
@@ -21,14 +21,14 @@ namespace SFA.DAS.Data.Worker.UnitTests.EventProcessorTests
         [SetUp]
         public void Arrange()
         {
-            Mediator = new Mock<IMediator>();
+            EventDispatcher = new Mock<IEventDispatcher>();
             EventRepository = new Mock<IEventRepository>();
             EventsApi = new Mock<IEventsApi>();
             Logger = new Mock<ILog>();
 
             EventRepository.Setup(x => x.GetLastProcessedEventId("AccountEvents")).ReturnsAsync(CurrentEventId);
 
-            EventProcessor = new EventProcessor(EventRepository.Object, EventsApi.Object, Mediator.Object, Logger.Object, FailureTolerance);
+            EventProcessor = new EventProcessor(EventRepository.Object, EventsApi.Object, EventDispatcher.Object, Logger.Object, FailureTolerance);
         }
     }
 }

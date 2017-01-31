@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
-using SFA.DAS.Data.Application.Commands.CreateAccount;
 using SFA.DAS.Events.Api.Types;
 
 namespace SFA.DAS.Data.Worker.UnitTests.EventProcessorTests
@@ -15,18 +15,17 @@ namespace SFA.DAS.Data.Worker.UnitTests.EventProcessorTests
         public async Task ThenTheExceptionIsLoggedAndTheEventWillBeRetried()
         {
             long failedEventId = 43908;
-            var failedDasAccountId = "cfdvklt4";
             var expectedEvents = new List<AccountEventView>
             {
-                new AccountEventView {ResourceUri = "dsf895u", Id = failedEventId - 2},
-                new AccountEventView {ResourceUri = "fvn3458t", Id = failedEventId - 1},
-                new AccountEventView {ResourceUri = failedDasAccountId, Id = failedEventId},
-                new AccountEventView {ResourceUri = "cdvkj545", Id = failedEventId + 1}
+                new AccountEventView {ResourceUri = "api/accounts/dsf895u", Id = failedEventId - 2},
+                new AccountEventView {ResourceUri = "api/accounts/fvn3458t", Id = failedEventId - 1},
+                new AccountEventView {ResourceUri = "api/accounts/cfdvklt4", Id = failedEventId},
+                new AccountEventView {ResourceUri = "api/accounts/cdvkj545", Id = failedEventId + 1}
             };
 
             EventsApi.Setup(x => x.GetAccountEventsById(CurrentEventId + 1, 1000, 1)).ReturnsAsync(expectedEvents);
             var expectedException = new Exception();
-            Mediator.Setup(x => x.PublishAsync(It.Is<CreateAccountCommand>(c => c.AccountHref == failedDasAccountId))).Throws(expectedException);
+            EventDispatcher.Setup(x => x.Dispatch(It.Is<AccountEventView>(e => e.Id == failedEventId))).Throws(expectedException);
             EventRepository.Setup(x => x.GetEventFailureCount(failedEventId)).ReturnsAsync(FailureTolerance - 2);
 
             await EventProcessor.ProcessEvents();
@@ -40,15 +39,14 @@ namespace SFA.DAS.Data.Worker.UnitTests.EventProcessorTests
         public async Task AndTheEventHasExceededTheFailureThresholdThenTheEventIsNoLongerRetried()
         {
             long failedEventId = 43908;
-            var failedDasAccountId = "cfdvklt4";
             var expectedEvents = new List<AccountEventView>
             {
-                new AccountEventView {ResourceUri = failedDasAccountId, Id = failedEventId},
+                new AccountEventView {ResourceUri = "api/accounts/12346", Id = failedEventId},
             };
 
             EventsApi.Setup(x => x.GetAccountEventsById(CurrentEventId + 1, 1000, 1)).ReturnsAsync(expectedEvents);
             var expectedException = new Exception();
-            Mediator.Setup(x => x.PublishAsync(It.Is<CreateAccountCommand>(c => c.AccountHref == failedDasAccountId))).Throws(expectedException);
+            EventDispatcher.Setup(x => x.Dispatch(It.Is<AccountEventView>(e => e.Id == failedEventId))).Throws(expectedException);
 
             EventRepository.Setup(x => x.GetEventFailureCount(failedEventId)).ReturnsAsync(FailureTolerance - 1);
 
