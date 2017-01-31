@@ -44,6 +44,7 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
         {
             For<IEventRepository>().Use<EventRepository>().Ctor<string>().Is(connectionString);
             For<IAccountRepository>().Use<AccountRepository>().Ctor<string>().Is(connectionString);
+            For<ILegalEntityRepository>().Use<LegalEntityRepository>().Ctor<string>().Is(connectionString);
         }
 
         private void AddMediatrRegistrations()

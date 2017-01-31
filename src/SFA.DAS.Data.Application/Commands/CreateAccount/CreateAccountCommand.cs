@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace SFA.DAS.Data.Application.Commands.CreateRegistration
+namespace SFA.DAS.Data.Application.Commands.CreateAccount
 {
     public class CreateAccountCommand : IAsyncNotification
     {

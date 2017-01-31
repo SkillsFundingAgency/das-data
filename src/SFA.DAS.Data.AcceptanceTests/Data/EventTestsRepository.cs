@@ -26,6 +26,13 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
                     sql: "DELETE FROM [Data_Load].[DAS_Employer_Accounts]",
                     commandType: CommandType.Text);
             });
+
+            await WithConnection(async c =>
+            {
+                return await c.ExecuteAsync(
+                    sql: "DELETE FROM [Data_Load].[DAS_Employer_LegalEntities]",
+                    commandType: CommandType.Text);
+            });
         }
 
         public async Task DeleteFailedEvents()
@@ -53,6 +60,15 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
             return await WithConnection(async c =>
                 await c.QuerySingleAsync<int>(
                     sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_Employer_Accounts]",
+                    commandType: CommandType.Text)
+            );
+        }
+
+        public async Task<int> GetNumberOfLegalEntities()
+        {
+            return await WithConnection(async c =>
+                await c.QuerySingleAsync<int>(
+                    sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_Employer_LegalEntities]",
                     commandType: CommandType.Text)
             );
         }

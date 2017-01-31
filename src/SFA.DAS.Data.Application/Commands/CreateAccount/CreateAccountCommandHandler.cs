@@ -6,7 +6,7 @@ using SFA.DAS.Data.Application.Interfaces.Gateways;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.EAS.Account.Api.Types;
 
-namespace SFA.DAS.Data.Application.Commands.CreateRegistration
+namespace SFA.DAS.Data.Application.Commands.CreateAccount
 {
     public class CreateAccountCommandHandler : IAsyncNotificationHandler<CreateAccountCommand>
     {

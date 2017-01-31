@@ -6,5 +6,6 @@ namespace SFA.DAS.Data.Application.Interfaces.Gateways
     public interface IAccountGateway
     {
         Task<AccountDetailViewModel> GetAccount(string accountHref);
+        Task<LegalEntityViewModel> GetLegalEntity(string legalEntityHref);
     }
 }

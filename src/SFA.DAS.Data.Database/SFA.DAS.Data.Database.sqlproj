@@ -78,6 +78,7 @@
     <Build Include="Tables\DAS_Employer_Accounts.sql" />
     <Build Include="Tables\DAS_Employer_LegalEntities.sql" />
     <Build Include="Tables\DAS_Employer_PayeSchemes.sql" />
+    <Build Include="StoredProcedures\SaveLegalEntity.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SFA.DAS.Data.Database.refactorlog" />

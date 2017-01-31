@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
-using SFA.DAS.Data.Application.Commands.CreateRegistration;
+using SFA.DAS.Data.Application.Commands.CreateAccount;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.Events.Api.Client;
 using SFA.DAS.Events.Api.Types;

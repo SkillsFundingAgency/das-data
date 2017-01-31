@@ -13,7 +13,7 @@ using SFA.DAS.Events.Api.Types;
 namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
 {
     [TestFixture]
-    public class WhenAccountEventsAreReceived
+    public class WhenAccountsAreCreated
     {
         private WorkerRole _workerRole;
         private WebApiSubstitute _eventsApi;
@@ -42,16 +42,11 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
             var timeout = DateTime.Now.AddSeconds(30);
             while (DateTime.Now < timeout)
             {
-                var lastProcessedEventId = _eventTestsRepository.GetLastProcessedEventId("AccountEvents");
-                lastProcessedEventId.Wait();
-                if (lastProcessedEventId.Result == 4)
+                var isDatabaseInExpectedState = IsDatabaseInExpectedState();
+                isDatabaseInExpectedState.Wait();
+                if (isDatabaseInExpectedState.Result)
                 {
-                    var numberOfRegistrations = _eventTestsRepository.GetNumberOfAccounts();
-                    numberOfRegistrations.Wait();
-                    if (numberOfRegistrations.Result == 2)
-                    {
-                        databaseAsExpected = true;
-                    }
+                    databaseAsExpected = true;
                     break;
                 }
                 Thread.Sleep(100);
@@ -61,10 +56,44 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
             Assert.IsTrue(databaseAsExpected);
         }
 
+        private async Task<bool> IsDatabaseInExpectedState()
+        {
+            var lastProcessedEventId = await _eventTestsRepository.GetLastProcessedEventId("AccountEvents");
+            if (lastProcessedEventId != 4)
+            {
+                return false;
+            }
+
+            var numberOfRegistrations = await _eventTestsRepository.GetNumberOfAccounts();
+            if (numberOfRegistrations != 2)
+            {
+                return false;
+            }
+
+            var numberOfLegalEntities = await _eventTestsRepository.GetNumberOfLegalEntities();
+            if (numberOfLegalEntities != 3)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         private void ConfigureAccountsApi(List<AccountEventView> events)
         {
-            _accountsApi.SetupGet("api/accounts/ABC123", new AccountDetailViewModelBuilder().WithDasAccountId("ABC123").Build());
-            _accountsApi.SetupGet("api/accounts/ZZZ999", new AccountDetailViewModelBuilder().WithDasAccountId("ZZZ999").Build());
+            _accountsApi.SetupGet("api/accounts/ABC123",
+                new AccountDetailViewModelBuilder().WithDasAccountId("ABC123")
+                    .WithLegalEntity(new ResourceViewModelBuilder().WithHref("api/accounts/ABC123/legalentities/123"))
+                    .Build());
+            _accountsApi.SetupGet("api/accounts/ZZZ999",
+                new AccountDetailViewModelBuilder().WithDasAccountId("ZZZ999")
+                    .WithLegalEntity(new ResourceViewModelBuilder().WithHref("api/accounts/ZZZ999/legalentities/9876"))
+                    .WithLegalEntity(new ResourceViewModelBuilder().WithHref("api/accounts/ZZZ999/legalentities/5432"))
+                    .Build());
+
+            _accountsApi.SetupGet("api/accounts/ABC123/legalentities/123", new LegalEntityViewModelBuilder().WithDasAccountId("ABC123").WithLegalEntityId(123).Build());
+            _accountsApi.SetupGet("api/accounts/ZZZ999/legalentities/9876", new LegalEntityViewModelBuilder().WithDasAccountId("ZZZ999").WithLegalEntityId(9876).Build());
+            _accountsApi.SetupGet("api/accounts/ZZZ999/legalentities/5432", new LegalEntityViewModelBuilder().WithDasAccountId("ZZZ999").WithLegalEntityId(5432).Build());
         }
 
         private List<AccountEventView> ConfigureEventsApi()

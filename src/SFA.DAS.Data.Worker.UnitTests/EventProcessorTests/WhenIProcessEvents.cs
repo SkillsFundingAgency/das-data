@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
-using SFA.DAS.Data.Application.Commands.CreateRegistration;
+using SFA.DAS.Data.Application.Commands.CreateAccount;
 using SFA.DAS.Events.Api.Types;
 
 namespace SFA.DAS.Data.Worker.UnitTests.EventProcessorTests

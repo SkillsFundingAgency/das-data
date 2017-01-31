@@ -5,10 +5,10 @@ using NUnit.Framework;
 using SFA.DAS.Data.Tests.Builders;
 using SFA.DAS.EAS.Account.Api.Types;
 
-namespace SFA.DAS.Data.Application.UnitTests.Gateways.RegistrationGatewayTests
+namespace SFA.DAS.Data.Application.UnitTests.Gateways.AccountGatewayTests
 {
     [TestFixture]
-    public class WhenAccountDetailsAreRequested : RegistrationGatewayTestsBase
+    public class WhenAccountDetailsAreRequested : AccountGatewayTestsBase
     {
         [Test]
         public async Task ThenTheAccountDetailsAreReturned()

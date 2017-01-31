@@ -76,14 +76,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\CreateLegalEntity\CreateLegalEntityCommandHandler.cs" />
     <Compile Include="Commands\CreateLegalEntity\CreateLegalEntityCommand.cs" />
     <Compile Include="Commands\CreatePayeScheme\CreatePayeSchemeCommand.cs" />
-    <Compile Include="Commands\CreateRegistration\CreateAccountCommand.cs" />
-    <Compile Include="Commands\CreateRegistration\CreateAccountCommandHandler.cs" />
+    <Compile Include="Commands\CreateAccount\CreateAccountCommand.cs" />
+    <Compile Include="Commands\CreateAccount\CreateAccountCommandHandler.cs" />
     <Compile Include="Configuration\DataConfiguration.cs" />
     <Compile Include="Configuration\EventsApiClientConfiguration.cs" />
     <Compile Include="Gateways\AccountGateway.cs" />
     <Compile Include="Interfaces\Gateways\IAccountGateway.cs" />
+    <Compile Include="Interfaces\Repositories\ILegalEntityRepository.cs" />
     <Compile Include="Interfaces\Repositories\IEventRepository.cs" />
     <Compile Include="Interfaces\Repositories\IAccountRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
