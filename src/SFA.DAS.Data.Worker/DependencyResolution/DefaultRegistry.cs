@@ -5,9 +5,10 @@ using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.Data.Infrastructure.Data;
 using SFA.DAS.EAS.Account.Api.Client;
 using SFA.DAS.Events.Api.Client;
-using SFA.DAS.Events.Api.Client.Configuration;
+using SFA.DAS.Events.Dispatcher;
 using SFA.DAS.NLog.Logger;
 using StructureMap;
+using StructureMap.Pipeline;
 
 namespace SFA.DAS.Data.Worker.DependencyResolution
 {
@@ -28,6 +29,8 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             RegisterRepositories(config.DatabaseConnectionString);
             RegisterApis(config);
 
+            For<IEventDispatcher>().LifecycleIs(new SingletonLifecycle());
+
             AddMediatrRegistrations();
 
             ConfigureLogging();
@@ -43,7 +46,9 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
         private void RegisterRepositories(string connectionString)
         {
             For<IEventRepository>().Use<EventRepository>().Ctor<string>().Is(connectionString);
-            For<IRegistrationRepository>().Use<RegistrationRepository>().Ctor<string>().Is(connectionString);
+            For<IAccountRepository>().Use<AccountRepository>().Ctor<string>().Is(connectionString);
+            For<ILegalEntityRepository>().Use<LegalEntityRepository>().Ctor<string>().Is(connectionString);
+            For<IPayeSchemeRepository>().Use<PayeSchemeRepository>().Ctor<string>().Is(connectionString);
         }
 
         private void AddMediatrRegistrations()

@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
-using SFA.DAS.Data.Application.Commands.CreateRegistration;
+using SFA.DAS.Data.Application.Commands.CreateAccount;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.Events.Api.Client;
 using SFA.DAS.Events.Api.Types;
+using SFA.DAS.Events.Dispatcher;
 using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Worker
@@ -17,15 +18,15 @@ namespace SFA.DAS.Data.Worker
 
         private readonly IEventRepository _eventRepository;
         private readonly IEventsApi _eventsApi;
-        private readonly IMediator _mediator;
+        private readonly IEventDispatcher _eventDispatcher;
         private readonly ILog _logger;
         private readonly int _failureTolerance;
 
-        public EventProcessor(IEventRepository eventRepository, IEventsApi eventsApi, IMediator mediator, ILog logger, int failureTolerance)
+        public EventProcessor(IEventRepository eventRepository, IEventsApi eventsApi, IEventDispatcher eventDispatcher, ILog logger, int failureTolerance)
         {
             _eventRepository = eventRepository;
             _eventsApi = eventsApi;
-            _mediator = mediator;
+            _eventDispatcher = eventDispatcher;
             _logger = logger;
             _failureTolerance = failureTolerance;
         }
@@ -42,7 +43,7 @@ namespace SFA.DAS.Data.Worker
                     return;
                 }
 
-                await CreateRegistrationsFromEvents(events);
+                await HandleEvents(events);
 
                 await UpdateLastProcessedEventId(events);
             }
@@ -58,13 +59,13 @@ namespace SFA.DAS.Data.Worker
             await _eventRepository.StoreLastProcessedEventId(EventStream, lastEventId);
         }
 
-        private async Task CreateRegistrationsFromEvents(IEnumerable<AccountEventView> events)
+        private async Task HandleEvents(IEnumerable<AccountEventView> events)
         {
             foreach (var @event in events)
             {
                 try
                 {
-                    await CreateRegistration(@event);
+                    await HandleEvent(@event);
                     _logger.Info($"Event {@event.Id} processed");
                 }
                 catch (Exception ex)
@@ -75,9 +76,9 @@ namespace SFA.DAS.Data.Worker
             }
         }
 
-        private async Task CreateRegistration(AccountEventView @event)
+        private async Task HandleEvent(AccountEventView @event)
         {
-            await _mediator.PublishAsync(new CreateRegistrationCommand {DasAccountId = @event.EmployerAccountId});
+            await _eventDispatcher.Dispatch(@event);
         }
 
         private async Task HandleEventProcessingException(Exception ex, AccountEventView @event)

@@ -7,6 +7,9 @@ using SFA.DAS.Data.Worker.DependencyResolution;
 using StructureMap;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.Azure;
+using SFA.DAS.Data.Worker.EventHandlers;
+using SFA.DAS.Data.Worker.Interfaces.EventHandlers;
+using SFA.DAS.Events.Dispatcher;
 
 namespace SFA.DAS.Data.Worker
 {
@@ -36,6 +39,7 @@ namespace SFA.DAS.Data.Worker
             ServicePointManager.DefaultConnectionLimit = 12;
             TelemetryConfiguration.Active.InstrumentationKey = CloudConfigurationManager.GetSetting("InstrumentationKey");
             _container = ConfigureIocContainer();
+            RegisterEventHandlers(_container);
             _eventProcessor = _container.GetInstance<IEventProcessor>();
 
             bool result = base.OnStart();
@@ -73,6 +77,15 @@ namespace SFA.DAS.Data.Worker
                 c.AddRegistry<DefaultRegistry>();
             });
             return container;
+        }
+
+        private void RegisterEventHandlers(IContainer container)
+        {
+            var dispatcher = container.GetInstance<IEventDispatcher>();
+            dispatcher.RegisterHandler(container.GetInstance<IAccountCreatedEventHandler>(), "AccountCreated");
+            dispatcher.RegisterHandler(container.GetInstance<IAccountRenamedEventHandler>(), "AccountRenamed");
+            dispatcher.RegisterHandler(container.GetInstance<ILegalEntityCreatedEventHandler>(), "LegalEntityCreated");
+            dispatcher.RegisterHandler(container.GetInstance<IPayeSchemeAddedEventHandler>(), "PayeSchemeAdded");
         }
     }
 }

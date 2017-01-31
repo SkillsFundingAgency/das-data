@@ -114,16 +114,24 @@
       <HintPath>..\packages\NLog.4.3.7\lib\net45\NLog.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SFA.DAS.EAS.Account.Api.Client, Version=1.0.0.20590, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.Account.Api.Client.1.0.0.20590\lib\net45\SFA.DAS.EAS.Account.Api.Client.dll</HintPath>
+    <Reference Include="SFA.DAS.EAS.Account.Api.Client, Version=1.0.0.21311, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Account.Api.Client.1.0.0.21311\lib\net45\SFA.DAS.EAS.Account.Api.Client.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SFA.DAS.Events.Api.Client, Version=1.11.0.19990, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.Events.Api.Client.1.11.0.19990\lib\net45\SFA.DAS.Events.Api.Client.dll</HintPath>
+    <Reference Include="SFA.DAS.EAS.Account.Api.Types, Version=1.0.0.21311, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Account.Api.Types.1.0.0.21311\lib\net45\SFA.DAS.EAS.Account.Api.Types.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SFA.DAS.Events.Api.Types, Version=1.11.0.19990, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.Events.Api.Types.1.11.0.19990\lib\net45\SFA.DAS.Events.Api.Types.dll</HintPath>
+    <Reference Include="SFA.DAS.Events.Api.Client, Version=1.13.0.21450, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Events.Api.Client.1.13.0.21450\lib\net45\SFA.DAS.Events.Api.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SFA.DAS.Events.Api.Types, Version=1.13.0.21450, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Events.Api.Types.1.13.0.21450\lib\net45\SFA.DAS.Events.Api.Types.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SFA.DAS.Events.Dispatcher, Version=1.13.0.21450, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Events.Dispatcher.1.13.0.21450\lib\net45\SFA.DAS.Events.Dispatcher.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="SFA.DAS.NLog.Logger, Version=1.0.0.17615, Culture=neutral, processorArchitecture=MSIL">
@@ -157,6 +165,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DependencyResolution\DefaultRegistry.cs" />
+    <Compile Include="EventHandlers\PayeSchemeAddedEventHandler.cs" />
+    <Compile Include="EventHandlers\LegalEntityCreatedEventHandler.cs" />
+    <Compile Include="EventHandlers\AccountRenamedEventHandler.cs" />
+    <Compile Include="EventHandlers\AccountCreatedEventHandler.cs" />
+    <Compile Include="Interfaces\EventHandlers\IPayeSchemeAddedEventHandler.cs" />
+    <Compile Include="Interfaces\EventHandlers\ILegalEntityCreatedEventHandler.cs" />
+    <Compile Include="Interfaces\EventHandlers\IAccountRenamedEventHandler.cs" />
+    <Compile Include="Interfaces\EventHandlers\IAccountCreatedEventHandler.cs" />
     <Compile Include="EventProcessor.cs" />
     <Compile Include="IEventProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

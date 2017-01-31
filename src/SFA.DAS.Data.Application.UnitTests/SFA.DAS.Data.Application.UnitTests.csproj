@@ -66,8 +66,12 @@
       <HintPath>..\packages\NUnit.3.5.0\lib\net45\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SFA.DAS.EAS.Account.Api.Client, Version=1.0.0.20590, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.Account.Api.Client.1.0.0.20590\lib\net45\SFA.DAS.EAS.Account.Api.Client.dll</HintPath>
+    <Reference Include="SFA.DAS.EAS.Account.Api.Client, Version=1.0.0.21311, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Account.Api.Client.1.0.0.21311\lib\net45\SFA.DAS.EAS.Account.Api.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SFA.DAS.EAS.Account.Api.Types, Version=1.0.0.21311, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Account.Api.Types.1.0.0.21311\lib\net45\SFA.DAS.EAS.Account.Api.Types.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -80,10 +84,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\CreateRegistrationTests\WhenICreateARegistration.cs" />
-    <Compile Include="Gateways\RegistrationGatewayTests\RegistrationGatewayTestsBase.cs" />
-    <Compile Include="Gateways\RegistrationGatewayTests\WhenTheRegistrationIsInThePageOfAccountsInformation.cs" />
-    <Compile Include="Gateways\RegistrationGatewayTests\WhenTheRegistrationIsNotInThePageOfAccountsInformation.cs" />
+    <Compile Include="Commands\RenameAccountTests\WhenIRenameAnAccount.cs" />
+    <Compile Include="Commands\CreateAccountTests\WhenICreateAnAccount.cs" />
+    <Compile Include="Commands\CreatePayeSchemeTests\WhenICreateAPayeScheme.cs" />
+    <Compile Include="Commands\CreateLegalEntityTests\WhenICreateALegalEntity.cs" />
+    <Compile Include="Gateways\AccountGatewayTests\AccountGatewayTestsBase.cs" />
+    <Compile Include="Gateways\AccountGatewayTests\WhenAPayeSchemeIsRequested.cs" />
+    <Compile Include="Gateways\AccountGatewayTests\WhenALegalEntityIsRequested.cs" />
+    <Compile Include="Gateways\AccountGatewayTests\WhenAccountDetailsAreRequested.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
