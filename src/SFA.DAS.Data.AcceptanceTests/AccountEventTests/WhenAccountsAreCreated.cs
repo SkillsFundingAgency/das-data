@@ -39,7 +39,7 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
             Task.Run(() => _workerRole.Run(), cancellationToken);
 
             var databaseAsExpected = false;
-            var timeout = DateTime.Now.AddSeconds(45);
+            var timeout = DateTime.Now.AddSeconds(60);
             while (DateTime.Now < timeout)
             {
                 var isDatabaseInExpectedState = IsDatabaseInExpectedState();
@@ -116,14 +116,14 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
                 {
                     CreatedOn = DateTime.Now.AddDays(-2),
                     Id = 3,
-                    EmployerAccountId = "api/accounts/ABC123",
+                    ResourceUri = "api/accounts/ABC123",
                     Event = "Account Created"
                 },
                 new AccountEventView
                 {
                     CreatedOn = DateTime.Now.AddDays(-1),
                     Id = 4,
-                    EmployerAccountId = "api/accounts/ZZZ999",
+                    ResourceUri = "api/accounts/ZZZ999",
                     Event = "Account Created"
                 }
             };
