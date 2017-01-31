@@ -55,12 +55,15 @@ AS
      (
          SELECT [DASAccountID]
               , [LegalEntityName]
+			  , [PayeSchemeName]
               , MAX([UpdateDateTime]) AS [Max_UpdateDateTime]
               , 1 AS [Flag_Latest]
          FROM
             Data_Load.DAS_Employer_Registrations
          GROUP BY [DASAccountID]
                 , [LegalEntityName]
+				, [PayeSchemeName]
      ) AS B ON A.DASAccountID = B.DASAccountID
                AND A.LegalEntityName = B.LegalEntityName
+			   AND A.PayeSchemeName = B.PayeSchemeName
                AND A.UpdateDateTime = B.Max_UpdateDateTime
