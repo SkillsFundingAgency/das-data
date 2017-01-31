@@ -27,10 +27,10 @@ namespace SFA.DAS.Data.Worker.UnitTests.EventProcessorTests
             var lastEventId = 43908;
             var expectedEvents = new List<AccountEventView>
             {
-                new AccountEventView {EmployerAccountId = "dsf895u", Id = lastEventId - 3},
-                new AccountEventView {EmployerAccountId = "fvn3458t", Id = lastEventId - 2},
-                new AccountEventView {EmployerAccountId = "cfdvklt4", Id = lastEventId - 1},
-                new AccountEventView {EmployerAccountId = "cdvkj545", Id = lastEventId}
+                new AccountEventView {ResourceUri = "dsf895u", Id = lastEventId - 3},
+                new AccountEventView {ResourceUri = "fvn3458t", Id = lastEventId - 2},
+                new AccountEventView {ResourceUri = "cfdvklt4", Id = lastEventId - 1},
+                new AccountEventView {ResourceUri = "cdvkj545", Id = lastEventId}
             };
 
             EventsApi.Setup(x => x.GetAccountEventsById(CurrentEventId + 1, 1000, 1)).ReturnsAsync(expectedEvents);
@@ -39,7 +39,7 @@ namespace SFA.DAS.Data.Worker.UnitTests.EventProcessorTests
 
             foreach (var @event in expectedEvents)
             {
-                Mediator.Verify(x => x.PublishAsync(It.Is<CreateAccountCommand>(r => r.AccountHref == @event.EmployerAccountId)), Times.Once);
+                Mediator.Verify(x => x.PublishAsync(It.Is<CreateAccountCommand>(r => r.AccountHref == @event.ResourceUri)), Times.Once);
                 Logger.Verify(x => x.Info($"Event {@event.Id} processed"));
             }
 

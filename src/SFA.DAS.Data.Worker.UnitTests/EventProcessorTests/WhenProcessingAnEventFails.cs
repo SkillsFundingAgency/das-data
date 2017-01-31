@@ -18,10 +18,10 @@ namespace SFA.DAS.Data.Worker.UnitTests.EventProcessorTests
             var failedDasAccountId = "cfdvklt4";
             var expectedEvents = new List<AccountEventView>
             {
-                new AccountEventView {EmployerAccountId = "dsf895u", Id = failedEventId - 2},
-                new AccountEventView {EmployerAccountId = "fvn3458t", Id = failedEventId - 1},
-                new AccountEventView {EmployerAccountId = failedDasAccountId, Id = failedEventId},
-                new AccountEventView {EmployerAccountId = "cdvkj545", Id = failedEventId + 1}
+                new AccountEventView {ResourceUri = "dsf895u", Id = failedEventId - 2},
+                new AccountEventView {ResourceUri = "fvn3458t", Id = failedEventId - 1},
+                new AccountEventView {ResourceUri = failedDasAccountId, Id = failedEventId},
+                new AccountEventView {ResourceUri = "cdvkj545", Id = failedEventId + 1}
             };
 
             EventsApi.Setup(x => x.GetAccountEventsById(CurrentEventId + 1, 1000, 1)).ReturnsAsync(expectedEvents);
@@ -43,7 +43,7 @@ namespace SFA.DAS.Data.Worker.UnitTests.EventProcessorTests
             var failedDasAccountId = "cfdvklt4";
             var expectedEvents = new List<AccountEventView>
             {
-                new AccountEventView {EmployerAccountId = failedDasAccountId, Id = failedEventId},
+                new AccountEventView {ResourceUri = failedDasAccountId, Id = failedEventId},
             };
 
             EventsApi.Setup(x => x.GetAccountEventsById(CurrentEventId + 1, 1000, 1)).ReturnsAsync(expectedEvents);
