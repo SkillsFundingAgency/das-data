@@ -9,10 +9,10 @@ using SFA.DAS.Events.Api.Types;
 namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
 {
     [TestFixture]
-    public class WhenAnAccountIsRenamed : AccountEventTestsBase
+    public class WhenLegalEntitiesAreCreated : AccountEventTestsBase
     {
         [Test]
-        public void ThenTheAccountDetailsAreStored()
+        public void ThenTheLegalEntityDetailsAreStored()
         {
             var events = ConfigureEventsApi();
             ConfigureAccountsApi(events);
@@ -22,7 +22,7 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
             Task.Run(() => WorkerRole.Run(), cancellationToken);
 
             var databaseAsExpected = TestHelper.ConditionMet(IsDatabaseInExpectedState, TimeSpan.FromSeconds(60));
-
+            
             cancellationTokenSource.Cancel();
             Assert.IsTrue(databaseAsExpected);
         }
@@ -35,8 +35,8 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
                 return false;
             }
 
-            var numberOfAccounts = await EventTestsRepository.GetNumberOfAccounts();
-            if (numberOfAccounts != 2)
+            var numberOfLegalEntities = await EventTestsRepository.GetNumberOfLegalEntities();
+            if (numberOfLegalEntities != 2)
             {
                 return false;
             }
@@ -46,16 +46,8 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
 
         private void ConfigureAccountsApi(List<AccountEventView> events)
         {
-            AccountsApi.SetupGet("api/accounts/ABC123",
-                new AccountDetailViewModelBuilder().WithDasAccountId("ABC123")
-                    .WithLegalEntity(new ResourceViewModelBuilder().WithHref("api/accounts/ABC123/legalentities/123"))
-                    .WithPayeScheme(new ResourceViewModelBuilder().WithHref("api/accounts/ABC123/payeschemes/1234"))
-                    .Build());
-
             AccountsApi.SetupGet("api/accounts/ABC123/legalentities/123", new LegalEntityViewModelBuilder().WithDasAccountId("ABC123").WithLegalEntityId(123).Build());
-            AccountsApi.SetupGet("api/accounts/ABC123/payeschemes/1234", new PayeSchemeViewModelBuilder().WithDasAccountId("ABC123").WithRef("1234").Build());
-
-            AccountsApi.SetupGet("api/accounts/ABC123v2", new AccountDetailViewModelBuilder().WithDasAccountId("ABC123").WithName("New Name").Build());
+            AccountsApi.SetupGet("api/accounts/ZZZ999/legalentities/9876", new LegalEntityViewModelBuilder().WithDasAccountId("ZZZ999").WithLegalEntityId(9876).Build());
         }
 
         private List<AccountEventView> ConfigureEventsApi()
@@ -66,15 +58,15 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
                 {
                     CreatedOn = DateTime.Now.AddDays(-2),
                     Id = 3,
-                    ResourceUri = "api/accounts/ABC123",
-                    Event = "AccountCreated"
+                    ResourceUri = "api/accounts/ABC123/legalentities/123",
+                    Event = "LegalEntityCreated"
                 },
                 new AccountEventView
                 {
                     CreatedOn = DateTime.Now.AddDays(-1),
                     Id = 4,
-                    ResourceUri = "api/accounts/ABC123v2",
-                    Event = "AccountRenamed"
+                    ResourceUri = "api/accounts/ZZZ999/legalentities/9876",
+                    Event = "LegalEntityCreated"
                 }
             };
 
