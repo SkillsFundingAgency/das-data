@@ -76,6 +76,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\RemovePayeScheme\RemovePayeSchemeCommand.cs" />
+    <Compile Include="Commands\RemovePayeScheme\RemovePayeSchemeCommandHandler.cs" />
     <Compile Include="Commands\RenameAccount\RenameAccountCommand.cs" />
     <Compile Include="Commands\RenameAccount\RenameAccountCommandHandler.cs" />
     <Compile Include="Commands\CreateLegalEntity\CreateLegalEntityCommandHandler.cs" />

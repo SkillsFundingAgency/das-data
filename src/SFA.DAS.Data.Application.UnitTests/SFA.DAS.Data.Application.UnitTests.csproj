@@ -84,6 +84,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\RemovePayeSchemeTests\WhenIRemoveAPayeScheme.cs" />
     <Compile Include="Commands\RenameAccountTests\WhenIRenameAnAccount.cs" />
     <Compile Include="Commands\CreateAccountTests\WhenICreateAnAccount.cs" />
     <Compile Include="Commands\CreatePayeSchemeTests\WhenICreateAPayeScheme.cs" />

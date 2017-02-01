@@ -103,6 +103,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountEventTests\AccountEventTestsBase.cs" />
+    <Compile Include="AccountEventTests\WhenAPayeSchemeIsRemovedFromAnAccount.cs" />
     <Compile Include="AccountEventTests\WhenAPayeSchemeIsAddedToAnAccount.cs" />
     <Compile Include="AccountEventTests\WhenLegalEntitiesAreCreated.cs" />
     <Compile Include="AccountEventTests\WhenAnAccountIsRenamed.cs" />
