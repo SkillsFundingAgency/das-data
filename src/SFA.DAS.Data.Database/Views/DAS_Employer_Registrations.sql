@@ -1,54 +1,60 @@
 ﻿CREATE VIEW [Data_Pub].[DAS_Employer_Registrations]
 AS
-	SELECT ROW_NUMBER() OVER (ORDER BY [A].ID ASC, [LE].ID) AS Row_ID
-          , [A].[DasAccountId]
-          , [A].[AccountName] AS DASAccountName
-          , CONVERT(DATE,[A].[DateRegistered]) AS [DateRegistered]
-		  , [A].[DateRegistered] AS [DateTimeRegistered]
-		  , [LE].[DasLegalEntityID] AS [LegalEntityId]
-		  , [LE].[Name] AS LegalEntityName
-          , [LE].[Address] AS LegalEntityRegisteredAddress
-          , [LE].[Source] AS LegalEntitySource
-          , [LE].[Status] AS LegalEntityStatus
-          , [LE].[InceptionDate] AS LegalEntityCreatedDate
-          , [LE].[Code] AS LegalEntityNumber
+	SELECT ROW_NUMBER() OVER (ORDER BY [EA].ID ASC, [ELE].ID) AS Row_ID
+          , [EA].[DasAccountId]
+          , [EA].[AccountName] AS DASAccountName
+          , CONVERT(DATE,[EA].[DateRegistered]) AS [DateRegistered]
+		  , [EA].[DateRegistered] AS [DateTimeRegistered]
+		  , [ELE].[DasLegalEntityID] AS [LegalEntityId]
+		  , [ELE].[Name] AS LegalEntityName
+          , [ELE].[Address] AS LegalEntityRegisteredAddress
+          , Utility.fn_ExtractPostCodeUKFromAddress(UPPER(ELE.[Address])) AS [LegalEntityRegisteredAddressPostcode]
+		  , [ELE].[Source] AS LegalEntitySource
+          , [ELE].[Status] AS LegalEntityStatus
+          , [ELE].[InceptionDate] AS LegalEntityCreatedDateTime
+          , CAST([ELE].[InceptionDate] AS DATE) AS LegalEntityCreatedDate
+          , [ELE].[Code] AS LegalEntityNumber
           , CASE
-                WHEN [LE].[Source] = 'Companies House'
-                THEN [LE].[Code]
+                WHEN [ELE].[Source] = 'Companies House'
+                THEN [ELE].[Code]
                 ELSE ''
-            END AS [LegalOrganisatioCompanyReferenceNumber]
+            END AS [LegalEntityCompanyReferenceNumber]
           , CASE
-                WHEN [LE].[Source] = 'Charity Commission'
-                THEN [LE].[Code]
+                WHEN [ELE].[Source] = 'Charity Commission'
+                THEN [ELE].[Code]
                 ELSE ''
-            END AS [LegalOrganisatioCharityCommissionNumber]
+            END AS [LegalEntityCharityCommissionNumber]
           , 'Suppressed' AS [OwnerEmail] -- Supressed as not in data processing agreement,
-         -- , ROW_NUMBER() OVER(ORDER BY [A].[LegalEntityName] ASC) AS [LegalEntityId]
-          , [paye].[Name] AS PayeSchemeName
-          , [A].[UpdateDateTime]
+         -- , ROW_NUMBER() OVER(ORDER BY [EA].[LegalEntityName] ASC) AS [LegalEntityId]
+		  ,	HASHBYTES('SHA2_512',EPS.[Ref]) AS PAYEReference
+		  , [EPS].[Name] AS PayeSchemeName
+          , [EA].[UpdateDateTime]
+		  , CAST([EA].[UpdateDateTime] AS DATE) AS [UpdateDate]
           , CASE WHEN [B].[Flag_Latest] = 1 THEN 1 ELSE 0 END AS Flag_Latest 
           , CASE
                      -- Other also flag to Red
-                WHEN [LE].[Source] = 'Other' THEN 'Red'
+                WHEN [ELE].[Source] = 'Other' THEN 'Red'
                      --Charity's commission always flag to Green
-                WHEN [LE].[Source] = 'Charities' THEN
-                           (CASE WHEN [LE].[Code] IS NULL OR [LE].[Code] = '0' THEN 'Red' ELSE 'Green' END)
+                WHEN [ELE].[Source] = 'Charities' THEN
+                           (CASE WHEN [ELE].[Code] IS NULL OR [ELE].[Code] = '0' THEN 'Red' ELSE 'Green' END)
                      --When company if first to charactors are text then flag as Amber else green
-                      WHEN [LE].[Source] = 'Companies House' THEN
-                           (CASE WHEN [LE].[Code] IS NULL OR [LE].[Code] = '0' THEN 'Red'
-                                                WHEN isnumeric(left([LE].[Code],2)) <> 1 THEN 'Amber' ELSE 'Green' END)
+                      WHEN [ELE].[Source] = 'Companies House' THEN
+                           (CASE WHEN [ELE].[Code] IS NULL OR [ELE].[Code] = '0' THEN 'Red'
+                                                WHEN ISNUMERIC(LEFT([ELE].[Code],2)) <> 1 THEN 'Amber' ELSE 'Green' END)
                      -- Public Sector always set to Amber
-                     WHEN [LE].[Code] = 'Public Bodies' THEN 'Amber'             
+                     WHEN [ELE].[Code] = 'Public Bodies' THEN 'Amber'             
                       ELSE 'ERROR'
             END AS [LegalEntityRAGRating]
-     ,  CASE WHEN [LE].[Source] IN ('Charities','Companies House') THEN
-          (CASE WHEN [LE].[Code] IS NULL OR [LE].[Code] = '0' THEN [LE].[Name] ELSE CAST([LE].[Code] AS VARCHAR(255)) END)
-                ELSE [LE].[Name] END AS  UniqueLegalEntitID
+     --,  CASE WHEN [ELE].[Source] IN ('Charities','Companies House') THEN
+     --     (CASE WHEN [ELE].[Code] IS NULL OR [ELE].[Code] = '0' THEN [ELE].[Name] ELSE CAST([ELE].[Code] AS VARCHAR(255)) END)
+     --           ELSE [ELE].[Name] END AS  UniqueLegalEntitID
       
-       FROM
-        Data_Load.DAS_Employer_Accounts AS A
-		INNER JOIN Data_Load.DAS_Employer_LegalEntities AS LE ON LE.DasAccountId = A.DasAccountId
-		INNER JOIN Data_Load.DAS_Employer_PayeSchemes AS paye ON paye.DasAccountId = A.DasAccountId
+      
+	  
+	   FROM
+        Data_Load.DAS_Employer_Accounts AS EA
+		INNER JOIN Data_Load.DAS_Employer_LegalEntities AS ELE ON ELE.DasAccountId = EA.DasAccountId
+		INNER JOIN Data_Load.DAS_Employer_PayeSchemes AS EPS ON EPS.DasAccountId = EA.DasAccountId
         LEFT JOIN
 		(
          SELECT A2.[DasAccountID]
@@ -63,7 +69,7 @@ AS
          GROUP BY A2.[DASAccountID]
                 , LE2.[Name]
 				, PAYE2.[Name]
-		) AS B ON A.DASAccountID = B.DASAccountID
-               AND LE.Name = B.LegalEntityName
-			   AND ISNULL(paye.Name, '') = ISNULL(B.PayeSchemeName, '')
-               AND A.UpdateDateTime = B.Max_UpdateDateTime
+		) AS B ON EA.DASAccountID = B.DASAccountID
+               AND ELE.Name = B.LegalEntityName
+			   AND ISNULL(EPS.Name, '') = ISNULL(B.PayeSchemeName, '')
+               AND EA.UpdateDateTime = B.Max_UpdateDateTime

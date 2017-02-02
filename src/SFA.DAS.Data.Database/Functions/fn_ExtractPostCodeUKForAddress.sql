@@ -1,4 +1,4 @@
-﻿CREATE FUNCTION Utility.fn_ExtractPostCodeUKForAddress
+﻿CREATE FUNCTION Utility.fn_ExtractPostCodeUKFromAddress
 (
        @Address VARCHAR(MAX)
 )

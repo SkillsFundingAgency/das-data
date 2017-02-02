@@ -9,5 +9,5 @@
     [InceptionDate] DATETIME NULL, 
     [Code] NVARCHAR(50) NULL, 
     [Status] NVARCHAR(50) NULL, 
-    [UpdateDate] DATETIME NOT NULL DEFAULT (GETDATE())
+    [UpdateDateTime] DATETIME NOT NULL DEFAULT (GETDATE())
 )
