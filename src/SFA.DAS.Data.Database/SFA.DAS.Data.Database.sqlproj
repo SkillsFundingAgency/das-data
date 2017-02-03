@@ -64,6 +64,7 @@
     <Folder Include="SeedData" />
     <Folder Include="StoredProcedures" />
     <Folder Include="Functions" />
+    <Folder Include="PostDeployment" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Schemas\Data_Load.sql" />
@@ -93,5 +94,6 @@
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="SeedData\LoadedEventsSeedData.sql" />
+    <None Include="PostDeployment\Reprocess Events - new DB structure.sql" />
   </ItemGroup>
 </Project>
