@@ -18,12 +18,12 @@ AS
                 WHEN [ELE].[Source] = 'Companies House'
                 THEN [ELE].[Code]
                 ELSE ''
-            END AS [LegalEntityCompanyReferenceNumber]
+            END AS [LegalOrganisatioCompanyReferenceNumber]
           , CASE
                 WHEN [ELE].[Source] = 'Charity Commission'
                 THEN [ELE].[Code]
                 ELSE ''
-            END AS [LegalEntityCharityCommissionNumber]
+            END AS [LegalOrganisatioCharityCommissionNumber]
           , 'Suppressed' AS [OwnerEmail] -- Supressed as not in data processing agreement,
          -- , ROW_NUMBER() OVER(ORDER BY [EA].[LegalEntityName] ASC) AS [LegalEntityId]
 		  ,	HASHBYTES('SHA2_512',EPS.[Ref]) AS PAYEReference
