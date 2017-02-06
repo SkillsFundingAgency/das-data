@@ -20,7 +20,7 @@ AS
                 ELSE ''
             END AS [LegalOrganisatioCompanyReferenceNumber]
           , CASE
-                WHEN [ELE].[Source] = 'Charities'
+                WHEN [ELE].[Source] = 'Charity'
                 THEN [ELE].[Code]
                 ELSE ''
             END AS [LegalOrganisatioCharityCommissionNumber]
@@ -42,7 +42,7 @@ AS
                            (CASE WHEN [ELE].[Code] IS NULL OR [ELE].[Code] = '0' THEN 'Red'
                                                 WHEN ISNUMERIC(LEFT([ELE].[Code],2)) <> 1 THEN 'Amber' ELSE 'Green' END)
                      -- Public Sector always set to Amber
-                     WHEN [ELE].[Source] = 'Public Bodies' THEN 'Amber'             
+                     WHEN [ELE].[Code] = 'Public Bodies' THEN 'Amber'             
                       ELSE 'ERROR'
             END AS [LegalEntityRAGRating]
      --,  CASE WHEN [ELE].[Source] IN ('Charities','Companies House') THEN
@@ -60,7 +60,9 @@ AS
          SELECT A2.[DasAccountID]
               , LE2.[Name] AS LegalEntityName
 			  , Paye2.[Name] AS PayeSchemeName
-              , MAX([A2].[UpdateDateTime]) AS [Max_UpdateDateTime]
+              , MAX([A2].[UpdateDateTime]) AS [Max_AccountUpdateDateTime]
+			  , MAX([LE2].[UpdateDateTime]) AS [Max_LegalEntityUpdateDateTime]
+			  , MAX([PAYE2].[UpdateDateTime]) AS [Max_PayeUpdateDateTime]
               , 1 AS [Flag_Latest]
          FROM
             Data_Load.DAS_Employer_Accounts A2
@@ -72,4 +74,6 @@ AS
 		) AS B ON EA.DASAccountID = B.DASAccountID
                AND ELE.Name = B.LegalEntityName
 			   AND ISNULL(EPS.Name, '') = ISNULL(B.PayeSchemeName, '')
-               AND EA.UpdateDateTime = B.Max_UpdateDateTime
+               AND EA.UpdateDateTime = B.Max_AccountUpdateDateTime
+			   AND ELE.UpdateDateTime = B.Max_LegalEntityUpdateDateTime
+			   AND EPS.UpdateDateTime = B.[Max_PayeUpdateDateTime]
