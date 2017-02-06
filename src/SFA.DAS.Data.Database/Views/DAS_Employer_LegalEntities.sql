@@ -9,7 +9,7 @@ SELECT
       ,	ELE.[Address] AS LegalEntityRegisteredAddress
 	  , Utility.fn_ExtractPostCodeUKFromAddress(UPPER(ELE.[Address])) AS [LegalEntityRegisteredAddressPostcode]
 	  -- DO we need a valid postcode field
-      ,	ELE.[Source] AS LegalEnitySource
+      ,	ELE.[Source] AS LegalEntitySource
 		-- Additional Columns for InceptionDate represented as a Date
 	  ,	CAST(ELE.[InceptionDate] AS DATE) AS LegalEntityCreatedDate
 	  --Column Renamed as has DateTime
@@ -25,7 +25,7 @@ SELECT
                 THEN ELE.[Code]
                 ELSE ''
             END AS [LegalEntityCharityCommissionNumber]
-	  ,	ELE.[Status] AS LegalEnityStatus
+	  ,	ELE.[Status] AS LegalEntityStatus
 	  , CASE
                      -- Other also flag to Red
                 WHEN ELE.[Source] = 'Other' THEN 'Red'
@@ -37,7 +37,7 @@ SELECT
                            (CASE WHEN ELE.[Code] IS NULL OR ELE.[Code] = '0' THEN 'Red'
                                                 WHEN ISNUMERIC(LEFT(ELE.[Code],2)) <> 1 THEN 'Amber' ELSE 'Green' END)
                      -- Public Sector always set to Amber
-                     WHEN ELE.[Code] = 'Public Bodies' THEN 'Amber'             
+                     WHEN ELE.[Source] = 'Public Bodies' THEN 'Amber'             
                       ELSE 'ERROR'
             END AS [LegalEntityRAGRating]
       ,	ELE.[UpdateDateTime] AS UpdateDateTime
