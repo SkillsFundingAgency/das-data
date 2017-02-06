@@ -21,7 +21,7 @@ SELECT
                 ELSE ''
             END AS [LegalEntityCompanyReferenceNumber]
           , CASE
-                WHEN ELE.[Source] = 'Charity Commission'
+                WHEN ELE.[Source] = 'Charities'
                 THEN ELE.[Code]
                 ELSE ''
             END AS [LegalEntityCharityCommissionNumber]
