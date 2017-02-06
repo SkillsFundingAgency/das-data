@@ -21,9 +21,9 @@ namespace SFA.DAS.Data.Infrastructure.Data
                 parameters.Add("@eventFeed", eventFeed, DbType.String);
 
                 return await c.QuerySingleAsync<long>(
-                    sql: "SELECT LastProcessedEventId FROM [Data_Load].[DAS_LoadedEvents] WHERE EventFeed = @eventFeed",
+                    sql: "[Data_Load].[GetLastProcessedEventId]",
                     param: parameters,
-                    commandType: CommandType.Text);
+                    commandType: CommandType.StoredProcedure);
             });
 
             return result;
@@ -38,10 +38,9 @@ namespace SFA.DAS.Data.Infrastructure.Data
                 parameters.Add("@lastProcessedEventId", id, DbType.Int64);
 
                 return await c.ExecuteAsync(
-                    sql: "UPDATE [Data_Load].[DAS_LoadedEvents] SET LastProcessedEventId = @lastProcessedEventId " +
-                         "WHERE EventFeed = @eventFeed",
+                    sql: "[Data_Load].[StoreLastProcessedEventId]",
                     param: parameters,
-                    commandType: CommandType.Text);
+                    commandType: CommandType.StoredProcedure);
             });
         }
 
@@ -53,9 +52,9 @@ namespace SFA.DAS.Data.Infrastructure.Data
                 parameters.Add("@eventId", eventId, DbType.Int64);
 
                 return await c.QueryAsync<int>(
-                    sql: "SELECT FailureCount FROM [Data_Load].[DAS_FailedEvents] WHERE EventId = @eventId",
+                    sql: "[Data_Load].[GetEventFailureCount]",
                     param: parameters,
-                    commandType: CommandType.Text);
+                    commandType: CommandType.StoredProcedure);
             });
 
             return result.SingleOrDefault();
@@ -73,7 +72,7 @@ namespace SFA.DAS.Data.Infrastructure.Data
                     sql: "MERGE [Data_Load].[DAS_FailedEvents] AS [T] USING (SELECT @eventId AS EventId) AS [S] ON [T].EventId = [S].EventId " +
                          "WHEN MATCHED THEN UPDATE SET [T].FailureCount = @failureCount WHEN NOT MATCHED THEN INSERT(EventId, FailureCount) VALUES([S].EventId, @failureCount);",
                     param: parameters,
-                    commandType: CommandType.Text);
+                    commandType: CommandType.StoredProcedure);
             });
         }
     }
