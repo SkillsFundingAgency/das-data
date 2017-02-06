@@ -1,5 +1,4 @@
-﻿
-CREATE VIEW [Data_Pub].[DAS_Employer_Accounts]
+﻿CREATE VIEW [Data_Pub].[DAS_Employer_Accounts]
 AS
 
 
@@ -52,5 +51,3 @@ FROM [Data_Load].[DAS_Employer_Accounts] AS EA
 			GROUP BY 
 						ELE.[DasAccountId]
 		) AS CLE ON CLE.DasAccountId = EA.DasAccountId
-
-GO
