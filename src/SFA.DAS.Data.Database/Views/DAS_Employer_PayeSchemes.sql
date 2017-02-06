@@ -1,4 +1,5 @@
-﻿CREATE VIEW [Data_Pub].[DAS_Employer_PayeSchemes]
+﻿
+CREATE VIEW [Data_Pub].[DAS_Employer_PayeSchemes]
 AS
 
 SELECT 
@@ -27,3 +28,5 @@ FROM [Data_Load].[DAS_Employer_PayeSchemes] AS EPS
 					,	EPS.[Ref]
 			) AS LEPS ON EPS.DasAccountId = LEPS.DasAccountId
 					AND EPS.[Ref] = LEPS.[Ref] 
+
+GO

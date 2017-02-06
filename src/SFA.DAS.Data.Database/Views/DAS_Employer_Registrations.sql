@@ -1,4 +1,5 @@
-﻿CREATE VIEW [Data_Pub].[DAS_Employer_Registrations]
+﻿
+CREATE VIEW [Data_Pub].[DAS_Employer_Registrations]
 AS
 	SELECT ROW_NUMBER() OVER (ORDER BY [EA].ID ASC, [ELE].ID) AS Row_ID
           , [EA].[DasAccountId]
@@ -42,7 +43,7 @@ AS
                            (CASE WHEN [ELE].[Code] IS NULL OR [ELE].[Code] = '0' THEN 'Red'
                                                 WHEN ISNUMERIC(LEFT([ELE].[Code],2)) <> 1 THEN 'Amber' ELSE 'Green' END)
                      -- Public Sector always set to Amber
-                     WHEN [ELE].[Code] = 'Public Bodies' THEN 'Amber'             
+                     WHEN [ELE].[Source] = 'Public Bodies' THEN 'Amber'             
                       ELSE 'ERROR'
             END AS [LegalEntityRAGRating]
      --,  CASE WHEN [ELE].[Source] IN ('Charities','Companies House') THEN
@@ -73,3 +74,6 @@ AS
                AND ELE.Name = B.LegalEntityName
 			   AND ISNULL(EPS.Name, '') = ISNULL(B.PayeSchemeName, '')
                AND EA.UpdateDateTime = B.Max_UpdateDateTime
+
+
+GO
