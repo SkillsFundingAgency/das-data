@@ -69,8 +69,7 @@ namespace SFA.DAS.Data.Infrastructure.Data
                 parameters.Add("@failureCount", failureCount, DbType.Int32);
 
                 return await c.ExecuteAsync(
-                    sql: "MERGE [Data_Load].[DAS_FailedEvents] AS [T] USING (SELECT @eventId AS EventId) AS [S] ON [T].EventId = [S].EventId " +
-                         "WHEN MATCHED THEN UPDATE SET [T].FailureCount = @failureCount WHEN NOT MATCHED THEN INSERT(EventId, FailureCount) VALUES([S].EventId, @failureCount);",
+                    sql: "[Data_Load].[SetEventFailureCount]",
                     param: parameters,
                     commandType: CommandType.StoredProcedure);
             });
