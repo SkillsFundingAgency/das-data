@@ -20,7 +20,7 @@ AS
                 ELSE ''
             END AS [LegalOrganisatioCompanyReferenceNumber]
           , CASE
-                WHEN [ELE].[Source] = 'Charity'
+                WHEN [ELE].[Source] = 'Charities'
                 THEN [ELE].[Code]
                 ELSE ''
             END AS [LegalOrganisatioCharityCommissionNumber]
