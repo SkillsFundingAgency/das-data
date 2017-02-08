@@ -3,7 +3,6 @@ using Microsoft.Azure;
 using NUnit.Framework;
 using SFA.DAS.Configuration;
 using SFA.DAS.Configuration.AzureTableStorage;
-using SFA.DAS.EAS.Account.Api.Client;
 
 namespace SFA.DAS.Data.AcceptanceTests
 {
@@ -17,20 +16,21 @@ namespace SFA.DAS.Data.AcceptanceTests
         {
             var applicationConfig = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             var azureConfig = GetAzureStorageConfig();
-            applicationConfig.AppSettings.Settings["AccountsApiClientId"].Value = azureConfig.ClientId;
-            applicationConfig.AppSettings.Settings["AccountsApiClientSecret"].Value = azureConfig.ClientSecret;
-            applicationConfig.AppSettings.Settings["AccountsApiIdentifierUri"].Value = azureConfig.IdentifierUri;
-            applicationConfig.AppSettings.Settings["AccountsApiTenant"].Value = azureConfig.Tenant;
+            applicationConfig.AppSettings.Settings["DataConnectionString"].Value = azureConfig.DataConnectionString;
+            applicationConfig.AppSettings.Settings["AccountsApiClientId"].Value = azureConfig.AccountApiConfiguration.ClientId;
+            applicationConfig.AppSettings.Settings["AccountsApiClientSecret"].Value = azureConfig.AccountApiConfiguration.ClientSecret;
+            applicationConfig.AppSettings.Settings["AccountsApiIdentifierUri"].Value = azureConfig.AccountApiConfiguration.IdentifierUri;
+            applicationConfig.AppSettings.Settings["AccountsApiTenant"].Value = azureConfig.AccountApiConfiguration.Tenant;
             applicationConfig.Save(ConfigurationSaveMode.Modified);
             ConfigurationManager.RefreshSection("appSettings");
         }
 
-        private AccountApiConfiguration GetAzureStorageConfig()
+        private AcceptanceTestConfiguration GetAzureStorageConfig()
         {
             var configurationRepository = new AzureTableStorageConfigurationRepository(CloudConfigurationManager.GetSetting("ConfigurationStorageConnectionString"));
             var environment = CloudConfigurationManager.GetSetting("EnvironmentName");
             var configurationService = new ConfigurationService(configurationRepository, new ConfigurationOptions(ServiceName, environment, "1.0"));
-            return configurationService.Get<AccountApiConfiguration>();
+            return configurationService.Get<AcceptanceTestConfiguration>();
         }
     }
 }

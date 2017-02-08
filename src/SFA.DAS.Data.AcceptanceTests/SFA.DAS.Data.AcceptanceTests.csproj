@@ -134,6 +134,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AcceptanceTestConfiguration.cs" />
     <Compile Include="AccountEventTests\AccountEventTestsBase.cs" />
     <Compile Include="AccountEventTests\WhenAPayeSchemeIsRemovedFromAnAccount.cs" />
     <Compile Include="AccountEventTests\WhenAPayeSchemeIsAddedToAnAccount.cs" />
