@@ -1,7 +1,5 @@
 ﻿CREATE VIEW [Data_Pub].[DAS_Employer_Accounts]
 AS
-
-
 SELECT	EA.[Id]
 	,	EA.[DasAccountId]
 	,	EA.[AccountName] AS DASAccountName
@@ -28,7 +26,8 @@ FROM [Data_Load].[DAS_Employer_Accounts] AS EA
 			FROM [Data_Load].[DAS_Employer_Accounts] AS EA
 			GROUP BY 
 						EA.[DasAccountId]
-			) AS LEA ON EA.DasAccountId = LEA.DasAccountId
+			) AS LEA ON EA.DasAccountId = LEA.DasAccountId 
+					AND lea.Max_UpdatedDateTime = EA.[UpdateDateTime]
 	-- Adding Current number of PAYE Schemes
 	LEFT JOIN (	SELECT
 						EPS.[DasAccountId]

@@ -26,4 +26,5 @@ FROM [Data_Load].[DAS_Employer_PayeSchemes] AS EPS
 						EPS.[DasAccountId]
 					,	EPS.[Ref]
 			) AS LEPS ON EPS.DasAccountId = LEPS.DasAccountId
-					AND EPS.[Ref] = LEPS.[Ref] 
+					AND EPS.[Ref] = LEPS.[Ref]
+					AND EPS.[UpdateDateTime] = LEPS.Max_UpdatedDateTime

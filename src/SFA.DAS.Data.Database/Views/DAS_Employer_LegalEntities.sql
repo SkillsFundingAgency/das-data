@@ -59,3 +59,4 @@ FROM [Data_Load].[DAS_Employer_LegalEntities] AS ELE
 					,	ELE.[DasLegalEntityId]
 			) AS LELE ON ELE.DasAccountId = LELE.DasAccountId
 					AND ELE.DasLegalEntityId = LELE.DasLegalEntityId
+					AND ELE.[UpdateDateTime] = LELE.Max_UpdatedDateTime
