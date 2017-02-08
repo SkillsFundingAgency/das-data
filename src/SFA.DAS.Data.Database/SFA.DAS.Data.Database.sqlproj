@@ -61,7 +61,7 @@
     <Folder Include="Schemas" />
     <Folder Include="Tables" />
     <Folder Include="Views" />
-    <Folder Include="SeedData" />
+    <Folder Include="PostDeployment" />
     <Folder Include="StoredProcedures" />
     <Folder Include="Functions" />
   </ItemGroup>
@@ -96,6 +96,6 @@
     <Build Include="Schemas\Data_Pub.sql" />
   </ItemGroup>
   <ItemGroup>
-    <PostDeploy Include="SeedData\LoadedEventsSeedData.sql" />
+    <PostDeploy Include="PostDeployment\PostDeploy.sql" />
   </ItemGroup>
 </Project>
