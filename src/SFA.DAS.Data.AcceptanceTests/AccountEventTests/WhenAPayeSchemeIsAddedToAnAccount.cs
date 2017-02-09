@@ -15,6 +15,8 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
         [Test]
         public void ThenThePayeSchemeDetailsAreStored()
         {
+            Trace.WriteLine("ThenThePayeSchemeDetailsAreStored started");
+
             var events = ConfigureEventsApi();
             ConfigureAccountsApi(events);
 
@@ -27,7 +29,7 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
             cancellationTokenSource.Cancel();
             Assert.IsTrue(databaseAsExpected);
 
-            Trace.WriteLine("ThenTheAccountDetailsAreStored completed");
+            Trace.WriteLine("ThenThePayeSchemeDetailsAreStored completed");
         }
 
         private async Task<bool> IsDatabaseInExpectedState()

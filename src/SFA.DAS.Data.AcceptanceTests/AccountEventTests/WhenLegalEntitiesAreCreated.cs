@@ -15,6 +15,8 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
         [Test]
         public void ThenTheLegalEntityDetailsAreStored()
         {
+            Trace.WriteLine("ThenTheLegalEntityDetailsAreStored started");
+
             var events = ConfigureEventsApi();
             ConfigureAccountsApi(events);
 
@@ -27,7 +29,7 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
             cancellationTokenSource.Cancel();
             Assert.IsTrue(databaseAsExpected);
 
-            Trace.WriteLine("ThenTheAccountDetailsAreStored completed");
+            Trace.WriteLine("ThenTheLegalEntityDetailsAreStored completed");
         }
 
         private async Task<bool> IsDatabaseInExpectedState()

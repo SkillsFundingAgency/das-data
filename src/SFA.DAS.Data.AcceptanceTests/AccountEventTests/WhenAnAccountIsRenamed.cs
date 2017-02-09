@@ -13,8 +13,10 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
     public class WhenAnAccountIsRenamed : AccountEventTestsBase
     {
         [Test]
-        public void ThenTheAccountDetailsAreStored()
+        public void ThenTheAccountDetailsIsRenamed()
         {
+            Trace.WriteLine("ThenTheAccountDetailsIsRenamed started"); 
+
             var events = ConfigureEventsApi();
             ConfigureAccountsApi(events);
 
@@ -27,7 +29,7 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
             cancellationTokenSource.Cancel();
             Assert.IsTrue(databaseAsExpected);
 
-            Trace.WriteLine("ThenTheAccountDetailsAreStored completed");
+            Trace.WriteLine("ThenTheAccountDetailsIsRenamed completed");
         }
 
         private async Task<bool> IsDatabaseInExpectedState()

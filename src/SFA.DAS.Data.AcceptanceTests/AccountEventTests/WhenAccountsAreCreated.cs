@@ -15,6 +15,8 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
         [Test]
         public void ThenTheAccountDetailsAreStored()
         {
+            Trace.WriteLine("ThenTheAccountDetailsAreStored started");
+
             var events = ConfigureEventsApi();
             ConfigureAccountsApi(events);
 
