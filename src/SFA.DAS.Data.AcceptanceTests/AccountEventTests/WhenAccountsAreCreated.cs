@@ -17,16 +17,22 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
         {
             Trace.WriteLine("ThenTheAccountDetailsAreStored started");
 
+            Trace.WriteLine("Configuring APIs");
             var events = ConfigureEventsApi();
             ConfigureAccountsApi(events);
 
             var cancellationTokenSource = new CancellationTokenSource();
             var cancellationToken = cancellationTokenSource.Token;
+            Trace.WriteLine("Running worker");
             Task.Run(() => WorkerRole.Run(), cancellationToken);
 
+            Trace.WriteLine("Checking database {0}", DateTime.Now.ToLongTimeString());
             var databaseAsExpected = TestHelper.ConditionMet(IsDatabaseInExpectedState, TimeSpan.FromSeconds(60));
+            Trace.WriteLine("Finished checking database {0}", DateTime.Now.ToLongTimeString());
 
+            Trace.WriteLine("Cancelling token", DateTime.Now.ToLongTimeString());
             cancellationTokenSource.Cancel();
+            Trace.WriteLine("Token cancelled", DateTime.Now.ToLongTimeString());
             Assert.IsTrue(databaseAsExpected);
 
             Trace.WriteLine("ThenTheAccountDetailsAreStored completed");
@@ -34,24 +40,28 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
 
         private async Task<bool> IsDatabaseInExpectedState()
         {
+            Trace.WriteLine("Getting last processed event id");
             var lastProcessedEventId = await EventTestsRepository.GetLastProcessedEventId("AccountEvents");
             if (lastProcessedEventId != 4)
             {
                 return false;
             }
 
+            Trace.WriteLine("Getting number of registrations");
             var numberOfRegistrations = await EventTestsRepository.GetNumberOfAccounts();
             if (numberOfRegistrations != 2)
             {
                 return false;
             }
 
+            Trace.WriteLine("Getting number of legal entities");
             var numberOfLegalEntities = await EventTestsRepository.GetNumberOfLegalEntities();
             if (numberOfLegalEntities != 3)
             {
                 return false;
             }
 
+            Trace.WriteLine("Getting number of paye schemes");
             var numberOfPayeSchemes = await EventTestsRepository.GetNumberOfPayeSchemes();
             if (numberOfPayeSchemes != 3)
             {
