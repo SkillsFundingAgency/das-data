@@ -15,6 +15,11 @@ namespace SFA.DAS.Data.AcceptanceTests.ApiSubstitute
             _configuredGets.Add(url, response);
         }
 
+        public void ClearSetup()
+        {
+            _configuredGets.Clear();
+        }
+
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             var requestUri = request.RequestUri.ToString();

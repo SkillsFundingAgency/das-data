@@ -9,23 +9,17 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
     public abstract class AccountEventTestsBase
     {
         protected WorkerRole WorkerRole;
-        protected WebApiSubstitute EventsApi;
-        protected WebApiSubstitute AccountsApi;
         protected EventTestsRepository EventTestsRepository;
+
+        protected WebApiSubstitute AccountsApi => DataAcceptanceTests.AccountsApi;
+        protected WebApiSubstitute EventsApi => DataAcceptanceTests.EventsApi;
 
         [SetUp]
         public void Arrange()
         {
-            StartSubstituteApis();
+            ClearSubstituteApis();
             StartWorkerRole();
             SetupDatabase();
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            EventsApi.Dispose();
-            AccountsApi.Dispose();
         }
 
         private void SetupDatabase()
@@ -42,13 +36,10 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
             WorkerRole.OnStart();
         }
 
-        private void StartSubstituteApis()
+        private void ClearSubstituteApis()
         {
-            EventsApi = new WebApiSubstitute(ConfigurationManager.AppSettings["EventsApiBaseUrl"]);
-            AccountsApi = new WebApiSubstitute(ConfigurationManager.AppSettings["AccountsApiBaseUrl"]);
-
-            EventsApi.Start();
-            AccountsApi.Start();
+            EventsApi.ClearSetup();
+            AccountsApi.ClearSetup();
         }
     }
 }

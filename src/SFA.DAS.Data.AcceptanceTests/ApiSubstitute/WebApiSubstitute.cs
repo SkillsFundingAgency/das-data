@@ -28,6 +28,11 @@ namespace SFA.DAS.Data.AcceptanceTests.ApiSubstitute
             _messageHandler.SetupGet(fullUrl, returnValue);
         }
 
+        public void ClearSetup()
+        {
+            _messageHandler.ClearSetup();
+        }
+
         public void Dispose()
         {
             _webApp.Dispose();

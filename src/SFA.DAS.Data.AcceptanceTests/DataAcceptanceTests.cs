@@ -3,16 +3,42 @@ using Microsoft.Azure;
 using NUnit.Framework;
 using SFA.DAS.Configuration;
 using SFA.DAS.Configuration.AzureTableStorage;
+using SFA.DAS.Data.AcceptanceTests.ApiSubstitute;
 
 namespace SFA.DAS.Data.AcceptanceTests
 {
     [SetUpFixture]
-    public class GlobalSetup
+    public class DataAcceptanceTests
     {
+        internal static WebApiSubstitute EventsApi;
+        internal static WebApiSubstitute AccountsApi;
+
         private const string ServiceName = "SFA.DAS.Data.AcceptanceTests";
 
         [OneTimeSetUp]
         public void SetUp()
+        {
+            SetTestConfiguration();
+            StartSubstituteApis();
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            EventsApi.Dispose();
+            AccountsApi.Dispose();
+        }
+
+        private static void StartSubstituteApis()
+        {
+            EventsApi = new WebApiSubstitute(ConfigurationManager.AppSettings["EventsApiBaseUrl"]);
+            AccountsApi = new WebApiSubstitute(ConfigurationManager.AppSettings["AccountsApiBaseUrl"]);
+
+            EventsApi.Start();
+            AccountsApi.Start();
+        }
+
+        private void SetTestConfiguration()
         {
             var applicationConfig = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             var azureConfig = GetAzureStorageConfig();
