@@ -7,13 +7,13 @@ namespace SFA.DAS.Data.Application.Configuration
     {
         public string BaseUrl
         {
-            get { return CloudConfigurationManager.GetSetting("EventsApiBaseUrl"); }
+            get { return CloudConfigurationManager.GetSetting("EventsApiBaseUrl", false); }
             set { }
         }
 
         public string ClientToken
         {
-            get { return CloudConfigurationManager.GetSetting("EventsApiClientToken"); }
+            get { return CloudConfigurationManager.GetSetting("EventsApiClientToken", false); }
             set { }
         }
     }

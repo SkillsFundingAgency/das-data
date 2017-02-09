@@ -37,7 +37,7 @@ namespace SFA.DAS.Data.Worker
         public override bool OnStart()
         {
             ServicePointManager.DefaultConnectionLimit = 12;
-            TelemetryConfiguration.Active.InstrumentationKey = CloudConfigurationManager.GetSetting("InstrumentationKey");
+            TelemetryConfiguration.Active.InstrumentationKey = CloudConfigurationManager.GetSetting("InstrumentationKey", false);
             _container = ConfigureIocContainer();
             RegisterEventHandlers(_container);
             _eventProcessor = _container.GetInstance<IEventProcessor>();

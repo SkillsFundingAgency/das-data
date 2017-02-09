@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
 using System.Threading;
@@ -23,6 +24,7 @@ namespace SFA.DAS.Data.AcceptanceTests.ApiSubstitute
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             var requestUri = request.RequestUri.ToString();
+            Trace.WriteLine("Capturing request " + requestUri);
             HttpResponseMessage response;
             if (!_configuredGets.ContainsKey(requestUri))
             {
@@ -35,6 +37,7 @@ namespace SFA.DAS.Data.AcceptanceTests.ApiSubstitute
 
             var tsc = new TaskCompletionSource<HttpResponseMessage>();
             tsc.SetResult(response);
+            Trace.WriteLine("Responding to request " + requestUri);
             return tsc.Task;
         }
     }

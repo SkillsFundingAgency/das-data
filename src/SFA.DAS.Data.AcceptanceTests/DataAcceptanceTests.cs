@@ -53,8 +53,8 @@ namespace SFA.DAS.Data.AcceptanceTests
 
         private AcceptanceTestConfiguration GetAzureStorageConfig()
         {
-            var configurationRepository = new AzureTableStorageConfigurationRepository(CloudConfigurationManager.GetSetting("ConfigurationStorageConnectionString"));
-            var environment = CloudConfigurationManager.GetSetting("EnvironmentName");
+            var configurationRepository = new AzureTableStorageConfigurationRepository(CloudConfigurationManager.GetSetting("ConfigurationStorageConnectionString", false));
+            var environment = CloudConfigurationManager.GetSetting("EnvironmentName", false);
             var configurationService = new ConfigurationService(configurationRepository, new ConfigurationOptions(ServiceName, environment, "1.0"));
             return configurationService.Get<AcceptanceTestConfiguration>();
         }

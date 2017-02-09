@@ -5,19 +5,19 @@ namespace SFA.DAS.Data.Application.Configuration
 {
     public class DataConfiguration
     {
-        public string DatabaseConnectionString => CloudConfigurationManager.GetSetting("DataConnectionString");
+        public string DatabaseConnectionString => CloudConfigurationManager.GetSetting("DataConnectionString", false);
 
-        public int FailureTolerance => int.Parse(CloudConfigurationManager.GetSetting("EventFailureTolerance"));
+        public int FailureTolerance => int.Parse(CloudConfigurationManager.GetSetting("EventFailureTolerance", false));
 
         public EventsApiClientConfiguration EventsApi => new EventsApiClientConfiguration();
 
         public AccountApiConfiguration AccountsApi => new AccountApiConfiguration
         {
-            ApiBaseUrl = CloudConfigurationManager.GetSetting("AccountsApiBaseUrl"),
-            ClientId = CloudConfigurationManager.GetSetting("AccountsApiClientId"),
-            ClientSecret = CloudConfigurationManager.GetSetting("AccountsApiClientSecret"),
-            IdentifierUri = CloudConfigurationManager.GetSetting("AccountsApiIdentifierUri"),
-            Tenant = CloudConfigurationManager.GetSetting("AccountsApiTenant"),
+            ApiBaseUrl = CloudConfigurationManager.GetSetting("AccountsApiBaseUrl", false),
+            ClientId = CloudConfigurationManager.GetSetting("AccountsApiClientId", false),
+            ClientSecret = CloudConfigurationManager.GetSetting("AccountsApiClientSecret", false),
+            IdentifierUri = CloudConfigurationManager.GetSetting("AccountsApiIdentifierUri", false),
+            Tenant = CloudConfigurationManager.GetSetting("AccountsApiTenant", false),
         };
     }
 }
