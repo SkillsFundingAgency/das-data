@@ -409,7 +409,6 @@ Target "Run Acceptance Tests" (fun _ ->
             {p with
                 ToolPath = nUnitToolPath;
                 StopOnError = false;
-                OutputDir = ("output.txt");
                 ResultSpecs = [("TestResult.xml;format=" + nunitTestFormat)];
                 })
 )
