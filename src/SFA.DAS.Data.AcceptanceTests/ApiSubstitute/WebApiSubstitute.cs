@@ -18,11 +18,9 @@ namespace SFA.DAS.Data.AcceptanceTests.ApiSubstitute
 
         public void Start()
         {
-            Trace.WriteLine("Starting substitute service " + _baseAddress);
             var startOptions = new StartOptions(_baseAddress);
             var apiStartup = new ApiStartup();
             _webApp = WebApp.Start(startOptions, builder => apiStartup.Configuration(builder, _messageHandler));
-            Trace.WriteLine("Substitute service started " + _baseAddress);
         }
 
         public void SetupGet(string apiPath, object returnValue)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using NUnit.Framework;
@@ -25,6 +26,8 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
             
             cancellationTokenSource.Cancel();
             Assert.IsTrue(databaseAsExpected);
+
+            Trace.WriteLine("ThenTheAccountDetailsAreStored completed");
         }
 
         private async Task<bool> IsDatabaseInExpectedState()
