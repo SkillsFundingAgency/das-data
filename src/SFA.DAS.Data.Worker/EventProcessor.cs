@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MediatR;
-using SFA.DAS.Data.Application.Commands.CreateAccount;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.Events.Api.Client;
 using SFA.DAS.Events.Api.Types;
@@ -14,7 +12,7 @@ namespace SFA.DAS.Data.Worker
 {
     public class EventProcessor : IEventProcessor
     {
-        private const string EventStream = "AccountEvents";
+        private const string AccountEventsStreamName = "AccountEvents";
 
         private readonly IEventRepository _eventRepository;
         private readonly IEventsApi _eventsApi;
@@ -35,7 +33,7 @@ namespace SFA.DAS.Data.Worker
         {
             try
             {
-                var events = await GetEvents();
+                var events = await GetAccountEvents();
 
                 if (NoEventsToProcess(events))
                 {
@@ -56,7 +54,7 @@ namespace SFA.DAS.Data.Worker
         private async Task UpdateLastProcessedEventId(IEnumerable<AccountEventView> events)
         {
             var lastEventId = events.Max(x => x.Id);
-            await _eventRepository.StoreLastProcessedEventId(EventStream, lastEventId);
+            await _eventRepository.StoreLastProcessedEventId(AccountEventsStreamName, lastEventId);
         }
 
         private async Task HandleEvents(IEnumerable<AccountEventView> events)
@@ -83,17 +81,17 @@ namespace SFA.DAS.Data.Worker
 
         private async Task HandleEventProcessingException(Exception ex, AccountEventView @event)
         {
-            _logger.Error(ex, $"Unexcepted exception when processing event {@event.Id} from event stream {EventStream}.");
+            _logger.Error(ex, $"Unexcepted exception when processing event {@event.Id} from event stream {AccountEventsStreamName}.");
 
             var failureCount = await UpdateFailureCountForEvent(@event.Id);
             if (EventHasExceededFailureTolerance(failureCount))
             {
-                _logger.Info($"Event {@event.Id} from event stream {EventStream} has reached the fault tolerance and will no longer be retried.");
-                await _eventRepository.StoreLastProcessedEventId(EventStream, @event.Id);
+                _logger.Info($"Event {@event.Id} from event stream {AccountEventsStreamName} has reached the fault tolerance and will no longer be retried.");
+                await _eventRepository.StoreLastProcessedEventId(AccountEventsStreamName, @event.Id);
             }
             else
             {
-                await _eventRepository.StoreLastProcessedEventId(EventStream, @event.Id - 1);
+                await _eventRepository.StoreLastProcessedEventId(AccountEventsStreamName, @event.Id - 1);
             }
         }
 
@@ -115,17 +113,17 @@ namespace SFA.DAS.Data.Worker
             return !events.Any();
         }
 
-        private async Task<IEnumerable<AccountEventView>> GetEvents()
+        private async Task<IEnumerable<AccountEventView>> GetAccountEvents()
         {
-            var nextEventId = await GetNextEventId();
+            var nextEventId = await GetNextEventId(AccountEventsStreamName);
 
             var events = await _eventsApi.GetAccountEventsById(nextEventId);
             return events;
         }
 
-        private async Task<long> GetNextEventId()
+        private async Task<long> GetNextEventId(string eventsStream)
         {
-            var currentEventId = await _eventRepository.GetLastProcessedEventId(EventStream);
+            var currentEventId = await _eventRepository.GetLastProcessedEventId(eventsStream);
             return currentEventId + 1;
         }
     }
