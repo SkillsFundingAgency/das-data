@@ -13,6 +13,7 @@ namespace SFA.DAS.Data.Worker
     public class EventProcessor : IEventProcessor
     {
         private const string AccountEventsStreamName = "AccountEvents";
+        private const string ApprenticeshipEventsStreamName = "ApprenticeshipEvents";
 
         private readonly IEventRepository _eventRepository;
         private readonly IEventsApi _eventsApi;
@@ -33,17 +34,8 @@ namespace SFA.DAS.Data.Worker
         {
             try
             {
-                var events = await GetAccountEvents();
-
-                if (NoEventsToProcess(events))
-                {
-                    _logger.Info("No events to process.");
-                    return;
-                }
-
-                await HandleEvents(events);
-
-                await UpdateLastProcessedEventId(events);
+                await ProcessAccountEvents();
+                await ProcessApprenticeshipEvents();
             }
             catch (Exception ex)
             {
@@ -51,50 +43,73 @@ namespace SFA.DAS.Data.Worker
             }
         }
 
-        private async Task UpdateLastProcessedEventId(IEnumerable<AccountEventView> events)
+        private async Task ProcessApprenticeshipEvents()
         {
-            var lastEventId = events.Max(x => x.Id);
-            await _eventRepository.StoreLastProcessedEventId(AccountEventsStreamName, lastEventId);
+            var apprenticeshipEvents = await GetApprenticeshipEvents();
+
+            if (!apprenticeshipEvents.Any())
+            {
+                _logger.Info("No events to process.");
+            }
+
+            await HandleEvents(apprenticeshipEvents, ApprenticeshipEventsStreamName);
+
+            await UpdateLastProcessedEventId(apprenticeshipEvents, ApprenticeshipEventsStreamName);
         }
 
-        private async Task HandleEvents(IEnumerable<AccountEventView> events)
+        private async Task ProcessAccountEvents()
+        {
+            var accountEvents = await GetAccountEvents();
+
+            if (!accountEvents.Any())
+            {
+                _logger.Info("No events to process.");
+            }
+
+            await HandleEvents(accountEvents, AccountEventsStreamName);
+
+            await UpdateLastProcessedEventId(accountEvents, AccountEventsStreamName);
+        }
+
+        private async Task UpdateLastProcessedEventId(IEnumerable<IEventView> events, string eventStreamName)
+        {
+            var lastEventId = events.Max(x => x.Id);
+            await _eventRepository.StoreLastProcessedEventId(eventStreamName, lastEventId);
+        }
+
+        private async Task HandleEvents<T>(IEnumerable<T> events, string eventsStream) where T : IEventView
         {
             foreach (var @event in events)
             {
                 try
                 {
-                    await HandleEvent(@event);
+                    await _eventDispatcher.Dispatch(@event);
                     _logger.Info($"Event {@event.Id} processed");
                 }
                 catch (Exception ex)
                 {
-                    await HandleEventProcessingException(ex, @event);
+                    await HandleEventProcessingException(ex, @event, eventsStream);
                     throw;
                 }
             }
         }
-
-        private async Task HandleEvent(AccountEventView @event)
+    
+        private async Task HandleEventProcessingException(Exception ex, IEventView @event, string eventsStream)
         {
-            await _eventDispatcher.Dispatch(@event);
-        }
-
-        private async Task HandleEventProcessingException(Exception ex, AccountEventView @event)
-        {
-            _logger.Error(ex, $"Unexcepted exception when processing event {@event.Id} from event stream {AccountEventsStreamName}.");
+            _logger.Error(ex, $"Unexcepted exception when processing event {@event.Id} from event stream {eventsStream}.");
 
             var failureCount = await UpdateFailureCountForEvent(@event.Id);
             if (EventHasExceededFailureTolerance(failureCount))
             {
-                _logger.Info($"Event {@event.Id} from event stream {AccountEventsStreamName} has reached the fault tolerance and will no longer be retried.");
-                await _eventRepository.StoreLastProcessedEventId(AccountEventsStreamName, @event.Id);
+                _logger.Info($"Event {@event.Id} from event stream {eventsStream} has reached the fault tolerance and will no longer be retried.");
+                await _eventRepository.StoreLastProcessedEventId(eventsStream, @event.Id);
             }
             else
             {
                 await _eventRepository.StoreLastProcessedEventId(AccountEventsStreamName, @event.Id - 1);
             }
         }
-
+        
         private bool EventHasExceededFailureTolerance(int failureCount)
         {
             return failureCount >= _failureTolerance;
@@ -108,16 +123,19 @@ namespace SFA.DAS.Data.Worker
             return failureCount;
         }
 
-        private static bool NoEventsToProcess(IEnumerable<AccountEventView> events)
-        {
-            return !events.Any();
-        }
-
-        private async Task<IEnumerable<AccountEventView>> GetAccountEvents()
+        private async Task<ICollection<AccountEventView>> GetAccountEvents()
         {
             var nextEventId = await GetNextEventId(AccountEventsStreamName);
 
             var events = await _eventsApi.GetAccountEventsById(nextEventId);
+            return events;
+        }
+
+        private async Task<ICollection<ApprenticeshipEventView>> GetApprenticeshipEvents()
+        {
+            var nextEventId = await GetNextEventId(ApprenticeshipEventsStreamName);
+
+            var events = await _eventsApi.GetApprenticeshipEventsById(nextEventId);
             return events;
         }
 
