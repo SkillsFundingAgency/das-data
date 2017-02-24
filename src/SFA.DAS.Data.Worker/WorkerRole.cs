@@ -87,6 +87,7 @@ namespace SFA.DAS.Data.Worker
             dispatcher.RegisterHandler(container.GetInstance<ILegalEntityCreatedEventHandler>(), "LegalEntityCreated");
             dispatcher.RegisterHandler(container.GetInstance<IPayeSchemeAddedEventHandler>(), "PayeSchemeAdded");
             dispatcher.RegisterHandler(container.GetInstance<IPayeSchemeRemovedEventHandler>(), "PayeSchemeRemoved");
+            dispatcher.RegisterHandler(container.GetInstance<IApprenticeshipEventHandler>(), "PayeSchemeRemoved");
         }
     }
 }
