@@ -21,7 +21,8 @@ namespace SFA.DAS.Data.Worker
         private readonly ILog _logger;
         private readonly int _failureTolerance;
 
-        public EventProcessor(IEventRepository eventRepository, IEventsApi eventsApi, IEventDispatcher eventDispatcher, ILog logger, int failureTolerance)
+        public EventProcessor(IEventRepository eventRepository, IEventsApi eventsApi, IEventDispatcher eventDispatcher,
+            ILog logger, int failureTolerance)
         {
             _eventRepository = eventRepository;
             _eventsApi = eventsApi;
@@ -34,7 +35,7 @@ namespace SFA.DAS.Data.Worker
         {
             try
             {
-                await ProcessAccountEvents();
+                //  await ProcessAccountEvents();
                 await ProcessApprenticeshipEvents();
             }
             catch (Exception ex)
@@ -50,6 +51,7 @@ namespace SFA.DAS.Data.Worker
             if (!apprenticeshipEvents.Any())
             {
                 _logger.Info("No events to process.");
+                return;
             }
 
             await HandleEvents(apprenticeshipEvents, ApprenticeshipEventsStreamName);
@@ -64,6 +66,7 @@ namespace SFA.DAS.Data.Worker
             if (!accountEvents.Any())
             {
                 _logger.Info("No events to process.");
+                return;
             }
 
             await HandleEvents(accountEvents, AccountEventsStreamName);
@@ -73,7 +76,14 @@ namespace SFA.DAS.Data.Worker
 
         private async Task UpdateLastProcessedEventId(IEnumerable<IEventView> events, string eventStreamName)
         {
-            var lastEventId = events.Max(x => x.Id);
+            var eventViews = events as IEventView[] ?? events.ToArray();
+
+            if (!eventViews.Any())
+            {
+                return;
+            }
+
+            var lastEventId = eventViews.Max(x => x.Id);
             await _eventRepository.StoreLastProcessedEventId(eventStreamName, lastEventId);
         }
 
@@ -93,15 +103,17 @@ namespace SFA.DAS.Data.Worker
                 }
             }
         }
-    
+
         private async Task HandleEventProcessingException(Exception ex, IEventView @event, string eventsStream)
         {
-            _logger.Error(ex, $"Unexcepted exception when processing event {@event.Id} from event stream {eventsStream}.");
+            _logger.Error(ex,
+                $"Unexcepted exception when processing event {@event.Id} from event stream {eventsStream}.");
 
             var failureCount = await UpdateFailureCountForEvent(@event.Id);
             if (EventHasExceededFailureTolerance(failureCount))
             {
-                _logger.Info($"Event {@event.Id} from event stream {eventsStream} has reached the fault tolerance and will no longer be retried.");
+                _logger.Info(
+                    $"Event {@event.Id} from event stream {eventsStream} has reached the fault tolerance and will no longer be retried.");
                 await _eventRepository.StoreLastProcessedEventId(eventsStream, @event.Id);
             }
             else
@@ -109,7 +121,7 @@ namespace SFA.DAS.Data.Worker
                 await _eventRepository.StoreLastProcessedEventId(AccountEventsStreamName, @event.Id - 1);
             }
         }
-        
+
         private bool EventHasExceededFailureTolerance(int failureCount)
         {
             return failureCount >= _failureTolerance;
@@ -127,16 +139,14 @@ namespace SFA.DAS.Data.Worker
         {
             var nextEventId = await GetNextEventId(AccountEventsStreamName);
 
-            var events = await _eventsApi.GetAccountEventsById(nextEventId);
-            return events;
+           return await _eventsApi.GetAccountEventsById(nextEventId);
         }
 
         private async Task<ICollection<ApprenticeshipEventView>> GetApprenticeshipEvents()
         {
             var nextEventId = await GetNextEventId(ApprenticeshipEventsStreamName);
-
-            var events = await _eventsApi.GetApprenticeshipEventsById(nextEventId);
-            return events;
+           
+            return await _eventsApi.GetApprenticeshipEventsById(nextEventId);
         }
 
         private async Task<long> GetNextEventId(string eventsStream)

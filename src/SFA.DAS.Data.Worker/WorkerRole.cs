@@ -66,7 +66,7 @@ namespace SFA.DAS.Data.Worker
             while (!cancellationToken.IsCancellationRequested)
             {
                 await _eventProcessor.ProcessEvents();
-                await Task.Delay(60000);
+                await Task.Delay(10000);
             }
         }
 
@@ -87,7 +87,7 @@ namespace SFA.DAS.Data.Worker
             dispatcher.RegisterHandler(container.GetInstance<ILegalEntityCreatedEventHandler>(), "LegalEntityCreated");
             dispatcher.RegisterHandler(container.GetInstance<IPayeSchemeAddedEventHandler>(), "PayeSchemeAdded");
             dispatcher.RegisterHandler(container.GetInstance<IPayeSchemeRemovedEventHandler>(), "PayeSchemeRemoved");
-            dispatcher.RegisterHandler(container.GetInstance<IApprenticeshipEventHandler>(), "PayeSchemeRemoved");
+            dispatcher.RegisterHandler(container.GetInstance<IApprenticeshipEventHandler>(), "Test event");
         }
     }
 }

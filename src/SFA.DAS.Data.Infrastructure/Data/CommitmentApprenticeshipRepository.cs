@@ -26,10 +26,10 @@ namespace SFA.DAS.Data.Infrastructure.Data
                 parameters.Add("@paymentStatusId", paymentStatusId, DbType.Int32);
                 parameters.Add("@apprenticeshipId", @event.ApprenticeshipId, DbType.Int64);
                 parameters.Add("@agreementStatusId", agreementStatusId, DbType.Int32);
-                parameters.Add("@ukPrn", @event.LearnerId, DbType.Int64);
-                parameters.Add("@uln", @event.ProviderId, DbType.Int64);
+                parameters.Add("@ukPrn", @event.LearnerId, DbType.String);
+                parameters.Add("@uln", @event.ProviderId, DbType.String);
                 parameters.Add("@employerAccountId", @event.EmployerAccountId, DbType.String);
-                parameters.Add("@trainingTypeId", @event.TrainingType, DbType.Int32);
+                parameters.Add("@trainingTypeId", @event.TrainingType, DbType.String);
                 parameters.Add("@trainingId", @event.TrainingId, DbType.String);
                 parameters.Add("@trainingStartDate", @event.TrainingStartDate, DbType.Date);
                 parameters.Add("@trainingEndDate", @event.TrainingEndDate, DbType.Date);
