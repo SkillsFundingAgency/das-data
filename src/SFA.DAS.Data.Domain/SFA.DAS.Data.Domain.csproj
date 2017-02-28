@@ -45,6 +45,7 @@
     <Compile Include="Events\LegalEntityCreatedEvent.cs" />
     <Compile Include="Events\PayeSchemeAddedEvent.cs" />
     <Compile Include="Events\PayeSchemeRemovedEvent.cs" />
+    <Compile Include="Interfaces\IEventService.cs" />
     <Compile Include="Models\CommitmentsApprenticeshipEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
