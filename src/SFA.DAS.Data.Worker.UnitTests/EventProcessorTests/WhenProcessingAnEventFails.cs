@@ -28,7 +28,7 @@ namespace SFA.DAS.Data.Worker.UnitTests.EventProcessorTests
             EventDispatcher.Setup(x => x.Dispatch(It.Is<AccountEventView>(e => e.Id == failedEventId))).Throws(expectedException);
             EventRepository.Setup(x => x.GetEventFailureCount(failedEventId)).ReturnsAsync(FailureTolerance - 2);
 
-            await EventProcessor.ProcessEvents();
+            await EventsWatcher.ProcessEvents();
 
             EventRepository.Verify(x => x.SetEventFailureCount(failedEventId, FailureTolerance - 1), Times.Once);
             EventRepository.Verify(x => x.StoreLastProcessedEventId("AccountEvents", failedEventId - 1), Times.Once);
@@ -50,7 +50,7 @@ namespace SFA.DAS.Data.Worker.UnitTests.EventProcessorTests
 
             EventRepository.Setup(x => x.GetEventFailureCount(failedEventId)).ReturnsAsync(FailureTolerance - 1);
 
-            await EventProcessor.ProcessEvents();
+            await EventsWatcher.ProcessEvents();
 
             EventRepository.Verify(x => x.SetEventFailureCount(failedEventId, FailureTolerance), Times.Once);
             EventRepository.Verify(x => x.StoreLastProcessedEventId("AccountEvents", failedEventId), Times.Once);

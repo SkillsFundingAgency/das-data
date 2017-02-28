@@ -14,7 +14,7 @@ namespace SFA.DAS.Data.Worker.UnitTests.EventProcessorTests
             var expectedException = new Exception();
             EventsApi.Setup(x => x.GetAccountEventsById(CurrentEventId + 1, 1000, 1)).ThrowsAsync(expectedException);
 
-            await EventProcessor.ProcessEvents();
+            await EventsWatcher.ProcessEvents();
 
             Logger.Verify(x => x.Error(expectedException, "Unexcepted exception when processing events."));
         }

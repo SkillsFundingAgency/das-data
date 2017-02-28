@@ -13,7 +13,7 @@ namespace SFA.DAS.Data.Worker.UnitTests.EventProcessorTests
         protected Mock<IEventRepository> EventRepository;
         protected Mock<IEventsApi> EventsApi;
         protected Mock<ILog> Logger;
-        protected EventProcessor EventProcessor;
+        protected EventsWatcher EventsWatcher;
 
         protected const long CurrentEventId = 2345;
         protected const int FailureTolerance = 3;
@@ -28,7 +28,7 @@ namespace SFA.DAS.Data.Worker.UnitTests.EventProcessorTests
 
             EventRepository.Setup(x => x.GetLastProcessedEventId("AccountEvents")).ReturnsAsync(CurrentEventId);
 
-            EventProcessor = new EventProcessor(EventRepository.Object, EventsApi.Object, EventDispatcher.Object, Logger.Object, FailureTolerance);
+            EventsWatcher = new EventsWatcher(EventRepository.Object, EventsApi.Object, EventDispatcher.Object, Logger.Object, FailureTolerance);
         }
     }
 }

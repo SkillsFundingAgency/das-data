@@ -181,8 +181,8 @@
     <Compile Include="Interfaces\EventHandlers\ILegalEntityCreatedEventHandler.cs" />
     <Compile Include="Interfaces\EventHandlers\IAccountRenamedEventHandler.cs" />
     <Compile Include="Interfaces\EventHandlers\IAccountCreatedEventHandler.cs" />
-    <Compile Include="EventProcessor.cs" />
-    <Compile Include="IEventProcessor.cs" />
+    <Compile Include="EventsWatcher.cs" />
+    <Compile Include="IEventsWatcher.cs" />
     <Compile Include="Mapping\EventsMapping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WorkerRole.cs" />

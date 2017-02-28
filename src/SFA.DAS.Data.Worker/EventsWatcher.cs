@@ -10,7 +10,7 @@ using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Worker
 {
-    public class EventProcessor : IEventProcessor
+    public class EventsWatcher : IEventsWatcher
     {
         private const string AccountEventsStreamName = "AccountEvents";
         private const string ApprenticeshipEventsStreamName = "ApprenticeshipEvents";
@@ -21,7 +21,7 @@ namespace SFA.DAS.Data.Worker
         private readonly ILog _logger;
         private readonly int _failureTolerance;
 
-        public EventProcessor(IEventRepository eventRepository, IEventsApi eventsApi, IEventDispatcher eventDispatcher,
+        public EventsWatcher(IEventRepository eventRepository, IEventsApi eventsApi, IEventDispatcher eventDispatcher,
             ILog logger, int failureTolerance)
         {
             _eventRepository = eventRepository;

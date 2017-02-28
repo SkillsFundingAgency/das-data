@@ -15,7 +15,7 @@ namespace SFA.DAS.Data.Worker.UnitTests.EventProcessorTests
         {
             EventsApi.Setup(x => x.GetAccountEventsById(CurrentEventId + 1, 1000, 1)).ReturnsAsync(new List<AccountEventView>());
 
-            await EventProcessor.ProcessEvents();
+            await EventsWatcher.ProcessEvents();
 
             EventRepository.Verify(x => x.StoreLastProcessedEventId("AccountEvents", It.IsAny<long>()), Times.Never);
             Logger.Verify(x => x.Info("No events to process."), Times.Once);
@@ -35,7 +35,7 @@ namespace SFA.DAS.Data.Worker.UnitTests.EventProcessorTests
 
             EventsApi.Setup(x => x.GetAccountEventsById(CurrentEventId + 1, 1000, 1)).ReturnsAsync(expectedEvents);
 
-            await EventProcessor.ProcessEvents();
+            await EventsWatcher.ProcessEvents();
 
             foreach (var @event in expectedEvents)
             {

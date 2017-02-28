@@ -18,7 +18,7 @@ namespace SFA.DAS.Data.Worker
         private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
         private readonly ManualResetEvent _runCompleteEvent = new ManualResetEvent(false);
         private IContainer _container;
-        private IEventProcessor _eventProcessor;
+        private IEventsWatcher _eventsWatcher;
 
         public override void Run()
         {
@@ -40,7 +40,7 @@ namespace SFA.DAS.Data.Worker
             TelemetryConfiguration.Active.InstrumentationKey = CloudConfigurationManager.GetSetting("InstrumentationKey", false);
             _container = ConfigureIocContainer();
             RegisterEventHandlers(_container);
-            _eventProcessor = _container.GetInstance<IEventProcessor>();
+            _eventsWatcher = _container.GetInstance<IEventsWatcher>();
 
             bool result = base.OnStart();
 
@@ -65,7 +65,7 @@ namespace SFA.DAS.Data.Worker
         {
             while (!cancellationToken.IsCancellationRequested)
             {
-                await _eventProcessor.ProcessEvents();
+                await _eventsWatcher.ProcessEvents();
                 await Task.Delay(10000);
             }
         }

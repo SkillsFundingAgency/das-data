@@ -2,7 +2,7 @@
 
 namespace SFA.DAS.Data.Worker
 {
-    public interface IEventProcessor
+    public interface IEventsWatcher
     {
         Task ProcessEvents();
     }
