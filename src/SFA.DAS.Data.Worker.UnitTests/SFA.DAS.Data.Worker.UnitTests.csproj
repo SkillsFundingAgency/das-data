@@ -85,6 +85,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EventCollectorsTests\ApprenticeshipEventCollectorTests\WhenIGetApprenticeshipEvents.cs" />
     <Compile Include="EventCollectorsTests\GenericEventCollectorTests\WhenGenericEventsAreRequested.cs" />
     <Compile Include="EventHandlerTests\ApprenticeshipEventHandlerTests\WhenAnApprenticeshipEventIsHandled.cs" />
     <Compile Include="EventProcessorTests\EventProcessorTests.cs" />

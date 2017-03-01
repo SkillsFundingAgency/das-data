@@ -8,6 +8,6 @@ namespace SFA.DAS.Data.Domain.Interfaces
     {
         Task<ICollection<GenericEvent>> GetGenericEvents(string eventType);
 
-        Task<ICollection<ApprenticeshipEvent>> GetApprenticeshipEvents();
+        Task<ICollection<ApprenticeshipEventView>> GetApprenticeshipEvents();
     }
 }

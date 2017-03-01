@@ -17,12 +17,13 @@ namespace SFA.DAS.Data.Infrastructure.Services
             _eventsApi = eventsApi;
         }
 
+        //TODO: finish this off
         public Task<ICollection<GenericEvent>> GetGenericEvents(string eventType)
         {
             throw new NotImplementedException();
         }
 
-        public Task<ICollection<ApprenticeshipEvent>> GetApprenticeshipEvents()
+        public Task<ICollection<ApprenticeshipEventView>> GetApprenticeshipEvents()
         {
             throw new NotImplementedException();
         }
