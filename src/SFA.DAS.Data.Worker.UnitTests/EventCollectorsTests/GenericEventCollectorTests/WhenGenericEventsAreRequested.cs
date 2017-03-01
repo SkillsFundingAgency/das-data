@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Moq;
 using NLog;
 using NUnit.Framework;
-using SFA.DAS.Data.Domain.Events;
 using SFA.DAS.Data.Domain.Interfaces;
-using SFA.DAS.Data.Worker.EventsCollectors;
+using SFA.DAS.Data.Worker.Events.EventsCollectors;
 using SFA.DAS.Data.Worker.Factories;
+using SFA.DAS.Events.Api.Types;
 
 namespace SFA.DAS.Data.Worker.UnitTests.EventCollectorsTests.GenericEventCollectorTests
 {

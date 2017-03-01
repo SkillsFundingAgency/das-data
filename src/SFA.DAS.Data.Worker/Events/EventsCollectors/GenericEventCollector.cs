@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using NLog;
 using SFA.DAS.Data.Domain.Interfaces;
 using SFA.DAS.Data.Worker.Factories;
 
-namespace SFA.DAS.Data.Worker.EventsCollectors
+namespace SFA.DAS.Data.Worker.Events.EventsCollectors
 {
     public class GenericEventCollector<T> : IEventsCollector<T>
     {

@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
-using SFA.DAS.Data.Worker.EventHandlers;
-using SFA.DAS.Data.Worker.EventsCollectors;
+using SFA.DAS.Data.Worker.Events.EventHandlers;
+using SFA.DAS.Data.Worker.Events.EventsCollectors;
 
-namespace SFA.DAS.Data.Worker
+namespace SFA.DAS.Data.Worker.Events
 {
     public class EventsProcessor<T> : IEventsProcessor
     {

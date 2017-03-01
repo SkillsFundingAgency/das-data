@@ -1,4 +1,4 @@
-﻿namespace SFA.DAS.Data.Worker.EventHandlers
+﻿namespace SFA.DAS.Data.Worker.Events.EventHandlers
 {
     public interface IEventHandler<in T>
     {

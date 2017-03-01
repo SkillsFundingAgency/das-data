@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 
-namespace SFA.DAS.Data.Worker
+namespace SFA.DAS.Data.Worker.Events
 {
-    public interface IEventsProcessor
+    public interface IEventsWatcher
     {
         Task ProcessEvents();
     }

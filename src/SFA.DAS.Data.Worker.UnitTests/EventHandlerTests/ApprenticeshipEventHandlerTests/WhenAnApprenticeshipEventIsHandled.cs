@@ -5,7 +5,7 @@ using Moq;
 using NUnit.Framework;
 using SFA.DAS.Data.Application.Commands.CreateCommitmentApprenticeshipEntry;
 using SFA.DAS.Data.Domain.Models;
-using SFA.DAS.Data.Worker.EventHandlers;
+using SFA.DAS.Data.Worker.Events.EventHandlers;
 using SFA.DAS.Events.Api.Types;
 
 namespace SFA.DAS.Data.Worker.UnitTests.EventHandlerTests.ApprenticeshipEventHandlerTests

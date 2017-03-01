@@ -3,9 +3,8 @@ using MediatR;
 using SFA.DAS.Data.Application.Commands.CreateAccount;
 using SFA.DAS.Data.Worker.Interfaces.EventHandlers;
 using SFA.DAS.Events.Api.Types;
-using SFA.DAS.Events.Dispatcher;
 
-namespace SFA.DAS.Data.Worker.EventHandlers
+namespace SFA.DAS.Data.Worker.Events.EventHandlers
 {
     public class AccountCreatedEventHandler : IAccountCreatedEventHandler
     {

@@ -1,6 +1,7 @@
 ﻿using Moq;
 using NUnit.Framework;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
+using SFA.DAS.Data.Worker.Events;
 using SFA.DAS.Events.Api.Client;
 using SFA.DAS.Events.Dispatcher;
 using SFA.DAS.NLog.Logger;

@@ -8,7 +8,7 @@ using SFA.DAS.Events.Api.Types;
 using SFA.DAS.Events.Dispatcher;
 using SFA.DAS.NLog.Logger;
 
-namespace SFA.DAS.Data.Worker
+namespace SFA.DAS.Data.Worker.Events
 {
     public class EventsWatcher : IEventsWatcher
     {

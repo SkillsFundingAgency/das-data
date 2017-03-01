@@ -7,7 +7,7 @@ using SFA.DAS.Data.Worker.DependencyResolution;
 using StructureMap;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.Azure;
-using SFA.DAS.Data.Worker.EventHandlers;
+using SFA.DAS.Data.Worker.Events;
 using SFA.DAS.Data.Worker.Interfaces.EventHandlers;
 using SFA.DAS.Events.Dispatcher;
 

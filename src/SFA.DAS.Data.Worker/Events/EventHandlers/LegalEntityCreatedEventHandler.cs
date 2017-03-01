@@ -4,7 +4,7 @@ using SFA.DAS.Data.Application.Commands.CreateLegalEntity;
 using SFA.DAS.Data.Worker.Interfaces.EventHandlers;
 using SFA.DAS.Events.Api.Types;
 
-namespace SFA.DAS.Data.Worker.EventHandlers
+namespace SFA.DAS.Data.Worker.Events.EventHandlers
 {
     public class LegalEntityCreatedEventHandler : ILegalEntityCreatedEventHandler
     {

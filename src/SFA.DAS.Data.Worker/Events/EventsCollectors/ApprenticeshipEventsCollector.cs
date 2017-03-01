@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using SFA.DAS.Data.Domain.Interfaces;
 using SFA.DAS.Data.Domain.Models;
 
-namespace SFA.DAS.Data.Worker.EventsCollectors
+namespace SFA.DAS.Data.Worker.Events.EventsCollectors
 {
     public class ApprenticeshipEventsCollector : IEventsCollector<CommitmentsApprenticeshipEvent>
     {

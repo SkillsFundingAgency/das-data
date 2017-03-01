@@ -7,6 +7,7 @@ using MediatR;
 using SFA.DAS.Data.Application.Configuration;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.Data.Infrastructure.Data;
+using SFA.DAS.Data.Worker.Events;
 using SFA.DAS.EAS.Account.Api.Client;
 using SFA.DAS.Events.Api.Client;
 using SFA.DAS.Events.Dispatcher;
