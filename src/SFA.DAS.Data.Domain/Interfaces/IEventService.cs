@@ -1,12 +1,15 @@
 ﻿using System.Collections.Generic;
-using SFA.DAS.Data.Domain.Models;
+using System.Threading.Tasks;
+using SFA.DAS.Data.Domain.Events;
+using SFA.DAS.Events.Api.Types;
+using GenericEvent = SFA.DAS.Events.Api.Types.GenericEvent;
 
 namespace SFA.DAS.Data.Domain.Interfaces
 {
     public interface IEventService
     {
-        ICollection<T> GetEvents<T>();
+        Task<ICollection<GenericEvent>> GetGenericEvents(string eventType);
 
-        ICollection<CommitmentsApprenticeshipEvent> GetApprenticeshipEvents();
+        Task<ICollection<ApprenticeshipEvent>> GetApprenticeshipEvents();
     }
 }
