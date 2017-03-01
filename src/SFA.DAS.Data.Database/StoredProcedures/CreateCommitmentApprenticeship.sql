@@ -42,5 +42,5 @@ AS
 		@trainingStartDate,
 		@trainingEndDate,
 		@trainingTotalCost,
-		GETDATE()
+		GETUTCDATE()
 	)
