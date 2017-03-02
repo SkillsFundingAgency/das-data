@@ -26,7 +26,7 @@ namespace SFA.DAS.Data.Worker.Events.EventsCollectors
         {
             _logger.Info("Getting commitment events");
 
-            var apiEvents = await _eventService.GetApprenticeshipEvents();
+            var apiEvents = await _eventService.GetUnprocessedApprenticeshipEvents();
 
             _logger.Info($"{apiEvents?.Count} events retrieved from events service");
 

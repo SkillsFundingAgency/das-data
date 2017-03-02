@@ -39,7 +39,7 @@ namespace SFA.DAS.Data.Worker.UnitTests.EventCollectorsTests.GenericEventCollect
             _eventModelFactory = new Mock<IEventModelFactory>();
             _logger = new Mock<ILogger>();
 
-            _eventService.Setup(x => x.GetGenericEvents(It.IsAny<string>()))
+            _eventService.Setup(x => x.GetUnprocessedGenericEvents(It.IsAny<string>()))
                          .ReturnsAsync(new List<GenericEvent> { _event });
 
             _eventModelFactory.Setup(x => x.Create<TestEvent>(It.IsAny<string>()))
@@ -55,7 +55,7 @@ namespace SFA.DAS.Data.Worker.UnitTests.EventCollectorsTests.GenericEventCollect
            await _collector.GetEvents();
 
             //Assert
-            _eventService.Verify(x => x.GetGenericEvents(typeof(TestEvent).Name), Times.Once);
+            _eventService.Verify(x => x.GetUnprocessedGenericEvents(typeof(TestEvent).Name), Times.Once);
         }
 
         [Test]

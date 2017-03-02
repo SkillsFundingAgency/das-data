@@ -31,6 +31,7 @@ namespace SFA.DAS.Data.Worker.Events
             _failureTolerance = failureTolerance;
         }
 
+        //TODO: Rewrite this to support the new event processors structure
         public async Task ProcessEvents()
         {
             try

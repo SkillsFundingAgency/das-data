@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.Data.Domain.Interfaces;
 using SFA.DAS.Events.Api.Client;
 using SFA.DAS.Events.Api.Types;
@@ -10,22 +10,38 @@ namespace SFA.DAS.Data.Infrastructure.Services
 {
     public class EventsApiService : IEventService
     {
+        private const string AprrenticeEventFeedName = "CommitmentApprenticeEvent";
         private readonly IEventsApi _eventsApi;
+        private readonly IEventRepository _eventRepository;
 
-        public EventsApiService(IEventsApi eventsApi)
+        public EventsApiService(IEventsApi eventsApi, IEventRepository eventRepository)
         {
             _eventsApi = eventsApi;
+            _eventRepository = eventRepository;
         }
 
-        //TODO: finish this off
-        public Task<ICollection<GenericEvent>> GetGenericEvents(string eventType)
+        public async Task SetLastProcessedGenericEventId(string eventType, long id)
         {
-            throw new NotImplementedException();
+            await _eventRepository.StoreLastProcessedEventId($"GenericEvent.{eventType}", id);
         }
 
-        public Task<ICollection<ApprenticeshipEventView>> GetApprenticeshipEvents()
+        public async Task SetLastProcessedApprenticeshipEventId(long id)
         {
-            throw new NotImplementedException();
+            await _eventRepository.StoreLastProcessedEventId(AprrenticeEventFeedName, id);
+        }
+
+        public async Task<ICollection<GenericEvent>> GetUnprocessedGenericEvents(string eventType)
+        {
+            var eventId = await _eventRepository.GetLastProcessedEventId($"GenericEvent.{eventType}");
+
+            return await _eventsApi.GetGenericEventsById(eventType, eventId);
+        }
+
+        public async Task<ICollection<ApprenticeshipEventView>> GetUnprocessedApprenticeshipEvents()
+        {
+            var eventId = await _eventRepository.GetLastProcessedEventId(AprrenticeEventFeedName);
+
+            return await _eventsApi.GetApprenticeshipEventsById(eventId);
         }
     }
 }

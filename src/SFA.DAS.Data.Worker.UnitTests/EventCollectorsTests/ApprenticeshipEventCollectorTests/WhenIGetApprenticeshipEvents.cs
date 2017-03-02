@@ -31,7 +31,7 @@ namespace SFA.DAS.Data.Worker.UnitTests.EventCollectorsTests.ApprenticeshipEvent
             _mapper = new Mock<IMapper>();
             _logger = new Mock<ILogger>();
 
-            _eventService.Setup(x => x.GetApprenticeshipEvents())
+            _eventService.Setup(x => x.GetUnprocessedApprenticeshipEvents())
                          .ReturnsAsync(new List<ApprenticeshipEventView> { _event });
 
             _mapper.Setup(x => x.Map<CommitmentsApprenticeshipEvent>(It.IsAny<ApprenticeshipEventView>()))
@@ -47,7 +47,7 @@ namespace SFA.DAS.Data.Worker.UnitTests.EventCollectorsTests.ApprenticeshipEvent
             await _collector.GetEvents();
 
             //Assert
-            _eventService.Verify(x => x.GetApprenticeshipEvents(), Times.Once);
+            _eventService.Verify(x => x.GetUnprocessedApprenticeshipEvents(), Times.Once);
         }
 
         [Test]
@@ -65,7 +65,7 @@ namespace SFA.DAS.Data.Worker.UnitTests.EventCollectorsTests.ApprenticeshipEvent
         public async Task ThenShouldReturnEmptyCollectionIfNoEventsFound()
         {
             //Arrange
-            _eventService.Setup(x => x.GetApprenticeshipEvents())
+            _eventService.Setup(x => x.GetUnprocessedApprenticeshipEvents())
                          .ReturnsAsync(new List<ApprenticeshipEventView> ());
 
             //Act
