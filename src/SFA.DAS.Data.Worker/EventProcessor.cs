@@ -35,7 +35,7 @@ namespace SFA.DAS.Data.Worker
         {
             try
             {
-                //  await ProcessAccountEvents();
+                await ProcessAccountEvents();
                 await ProcessApprenticeshipEvents();
             }
             catch (Exception ex)
