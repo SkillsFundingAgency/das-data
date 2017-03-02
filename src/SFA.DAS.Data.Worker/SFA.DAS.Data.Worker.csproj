@@ -170,6 +170,7 @@
   <ItemGroup>
     <Compile Include="DependencyResolution\DefaultRegistry.cs" />
     <Compile Include="Events\EventHandlers\ApprenticeshipEventHandler.cs" />
+    <Compile Include="Events\EventHandlers\EventHandler.cs" />
     <Compile Include="Events\EventHandlers\IEventHandler.cs" />
     <Compile Include="Events\EventsCollectors\ApprenticeshipEventsCollector.cs" />
     <Compile Include="Events\EventsCollectors\GenericEventCollector.cs" />

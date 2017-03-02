@@ -1,8 +1,10 @@
 ﻿using System;
+using SFA.DAS.Data.Domain.Interfaces;
+using SFA.DAS.Events.Api.Types;
 
 namespace SFA.DAS.Data.Domain.Models
 {
-    public class CommitmentsApprenticeshipEvent
+    public class CommitmentsApprenticeshipEvent : IEventView
     {
         public long Id { get; set; }
 

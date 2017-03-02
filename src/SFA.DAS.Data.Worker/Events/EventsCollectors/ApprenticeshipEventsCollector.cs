@@ -30,8 +30,8 @@ namespace SFA.DAS.Data.Worker.Events.EventsCollectors
 
             _logger.Info($"{apiEvents?.Count} events retrieved from events service");
 
-            var commitmentEvents = apiEvents.Select(x => _mapper.Map<CommitmentsApprenticeshipEvent>(x))
-                                           .ToList();
+            var commitmentEvents = apiEvents?.Select(x => _mapper.Map<CommitmentsApprenticeshipEvent>(x))
+                                             .ToList();
 
             return commitmentEvents;
         }

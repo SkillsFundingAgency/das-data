@@ -85,13 +85,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EventCollectorsTests\ApprenticeshipEventCollectorTests\WhenIGetApprenticeshipEvents.cs" />
-    <Compile Include="EventCollectorsTests\GenericEventCollectorTests\WhenGenericEventsAreRequested.cs" />
-    <Compile Include="EventHandlerTests\ApprenticeshipEventHandlerTests\WhenAnApprenticeshipEventIsHandled.cs" />
-    <Compile Include="EventProcessorTests\EventProcessorTests.cs" />
-    <Compile Include="EventProcessorTests\WhenProcessingAnEventFails.cs" />
-    <Compile Include="EventProcessorTests\WhenIProcessEvents.cs" />
-    <Compile Include="EventProcessorTests\WhenGettingEventsFails.cs" />
+    <Compile Include="Events\EventCollectorsTests\ApprenticeshipEventCollectorTests\WhenIGetApprenticeshipEvents.cs" />
+    <Compile Include="Events\EventCollectorsTests\GenericEventCollectorTests\WhenGenericEventsAreRequested.cs" />
+    <Compile Include="Events\EventHandlerTests\ApprenticeshipEventHandlerTests\WhenAnApprenticeshipEventIsHandled.cs" />
+    <Compile Include="Events\EventProcessorTests\WhenProcessingAnEventFails.cs" />
+    <Compile Include="Events\EventProcessorTests\WhenIProcessEvents.cs" />
+    <Compile Include="Events\EventProcessorTests\WhenGettingEventsFails.cs" />
+    <Compile Include="Events\EventWatcherTests\WhenIProcessEvents.cs" />
     <Compile Include="FactoriesTests\JsonEventModelFactoryTests\WhenICreateAModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

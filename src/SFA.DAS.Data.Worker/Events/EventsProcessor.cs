@@ -3,10 +3,11 @@ using System.Threading.Tasks;
 using NLog;
 using SFA.DAS.Data.Worker.Events.EventHandlers;
 using SFA.DAS.Data.Worker.Events.EventsCollectors;
+using SFA.DAS.Events.Api.Types;
 
 namespace SFA.DAS.Data.Worker.Events
 {
-    public class EventsProcessor<T> : IEventsProcessor
+    public class EventsProcessor<T> : IEventsProcessor where T : IEventView
     {
         private readonly IEventsCollector<T> _collector;
         private readonly IEventHandler<T> _handler;
@@ -32,6 +33,7 @@ namespace SFA.DAS.Data.Worker.Events
                 foreach (var @event in events)
                 {
                     _handler.Handle(@event);
+                    _logger.Info($"Event {@event.Id} processed");
                 }
             }
         }
