@@ -23,9 +23,11 @@ namespace SFA.DAS.Data.Worker.Events.EventsCollectors
 
         public async Task<ICollection<T>> GetEvents()
         {
-            _logger.Info($"Getting events from events service of type {nameof(T)}");
+            var typeName = typeof(T).Name;
 
-            var events = await _eventService.GetUnprocessedGenericEvents(nameof(T));
+            _logger.Info($"Getting events from events service of type {typeName}");
+
+            var events = await _eventService.GetUnprocessedGenericEvents(typeName);
 
             var eventModels = events.Select(x => _factory.Create<T>(x.Payload))
                                     .ToList();

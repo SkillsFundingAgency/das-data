@@ -55,7 +55,7 @@ namespace SFA.DAS.Data.Worker.UnitTests.EventCollectorsTests.GenericEventCollect
            await _collector.GetEvents();
 
             //Assert
-            _eventService.Verify(x => x.GetUnprocessedGenericEvents(typeof(TestEvent).Name), Times.Once);
+            _eventService.Verify(x => x.GetUnprocessedGenericEvents(nameof(TestEvent)), Times.Once);
         }
 
         [Test]

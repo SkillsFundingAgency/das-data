@@ -19,7 +19,7 @@ namespace SFA.DAS.Data.Worker.UnitTests.Events.EventHandlerTests.ApprenticeshipE
         private ApprenticeshipEventHandler _handler;
         private Mock<IMapper> _mapper;
         private CommitmentsApprenticeshipEvent _commitmentEvent;
-        private DataConfiguration _configuration;
+        private Mock<IDataConfiguration> _configuration;
         private Mock<IEventRepository> _eventRepository;
         private Mock<ILogger> _logger;
 
@@ -30,11 +30,14 @@ namespace SFA.DAS.Data.Worker.UnitTests.Events.EventHandlerTests.ApprenticeshipE
             _mapper = new Mock<IMapper>();
             _eventRepository = new Mock<IEventRepository>();
             _logger = new Mock<ILogger>();
-            _configuration = new DataConfiguration();
+            _configuration = new Mock<IDataConfiguration>();
+
+            _configuration.SetupGet(x => x.FailureTolerance).Returns(5);
+
 
             _handler = new ApprenticeshipEventHandler(
                 _mediator.Object, _mapper.Object, _eventRepository.Object,
-                _configuration, _logger.Object);
+                _configuration.Object, _logger.Object);
 
             _commitmentEvent = new CommitmentsApprenticeshipEvent();
 
