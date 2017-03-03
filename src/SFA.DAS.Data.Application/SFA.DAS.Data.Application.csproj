@@ -91,6 +91,7 @@
     <Compile Include="Commands\CreateAccount\CreateAccountCommandHandler.cs" />
     <Compile Include="Configuration\DataConfiguration.cs" />
     <Compile Include="Configuration\EventsApiClientConfiguration.cs" />
+    <Compile Include="Configuration\IDataConfiguration.cs" />
     <Compile Include="Gateways\AccountGateway.cs" />
     <Compile Include="Interfaces\Gateways\IAccountGateway.cs" />
     <Compile Include="Interfaces\Repositories\ICommitmentApprenticeshipRepository.cs" />
