@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using NLog;
+using SFA.DAS.Data.Application.Configuration;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.Events.Api.Types;
 
@@ -12,10 +13,10 @@ namespace SFA.DAS.Data.Worker.Events.EventHandlers
         private readonly int _failureRetryLimit;
         private readonly ILogger _logger;
 
-        protected EventHandler(IEventRepository eventRepository, int failureRetryLimit, ILogger logger)
+        protected EventHandler(IEventRepository eventRepository, IDataConfiguration configuration, ILogger logger)
         {
             EventRepository = eventRepository;
-            _failureRetryLimit = failureRetryLimit;
+            _failureRetryLimit = configuration?.FailureTolerance ?? 1;
             _logger = logger;
         }
 
@@ -23,7 +24,7 @@ namespace SFA.DAS.Data.Worker.Events.EventHandlers
         {
             try
             {
-                ProcessEvent(@event);
+                await ProcessEvent(@event);
                 await EventRepository.StoreLastProcessedEventId(nameof(T), @event.Id);
             }
             catch (Exception ex)
@@ -36,14 +37,17 @@ namespace SFA.DAS.Data.Worker.Events.EventHandlers
             }
         }
 
-        protected abstract void ProcessEvent(T @event);
+        protected abstract Task ProcessEvent(T @event);
 
         private async Task CheckProcessEventRetryAllowed(T @event)
         {
             if (await IncreamentFailureCountForEvent(@event.Id) > _failureRetryLimit)
             {
+                var eventType = typeof(T).Name;
+                
                 //Too many failures so ignore event
-                await EventRepository.StoreLastProcessedEventId(nameof(T), @event.Id);
+                await EventRepository.StoreLastProcessedEventId(eventType, @event.Id);
+                await EventRepository.SetEventFailureCount(@event.Id, 0);
             }
         }
 

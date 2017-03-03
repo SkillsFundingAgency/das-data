@@ -32,7 +32,7 @@ namespace SFA.DAS.Data.Worker.Events
 
                 foreach (var @event in events)
                 {
-                    _handler.Handle(@event);
+                    await _handler.Handle(@event);
                     _logger.Info($"Event {@event.Id} processed");
                 }
             }
