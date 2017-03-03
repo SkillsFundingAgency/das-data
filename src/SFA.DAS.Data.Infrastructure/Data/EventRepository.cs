@@ -20,12 +20,12 @@ namespace SFA.DAS.Data.Infrastructure.Data
                 var parameters = new DynamicParameters();
                 parameters.Add("@eventFeed", eventFeed, DbType.String);
 
-                return await c.QuerySingleAsync<long>(
+                return await c.QuerySingleOrDefaultAsync<long>(
                     sql: "[Data_Load].[GetLastProcessedEventId]",
                     param: parameters,
                     commandType: CommandType.StoredProcedure);
             });
-
+            
             return result;
         }
 
