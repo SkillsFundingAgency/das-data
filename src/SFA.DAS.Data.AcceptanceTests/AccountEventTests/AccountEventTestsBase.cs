@@ -26,7 +26,7 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
         [TearDown]
         public void TearDown()
         {
-            Task.Run(() => WorkerRole.OnStop());
+            Task.Run(() => WorkerRole?.OnStop());
             WorkerRole = null;
         }
 

@@ -66,7 +66,7 @@ namespace SFA.DAS.Data.Worker
             while (!cancellationToken.IsCancellationRequested)
             {
                 await _eventProcessor.ProcessEvents();
-                await Task.Delay(10000);
+                await Task.Delay(60000, cancellationToken);
             }
         }
 
