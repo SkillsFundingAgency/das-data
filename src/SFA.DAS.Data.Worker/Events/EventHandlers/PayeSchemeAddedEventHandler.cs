@@ -1,21 +1,28 @@
 ﻿using System.Threading.Tasks;
 using MediatR;
+using NLog;
 using SFA.DAS.Data.Application.Commands.CreatePayeScheme;
-using SFA.DAS.Data.Worker.Interfaces.EventHandlers;
-using SFA.DAS.Events.Api.Types;
+using SFA.DAS.Data.Application.Configuration;
+using SFA.DAS.Data.Application.Interfaces.Repositories;
+using SFA.DAS.EAS.Account.Api.Types.Events;
 
 namespace SFA.DAS.Data.Worker.Events.EventHandlers
 {
-    public class PayeSchemeAddedEventHandler : IPayeSchemeAddedEventHandler
+    public class PayeSchemeAddedEventHandler : EventHandler<PayeSchemeAddedEvent>
     {
         private readonly IMediator _mediator;
 
-        public PayeSchemeAddedEventHandler(IMediator mediator)
+        public PayeSchemeAddedEventHandler(
+            IMediator mediator,
+            IEventRepository eventRepository,
+            IDataConfiguration configuration,
+            ILogger logger)
+            : base(eventRepository, configuration, logger)
         {
             _mediator = mediator;
         }
 
-        public async Task Handle(AccountEventView @event)
+        protected override async Task ProcessEvent(PayeSchemeAddedEvent @event)
         {
             await _mediator.PublishAsync(new CreatePayeSchemeCommand { PayeSchemeHref = @event.ResourceUri });
         }

@@ -8,12 +8,14 @@ using SFA.DAS.Data.Application.Configuration;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.Data.Infrastructure.Data;
 using SFA.DAS.Data.Worker.Events;
+using SFA.DAS.Data.Worker.Events.EventHandlers;
+using SFA.DAS.Data.Worker.Events.EventsCollectors;
 using SFA.DAS.EAS.Account.Api.Client;
+using SFA.DAS.EAS.Account.Api.Types.Events;
 using SFA.DAS.Events.Api.Client;
-using SFA.DAS.Events.Dispatcher;
+using SFA.DAS.Events.Api.Types;
 using SFA.DAS.NLog.Logger;
 using StructureMap;
-using StructureMap.Pipeline;
 using StructureMap.TypeRules;
 
 namespace SFA.DAS.Data.Worker.DependencyResolution
@@ -34,13 +36,45 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             RegisterRepositories(config.DatabaseConnectionString);
             RegisterApis(config);
 
-            For<IEventDispatcher>().LifecycleIs(new SingletonLifecycle());
+            RegisterEventCollectors();
+            RegisterEventHandlers();
+            RegisterEventProcessors();
 
             RegisterMapper();
 
             AddMediatrRegistrations();
 
             ConfigureLogging();
+        }
+        
+        private void RegisterEventHandlers()
+        {
+            For<IEventHandler<AccountCreatedEvent>>().Use<AccountCreatedEventHandler>();
+            For<IEventHandler<AccountRenamedEvent>>().Use<AccountRenamedEventHandler>();
+            For<IEventHandler<ApprenticeshipEventView>>().Use<ApprenticeshipEventHandler>();
+            For<IEventHandler<LegalEntityCreatedEvent>>().Use<LegalEntityCreatedEventHandler>();
+            For<IEventHandler<PayeSchemeAddedEvent>>().Use<PayeSchemeAddedEventHandler>();
+            For<IEventHandler<PayeSchemeRemovedEvent>>().Use<PayeSchemeRemovedEventHandler>();
+        }
+
+        private void RegisterEventCollectors()
+        {
+            For<IEventsCollector<AccountCreatedEvent>>().Use<GenericEventCollector<AccountCreatedEvent>>();
+            For<IEventsCollector<AccountRenamedEvent>>().Use<GenericEventCollector<AccountRenamedEvent>>();
+            For<IEventsCollector<ApprenticeshipEventView>>().Use<GenericEventCollector<ApprenticeshipEventView>>();
+            For<IEventsCollector<LegalEntityCreatedEvent>>().Use<GenericEventCollector<LegalEntityCreatedEvent>>();
+            For<IEventsCollector<PayeSchemeAddedEvent>>().Use<GenericEventCollector<PayeSchemeAddedEvent>>();
+            For<IEventsCollector<PayeSchemeRemovedEvent>>().Use<GenericEventCollector<PayeSchemeRemovedEvent>>();
+        }
+
+        private void RegisterEventProcessors()
+        {
+            For<IEventsProcessor>().Use<EventsProcessor<AccountCreatedEvent>>();
+            For<IEventsProcessor>().Use<EventsProcessor<AccountRenamedEvent>>();
+            For<IEventsProcessor>().Use<EventsProcessor<ApprenticeshipEventView>>();
+            For<IEventsProcessor>().Use<EventsProcessor<LegalEntityCreatedEvent>>();
+            For<IEventsProcessor>().Use<EventsProcessor<PayeSchemeAddedEvent>>();
+            For<IEventsProcessor>().Use<EventsProcessor<PayeSchemeRemovedEvent>>();
         }
 
         private void RegisterApis(DataConfiguration config)

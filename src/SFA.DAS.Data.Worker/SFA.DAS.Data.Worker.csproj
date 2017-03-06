@@ -122,8 +122,8 @@
       <HintPath>..\packages\SFA.DAS.Account.Api.Client.1.0.0.23413\lib\net45\SFA.DAS.EAS.Account.Api.Client.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SFA.DAS.EAS.Account.Api.Types, Version=1.0.0.23413, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.Account.Api.Types.1.0.0.23413\lib\net45\SFA.DAS.EAS.Account.Api.Types.dll</HintPath>
+    <Reference Include="SFA.DAS.EAS.Account.Api.Types, Version=1.0.0.24678, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Account.Api.Types.1.0.0.24678\lib\net45\SFA.DAS.EAS.Account.Api.Types.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="SFA.DAS.Events.Api.Client, Version=1.18.0.24078, Culture=neutral, processorArchitecture=MSIL">
