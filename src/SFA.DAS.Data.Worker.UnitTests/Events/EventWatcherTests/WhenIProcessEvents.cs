@@ -5,6 +5,7 @@ using Moq;
 using NLog;
 using NUnit.Framework;
 using SFA.DAS.Data.Worker.Events;
+using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Worker.UnitTests.Events.EventWatcherTests
 {
@@ -12,14 +13,14 @@ namespace SFA.DAS.Data.Worker.UnitTests.Events.EventWatcherTests
     {
         private List<IEventsProcessor> _eventsProcessors;
         private Mock<IEventsProcessor> _processor;
-        private Mock<ILogger> _logger;
+        private Mock<ILog> _logger;
         private EventsWatcher _watcher;
 
         [SetUp]
         public void Arrange()
         {
             _processor = new Mock<IEventsProcessor>();
-            _logger = new Mock<ILogger>();
+            _logger = new Mock<ILog>();
 
             _eventsProcessors = new List<IEventsProcessor>
             {

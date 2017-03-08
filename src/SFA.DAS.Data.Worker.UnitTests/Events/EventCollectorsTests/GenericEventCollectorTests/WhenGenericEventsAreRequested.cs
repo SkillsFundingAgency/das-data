@@ -8,6 +8,7 @@ using SFA.DAS.Data.Domain.Interfaces;
 using SFA.DAS.Data.Worker.Events.EventsCollectors;
 using SFA.DAS.Data.Worker.Factories;
 using SFA.DAS.Events.Api.Types;
+using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Worker.UnitTests.EventCollectorsTests.GenericEventCollectorTests
 {
@@ -15,7 +16,7 @@ namespace SFA.DAS.Data.Worker.UnitTests.EventCollectorsTests.GenericEventCollect
     {
         private Mock<IEventService> _eventService;
         private Mock<IEventModelFactory> _eventModelFactory;
-        private Mock<ILogger> _logger;
+        private Mock<ILog> _logger;
         private GenericEventCollector<TestEvent> _collector;
 
         private GenericEvent _event;
@@ -37,7 +38,7 @@ namespace SFA.DAS.Data.Worker.UnitTests.EventCollectorsTests.GenericEventCollect
 
             _eventService = new Mock<IEventService>();
             _eventModelFactory = new Mock<IEventModelFactory>();
-            _logger = new Mock<ILogger>();
+            _logger = new Mock<ILog>();
 
             _eventService.Setup(x => x.GetUnprocessedGenericEvents(It.IsAny<string>()))
                          .ReturnsAsync(new List<GenericEvent> { _event });

@@ -10,6 +10,7 @@ using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.Data.Domain.Models;
 using SFA.DAS.Data.Worker.Events.EventHandlers;
 using SFA.DAS.Events.Api.Types;
+using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Worker.UnitTests.Events.EventHandlerTests.ApprenticeshipEventHandlerTests
 {
@@ -21,7 +22,7 @@ namespace SFA.DAS.Data.Worker.UnitTests.Events.EventHandlerTests.ApprenticeshipE
         private CommitmentsApprenticeshipEvent _commitmentEvent;
         private Mock<IDataConfiguration> _configuration;
         private Mock<IEventRepository> _eventRepository;
-        private Mock<ILogger> _logger;
+        private Mock<ILog> _logger;
 
         [SetUp]
         public void Arrange()
@@ -29,7 +30,7 @@ namespace SFA.DAS.Data.Worker.UnitTests.Events.EventHandlerTests.ApprenticeshipE
             _mediator = new Mock<IMediator>();
             _mapper = new Mock<IMapper>();
             _eventRepository = new Mock<IEventRepository>();
-            _logger = new Mock<ILogger>();
+            _logger = new Mock<ILog>();
             _configuration = new Mock<IDataConfiguration>();
 
             _configuration.SetupGet(x => x.FailureTolerance).Returns(5);

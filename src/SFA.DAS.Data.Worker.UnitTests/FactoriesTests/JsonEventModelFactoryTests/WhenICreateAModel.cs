@@ -3,18 +3,19 @@ using Moq;
 using NLog;
 using NUnit.Framework;
 using SFA.DAS.Data.Worker.Factories;
+using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Worker.UnitTests.FactoriesTests.JsonEventModelFactoryTests
 {
     public class WhenICreateAModel
     {
         private JsonEventModelFactory _factory;
-        private Mock<ILogger> _logger;
+        private Mock<ILog> _logger;
 
         [SetUp]
         public void Arrange()
         {
-            _logger = new Mock<ILogger>();
+            _logger = new Mock<ILog>();
             _factory = new JsonEventModelFactory(_logger.Object);
         }
 

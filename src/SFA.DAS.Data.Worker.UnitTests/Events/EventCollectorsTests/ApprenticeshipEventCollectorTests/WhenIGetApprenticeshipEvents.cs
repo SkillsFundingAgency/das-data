@@ -9,6 +9,7 @@ using SFA.DAS.Data.Domain.Interfaces;
 using SFA.DAS.Data.Domain.Models;
 using SFA.DAS.Data.Worker.Events.EventsCollectors;
 using SFA.DAS.Events.Api.Types;
+using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Worker.UnitTests.EventCollectorsTests.ApprenticeshipEventCollectorTests
 {
@@ -16,7 +17,7 @@ namespace SFA.DAS.Data.Worker.UnitTests.EventCollectorsTests.ApprenticeshipEvent
     {
         private Mock<IEventService> _eventService;
         private ApprenticeshipEventView _event;
-        private Mock<ILogger> _logger;
+        private Mock<ILog> _logger;
         private ApprenticeshipEventsCollector _collector;
         private Mock<IMapper> _mapper;
         private CommitmentsApprenticeshipEvent _commitmentEvent;
@@ -29,7 +30,7 @@ namespace SFA.DAS.Data.Worker.UnitTests.EventCollectorsTests.ApprenticeshipEvent
 
             _eventService = new Mock<IEventService>();
             _mapper = new Mock<IMapper>();
-            _logger = new Mock<ILogger>();
+            _logger = new Mock<ILog>();
 
             _eventService.Setup(x => x.GetUnprocessedApprenticeshipEvents())
                          .ReturnsAsync(new List<ApprenticeshipEventView> { _event });
