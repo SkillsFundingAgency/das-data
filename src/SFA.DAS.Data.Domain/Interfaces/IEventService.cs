@@ -9,5 +9,7 @@ namespace SFA.DAS.Data.Domain.Interfaces
         Task<ICollection<GenericEvent>> GetUnprocessedGenericEvents(string eventType);
 
         Task<ICollection<ApprenticeshipEventView>> GetUnprocessedApprenticeshipEvents();
+
+        Task<ICollection<AccountEventView>> GetUnprocessedAccountEvents();
     }
 }

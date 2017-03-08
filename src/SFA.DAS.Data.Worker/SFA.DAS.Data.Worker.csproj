@@ -118,8 +118,8 @@
       <HintPath>..\packages\NLog.4.3.7\lib\net45\NLog.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SFA.DAS.EAS.Account.Api.Client, Version=1.0.0.23413, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.Account.Api.Client.1.0.0.23413\lib\net45\SFA.DAS.EAS.Account.Api.Client.dll</HintPath>
+    <Reference Include="SFA.DAS.EAS.Account.Api.Client, Version=1.0.0.24678, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Account.Api.Client.1.0.0.24678\lib\net45\SFA.DAS.EAS.Account.Api.Client.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="SFA.DAS.EAS.Account.Api.Types, Version=1.0.0.24678, Culture=neutral, processorArchitecture=MSIL">
@@ -169,10 +169,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DependencyResolution\DefaultRegistry.cs" />
+    <Compile Include="Events\EventHandlers\AccountEventHandler.cs" />
     <Compile Include="Events\EventHandlers\ApprenticeshipEventHandler.cs" />
     <Compile Include="Events\EventHandlers\EventHandler.cs" />
     <Compile Include="Events\EventHandlers\IEventHandler.cs" />
     <Compile Include="Events\EventsCollectors\ApprenticeshipEventsCollector.cs" />
+    <Compile Include="Events\EventsCollectors\AccountEventCollector.cs" />
     <Compile Include="Events\EventsCollectors\GenericEventCollector.cs" />
     <Compile Include="Events\EventsCollectors\IEventsCollector.cs" />
     <Compile Include="Events\EventsProcessor.cs" />

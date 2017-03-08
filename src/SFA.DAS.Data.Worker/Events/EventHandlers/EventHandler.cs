@@ -25,11 +25,11 @@ namespace SFA.DAS.Data.Worker.Events.EventHandlers
             try
             {
                 await ProcessEvent(@event);
-                await EventRepository.StoreLastProcessedEventId(nameof(T), @event.Id);
+                await EventRepository.StoreLastProcessedEventId(typeof(T).Name, @event.Id);
             }
             catch (Exception ex)
             {
-                _logger.Error(ex, $"Error handling event of type {nameof(T)} with id {@event.Id}");
+                _logger.Error(ex, $"Error handling event of type {typeof(T).Name} with id {@event.Id}");
 
                 await CheckProcessEventRetryAllowed(@event);
 

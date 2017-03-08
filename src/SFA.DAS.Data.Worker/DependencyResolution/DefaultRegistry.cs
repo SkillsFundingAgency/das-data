@@ -55,6 +55,9 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             For<IEventHandler<LegalEntityCreatedEvent>>().Use<LegalEntityCreatedEventHandler>();
             For<IEventHandler<PayeSchemeAddedEvent>>().Use<PayeSchemeAddedEventHandler>();
             For<IEventHandler<PayeSchemeRemovedEvent>>().Use<PayeSchemeRemovedEventHandler>();
+
+            //Legacy support
+            For<IEventHandler<AccountEventView>>().Use<AccountEventHandler>();
         }
 
         private void RegisterEventCollectors()
@@ -65,6 +68,9 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             For<IEventsCollector<LegalEntityCreatedEvent>>().Use<GenericEventCollector<LegalEntityCreatedEvent>>();
             For<IEventsCollector<PayeSchemeAddedEvent>>().Use<GenericEventCollector<PayeSchemeAddedEvent>>();
             For<IEventsCollector<PayeSchemeRemovedEvent>>().Use<GenericEventCollector<PayeSchemeRemovedEvent>>();
+
+            //Legacy support
+            For<IEventsCollector<AccountEventView>>().Use<AccountEventCollector>();
         }
 
         private void RegisterEventProcessors()
@@ -75,13 +81,16 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             For<IEventsProcessor>().Use<EventsProcessor<LegalEntityCreatedEvent>>();
             For<IEventsProcessor>().Use<EventsProcessor<PayeSchemeAddedEvent>>();
             For<IEventsProcessor>().Use<EventsProcessor<PayeSchemeRemovedEvent>>();
+
+            //Legacy support
+            For<IEventsProcessor>().Use<EventsProcessor<AccountEventView>>();
         }
 
         private void RegisterApis(DataConfiguration config)
         {
             For<IEventsApi>().Use(new EventsApi(config.EventsApi));
             
-            For<IAccountApiClient>().Use<AccountApiClient>().Ctor<AccountApiConfiguration>().Is(config.AccountsApi);
+            For<IAccountApiClient>().Use<AccountApiClient>().Ctor<IAccountApiConfiguration>().Is(config.AccountsApi);
         }
 
         private void RegisterRepositories(string connectionString)

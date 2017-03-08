@@ -18,9 +18,7 @@ namespace SFA.DAS.Data.Infrastructure.Services
             _eventsApi = eventsApi;
             _eventRepository = eventRepository;
         }
-
-     
-
+        
         public async Task<ICollection<GenericEvent>> GetUnprocessedGenericEvents(string eventType)
         {
             var eventId = await _eventRepository.GetLastProcessedEventId(eventType);
@@ -30,9 +28,16 @@ namespace SFA.DAS.Data.Infrastructure.Services
 
         public async Task<ICollection<ApprenticeshipEventView>> GetUnprocessedApprenticeshipEvents()
         {
-            var eventId = await _eventRepository.GetLastProcessedEventId(nameof(CommitmentsApprenticeshipEvent));
+            var eventId = await _eventRepository.GetLastProcessedEventId(typeof(CommitmentsApprenticeshipEvent).Name);
 
-            return await _eventsApi.GetApprenticeshipEventsById(eventId);
+            return await _eventsApi.GetApprenticeshipEventsById(eventId + 1);
+        }
+
+        public async Task<ICollection<AccountEventView>> GetUnprocessedAccountEvents()
+        {
+            var eventId = await _eventRepository.GetLastProcessedEventId(typeof(AccountEventView).Name);
+
+            return await _eventsApi.GetAccountEventsById(eventId + 1);
         }
     }
 }
