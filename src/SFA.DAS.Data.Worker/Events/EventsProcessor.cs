@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using NLog;
 using SFA.DAS.Data.Worker.Events.EventHandlers;
 using SFA.DAS.Data.Worker.Events.EventsCollectors;
 using SFA.DAS.Events.Api.Types;
+using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Worker.Events
 {
@@ -11,9 +11,9 @@ namespace SFA.DAS.Data.Worker.Events
     {
         private readonly IEventsCollector<T> _collector;
         private readonly IEventHandler<T> _handler;
-        private readonly ILogger _logger;
+        private readonly ILog _logger;
 
-        public EventsProcessor(IEventsCollector<T> collector, IEventHandler<T> handler, ILogger logger)
+        public EventsProcessor(IEventsCollector<T> collector, IEventHandler<T> handler, ILog logger)
         {
             _collector = collector;
             _handler = handler;

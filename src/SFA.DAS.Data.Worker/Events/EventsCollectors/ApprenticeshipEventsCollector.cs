@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using NLog;
 using SFA.DAS.Data.Domain.Interfaces;
 using SFA.DAS.Data.Domain.Models;
+using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Worker.Events.EventsCollectors
 {
@@ -13,9 +12,9 @@ namespace SFA.DAS.Data.Worker.Events.EventsCollectors
     {
         private readonly IEventService _eventService;
         private readonly IMapper _mapper;
-        private readonly ILogger _logger;
+        private readonly ILog _logger;
 
-        public ApprenticeshipEventsCollector(IEventService eventService, IMapper mapper, ILogger logger)
+        public ApprenticeshipEventsCollector(IEventService eventService, IMapper mapper, ILog logger)
         {
             _eventService = eventService;
             _mapper = mapper;

@@ -1,14 +1,15 @@
 ﻿using System;
 using Newtonsoft.Json;
 using NLog;
+using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Worker.Factories
 {
     public class JsonEventModelFactory : IEventModelFactory
     {
-        private readonly ILogger _logger;
+        private readonly ILog _logger;
 
-        public JsonEventModelFactory(ILogger logger)
+        public JsonEventModelFactory(ILog logger)
         {
             _logger = logger;
         }

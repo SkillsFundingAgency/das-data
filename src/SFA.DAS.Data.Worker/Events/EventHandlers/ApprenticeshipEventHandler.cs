@@ -7,6 +7,7 @@ using SFA.DAS.Data.Application.Configuration;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.Data.Domain.Models;
 using SFA.DAS.Events.Api.Types;
+using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Worker.Events.EventHandlers
 {
@@ -17,7 +18,7 @@ namespace SFA.DAS.Data.Worker.Events.EventHandlers
 
         public ApprenticeshipEventHandler(
             IMediator mediator, IMapper mapper, IEventRepository eventRepository, 
-            IDataConfiguration configuration, ILogger logger) 
+            IDataConfiguration configuration, ILog logger) 
             : base(eventRepository, configuration, logger)
         {
             _mediator = mediator;

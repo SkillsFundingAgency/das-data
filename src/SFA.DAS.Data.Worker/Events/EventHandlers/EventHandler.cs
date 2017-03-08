@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-using NLog;
 using SFA.DAS.Data.Application.Configuration;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.Events.Api.Types;
+using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Worker.Events.EventHandlers
 {
@@ -11,9 +11,9 @@ namespace SFA.DAS.Data.Worker.Events.EventHandlers
     {
         protected readonly IEventRepository EventRepository;
         private readonly int _failureRetryLimit;
-        private readonly ILogger _logger;
+        private readonly ILog _logger;
 
-        protected EventHandler(IEventRepository eventRepository, IDataConfiguration configuration, ILogger logger)
+        protected EventHandler(IEventRepository eventRepository, IDataConfiguration configuration, ILog logger)
         {
             EventRepository = eventRepository;
             _failureRetryLimit = configuration?.FailureTolerance ?? 1;

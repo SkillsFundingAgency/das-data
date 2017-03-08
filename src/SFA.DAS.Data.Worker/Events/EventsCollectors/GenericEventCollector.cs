@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using NLog;
 using SFA.DAS.Data.Domain.Interfaces;
 using SFA.DAS.Data.Worker.Factories;
 using SFA.DAS.Events.Api.Types;
+using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Worker.Events.EventsCollectors
 {
@@ -12,9 +12,9 @@ namespace SFA.DAS.Data.Worker.Events.EventsCollectors
     {
         private readonly IEventService _eventService;
         private readonly IEventModelFactory _factory;
-        private readonly ILogger _logger;
+        private readonly ILog _logger;
 
-        public GenericEventCollector(IEventService eventService, IEventModelFactory factory, ILogger logger)
+        public GenericEventCollector(IEventService eventService, IEventModelFactory factory, ILog logger)
         {
             _eventService = eventService;
             _factory = factory;

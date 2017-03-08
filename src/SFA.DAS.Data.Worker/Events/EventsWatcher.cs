@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using NLog;
+using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Worker.Events
 {
     public class EventsWatcher : IEventsWatcher
     {
         private readonly IEnumerable<IEventsProcessor> _processors;
-        private readonly ILogger _logger;
+        private readonly ILog _logger;
         
-        public EventsWatcher(IEnumerable<IEventsProcessor> processors, ILogger logger)
+        public EventsWatcher(IEnumerable<IEventsProcessor> processors, ILog logger)
         {
             _processors = processors;
             _logger = logger;
