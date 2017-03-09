@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using NUnit.Framework;
@@ -10,10 +9,10 @@ using SFA.DAS.Events.Api.Types;
 namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
 {
     [TestFixture]
-    [Ignore("Race conditions issues causing tests to fail")]
     public class WhenAnAccountIsRenamed : AccountEventTestsBase
     {
         [Test]
+        [Ignore("Race conditions issues causing tests to fail")]
         public void ThenTheAccountDetailsIsRenamed()
         {
             var events = ConfigureEventsApi();
