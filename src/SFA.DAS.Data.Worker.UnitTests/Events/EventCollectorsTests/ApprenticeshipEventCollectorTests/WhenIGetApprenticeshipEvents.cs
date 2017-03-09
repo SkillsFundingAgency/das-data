@@ -52,17 +52,6 @@ namespace SFA.DAS.Data.Worker.UnitTests.EventCollectorsTests.ApprenticeshipEvent
         }
 
         [Test]
-        public async Task ThenShouldReturnMappedEvent()
-        {
-            //Act
-            var result = await _collector.GetEvents();
-
-            //Assert
-            Assert.AreEqual(_commitmentEvent, result.FirstOrDefault());
-            _mapper.Verify(x => x.Map<CommitmentsApprenticeshipEvent>(_event), Times.Once);
-        }
-
-        [Test]
         public async Task ThenShouldReturnEmptyCollectionIfNoEventsFound()
         {
             //Arrange

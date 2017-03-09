@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using SFA.DAS.Data.Domain.Interfaces;
-using SFA.DAS.Data.Domain.Models;
+using SFA.DAS.Events.Api.Types;
 using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Worker.Events.EventsCollectors
 {
-    public class ApprenticeshipEventsCollector : IEventsCollector<CommitmentsApprenticeshipEvent>
+    public class ApprenticeshipEventsCollector : IEventsCollector<ApprenticeshipEventView>
     {
         private readonly IEventService _eventService;
         private readonly IMapper _mapper;
@@ -21,7 +20,7 @@ namespace SFA.DAS.Data.Worker.Events.EventsCollectors
             _logger = logger;
         }
 
-        public async Task<ICollection<CommitmentsApprenticeshipEvent>> GetEvents()
+        public async Task<ICollection<ApprenticeshipEventView>> GetEvents()
         {
             _logger.Info("Getting commitment events");
 
@@ -29,10 +28,7 @@ namespace SFA.DAS.Data.Worker.Events.EventsCollectors
 
             _logger.Info($"{apiEvents?.Count} events retrieved from events service");
 
-            var commitmentEvents = apiEvents?.Select(x => _mapper.Map<CommitmentsApprenticeshipEvent>(x))
-                                             .ToList();
-
-            return commitmentEvents;
+            return apiEvents;
         }
     }
 }

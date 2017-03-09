@@ -64,7 +64,7 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
         {
             For<IEventsCollector<AccountCreatedEvent>>().Use<GenericEventCollector<AccountCreatedEvent>>();
             For<IEventsCollector<AccountRenamedEvent>>().Use<GenericEventCollector<AccountRenamedEvent>>();
-            For<IEventsCollector<ApprenticeshipEventView>>().Use<GenericEventCollector<ApprenticeshipEventView>>();
+            For<IEventsCollector<ApprenticeshipEventView>>().Use<ApprenticeshipEventsCollector>();
             For<IEventsCollector<LegalEntityCreatedEvent>>().Use<GenericEventCollector<LegalEntityCreatedEvent>>();
             For<IEventsCollector<PayeSchemeAddedEvent>>().Use<GenericEventCollector<PayeSchemeAddedEvent>>();
             For<IEventsCollector<PayeSchemeRemovedEvent>>().Use<GenericEventCollector<PayeSchemeRemovedEvent>>();
@@ -99,7 +99,7 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             For<IAccountRepository>().Use<AccountRepository>().Ctor<string>().Is(connectionString);
             For<ILegalEntityRepository>().Use<LegalEntityRepository>().Ctor<string>().Is(connectionString);
             For<IPayeSchemeRepository>().Use<PayeSchemeRepository>().Ctor<string>().Is(connectionString);
-            For<ICommitmentApprenticeshipRepository>().Use<CommitmentApprenticeshipRepository>().Ctor<string>().Is(connectionString);
+            For<ICommitmentApprenticeshipRepository>().Use<ApprenticeshipRepository>().Ctor<string>().Is(connectionString);
         }
 
         private void AddMediatrRegistrations()

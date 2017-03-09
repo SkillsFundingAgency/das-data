@@ -28,7 +28,7 @@ namespace SFA.DAS.Data.Infrastructure.Services
 
         public async Task<ICollection<ApprenticeshipEventView>> GetUnprocessedApprenticeshipEvents()
         {
-            var eventId = await _eventRepository.GetLastProcessedEventId(typeof(CommitmentsApprenticeshipEvent).Name);
+            var eventId = await _eventRepository.GetLastProcessedEventId(typeof(ApprenticeshipEventView).Name);
 
             return await _eventsApi.GetApprenticeshipEventsById(eventId + 1);
         }

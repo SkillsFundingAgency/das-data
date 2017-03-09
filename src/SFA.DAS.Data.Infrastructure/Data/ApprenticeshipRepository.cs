@@ -6,26 +6,22 @@ using SFA.DAS.Data.Domain.Models;
 
 namespace SFA.DAS.Data.Infrastructure.Data
 {
-    public class CommitmentApprenticeshipRepository : BaseRepository, ICommitmentApprenticeshipRepository
+    public class ApprenticeshipRepository : BaseRepository, ICommitmentApprenticeshipRepository
     {
-        public CommitmentApprenticeshipRepository(string connectionString) : base(connectionString)
+        public ApprenticeshipRepository(string connectionString) : base(connectionString)
         {
 
         }
 
         public async Task Create(CommitmentsApprenticeshipEvent @event)
         {
-            //TODO: Get these from the database once these tables have been created
-            var paymentStatusId = 0;
-            var agreementStatusId = 0;
-
             await WithConnection(async c =>
             {
                 var parameters = new DynamicParameters();
                 parameters.Add("@commitmentId", @event.Id, DbType.Int64);
-                parameters.Add("@paymentStatusId", paymentStatusId, DbType.Int32);
+                parameters.Add("@paymentStatus", @event.PaymentStatus, DbType.StringFixedLength);
                 parameters.Add("@apprenticeshipId", @event.ApprenticeshipId, DbType.Int64);
-                parameters.Add("@agreementStatusId", agreementStatusId, DbType.Int32);
+                parameters.Add("@agreementStatus", @event.AgreementStatus, DbType.StringFixedLength);
                 parameters.Add("@ukPrn", @event.LearnerId, DbType.String);
                 parameters.Add("@uln", @event.ProviderId, DbType.String);
                 parameters.Add("@employerAccountId", @event.EmployerAccountId, DbType.String);
