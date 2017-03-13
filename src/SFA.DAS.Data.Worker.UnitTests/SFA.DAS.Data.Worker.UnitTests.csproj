@@ -89,9 +89,6 @@
     <Compile Include="Events\EventCollectorsTests\GenericEventCollectorTests\WhenGenericEventsAreRequested.cs" />
     <Compile Include="Events\EventHandlerTests\ApprenticeshipEventHandlerTests\WhenAnApprenticeshipEventIsHandled.cs" />
     <Compile Include="Events\EventHandlerTests\ApprenticeshipEventHandlerTests\WhenHandlingAnApprenticeshipEventCausesAnException.cs" />
-    <Compile Include="Events\EventProcessorTests\WhenProcessingAnEventFails.cs" />
-    <Compile Include="Events\EventProcessorTests\WhenIProcessEvents.cs" />
-    <Compile Include="Events\EventProcessorTests\WhenGettingEventsFails.cs" />
     <Compile Include="Events\EventWatcherTests\WhenIProcessEvents.cs" />
     <Compile Include="FactoriesTests\JsonEventModelFactoryTests\WhenICreateAModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

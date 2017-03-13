@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.Data.Domain.Interfaces;
-using SFA.DAS.Data.Domain.Models;
 using SFA.DAS.Events.Api.Client;
 using SFA.DAS.Events.Api.Types;
 
