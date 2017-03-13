@@ -1,4 +1,4 @@
-﻿UPDATE Data_Load.StoreLastProcessedEventId SET EventFeed = 'AccountEventView' WHERE EventFeed = 'AccountEvents'
+﻿UPDATE [Data_Load].[DAS_LoadedEvents] SET EventFeed = 'AccountEventView' WHERE EventFeed = 'AccountEvents'
 
 IF DATABASE_PRINCIPAL_ID('ViewSpecificReadOnly') IS NOT NULL
 BEGIN
