@@ -15,20 +15,19 @@ namespace SFA.DAS.Data.AcceptanceTests
 
         private const string ServiceName = "SFA.DAS.Data.AcceptanceTests";
 
-        //TODO: Uncomment these if they are needed once the tests are not ignored
-        //[OneTimeSetUp]
-        //public void SetUp()
-        //{
-        //    SetTestConfiguration();
-        //    StartSubstituteApis();
-        //}
+        [OneTimeSetUp]
+        public void SetUp()
+        {
+            SetTestConfiguration();
+            StartSubstituteApis();
+        }
 
-        //[OneTimeTearDown]
-        //public void TearDown()
-        //{
-        //    EventsApi.Dispose();
-        //    AccountsApi.Dispose();
-        //}
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            EventsApi.Dispose();
+            AccountsApi.Dispose();
+        }
 
         private static void StartSubstituteApis()
         {
