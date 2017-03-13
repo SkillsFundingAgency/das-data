@@ -1,8 +1,8 @@
 ﻿CREATE PROCEDURE [Data_Load].[CreateCommitmentApprenticeship]
 	@commitmentId bigint,
-	@paymentStatusId int,
+	@paymentStatus varchar(50),
 	@apprenticeshipId bigint,
-	@agreementStatusId int,
+	@agreementStatus varchar(50),
 	@ukPrn varchar(255),
 	@uln varchar(255),
 	@employerAccountId varchar(255),
@@ -15,11 +15,11 @@ AS
 	INSERT INTO [Data_Load].Das_Commitments 
 	(
 		CommitmentID, 
-		PaymentStatusID, 
+		PaymentStatus, 
 		ApprenticeshipID, 
-		AgreementStatusID, 
-		UKPRN, 
-		ULN,
+		AgreementStatus, 
+		ProviderID, 
+		LearnerID,
 		EmployerAccountID, 
 		TrainingTypeID,
 		TrainingID,
@@ -31,9 +31,9 @@ AS
 	VALUES
 	(
 		@commitmentId,
-		@paymentStatusId,
+		@paymentStatus,
 		@apprenticeshipId,
-		@agreementStatusId,
+		@agreementStatus,
 		@ukPrn,
 		@uln,
 		@employerAccountId,
@@ -42,5 +42,5 @@ AS
 		@trainingStartDate,
 		@trainingEndDate,
 		@trainingTotalCost,
-		GETDATE()
+		GETUTCDATE()
 	)

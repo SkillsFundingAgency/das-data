@@ -6,9 +6,9 @@ namespace SFA.DAS.Data.Application.Commands.CreateCommitmentApprenticeshipEntry
 {
     public class CreateCommitmentApprenticeshipEntryCommandHandler : IAsyncRequestHandler<CreateCommitmentApprenticeshipEntryCommand, CreateCommitmentApprenticeshipEntryResponse>
     {
-        private readonly ICommitmentApprenticeshipRepository _repository;
+        private readonly IApprenticeshipRepository _repository;
 
-        public CreateCommitmentApprenticeshipEntryCommandHandler(ICommitmentApprenticeshipRepository repository)
+        public CreateCommitmentApprenticeshipEntryCommandHandler(IApprenticeshipRepository repository)
         {
             _repository = repository;
         }

@@ -90,6 +90,7 @@
     <Build Include="StoredProcedures\SetEventFailureCount.sql" />
     <Build Include="Tables\Das_Commitments.sql" />
     <Build Include="StoredProcedures\CreateCommitmentApprenticeship.sql" />
+    <Build Include="Views\DAS_Commitments.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SFA.DAS.Data.Database.refactorlog" />

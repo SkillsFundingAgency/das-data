@@ -3,7 +3,7 @@ using SFA.DAS.EAS.Account.Api.Client;
 
 namespace SFA.DAS.Data.Application.Configuration
 {
-    public class DataConfiguration
+    public class DataConfiguration : IDataConfiguration
     {
         public string DatabaseConnectionString => CloudConfigurationManager.GetSetting("DataConnectionString", false);
 

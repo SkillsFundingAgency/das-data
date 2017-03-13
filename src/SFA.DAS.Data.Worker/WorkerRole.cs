@@ -7,7 +7,7 @@ using SFA.DAS.Data.Worker.DependencyResolution;
 using StructureMap;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.Azure;
-using SFA.DAS.Data.Worker.EventHandlers;
+using SFA.DAS.Data.Worker.Events;
 using SFA.DAS.Data.Worker.Interfaces.EventHandlers;
 using SFA.DAS.Events.Dispatcher;
 
@@ -18,7 +18,7 @@ namespace SFA.DAS.Data.Worker
         private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
         private readonly ManualResetEvent _runCompleteEvent = new ManualResetEvent(false);
         private IContainer _container;
-        private IEventProcessor _eventProcessor;
+        private IEventsWatcher _eventsWatcher;
 
         public override void Run()
         {
@@ -39,10 +39,9 @@ namespace SFA.DAS.Data.Worker
             ServicePointManager.DefaultConnectionLimit = 12;
             TelemetryConfiguration.Active.InstrumentationKey = CloudConfigurationManager.GetSetting("InstrumentationKey", false);
             _container = ConfigureIocContainer();
-            RegisterEventHandlers(_container);
-            _eventProcessor = _container.GetInstance<IEventProcessor>();
+            _eventsWatcher = _container.GetInstance<IEventsWatcher>();
 
-            bool result = base.OnStart();
+            var result = base.OnStart();
 
             Trace.TraceInformation("SFA.DAS.Data.Worker has been started");
 
@@ -65,7 +64,7 @@ namespace SFA.DAS.Data.Worker
         {
             while (!cancellationToken.IsCancellationRequested)
             {
-                await _eventProcessor.ProcessEvents();
+                await _eventsWatcher.ProcessEvents();
                 await Task.Delay(60000, cancellationToken);
             }
         }
@@ -77,17 +76,6 @@ namespace SFA.DAS.Data.Worker
                 c.AddRegistry<DefaultRegistry>();
             });
             return container;
-        }
-
-        private void RegisterEventHandlers(IContainer container)
-        {
-            var dispatcher = container.GetInstance<IEventDispatcher>();
-            dispatcher.RegisterHandler(container.GetInstance<IAccountCreatedEventHandler>(), "AccountCreated");
-            dispatcher.RegisterHandler(container.GetInstance<IAccountRenamedEventHandler>(), "AccountRenamed");
-            dispatcher.RegisterHandler(container.GetInstance<ILegalEntityCreatedEventHandler>(), "LegalEntityCreated");
-            dispatcher.RegisterHandler(container.GetInstance<IPayeSchemeAddedEventHandler>(), "PayeSchemeAdded");
-            dispatcher.RegisterHandler(container.GetInstance<IPayeSchemeRemovedEventHandler>(), "PayeSchemeRemoved");
-            dispatcher.RegisterHandler(container.GetInstance<IApprenticeshipEventHandler>(), "Test event");
         }
     }
 }
