@@ -5,6 +5,6 @@ namespace SFA.DAS.Data.Application.Commands.CreateCommitmentApprenticeshipEntry
 {
     public class CreateCommitmentApprenticeshipEntryCommand : IAsyncRequest<CreateCommitmentApprenticeshipEntryResponse>
     {
-        public CommitmentsApprenticeshipEvent Event { get; set; }
+        public ApprenticeshipEvent Event { get; set; }
     }
 }

@@ -3,8 +3,8 @@ using SFA.DAS.Data.Domain.Models;
 
 namespace SFA.DAS.Data.Application.Interfaces.Repositories
 {
-    public interface ICommitmentApprenticeshipRepository
+    public interface IApprenticeshipRepository
     {
-        Task Create(CommitmentsApprenticeshipEvent @event);
+        Task Create(ApprenticeshipEvent @event);
     }
 }

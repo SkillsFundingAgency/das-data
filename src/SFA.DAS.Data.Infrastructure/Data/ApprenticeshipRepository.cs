@@ -6,14 +6,14 @@ using SFA.DAS.Data.Domain.Models;
 
 namespace SFA.DAS.Data.Infrastructure.Data
 {
-    public class ApprenticeshipRepository : BaseRepository, ICommitmentApprenticeshipRepository
+    public class ApprenticeshipRepository : BaseRepository, IApprenticeshipRepository
     {
         public ApprenticeshipRepository(string connectionString) : base(connectionString)
         {
 
         }
 
-        public async Task Create(CommitmentsApprenticeshipEvent @event)
+        public async Task Create(ApprenticeshipEvent @event)
         {
             await WithConnection(async c =>
             {
