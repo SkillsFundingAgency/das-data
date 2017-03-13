@@ -3,7 +3,7 @@ using MediatR;
 using SFA.DAS.Data.Application.Commands.CreateLegalEntity;
 using SFA.DAS.Data.Application.Commands.CreatePayeScheme;
 using SFA.DAS.Data.Application.Interfaces.Gateways;
-using SFA.DAS.Data.Application.Interfaces.Repositories;
+using SFA.DAS.Data.Domain.Interfaces.Repositories;
 using SFA.DAS.EAS.Account.Api.Types;
 
 namespace SFA.DAS.Data.Application.Commands.CreateAccount

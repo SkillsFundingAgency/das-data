@@ -94,11 +94,6 @@
     <Compile Include="Configuration\IDataConfiguration.cs" />
     <Compile Include="Gateways\AccountGateway.cs" />
     <Compile Include="Interfaces\Gateways\IAccountGateway.cs" />
-    <Compile Include="Interfaces\Repositories\IApprenticeshipRepository.cs" />
-    <Compile Include="Interfaces\Repositories\IPayeSchemeRepository.cs" />
-    <Compile Include="Interfaces\Repositories\ILegalEntityRepository.cs" />
-    <Compile Include="Interfaces\Repositories\IEventRepository.cs" />
-    <Compile Include="Interfaces\Repositories\IAccountRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

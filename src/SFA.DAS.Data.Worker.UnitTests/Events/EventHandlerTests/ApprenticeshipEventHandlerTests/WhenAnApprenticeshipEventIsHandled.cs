@@ -6,7 +6,7 @@ using NLog;
 using NUnit.Framework;
 using SFA.DAS.Data.Application.Commands.CreateCommitmentApprenticeshipEntry;
 using SFA.DAS.Data.Application.Configuration;
-using SFA.DAS.Data.Application.Interfaces.Repositories;
+using SFA.DAS.Data.Domain.Interfaces.Repositories;
 using SFA.DAS.Data.Domain.Models;
 using SFA.DAS.Data.Worker.Events.EventHandlers;
 using SFA.DAS.Events.Api.Types;

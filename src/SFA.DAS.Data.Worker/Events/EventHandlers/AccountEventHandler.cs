@@ -6,7 +6,7 @@ using SFA.DAS.Data.Application.Commands.CreatePayeScheme;
 using SFA.DAS.Data.Application.Commands.RemovePayeScheme;
 using SFA.DAS.Data.Application.Commands.RenameAccount;
 using SFA.DAS.Data.Application.Configuration;
-using SFA.DAS.Data.Application.Interfaces.Repositories;
+using SFA.DAS.Data.Domain.Interfaces.Repositories;
 using SFA.DAS.Events.Api.Types;
 using SFA.DAS.NLog.Logger;
 

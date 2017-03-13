@@ -3,7 +3,7 @@ using Moq;
 using NUnit.Framework;
 using SFA.DAS.Data.Application.Commands.RenameAccount;
 using SFA.DAS.Data.Application.Interfaces.Gateways;
-using SFA.DAS.Data.Application.Interfaces.Repositories;
+using SFA.DAS.Data.Domain.Interfaces.Repositories;
 using SFA.DAS.Data.Tests.Builders;
 
 namespace SFA.DAS.Data.Application.UnitTests.Commands.RenameAccountTests

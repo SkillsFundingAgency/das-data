@@ -4,7 +4,7 @@ using MediatR;
 using NLog;
 using SFA.DAS.Data.Application.Commands.CreateCommitmentApprenticeshipEntry;
 using SFA.DAS.Data.Application.Configuration;
-using SFA.DAS.Data.Application.Interfaces.Repositories;
+using SFA.DAS.Data.Domain.Interfaces.Repositories;
 using SFA.DAS.Data.Domain.Models;
 using SFA.DAS.Events.Api.Types;
 using SFA.DAS.NLog.Logger;

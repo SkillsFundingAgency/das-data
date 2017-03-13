@@ -5,7 +5,7 @@ using System.Reflection;
 using AutoMapper;
 using MediatR;
 using SFA.DAS.Data.Application.Configuration;
-using SFA.DAS.Data.Application.Interfaces.Repositories;
+using SFA.DAS.Data.Domain.Interfaces.Repositories;
 using SFA.DAS.Data.Infrastructure.Data;
 using SFA.DAS.Data.Worker.Events;
 using SFA.DAS.Data.Worker.Events.EventHandlers;

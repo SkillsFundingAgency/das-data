@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Moq;
-using NLog;
 using NUnit.Framework;
 using SFA.DAS.Data.Domain.Interfaces;
 using SFA.DAS.Data.Worker.Events.EventsCollectors;
@@ -10,7 +9,7 @@ using SFA.DAS.Data.Worker.Factories;
 using SFA.DAS.Events.Api.Types;
 using SFA.DAS.NLog.Logger;
 
-namespace SFA.DAS.Data.Worker.UnitTests.EventCollectorsTests.GenericEventCollectorTests
+namespace SFA.DAS.Data.Worker.UnitTests.Events.EventCollectorsTests.GenericEventCollectorTests
 {
     public class WhenGenericEventsAreRequested
     {

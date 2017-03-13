@@ -6,7 +6,7 @@ using SFA.DAS.Data.Application.Commands.CreateAccount;
 using SFA.DAS.Data.Application.Commands.CreateLegalEntity;
 using SFA.DAS.Data.Application.Commands.CreatePayeScheme;
 using SFA.DAS.Data.Application.Interfaces.Gateways;
-using SFA.DAS.Data.Application.Interfaces.Repositories;
+using SFA.DAS.Data.Domain.Interfaces.Repositories;
 using SFA.DAS.Data.Tests.Builders;
 
 namespace SFA.DAS.Data.Application.UnitTests.Commands.CreateAccountTests

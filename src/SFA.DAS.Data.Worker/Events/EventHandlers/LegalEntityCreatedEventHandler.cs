@@ -3,7 +3,7 @@ using MediatR;
 using NLog;
 using SFA.DAS.Data.Application.Commands.CreateLegalEntity;
 using SFA.DAS.Data.Application.Configuration;
-using SFA.DAS.Data.Application.Interfaces.Repositories;
+using SFA.DAS.Data.Domain.Interfaces.Repositories;
 using SFA.DAS.EAS.Account.Api.Types.Events;
 using SFA.DAS.NLog.Logger;
 

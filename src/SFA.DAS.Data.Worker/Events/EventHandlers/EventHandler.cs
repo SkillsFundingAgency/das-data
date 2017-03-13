@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using SFA.DAS.Data.Application.Configuration;
-using SFA.DAS.Data.Application.Interfaces.Repositories;
+using SFA.DAS.Data.Domain.Interfaces.Repositories;
 using SFA.DAS.Events.Api.Types;
 using SFA.DAS.NLog.Logger;
 

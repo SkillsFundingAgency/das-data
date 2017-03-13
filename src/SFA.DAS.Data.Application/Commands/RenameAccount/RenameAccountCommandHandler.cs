@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using MediatR;
 using SFA.DAS.Data.Application.Interfaces.Gateways;
-using SFA.DAS.Data.Application.Interfaces.Repositories;
+using SFA.DAS.Data.Domain.Interfaces.Repositories;
 
 namespace SFA.DAS.Data.Application.Commands.RenameAccount
 {

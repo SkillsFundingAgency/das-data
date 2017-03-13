@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
-using SFA.DAS.Data.Application.Interfaces.Repositories;
+using SFA.DAS.Data.Domain.Interfaces.Repositories;
 using SFA.DAS.Data.Infrastructure.Services;
 using SFA.DAS.Events.Api.Client;
 using SFA.DAS.Events.Api.Types;
