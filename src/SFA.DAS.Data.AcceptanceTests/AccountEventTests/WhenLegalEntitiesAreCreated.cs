@@ -12,7 +12,6 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
     public class WhenLegalEntitiesAreCreated : AccountEventTestsBase
     {
         [Test]
-        [Ignore("Race conditions issues causing tests to fail")]
         public void ThenTheLegalEntityDetailsAreStored()
         {
             var events = ConfigureEventsApi();
@@ -30,7 +29,7 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
 
         private async Task<bool> IsDatabaseInExpectedState()
         {
-            var lastProcessedEventId = await EventTestsRepository.GetLastProcessedEventId("AccountEvents");
+            var lastProcessedEventId = await EventTestsRepository.GetLastProcessedEventId("AccountEventView");
             if (lastProcessedEventId != 4)
             {
                 return false;

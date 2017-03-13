@@ -1,8 +1,4 @@
-﻿IF (NOT EXISTS(SELECT * FROM [Data_Load].[DAS_LoadedEvents] WHERE [EventFeed] = 'AccountEvents'))
-BEGIN 
-	INSERT INTO [Data_Load].[DAS_LoadedEvents] ([EventFeed], [LastProcessedEventId]) 
-	VALUES('AccountEvents', 0) 
-END 
+﻿UPDATE Data_Load.StoreLastProcessedEventId SET EventFeed = 'AccountEventView' WHERE EventFeed = 'AccountEvents'
 
 IF DATABASE_PRINCIPAL_ID('ViewSpecificReadOnly') IS NOT NULL
 BEGIN

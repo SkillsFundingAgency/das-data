@@ -35,7 +35,7 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
             EventTestsRepository = new EventTestsRepository(ConfigurationManager.AppSettings["DataConnectionString"]);
             EventTestsRepository.DeleteAccounts().Wait();
             EventTestsRepository.DeleteFailedEvents().Wait();
-            EventTestsRepository.StoreLastProcessedEventId("AccountEvents", 2).Wait();
+            EventTestsRepository.StoreLastProcessedEventId("AccountEventView", 2).Wait();
         }
 
         private void StartWorkerRole()
