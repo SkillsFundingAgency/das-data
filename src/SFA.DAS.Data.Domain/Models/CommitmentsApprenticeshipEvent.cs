@@ -3,7 +3,7 @@ using SFA.DAS.Events.Api.Types;
 
 namespace SFA.DAS.Data.Domain.Models
 {
-    public class ApprenticeshipEvent : IEventView
+    public class CommitmentsApprenticeshipEvent : IEventView
     {
         public long Id { get; set; }
 

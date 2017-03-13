@@ -4,10 +4,10 @@ using AutoMapper;
 using Moq;
 using NUnit.Framework;
 using SFA.DAS.Data.Domain.Interfaces;
+using SFA.DAS.Data.Domain.Models;
 using SFA.DAS.Data.Worker.Events.EventsCollectors;
 using SFA.DAS.Events.Api.Types;
 using SFA.DAS.NLog.Logger;
-using ApprenticeshipEvent = SFA.DAS.Data.Domain.Models.ApprenticeshipEvent;
 
 namespace SFA.DAS.Data.Worker.UnitTests.Events.EventCollectorsTests.ApprenticeshipEventCollectorTests
 {
@@ -18,12 +18,12 @@ namespace SFA.DAS.Data.Worker.UnitTests.Events.EventCollectorsTests.Apprenticesh
         private Mock<ILog> _logger;
         private ApprenticeshipEventsCollector _collector;
         private Mock<IMapper> _mapper;
-        private ApprenticeshipEvent _apprenticeshipEvent;
+        private CommitmentsApprenticeshipEvent _commitmentsApprenticeshipEvent;
 
         [SetUp]
         public void Arrange()
         {
-            _apprenticeshipEvent = new ApprenticeshipEvent();
+            _commitmentsApprenticeshipEvent = new CommitmentsApprenticeshipEvent();
             _apprenticeshipViewEvent = new ApprenticeshipEventView();
 
             _eventService = new Mock<IEventService>();
@@ -33,8 +33,8 @@ namespace SFA.DAS.Data.Worker.UnitTests.Events.EventCollectorsTests.Apprenticesh
             _eventService.Setup(x => x.GetUnprocessedApprenticeshipEvents())
                          .ReturnsAsync(new List<ApprenticeshipEventView> { _apprenticeshipViewEvent });
 
-            _mapper.Setup(x => x.Map<ApprenticeshipEvent>(It.IsAny<ApprenticeshipEventView>()))
-                   .Returns(_apprenticeshipEvent);
+            _mapper.Setup(x => x.Map<CommitmentsApprenticeshipEvent>(It.IsAny<ApprenticeshipEventView>()))
+                   .Returns(_commitmentsApprenticeshipEvent);
 
             _collector = new ApprenticeshipEventsCollector(_eventService.Object, _mapper.Object, _logger.Object);
         }
@@ -61,7 +61,7 @@ namespace SFA.DAS.Data.Worker.UnitTests.Events.EventCollectorsTests.Apprenticesh
 
             //Assert
             Assert.IsEmpty(result);
-            _mapper.Verify(x => x.Map<ApprenticeshipEvent>(_apprenticeshipEvent), Times.Never);
+            _mapper.Verify(x => x.Map<CommitmentsApprenticeshipEvent>(_commitmentsApprenticeshipEvent), Times.Never);
         }
     }
 }

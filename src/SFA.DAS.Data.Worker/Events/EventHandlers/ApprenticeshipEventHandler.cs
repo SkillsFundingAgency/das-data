@@ -8,7 +8,6 @@ using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.Data.Domain.Models;
 using SFA.DAS.Events.Api.Types;
 using SFA.DAS.NLog.Logger;
-using ApprenticeshipEvent = SFA.DAS.Data.Domain.Models.ApprenticeshipEvent;
 
 namespace SFA.DAS.Data.Worker.Events.EventHandlers
 {
@@ -28,7 +27,7 @@ namespace SFA.DAS.Data.Worker.Events.EventHandlers
 
         protected override async Task ProcessEvent(ApprenticeshipEventView @event)
         {
-            var commandEvent = _mapper.Map<ApprenticeshipEvent>(@event);
+            var commandEvent = _mapper.Map<CommitmentsApprenticeshipEvent>(@event);
 
             await _mediator.SendAsync(new CreateCommitmentApprenticeshipEntryCommand
             {

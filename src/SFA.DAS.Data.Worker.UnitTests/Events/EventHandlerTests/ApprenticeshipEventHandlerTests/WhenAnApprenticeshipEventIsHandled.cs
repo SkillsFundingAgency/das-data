@@ -11,7 +11,6 @@ using SFA.DAS.Data.Domain.Models;
 using SFA.DAS.Data.Worker.Events.EventHandlers;
 using SFA.DAS.Events.Api.Types;
 using SFA.DAS.NLog.Logger;
-using ApprenticeshipEvent = SFA.DAS.Data.Domain.Models.ApprenticeshipEvent;
 
 namespace SFA.DAS.Data.Worker.UnitTests.Events.EventHandlerTests.ApprenticeshipEventHandlerTests
 {
@@ -20,7 +19,7 @@ namespace SFA.DAS.Data.Worker.UnitTests.Events.EventHandlerTests.ApprenticeshipE
         private Mock<IMediator> _mediator;
         private ApprenticeshipEventHandler _handler;
         private Mock<IMapper> _mapper;
-        private ApprenticeshipEvent _event;
+        private CommitmentsApprenticeshipEvent _event;
         private Mock<IDataConfiguration> _configuration;
         private Mock<IEventRepository> _eventRepository;
         private Mock<ILog> _logger;
@@ -41,12 +40,12 @@ namespace SFA.DAS.Data.Worker.UnitTests.Events.EventHandlerTests.ApprenticeshipE
                 _mediator.Object, _mapper.Object, _eventRepository.Object,
                 _configuration.Object, _logger.Object);
 
-            _event = new ApprenticeshipEvent();
+            _event = new CommitmentsApprenticeshipEvent();
 
             _mediator.Setup(x => x.SendAsync(It.IsAny<CreateCommitmentApprenticeshipEntryCommand>()))
                      .ReturnsAsync(new CreateCommitmentApprenticeshipEntryResponse());
 
-            _mapper.Setup(x => x.Map<ApprenticeshipEvent>(It.IsAny<ApprenticeshipEventView>()))
+            _mapper.Setup(x => x.Map<CommitmentsApprenticeshipEvent>(It.IsAny<ApprenticeshipEventView>()))
                 .Returns(_event);
         }
 

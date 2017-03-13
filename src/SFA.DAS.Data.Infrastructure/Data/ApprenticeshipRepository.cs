@@ -13,7 +13,7 @@ namespace SFA.DAS.Data.Infrastructure.Data
 
         }
 
-        public async Task Create(ApprenticeshipEvent @event)
+        public async Task Create(CommitmentsApprenticeshipEvent @event)
         {
             await WithConnection(async c =>
             {

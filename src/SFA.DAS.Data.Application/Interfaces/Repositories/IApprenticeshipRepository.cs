@@ -5,6 +5,6 @@ namespace SFA.DAS.Data.Application.Interfaces.Repositories
 {
     public interface IApprenticeshipRepository
     {
-        Task Create(ApprenticeshipEvent @event);
+        Task Create(CommitmentsApprenticeshipEvent @event);
     }
 }

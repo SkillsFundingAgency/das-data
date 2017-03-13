@@ -91,6 +91,7 @@
     <Compile Include="Events\EventHandlerTests\ApprenticeshipEventHandlerTests\WhenHandlingAnApprenticeshipEventCausesAnException.cs" />
     <Compile Include="Events\EventWatcherTests\WhenIProcessEvents.cs" />
     <Compile Include="FactoriesTests\JsonEventModelFactoryTests\WhenICreateAModel.cs" />
+    <Compile Include="Mapping\EventMappingTests\WhenIMapApprenticeshipEvents.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

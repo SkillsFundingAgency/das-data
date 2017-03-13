@@ -11,7 +11,6 @@ using SFA.DAS.Data.Domain.Models;
 using SFA.DAS.Data.Worker.Events.EventHandlers;
 using SFA.DAS.Events.Api.Types;
 using SFA.DAS.NLog.Logger;
-using ApprenticeshipEvent = SFA.DAS.Data.Domain.Models.ApprenticeshipEvent;
 
 namespace SFA.DAS.Data.Worker.UnitTests.Events.EventHandlerTests.ApprenticeshipEventHandlerTests
 {
@@ -56,7 +55,7 @@ namespace SFA.DAS.Data.Worker.UnitTests.Events.EventHandlerTests.ApprenticeshipE
                 x => x.StoreLastProcessedEventId(nameof(ApprenticeshipEventView), It.IsAny<long>()))
                 .Returns(Task.Delay(0));
 
-            _mapper.Setup(x => x.Map<ApprenticeshipEvent>(It.IsAny<ApprenticeshipEventView>()))
+            _mapper.Setup(x => x.Map<CommitmentsApprenticeshipEvent>(It.IsAny<ApprenticeshipEventView>()))
                    .Throws<Exception>();
         }
 
