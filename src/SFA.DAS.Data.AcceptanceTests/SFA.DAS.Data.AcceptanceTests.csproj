@@ -144,6 +144,8 @@
     <Compile Include="ApiSubstitute\ApiStartup.cs" />
     <Compile Include="ApiSubstitute\ApiSubstituteMessageHandler.cs" />
     <Compile Include="ApiSubstitute\WebApiSubstitute.cs" />
+    <Compile Include="ApprenticeshipEventTests\ApprenticeshipEventTestsBase.cs" />
+    <Compile Include="ApprenticeshipEventTests\WhenAnApprenticeshipIsSaved.cs" />
     <Compile Include="Data\EventTestsRepository.cs" />
     <Compile Include="DataAcceptanceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
