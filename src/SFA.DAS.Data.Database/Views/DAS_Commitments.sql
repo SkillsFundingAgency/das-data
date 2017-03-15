@@ -1,13 +1,15 @@
-﻿CREATE VIEW Data_Pub.DAS_Commitments
+CREATE VIEW Data_Pub.DAS_Commitments
 AS
      SELECT [C].[ID]
           , [C].[CommitmentID]
           , [C].[PaymentStatus]
           , [C].[ApprenticeshipID]
           , [c].[AgreementStatus]
-          , [C].[ProviderID] AS [UKPRN]
-          , [C].[LearnerID] AS [ULN]
-          , [C].[EmployerAccountID] AS [DASAccountID]
+          , CASE WHEN ISNUMERIC([C].[ProviderID])=1 then CAST([C].[ProviderID] AS BIGINT) ELSE -2 END AS [UKPRN]
+		, CASE WHEN ISNUMERIC([C].[LearnerID])=1 then CAST([C].[LearnerID] AS BIGINT) ELSE -2 END AS [ULN]  
+		, [C].[ProviderID] 
+          , [C].[LearnerID]           
+		, [C].[EmployerAccountID] AS [DASAccountID]
           , [C].[TrainingTypeID]
           , [C].[TrainingID]
           , CASE
