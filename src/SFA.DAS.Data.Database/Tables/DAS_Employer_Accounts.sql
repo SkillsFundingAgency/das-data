@@ -5,5 +5,6 @@
     [AccountName] NVARCHAR(100) NOT NULL, 
     [DateRegistered] DATETIME NOT NULL, 
     [OwnerEmail] NVARCHAR(255) NOT NULL, 
-    [UpdateDateTime] DATETIME NOT NULL DEFAULT (GETDATE())
+    [UpdateDateTime] DATETIME NOT NULL DEFAULT (GETDATE()), 
+    [AccountId] BIGINT NOT NULL DEFAULT 0
 )

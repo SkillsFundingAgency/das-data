@@ -33,7 +33,7 @@ namespace SFA.DAS.Data.Application.UnitTests.Commands.CreateAccountTests
         public async Task ThenTheAccountDataIsRetrievedAndSaved()
         {
             var expectedAccount = new AccountDetailViewModelBuilder().Build();
-            var accountHref = $"/api/accounts/{expectedAccount.DasAccountId}";
+            var accountHref = $"/api/accounts/{expectedAccount.HashedAccountId}";
             
             _accountGateway.Setup(x => x.GetAccount(accountHref)).ReturnsAsync(expectedAccount);
 

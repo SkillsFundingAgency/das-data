@@ -2,7 +2,8 @@
 	@dasAccountName VARCHAR(100),
 	@dateRegistered DATETIME,
 	@ownerEmail VARCHAR(255),
-	@dasAccountId VARCHAR(100)
+	@dasAccountId VARCHAR(100),
+	@accountId BIGINT
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -13,11 +14,12 @@ BEGIN
 			[AccountName] = @dasAccountName AND
 			[DateRegistered] = @dateRegistered AND
 			[OwnerEmail] = @ownerEmail AND
-			[DasAccountId] = @dasAccountId
+			[DasAccountId] = @dasAccountId AND
+			[AccountId] = @accountId
 	)
 	BEGIN
-		INSERT INTO [Data_Load].[DAS_Employer_Accounts] ([AccountName],[DateRegistered],[OwnerEmail], [DasAccountId])
-			VALUES (@dasAccountName, @dateRegistered, @ownerEmail, @dasAccountId)
+		INSERT INTO [Data_Load].[DAS_Employer_Accounts] ([AccountName],[DateRegistered],[OwnerEmail], [DasAccountId], [AccountId])
+			VALUES (@dasAccountName, @dateRegistered, @ownerEmail, @dasAccountId, @accountId)
 	END
 END
 GO
