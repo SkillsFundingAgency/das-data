@@ -20,7 +20,8 @@ namespace SFA.DAS.Data.Infrastructure.Data
                 parameters.Add("@dasAccountName", registration.DasAccountName, DbType.String);
                 parameters.Add("@dateRegistered", registration.DateRegistered, DbType.DateTime);
                 parameters.Add("@ownerEmail", registration.OwnerEmail, DbType.String);
-                parameters.Add("@dasAccountId", registration.DasAccountId, DbType.String);
+                parameters.Add("@hashedAccountId", registration.HashedAccountId, DbType.String);
+                parameters.Add("@accountId", registration.AccountId, DbType.Int64);
 
                 return await c.ExecuteAsync(
                     sql: "[Data_Load].[SaveAccount]",

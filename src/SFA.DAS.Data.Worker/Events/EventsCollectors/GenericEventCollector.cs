@@ -29,8 +29,7 @@ namespace SFA.DAS.Data.Worker.Events.EventsCollectors
 
             var events = await _eventService.GetUnprocessedGenericEvents(typeName);
 
-            var eventModels = events.Select(x => _factory.Create<T>(x.Payload))
-                                    .ToList();
+            var eventModels = events?.Select(x => _factory.Create<T>(x.Payload)).ToList();
             return eventModels;
         }
     }

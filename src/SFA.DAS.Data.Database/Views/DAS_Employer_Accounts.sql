@@ -2,6 +2,7 @@
 AS
 SELECT	EA.[Id]
 	,	EA.[DasAccountId]
+	,   EA.[AccountId] AS EmployerAccountId
 	,	EA.[AccountName] AS DASAccountName
 	,	CAST(EA.DateRegistered AS DATE) AS DateRegistered
 	,	EA.[DateRegistered] AS DateTimeRegistered
