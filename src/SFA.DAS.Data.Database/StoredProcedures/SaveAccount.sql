@@ -2,7 +2,7 @@
 	@dasAccountName VARCHAR(100),
 	@dateRegistered DATETIME,
 	@ownerEmail VARCHAR(255),
-	@dasAccountId VARCHAR(100),
+	@hashedAccountId VARCHAR(100),
 	@accountId BIGINT
 AS
 BEGIN
@@ -14,12 +14,12 @@ BEGIN
 			[AccountName] = @dasAccountName AND
 			[DateRegistered] = @dateRegistered AND
 			[OwnerEmail] = @ownerEmail AND
-			[DasAccountId] = @dasAccountId AND
+			[DasAccountId] = @hashedAccountId AND
 			[AccountId] = @accountId
 	)
 	BEGIN
 		INSERT INTO [Data_Load].[DAS_Employer_Accounts] ([AccountName],[DateRegistered],[OwnerEmail], [DasAccountId], [AccountId])
-			VALUES (@dasAccountName, @dateRegistered, @ownerEmail, @dasAccountId, @accountId)
+			VALUES (@dasAccountName, @dateRegistered, @ownerEmail, @hashedAccountId, @accountId)
 	END
 END
 GO
