@@ -7,6 +7,7 @@ namespace SFA.DAS.Data.Tests.Builders
 {
     public class AccountDetailViewModelBuilder
     {
+        private long _accountId = 123;
         private string _dasAccountId = "AHC12343";
         private string _ownerEmail = "test@test.com";
         private string _dasAccountName = "Account Name";
@@ -52,7 +53,8 @@ namespace SFA.DAS.Data.Tests.Builders
 
             return new AccountDetailViewModel
             {
-                DasAccountId = _dasAccountId,
+                AccountId = _accountId,
+                HashedAccountId = _dasAccountId,
                 OwnerEmail = _ownerEmail,
                 DasAccountName = _dasAccountName,
                 DateRegistered = _dateRegistered,
