@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [Data_Load].[Das_Commitments]
 (	
-	[Id] BIGINT IDENTITY(1, 1), 
-    [CommitmentID] BIGINT, 
+	[Id] BIGINT NOT NULL PRIMARY KEY IDENTITY(1, 1), 
+    [CommitmentID] BIGINT NOT NULL, 
     [PaymentStatus] VARCHAR(50),            
     [ApprenticeshipID]  BIGINT,
     [AgreementStatus] VARCHAR(50),
@@ -13,5 +13,5 @@
     [TrainingStartDate] DATE,
     [TrainingEndDate]   DATE,
     [TrainingTotalCost] DECIMAL,
-    [UpdateDateTime]    DATETIME
+    [UpdateDateTime]    DATETIME NOT NULL
 )
