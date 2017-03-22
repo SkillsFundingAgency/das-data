@@ -10,7 +10,10 @@
 	@trainingId varchar(255),
 	@trainingStartDate Date,
 	@trainingEndDate Date,
-	@trainingTotalCost decimal
+	@trainingTotalCost decimal,
+	@legalEntityCode NVARCHAR(50), 
+    @legalEntityName NVARCHAR(100), 
+    @legalEntityOrganisationType NVARCHAR(20)
 AS
 	INSERT INTO [Data_Load].Das_Commitments 
 	(
@@ -26,6 +29,9 @@ AS
 		TrainingStartDate,
 		TrainingEndDate,
 		TrainingTotalCost,
+		LegalEntityCode,
+		LegalEntityName,
+		LegalEntityOrganisationType,
 		UpdateDateTime
 	)
 	VALUES
@@ -42,5 +48,8 @@ AS
 		@trainingStartDate,
 		@trainingEndDate,
 		@trainingTotalCost,
+		@legalEntityCode,
+		@legalEntityName,
+		@legalEntityOrganisationType,
 		GETUTCDATE()
 	)
