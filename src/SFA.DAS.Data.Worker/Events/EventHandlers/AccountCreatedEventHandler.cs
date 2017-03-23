@@ -9,7 +9,7 @@ using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Worker.Events.EventHandlers
 {
-    public class AccountCreatedEventHandler : EventHandler<AccountCreatedEvent>
+    public class AccountCreatedEventHandler : EventHandler<GenericEvent<AccountCreatedEvent>>
     {
         private readonly IMediator _mediator;
 
@@ -23,9 +23,9 @@ namespace SFA.DAS.Data.Worker.Events.EventHandlers
             _mediator = mediator;
         }
 
-        protected override async Task ProcessEvent(AccountCreatedEvent @event)
+        protected override async Task ProcessEvent(GenericEvent<AccountCreatedEvent> @event)
         {
-            await _mediator.PublishAsync(new CreateAccountCommand { AccountHref = @event.ResourceUri });
+            await _mediator.PublishAsync(new CreateAccountCommand { AccountHref = @event.Payload.ResourceUri });
         }
     }
 }

@@ -3,12 +3,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using SFA.DAS.Data.Domain.Interfaces;
 using SFA.DAS.Data.Worker.Factories;
-using SFA.DAS.Events.Api.Types;
 using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Worker.Events.EventsCollectors
 {
-    public class GenericEventCollector<T> : IEventsCollector<T> where T : IEventView
+    public class GenericEventCollector<T> : IEventsCollector<GenericEvent<T>>
     {
         private readonly IEventService _eventService;
         private readonly IEventModelFactory _factory;
@@ -21,7 +20,7 @@ namespace SFA.DAS.Data.Worker.Events.EventsCollectors
             _logger = logger;
         }
 
-        public async Task<ICollection<T>> GetEvents()
+        public async Task<ICollection<GenericEvent<T>>> GetEvents()
         {
             var typeName = typeof(T).Name;
 
@@ -29,7 +28,7 @@ namespace SFA.DAS.Data.Worker.Events.EventsCollectors
 
             var events = await _eventService.GetUnprocessedGenericEvents(typeName);
 
-            var eventModels = events?.Select(x => _factory.Create<T>(x.Payload)).ToList();
+            var eventModels = events?.Select(x => new GenericEvent<T> { Id = x.Id, Payload = _factory.Create<T>(x.Payload), Event = x.Event }).ToList();
             return eventModels;
         }
     }

@@ -178,6 +178,7 @@
     <Compile Include="Events\EventsCollectors\GenericEventCollector.cs" />
     <Compile Include="Events\EventsCollectors\IEventsCollector.cs" />
     <Compile Include="Events\EventsProcessor.cs" />
+    <Compile Include="Events\GenericEvent.cs" />
     <Compile Include="Factories\JsonEventModelFactory.cs" />
     <Compile Include="Factories\IEventModelFactory.cs" />
     <Compile Include="Events\IEventsProcessor.cs" />

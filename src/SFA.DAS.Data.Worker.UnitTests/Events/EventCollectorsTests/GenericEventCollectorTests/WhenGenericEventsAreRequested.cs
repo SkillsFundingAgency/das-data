@@ -28,7 +28,9 @@ namespace SFA.DAS.Data.Worker.UnitTests.EventCollectorsTests.GenericEventCollect
             _event = new GenericEvent
             {
                 Type = "TestEvent",
-                Payload = "{\"Data\":\"test\"}"
+                Payload = "{\"Data\":\"test\"}",
+                Id = 123,
+                Event = "Test"
             };
 
             _eventModel = new TestEvent
@@ -68,7 +70,9 @@ namespace SFA.DAS.Data.Worker.UnitTests.EventCollectorsTests.GenericEventCollect
             //Assert
             _eventModelFactory.Verify(x => x.Create<TestEvent>(_event.Payload), Times.Once);
             Assert.AreEqual(1, events.Count);
-            Assert.AreEqual(_eventModel, events.FirstOrDefault());
+            Assert.AreEqual(_eventModel, events.FirstOrDefault().Payload);
+            Assert.AreEqual(_event.Id, events.FirstOrDefault().Id);
+            Assert.AreEqual(_event.Event, events.FirstOrDefault().Event);
         }
 
         internal class TestEvent : IEventView
