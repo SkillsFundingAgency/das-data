@@ -29,13 +29,12 @@ namespace SFA.DAS.Data.Worker.UnitTests.EventCollectorsTests.GenericEventCollect
             {
                 Type = "TestEvent",
                 Payload = "{\"Data\":\"test\"}",
-                Id = 123,
-                Event = "Test"
+                Id = 123
             };
 
             _eventModel = new TestEvent
             {
-                Data = "test"
+                Data = "AJVFD943igf"
             };
 
             _eventService = new Mock<IEventService>();
@@ -72,13 +71,10 @@ namespace SFA.DAS.Data.Worker.UnitTests.EventCollectorsTests.GenericEventCollect
             Assert.AreEqual(1, events.Count);
             Assert.AreEqual(_eventModel, events.FirstOrDefault().Payload);
             Assert.AreEqual(_event.Id, events.FirstOrDefault().Id);
-            Assert.AreEqual(_event.Event, events.FirstOrDefault().Event);
         }
 
-        internal class TestEvent : IEventView
+        internal class TestEvent
         {
-            public long Id { get; set; }
-            public string Event { get; set; }
             public string Data { get; set; }
         }
     }

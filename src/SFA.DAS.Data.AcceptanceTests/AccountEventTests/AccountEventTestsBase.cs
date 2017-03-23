@@ -15,6 +15,8 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
         protected WebApiSubstitute AccountsApi => DataAcceptanceTests.AccountsApi;
         protected WebApiSubstitute EventsApi => DataAcceptanceTests.EventsApi;
 
+        protected abstract string EventName { get; }
+
         [SetUp]
         public void Arrange()
         {
@@ -35,7 +37,7 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
             EventTestsRepository = new EventTestsRepository(ConfigurationManager.AppSettings["DataConnectionString"]);
             EventTestsRepository.DeleteAccounts().Wait();
             EventTestsRepository.DeleteFailedEvents().Wait();
-            EventTestsRepository.StoreLastProcessedEventId("AccountEventView", 2).Wait();
+            EventTestsRepository.StoreLastProcessedEventId(EventName, 2).Wait();
         }
 
         private void StartWorkerRole()

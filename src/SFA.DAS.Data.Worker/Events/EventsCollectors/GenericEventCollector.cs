@@ -28,7 +28,7 @@ namespace SFA.DAS.Data.Worker.Events.EventsCollectors
 
             var events = await _eventService.GetUnprocessedGenericEvents(typeName);
 
-            var eventModels = events?.Select(x => new GenericEvent<T> { Id = x.Id, Payload = _factory.Create<T>(x.Payload), Event = x.Event }).ToList();
+            var eventModels = events?.Select(x => new GenericEvent<T> { Id = x.Id, Payload = _factory.Create<T>(x.Payload), Type = x.Type }).ToList();
             return eventModels;
         }
     }

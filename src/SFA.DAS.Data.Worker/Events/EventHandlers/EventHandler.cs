@@ -25,11 +25,11 @@ namespace SFA.DAS.Data.Worker.Events.EventHandlers
             try
             {
                 await ProcessEvent(@event);
-                await EventRepository.StoreLastProcessedEventId(typeof(T).Name, @event.Id);
+                await EventRepository.StoreLastProcessedEventId(@event.Type, @event.Id);
             }
             catch (Exception ex)
             {
-                _logger.Error(ex, $"Error handling event of type {typeof(T).Name} with id {@event.Id}");
+                _logger.Error(ex, $"Error handling event of type {@event.Type} with id {@event.Id}");
 
                 await CheckProcessEventRetryAllowed(@event);
 
@@ -43,10 +43,8 @@ namespace SFA.DAS.Data.Worker.Events.EventHandlers
         {
             if (await IncreamentFailureCountForEvent(@event.Id) > _failureRetryLimit)
             {
-                var eventType = typeof(T).Name;
-                
                 //Too many failures so ignore event
-                await EventRepository.StoreLastProcessedEventId(eventType, @event.Id);
+                await EventRepository.StoreLastProcessedEventId(@event.Type, @event.Id);
                 await EventRepository.SetEventFailureCount(@event.Id, 0);
             }
         }
