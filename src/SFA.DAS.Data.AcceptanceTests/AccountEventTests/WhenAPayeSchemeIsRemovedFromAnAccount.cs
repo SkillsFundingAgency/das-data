@@ -12,6 +12,8 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
     [TestFixture]
     public class WhenAPayeSchemeIsRemovedFromAnAccount : AccountEventTestsBase
     {
+        protected override string EventName => "AccountEventView";
+
         [Test]
         public void ThenThePayeSchemeDetailsAreStored()
         {
