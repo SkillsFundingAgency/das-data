@@ -9,11 +9,12 @@ AS
 		, CASE WHEN ISNUMERIC([C].[LearnerID])=1 then CAST([C].[LearnerID] AS BIGINT) ELSE -2 END AS [ULN]  
 		, [C].[ProviderID] 
           , [C].[LearnerID]           
-		, [C].[EmployerAccountID] AS [DASAccountID]
+	  , [C].[EmployerAccountID] 
+	  , EA.[DASAccountID]
           , [C].[TrainingTypeID]
           , [C].[TrainingID]
           , CASE
-                WHEN [C].[TrainingTypeID] = 'Standard'
+                WHEN [C].[TrainingTypeID] = 'Standard' AND ISNUMERIC([C].[TrainingID]) = 1
                 THEN CAST([C].[TrainingID] AS INT)
                 ELSE '-1'
             END AS [StdCode]
@@ -42,7 +43,7 @@ AS
           , COALESCE([LC].[Flag_Latest], 0) AS [Flag_Latest]
      FROM
         Data_Load.DAS_Commitments AS C
- 
+    -- To get las
         LEFT JOIN
      (
          SELECT [C].[CommitmentId]
@@ -52,5 +53,7 @@ AS
             Data_Load.DAS_Commitments AS C
          GROUP BY [C].[CommitmentId]
      ) AS LC ON C.CommitmentId = LC.CommitmentId
-                AND LC.Max_UpdatedDateTime = C.UpdateDateTime;
+                AND LC.Max_UpdatedDateTime = C.UpdateDateTime
+	-- Join to Accounts to get the Hashed DAS Acccount ID
+	LEFT JOIN  [Data_Load].[DAS_Employer_Accounts] AS EA ON EA.AccountID = [C].[EmployerAccountID];
 GO
