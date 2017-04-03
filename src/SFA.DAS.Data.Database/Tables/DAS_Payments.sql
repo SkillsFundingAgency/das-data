@@ -20,5 +20,6 @@
 	[FrameworkCode]	INT NULL,
 	[ProgrammeType]	INT NULL,
 	[PathwayCode]	INT NULL,
-	[ContractType]	NVARCHAR(50) NOT NULL
+	[ContractType]	NVARCHAR(50) NOT NULL, 
+    [UpdateDateTime] DATETIME NOT NULL DEFAULT (GETDATE())
 )
