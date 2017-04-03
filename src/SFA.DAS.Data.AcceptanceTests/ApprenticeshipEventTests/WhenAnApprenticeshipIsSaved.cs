@@ -52,7 +52,9 @@ namespace SFA.DAS.Data.AcceptanceTests.ApprenticeshipEventTests
                     Id = 3,
                     Event = "ApprenticeshipCreated",
                     TrainingStartDate = DateTime.Now.AddDays(1),
-                    TrainingEndDate = DateTime.Now.AddYears(2)
+                    TrainingEndDate = DateTime.Now.AddYears(2),
+                    AgreementStatus = AgreementStatus.NotAgreed,
+                    PaymentStatus = PaymentStatus.Completed
                 },
                 new ApprenticeshipEventView
                 {
@@ -60,7 +62,9 @@ namespace SFA.DAS.Data.AcceptanceTests.ApprenticeshipEventTests
                     Id = 4,
                     Event = "ApprenticeshipUpdated",
                     TrainingStartDate = DateTime.Now.AddDays(2),
-                    TrainingEndDate = DateTime.Now.AddYears(3)
+                    TrainingEndDate = DateTime.Now.AddYears(3),
+                    AgreementStatus = AgreementStatus.EmployerAgreed,
+                    PaymentStatus = PaymentStatus.Active
                 }
             };
 
