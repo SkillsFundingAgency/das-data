@@ -32,5 +32,11 @@ namespace SFA.DAS.Data.Domain.Models
         public DateTime TrainingEndDate { get; set; }
 
         public decimal TrainingTotalCost { get; set; }
+
+        public string LegalEntityCode { get; set; }
+
+        public string LegalEntityName { get; set; }
+
+        public string LegalEntityOrganisationType { get; set; }
     }
 }
