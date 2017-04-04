@@ -11,6 +11,8 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
     [TestFixture]
     public class WhenAnAccountIsRenamed : AccountEventTestsBase
     {
+        protected override string EventName => "AccountEventView";
+
         [Test]
         public void ThenTheAccountDetailsIsRenamed()
         {
