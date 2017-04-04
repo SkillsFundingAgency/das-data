@@ -10,7 +10,6 @@ namespace SFA.DAS.Data.Infrastructure.Data
     {
         public ApprenticeshipRepository(string connectionString) : base(connectionString)
         {
-
         }
 
         public async Task Create(ApprenticeshipEvent @event)
@@ -30,6 +29,9 @@ namespace SFA.DAS.Data.Infrastructure.Data
                 parameters.Add("@trainingStartDate", @event.TrainingStartDate, DbType.Date);
                 parameters.Add("@trainingEndDate", @event.TrainingEndDate, DbType.Date);
                 parameters.Add("@trainingTotalCost", @event.TrainingTotalCost, DbType.Decimal);
+                parameters.Add("@legalEntityCode", @event.LegalEntityCode, DbType.String);
+                parameters.Add("@legalEntityName", @event.LegalEntityName, DbType.String);
+                parameters.Add("@legalEntityOrganisationType", @event.LegalEntityOrganisationType, DbType.String);
 
                 return await c.ExecuteAsync(
                     sql: "[Data_Load].[CreateCommitmentApprenticeship]",

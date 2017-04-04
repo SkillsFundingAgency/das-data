@@ -52,7 +52,10 @@ namespace SFA.DAS.Data.AcceptanceTests.ApprenticeshipEventTests
                     Id = 3,
                     Event = "ApprenticeshipCreated",
                     TrainingStartDate = DateTime.Now.AddDays(1),
-                    TrainingEndDate = DateTime.Now.AddYears(2)
+                    TrainingEndDate = DateTime.Now.AddYears(2),
+                    LegalEntityId = "LEID",
+                    LegalEntityName = "LEName",
+                    LegalEntityOrganisationType = "LEOrgType"
                 },
                 new ApprenticeshipEventView
                 {
