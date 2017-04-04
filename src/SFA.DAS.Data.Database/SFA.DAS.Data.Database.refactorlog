@@ -84,4 +84,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="AgreementStatus" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="ab40de8e-4e17-41f2-a825-45e6b732c861" ChangeDateTime="03/22/2017 14:05:38">
+    <Property Name="ElementName" Value="[Data_Load].[Das_Commitments].[LegalEntityId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[Data_Load].[Das_Commitments]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="LegalEntityCode" />
+  </Operation>
 </Operations>
