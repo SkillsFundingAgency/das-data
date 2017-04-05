@@ -32,6 +32,11 @@ namespace SFA.DAS.Data.Infrastructure.Services
             return GetUnprocessedPeriods(periodEnds, lastProcessedPeriodId);
         }
 
+        public async Task<PageOfResults<Payment>> GetPayments(string periodId, int pageNumber)
+        {
+            return await _eventsApi.GetPayments(periodId, null, pageNumber);
+        }
+
         private static ICollection<PeriodEnd> GetUnprocessedPeriods(PeriodEnd[] periodEnds, string lastProcessedPeriodId)
         {
             return periodEnds.SkipWhile(x => x.Id != lastProcessedPeriodId).Skip(1).ToList();
