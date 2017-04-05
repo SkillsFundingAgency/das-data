@@ -102,6 +102,8 @@
     <Compile Include="Configuration\IDataConfiguration.cs" />
     <Compile Include="Gateways\AccountGateway.cs" />
     <Compile Include="Interfaces\Gateways\IAccountGateway.cs" />
+    <Compile Include="Interfaces\IProviderEventService.cs" />
+    <Compile Include="Interfaces\IEventService.cs" />
     <Compile Include="Interfaces\Repositories\IApprenticeshipRepository.cs" />
     <Compile Include="Interfaces\Repositories\IPayeSchemeRepository.cs" />
     <Compile Include="Interfaces\Repositories\ILegalEntityRepository.cs" />

@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using SFA.DAS.Events.Api.Types;
 
-namespace SFA.DAS.Data.Domain.Interfaces
+namespace SFA.DAS.Data.Application.Interfaces
 {
     public interface IEventService
     {

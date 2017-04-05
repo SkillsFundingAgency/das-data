@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using SFA.DAS.Data.Domain.Interfaces;
+using SFA.DAS.Data.Application.Interfaces;
 using SFA.DAS.Events.Api.Types;
 using SFA.DAS.NLog.Logger;
 

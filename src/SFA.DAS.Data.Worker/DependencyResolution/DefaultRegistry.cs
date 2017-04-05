@@ -17,6 +17,7 @@ using SFA.DAS.EAS.Account.Api.Types.Events.PayeScheme;
 using SFA.DAS.Events.Api.Client;
 using SFA.DAS.Events.Api.Types;
 using SFA.DAS.NLog.Logger;
+using SFA.DAS.Provider.Events.Api.Types;
 using StructureMap;
 using StructureMap.TypeRules;
 
@@ -70,6 +71,7 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             For<IEventsCollector<GenericEvent<LegalEntityCreatedEvent>>>().Use<GenericEventCollector<LegalEntityCreatedEvent>>();
             For<IEventsCollector<GenericEvent<PayeSchemeAddedEvent>>>().Use<GenericEventCollector<PayeSchemeAddedEvent>>();
             For<IEventsCollector<GenericEvent<PayeSchemeRemovedEvent>>>().Use<GenericEventCollector<PayeSchemeRemovedEvent>>();
+            For<IEventsCollector<PeriodEnd>>().Use<PaymentEventsCollector>();
 
             //Legacy support
             For<IEventsCollector<AccountEventView>>().Use<AccountEventCollector>();

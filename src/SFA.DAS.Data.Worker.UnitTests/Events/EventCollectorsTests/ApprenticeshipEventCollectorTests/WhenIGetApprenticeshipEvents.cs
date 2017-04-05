@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Moq;
 using NUnit.Framework;
-using SFA.DAS.Data.Domain.Interfaces;
+using SFA.DAS.Data.Application.Interfaces;
 using SFA.DAS.Data.Worker.Events.EventsCollectors;
 using SFA.DAS.Events.Api.Types;
 using SFA.DAS.NLog.Logger;

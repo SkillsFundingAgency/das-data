@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using SFA.DAS.Data.Domain.Interfaces;
+using SFA.DAS.Data.Application.Interfaces;
 using SFA.DAS.Data.Worker.Factories;
 using SFA.DAS.NLog.Logger;
 
