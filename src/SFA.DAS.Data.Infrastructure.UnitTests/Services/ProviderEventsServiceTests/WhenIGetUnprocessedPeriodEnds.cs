@@ -30,18 +30,18 @@ namespace SFA.DAS.Data.Infrastructure.UnitTests.Services.ProviderEventsServiceTe
         [Test]
         public async Task AndThereAreUnprocessedPeriodsThenThePeriodsAreReturned()
         {
-            var lastEventId = 123;
+            var lastEventId = "123";
             var returnedPeriods = new List<PeriodEnd>
             {
-                new PeriodEnd { Id = (lastEventId - 1).ToString() },
-                new PeriodEnd { Id = lastEventId.ToString() },
-                new PeriodEnd { Id = (lastEventId + 1).ToString() },
-                new PeriodEnd { Id = (lastEventId + 2).ToString() }
+                new PeriodEnd { Id = "sdfkujf" },
+                new PeriodEnd { Id = lastEventId },
+                new PeriodEnd { Id = "dlfkbmbg" },
+                new PeriodEnd { Id = "cdvflkbc" }
             };
 
             var expectedPeriods = returnedPeriods.SkipWhile(x => x.Id != lastEventId.ToString()).Skip(1);
 
-            _eventsRepository.Setup(x => x.GetLastProcessedEventId("PeriodEnd")).ReturnsAsync(lastEventId);
+            _eventsRepository.Setup(x => x.GetLastProcessedEventId<string>("PeriodEnd")).ReturnsAsync(lastEventId);
             _eventsApi.Setup(x => x.GetPeriodEnds()).ReturnsAsync(returnedPeriods.ToArray());
 
             var response = await _service.GetUnprocessedPeriodEnds();
@@ -52,14 +52,14 @@ namespace SFA.DAS.Data.Infrastructure.UnitTests.Services.ProviderEventsServiceTe
         [Test]
         public async Task AndThereAreNoUnprocessedPeriodsThenNoPeriodsAreReturned()
         {
-            var lastEventId = 123;
+            var lastEventId = "123";
             var returnedPeriods = new List<PeriodEnd>
             {
-                new PeriodEnd { Id = (lastEventId - 1).ToString() },
+                new PeriodEnd { Id = "clbmcvb" },
                 new PeriodEnd { Id = lastEventId.ToString() }
             };
 
-            _eventsRepository.Setup(x => x.GetLastProcessedEventId("PeriodEnd")).ReturnsAsync(lastEventId);
+            _eventsRepository.Setup(x => x.GetLastProcessedEventId<string>("PeriodEnd")).ReturnsAsync(lastEventId);
             _eventsApi.Setup(x => x.GetPeriodEnds()).ReturnsAsync(returnedPeriods.ToArray());
 
             var response = await _service.GetUnprocessedPeriodEnds();
@@ -70,14 +70,14 @@ namespace SFA.DAS.Data.Infrastructure.UnitTests.Services.ProviderEventsServiceTe
         [Test]
         public async Task AndNoPeriodsHaveBeenPreviouslyProcessedThenAllPeriodsAreReturned()
         {
-            var lastEventId = 0;
+            var lastEventId = "";
             var returnedPeriods = new List<PeriodEnd>
             {
-                new PeriodEnd { Id = (lastEventId - 1).ToString() },
-                new PeriodEnd { Id = lastEventId.ToString() }
+                new PeriodEnd { Id = "509mkfdb" },
+                new PeriodEnd { Id = "!cvlkbjgnvb" }
             };
 
-            _eventsRepository.Setup(x => x.GetLastProcessedEventId("PeriodEnd")).ReturnsAsync(lastEventId);
+            _eventsRepository.Setup(x => x.GetLastProcessedEventId<string>("PeriodEnd")).ReturnsAsync(lastEventId);
             _eventsApi.Setup(x => x.GetPeriodEnds()).ReturnsAsync(returnedPeriods.ToArray());
 
             var response = await _service.GetUnprocessedPeriodEnds();

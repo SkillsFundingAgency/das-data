@@ -51,14 +51,14 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
             });
         }
 
-        public Task StoreLastProcessedEventId(string eventFeed, long id)
+        public Task StoreLastProcessedEventId<T>(string eventFeed, T id)
         {
             return _eventRepository.StoreLastProcessedEventId(eventFeed, id);
         }
 
-        public Task<long> GetLastProcessedEventId(string eventFeed)
+        public Task<T> GetLastProcessedEventId<T>(string eventFeed)
         {
-            return _eventRepository.GetLastProcessedEventId(eventFeed);
+            return _eventRepository.GetLastProcessedEventId<T>(eventFeed);
         }
 
         public async Task<int> GetNumberOfAccounts()

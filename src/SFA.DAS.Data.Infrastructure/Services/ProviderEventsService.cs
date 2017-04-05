@@ -21,7 +21,7 @@ namespace SFA.DAS.Data.Infrastructure.Services
 
         public async Task<ICollection<PeriodEnd>> GetUnprocessedPeriodEnds()
         {
-            var lastProcessedPeriodId = await _eventRepository.GetLastProcessedEventId(typeof(PeriodEnd).Name);
+            var lastProcessedPeriodId = await _eventRepository.GetLastProcessedEventId<string>(typeof(PeriodEnd).Name);
             var periodEnds = await _eventsApi.GetPeriodEnds();
 
             if (!HaveAnyPeriodsBeenProcessedPreviously(lastProcessedPeriodId))
@@ -32,14 +32,14 @@ namespace SFA.DAS.Data.Infrastructure.Services
             return GetUnprocessedPeriods(periodEnds, lastProcessedPeriodId);
         }
 
-        private static ICollection<PeriodEnd> GetUnprocessedPeriods(PeriodEnd[] periodEnds, long lastProcessedPeriodId)
+        private static ICollection<PeriodEnd> GetUnprocessedPeriods(PeriodEnd[] periodEnds, string lastProcessedPeriodId)
         {
-            return periodEnds.SkipWhile(x => x.Id != lastProcessedPeriodId.ToString()).Skip(1).ToList();
+            return periodEnds.SkipWhile(x => x.Id != lastProcessedPeriodId).Skip(1).ToList();
         }
 
-        private static bool HaveAnyPeriodsBeenProcessedPreviously(long lastProcessedPeriodId)
+        private static bool HaveAnyPeriodsBeenProcessedPreviously(string lastProcessedPeriodId)
         {
-            return lastProcessedPeriodId != 0;
+            return !string.IsNullOrEmpty(lastProcessedPeriodId);
         }
     }
 }

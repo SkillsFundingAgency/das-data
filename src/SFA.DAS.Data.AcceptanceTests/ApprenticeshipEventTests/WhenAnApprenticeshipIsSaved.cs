@@ -27,7 +27,7 @@ namespace SFA.DAS.Data.AcceptanceTests.ApprenticeshipEventTests
 
         private async Task<bool> IsDatabaseInExpectedState()
         {
-            var lastProcessedEventId = await EventTestsRepository.GetLastProcessedEventId("ApprenticeshipEventView");
+            var lastProcessedEventId = await EventTestsRepository.GetLastProcessedEventId<long>("ApprenticeshipEventView");
             if (lastProcessedEventId != 4)
             {
                 return false;

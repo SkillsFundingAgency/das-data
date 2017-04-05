@@ -4,12 +4,12 @@ namespace SFA.DAS.Data.Application.Interfaces.Repositories
 {
     public interface IEventRepository
     {
-        Task<long> GetLastProcessedEventId(string eventFeed);
+        Task<T> GetLastProcessedEventId<T>(string eventFeed);
 
-        Task StoreLastProcessedEventId(string eventFeed, long id);
+        Task StoreLastProcessedEventId<T>(string eventFeed, T id);
 
-        Task<int> GetEventFailureCount(long eventId);
+        Task<int> GetEventFailureCount<T>(T eventId);
 
-        Task SetEventFailureCount(long eventId, int failureCount);
+        Task SetEventFailureCount<T>(T eventId, int failureCount);
     }
 }

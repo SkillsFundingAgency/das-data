@@ -13,14 +13,14 @@ namespace SFA.DAS.Data.Infrastructure.Data
         {
         }
 
-        public async Task<long> GetLastProcessedEventId(string eventFeed)
+        public async Task<T> GetLastProcessedEventId<T>(string eventFeed)
         {
             var result = await WithConnection(async c =>
             {
                 var parameters = new DynamicParameters();
                 parameters.Add("@eventFeed", eventFeed, DbType.String);
 
-                return await c.QuerySingleOrDefaultAsync<long>(
+                return await c.QuerySingleOrDefaultAsync<T>(
                     sql: "[Data_Load].[GetLastProcessedEventId]",
                     param: parameters,
                     commandType: CommandType.StoredProcedure);
@@ -29,7 +29,7 @@ namespace SFA.DAS.Data.Infrastructure.Data
             return result;
         }
 
-        public async Task StoreLastProcessedEventId(string eventFeed, long id)
+        public async Task StoreLastProcessedEventId<T>(string eventFeed, T id)
         {
             await WithConnection(async c =>
             {
@@ -44,7 +44,7 @@ namespace SFA.DAS.Data.Infrastructure.Data
             });
         }
 
-        public async Task<int> GetEventFailureCount(long eventId)
+        public async Task<int> GetEventFailureCount<T>(T eventId)
         {
             var result = await WithConnection(async c =>
             {
@@ -60,7 +60,7 @@ namespace SFA.DAS.Data.Infrastructure.Data
             return result.SingleOrDefault();
         }
 
-        public async Task SetEventFailureCount(long eventId, int failureCount)
+        public async Task SetEventFailureCount<T>(T eventId, int failureCount)
         {
             await WithConnection(async c =>
             {
