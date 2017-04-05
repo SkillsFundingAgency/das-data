@@ -1,9 +1,8 @@
-﻿using System;
-using System.Data;
+﻿using System.Data;
 using System.Threading.Tasks;
 using Dapper;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
-using SFA.DAS.Payments.Events.Api.Types;
+using SFA.DAS.Provider.Events.Api.Types;
 
 namespace SFA.DAS.Data.Infrastructure.Data
 {
@@ -37,8 +36,7 @@ namespace SFA.DAS.Data.Infrastructure.Data
                 parameters.Add("@FrameworkCode", payment.FrameworkCode, DbType.Int32);
                 parameters.Add("@ProgrammeType", payment.ProgrammeType, DbType.Int32);
                 parameters.Add("@PathwayCode", payment.PathwayCode, DbType.Int32);
-                //TODO: Remove this once the nuget package has been updated.
-                //parameters.Add("@ContractType", payment.ContractType.ToString(), DbType.String);
+                parameters.Add("@ContractType", payment.ContractType.ToString(), DbType.String);
 
                 return await c.ExecuteAsync(
                     sql: "[Data_Load].[SavePayment]",
