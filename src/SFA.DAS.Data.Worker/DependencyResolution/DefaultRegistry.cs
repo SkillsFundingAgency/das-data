@@ -59,6 +59,7 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             For<IEventHandler<GenericEvent<LegalEntityCreatedEvent>>>().Use<LegalEntityCreatedEventHandler>();
             For<IEventHandler<GenericEvent<PayeSchemeAddedEvent>>>().Use<PayeSchemeAddedEventHandler>();
             For<IEventHandler<GenericEvent<PayeSchemeRemovedEvent>>>().Use<PayeSchemeRemovedEventHandler>();
+            For<IEventHandler<PeriodEnd>>().Use<PeriodEndEventHandler>();
 
             //Legacy support
             For<IEventHandler<AccountEventView>>().Use<AccountEventHandler>();
@@ -86,6 +87,7 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             For<IEventsProcessor>().Use<EventsProcessor<GenericEvent<LegalEntityCreatedEvent>>>();
             For<IEventsProcessor>().Use<EventsProcessor<GenericEvent<PayeSchemeAddedEvent>>>();
             For<IEventsProcessor>().Use<EventsProcessor<GenericEvent<PayeSchemeRemovedEvent>>>();
+            For<IEventsProcessor>().Use<EventsProcessor<PeriodEnd>>();
 
             //Legacy support
             For<IEventsProcessor>().Use<EventsProcessor<AccountEventView>>();

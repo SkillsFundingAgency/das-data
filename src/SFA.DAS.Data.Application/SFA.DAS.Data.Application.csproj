@@ -87,6 +87,7 @@
     <Compile Include="Commands\CreateCommitmentApprenticeshipEntry\CreateCommitmentApprenticeshipEntryCommand.cs" />
     <Compile Include="Commands\CreateCommitmentApprenticeshipEntry\CreateCommitmentApprenticeshipEntryCommandHandler.cs" />
     <Compile Include="Commands\CreateCommitmentApprenticeshipEntry\CreateCommitmentApprenticeshipEntryResponse.cs" />
+    <Compile Include="Commands\CreatePaymentsForPeriodEnd\CreatePaymentsForPeriodEndCommand.cs" />
     <Compile Include="Commands\RemovePayeScheme\RemovePayeSchemeCommand.cs" />
     <Compile Include="Commands\RemovePayeScheme\RemovePayeSchemeCommandHandler.cs" />
     <Compile Include="Commands\RenameAccount\RenameAccountCommand.cs" />

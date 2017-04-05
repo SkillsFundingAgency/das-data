@@ -6,13 +6,13 @@ using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Worker.Events.EventHandlers
 {
-    public abstract class EventApiHandler<T> : EventHandler<T>, IEventHandler<T> where T : IEventView
+    public abstract class EventApiHandler<T> : EventHandler<T> where T : IEventView
     {
         protected EventApiHandler(IEventRepository eventRepository, IDataConfiguration configuration, ILog logger) : base(eventRepository, configuration, logger)
         {
         }
 
-        public async Task Handle(T @event)
+        public override async Task Handle(T @event)
         {
             await Handle(@event, @event.Type, @event.Id);
         }

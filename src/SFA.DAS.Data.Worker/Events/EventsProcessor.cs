@@ -2,12 +2,11 @@
 using System.Threading.Tasks;
 using SFA.DAS.Data.Worker.Events.EventHandlers;
 using SFA.DAS.Data.Worker.Events.EventsCollectors;
-using SFA.DAS.Events.Api.Types;
 using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Worker.Events
 {
-    public class EventsProcessor<T> : IEventsProcessor where T : IEventView
+    public class EventsProcessor<T> : IEventsProcessor
     {
         private readonly IEventsCollector<T> _collector;
         private readonly IEventHandler<T> _handler;
@@ -33,7 +32,6 @@ namespace SFA.DAS.Data.Worker.Events
                 foreach (var @event in events)
                 {
                     await _handler.Handle(@event);
-                    _logger.Info($"Event {@event.Id} processed");
                 }
             }
         }

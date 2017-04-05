@@ -100,6 +100,7 @@
     <Compile Include="Events\EventCollectorsTests\PaymentEventCollectorTests\WhenIGetPaymentEvents.cs" />
     <Compile Include="Events\EventCollectorsTests\ApprenticeshipEventCollectorTests\WhenIGetApprenticeshipEvents.cs" />
     <Compile Include="Events\EventCollectorsTests\GenericEventCollectorTests\WhenGenericEventsAreRequested.cs" />
+    <Compile Include="Events\EventHandlerTests\PeriodEndEventHandlerTests\WhenAPeriodEndEventIsHandled.cs" />
     <Compile Include="Events\EventHandlerTests\ApprenticeshipEventHandlerTests\WhenAnApprenticeshipEventIsHandled.cs" />
     <Compile Include="Events\EventHandlerTests\ApprenticeshipEventHandlerTests\WhenHandlingAnApprenticeshipEventCausesAnException.cs" />
     <Compile Include="Events\EventWatcherTests\WhenIProcessEvents.cs" />

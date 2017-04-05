@@ -6,7 +6,7 @@ using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Worker.Events.EventHandlers
 {
-    public abstract class EventHandler<TEventType>
+    public abstract class EventHandler<TEventType> : IEventHandler<TEventType>
     {
         protected readonly IEventRepository EventRepository;
         private readonly int _failureRetryLimit;
@@ -19,12 +19,15 @@ namespace SFA.DAS.Data.Worker.Events.EventHandlers
             _logger = logger;
         }
 
+        public abstract Task Handle(TEventType @event);
+
         protected async Task Handle<TIdType>(TEventType @event, string eventType, TIdType eventId)
         {
             try
             {
                 await ProcessEvent(@event);
                 await EventRepository.StoreLastProcessedEventId(eventType, eventId);
+                _logger.Info($"Event with type {eventType} and id {eventId} was processed");
             }
             catch (Exception ex)
             {
