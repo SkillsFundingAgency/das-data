@@ -1,15 +1,14 @@
 ﻿using System.Threading.Tasks;
 using MediatR;
-using NLog;
 using SFA.DAS.Data.Application.Commands.RenameAccount;
 using SFA.DAS.Data.Application.Configuration;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
-using SFA.DAS.EAS.Account.Api.Types.Events;
+using SFA.DAS.EAS.Account.Api.Types.Events.Account;
 using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Worker.Events.EventHandlers
 {
-    public class AccountRenamedEventHandler : EventHandler<AccountRenamedEvent>
+    public class AccountRenamedEventHandler : EventHandler<GenericEvent<AccountRenamedEvent>>
     {
         private readonly IMediator _mediator;
 
@@ -23,9 +22,9 @@ namespace SFA.DAS.Data.Worker.Events.EventHandlers
             _mediator = mediator;
         }
 
-        protected override async Task ProcessEvent(AccountRenamedEvent @event)
+        protected override async Task ProcessEvent(GenericEvent<AccountRenamedEvent> @event)
         {
-            await _mediator.PublishAsync(new RenameAccountCommand { AccountHref = @event.ResourceUri });
+            await _mediator.PublishAsync(new RenameAccountCommand { AccountHref = @event.Payload.ResourceUri });
         }
     }
 }

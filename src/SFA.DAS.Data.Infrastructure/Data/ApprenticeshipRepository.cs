@@ -18,9 +18,9 @@ namespace SFA.DAS.Data.Infrastructure.Data
             {
                 var parameters = new DynamicParameters();
                 parameters.Add("@commitmentId", @event.Id, DbType.Int64);
-                parameters.Add("@paymentStatus", @event.PaymentStatus, DbType.String, ParameterDirection.Input, 50);
+                parameters.Add("@paymentStatus", @event.PaymentStatus, DbType.String, ParameterDirection.Input);
                 parameters.Add("@apprenticeshipId", @event.ApprenticeshipId, DbType.Int64);
-                parameters.Add("@agreementStatus", @event.AgreementStatus, DbType.String, ParameterDirection.Input, 50);
+                parameters.Add("@agreementStatus", @event.AgreementStatus, DbType.String, ParameterDirection.Input);
                 parameters.Add("@ukPrn", @event.ProviderId, DbType.String);
                 parameters.Add("@uln", @event.LearnerId, DbType.String);
                 parameters.Add("@employerAccountId", @event.EmployerAccountId, DbType.String);
