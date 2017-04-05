@@ -1,5 +1,6 @@
 ﻿using Microsoft.Azure;
 using SFA.DAS.EAS.Account.Api.Client;
+using SFA.DAS.Provider.Events.Api.Client;
 
 namespace SFA.DAS.Data.Application.Configuration
 {
@@ -18,6 +19,12 @@ namespace SFA.DAS.Data.Application.Configuration
             ClientSecret = CloudConfigurationManager.GetSetting("AccountsApiClientSecret", false),
             IdentifierUri = CloudConfigurationManager.GetSetting("AccountsApiIdentifierUri", false),
             Tenant = CloudConfigurationManager.GetSetting("AccountsApiTenant", false),
+        };
+
+        public PaymentsEventsApiConfiguration PaymentsEvents => new PaymentsEventsApiConfiguration
+        {
+            ApiBaseUrl = CloudConfigurationManager.GetSetting("PaymentsEventsApiBaseUrl", false),
+            ClientToken = CloudConfigurationManager.GetSetting("PaymentsEventsApiClientToken", false)
         };
     }
 }

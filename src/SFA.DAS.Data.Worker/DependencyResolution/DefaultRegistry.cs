@@ -17,6 +17,7 @@ using SFA.DAS.EAS.Account.Api.Types.Events.PayeScheme;
 using SFA.DAS.Events.Api.Client;
 using SFA.DAS.Events.Api.Types;
 using SFA.DAS.NLog.Logger;
+using SFA.DAS.Provider.Events.Api.Client;
 using SFA.DAS.Provider.Events.Api.Types;
 using StructureMap;
 using StructureMap.TypeRules;
@@ -93,7 +94,7 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
         private void RegisterApis(DataConfiguration config)
         {
             For<IEventsApi>().Use(new EventsApi(config.EventsApi));
-            
+            For<IPaymentsEventsApiClient>().Use(new PaymentsEventsApiClient(config.PaymentsEvents));
             For<IAccountApiClient>().Use<AccountApiClient>().Ctor<IAccountApiConfiguration>().Is(config.AccountsApi);
         }
 
