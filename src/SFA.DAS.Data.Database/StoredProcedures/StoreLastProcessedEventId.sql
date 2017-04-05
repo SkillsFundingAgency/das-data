@@ -1,6 +1,6 @@
 ﻿CREATE PROCEDURE [Data_Load].[StoreLastProcessedEventId]
 	@eventFeed NVARCHAR(50),
-	@lastProcessedEventId BIGINT
+	@lastProcessedEventId NVARCHAR(100)
 AS
 	MERGE [Data_Load].[DAS_LoadedEvents] AS [Target]
 	USING (SELECT @eventFeed AS Feed) AS [Source] 

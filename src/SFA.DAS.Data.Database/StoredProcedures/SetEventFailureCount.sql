@@ -1,5 +1,5 @@
 ﻿CREATE PROCEDURE [Data_Load].[SetEventFailureCount]
-	@eventId BIGINT,
+	@eventId NVARCHAR(100),
 	@failureCount INT
 AS
 	MERGE [Data_Load].[DAS_FailedEvents] AS [T] USING (SELECT @eventId AS EventId) AS [S] ON [T].EventId = [S].EventId

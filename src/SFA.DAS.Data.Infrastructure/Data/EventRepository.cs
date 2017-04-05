@@ -35,7 +35,7 @@ namespace SFA.DAS.Data.Infrastructure.Data
             {
                 var parameters = new DynamicParameters();
                 parameters.Add("@eventFeed", eventFeed, DbType.String);
-                parameters.Add("@lastProcessedEventId", id, DbType.Int64);
+                parameters.Add("@lastProcessedEventId", id, DbType.String);
 
                 return await c.ExecuteAsync(
                     sql: "[Data_Load].[StoreLastProcessedEventId]",
@@ -49,7 +49,7 @@ namespace SFA.DAS.Data.Infrastructure.Data
             var result = await WithConnection(async c =>
             {
                 var parameters = new DynamicParameters();
-                parameters.Add("@eventId", eventId, DbType.Int64);
+                parameters.Add("@eventId", eventId, DbType.String);
 
                 return await c.QueryAsync<int>(
                     sql: "[Data_Load].[GetEventFailureCount]",
@@ -65,7 +65,7 @@ namespace SFA.DAS.Data.Infrastructure.Data
             await WithConnection(async c =>
             {
                 var parameters = new DynamicParameters();
-                parameters.Add("@eventId", eventId, DbType.Int64);
+                parameters.Add("@eventId", eventId, DbType.String);
                 parameters.Add("@failureCount", failureCount, DbType.Int32);
 
                 return await c.ExecuteAsync(
