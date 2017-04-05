@@ -1,10 +1,9 @@
 ﻿using System.Threading.Tasks;
 using MediatR;
-using NLog;
 using SFA.DAS.Data.Application.Commands.RemovePayeScheme;
 using SFA.DAS.Data.Application.Configuration;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
-using SFA.DAS.EAS.Account.Api.Types.Events;
+using SFA.DAS.EAS.Account.Api.Types.Events.PayeScheme;
 using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Worker.Events.EventHandlers
