@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using NUnit.Framework;
 using SFA.DAS.Data.Tests.Builders;
+using SFA.DAS.EAS.Account.Api.Types.Events.Account;
 using SFA.DAS.Events.Api.Types;
 
 namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
@@ -11,13 +13,13 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
     [TestFixture]
     public class WhenAnAccountIsRenamed : AccountEventTestsBase
     {
-        protected override string EventName => "AccountEventView";
+        protected override string EventName => "AccountRenamedEvent";
 
         [Test]
         public void ThenTheAccountDetailsIsRenamed()
         {
-            var events = ConfigureEventsApi();
-            ConfigureAccountsApi(events);
+            ConfigureEventsApi();
+            ConfigureAccountsApi();
 
             var cancellationTokenSource = new CancellationTokenSource();
             var cancellationToken = cancellationTokenSource.Token;
@@ -31,7 +33,7 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
 
         private async Task<bool> IsDatabaseInExpectedState()
         {
-            var lastProcessedEventId = await EventTestsRepository.GetLastProcessedEventId("AccountEventView");
+            var lastProcessedEventId = await EventTestsRepository.GetLastProcessedEventId(EventName);
             if (lastProcessedEventId != 4)
             {
                 return false;
@@ -46,7 +48,7 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
             return true;
         }
 
-        private void ConfigureAccountsApi(List<AccountEventView> events)
+        private void ConfigureAccountsApi()
         {
             AccountsApi.SetupGet("api/accounts/ABC123",
                 new AccountDetailViewModelBuilder().WithDasAccountId("ABC123")
@@ -60,28 +62,33 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
             AccountsApi.SetupGet("api/accounts/ABC123v2", new AccountDetailViewModelBuilder().WithDasAccountId("ABC123").WithName("New Name").Build());
         }
 
-        private List<AccountEventView> ConfigureEventsApi()
+        private void ConfigureEventsApi()
         {
-            var events = new List<AccountEventView>
+            var events = new List<GenericEvent>
             {
-                new AccountEventView
+                new GenericEvent
                 {
                     CreatedOn = DateTime.Now.AddDays(-2),
                     Id = 3,
-                    ResourceUri = "api/accounts/ABC123",
-                    Event = "AccountCreated"
+                    Type = "AccountRenamedEvent",
+                    Payload = JsonConvert.SerializeObject(new AccountRenamedEvent
+                    {
+                        ResourceUri = "api/accounts/ABC123"
+                    })
                 },
-                new AccountEventView
+                new GenericEvent
                 {
                     CreatedOn = DateTime.Now.AddDays(-1),
                     Id = 4,
-                    ResourceUri = "api/accounts/ABC123v2",
-                    Event = "AccountRenamed"
+                    Type = "AccountRenamedEvent",
+                    Payload = JsonConvert.SerializeObject(new AccountRenamedEvent
+                    {
+                        ResourceUri = "api/accounts/ABC123v2"
+                    })
                 }
             };
 
-            EventsApi.SetupGet("api/events/accounts?fromEventId=3&pageSize=1000&pageNumber=1", events);
-            return events;
+            EventsApi.SetupGet($"api/events/getSinceEvent?eventType={EventName}&fromEventId=3&pageSize=1000&pageNumber=1", events);
         }
     }
 }

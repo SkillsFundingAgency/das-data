@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using SFA.DAS.Data.Tests.Builders;
-using SFA.DAS.EAS.Account.Api.Types.Events;
+using SFA.DAS.EAS.Account.Api.Types.Events.Account;
 using SFA.DAS.Events.Api.Types;
 
 namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
@@ -92,28 +92,24 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
                     CreatedOn = DateTime.Now.AddDays(-2),
                     Id = 3,
                     Type = "AccountCreatedEvent",
-                    Event = "AccountCreated",
                     Payload = JsonConvert.SerializeObject(new AccountCreatedEvent
                     {
-                        Id = 0,
-                        ResourceUri = "api/accounts/ABC123",
-                        Event = "AccountCreated"
+                        ResourceUri = "api/accounts/ABC123"
                     })
-                },
+                }
+                ,
                 new GenericEvent
                 {
                     CreatedOn = DateTime.Now.AddDays(-1),
                     Id = 4,
                     Type = "AccountCreatedEvent",
-                    Event = "AccountCreated",
                     Payload = JsonConvert.SerializeObject(new AccountCreatedEvent
                     {
-                        Id = 0,
-                        ResourceUri = "api/accounts/ZZZ999",
-                        Event = "AccountCreated"
+                        ResourceUri = "api/accounts/ZZZ999"
                     })
                 }
             };
+
             EventsApi.SetupGet($"api/events/getSinceEvent?eventType={EventName}&fromEventId=3&pageSize=1000&pageNumber=1", events);
         }
     }

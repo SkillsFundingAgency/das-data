@@ -54,7 +54,10 @@ namespace SFA.DAS.Data.AcceptanceTests.ApprenticeshipEventTests
                     TrainingStartDate = DateTime.Now.AddDays(1),
                     TrainingEndDate = DateTime.Now.AddYears(2),
                     AgreementStatus = AgreementStatus.NotAgreed,
-                    PaymentStatus = PaymentStatus.Completed
+                    PaymentStatus = PaymentStatus.Completed,
+                    LegalEntityId = "LEID",
+                    LegalEntityName = "LEName",
+                    LegalEntityOrganisationType = "LEOrgType"
                 },
                 new ApprenticeshipEventView
                 {

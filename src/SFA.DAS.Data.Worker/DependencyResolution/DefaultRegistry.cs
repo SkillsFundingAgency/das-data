@@ -11,7 +11,9 @@ using SFA.DAS.Data.Worker.Events;
 using SFA.DAS.Data.Worker.Events.EventHandlers;
 using SFA.DAS.Data.Worker.Events.EventsCollectors;
 using SFA.DAS.EAS.Account.Api.Client;
-using SFA.DAS.EAS.Account.Api.Types.Events;
+using SFA.DAS.EAS.Account.Api.Types.Events.Account;
+using SFA.DAS.EAS.Account.Api.Types.Events.LegalEntity;
+using SFA.DAS.EAS.Account.Api.Types.Events.PayeScheme;
 using SFA.DAS.Events.Api.Client;
 using SFA.DAS.Events.Api.Types;
 using SFA.DAS.NLog.Logger;
@@ -49,12 +51,12 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
         
         private void RegisterEventHandlers()
         {
-            For<IEventHandler<AccountCreatedEvent>>().Use<AccountCreatedEventHandler>();
-            For<IEventHandler<AccountRenamedEvent>>().Use<AccountRenamedEventHandler>();
+            For<IEventHandler<GenericEvent<AccountCreatedEvent>>>().Use<AccountCreatedEventHandler>();
+            For<IEventHandler<GenericEvent<AccountRenamedEvent>>>().Use<AccountRenamedEventHandler>();
             For<IEventHandler<ApprenticeshipEventView>>().Use<ApprenticeshipEventHandler>();
-            For<IEventHandler<LegalEntityCreatedEvent>>().Use<LegalEntityCreatedEventHandler>();
-            For<IEventHandler<PayeSchemeAddedEvent>>().Use<PayeSchemeAddedEventHandler>();
-            For<IEventHandler<PayeSchemeRemovedEvent>>().Use<PayeSchemeRemovedEventHandler>();
+            For<IEventHandler<GenericEvent<LegalEntityCreatedEvent>>>().Use<LegalEntityCreatedEventHandler>();
+            For<IEventHandler<GenericEvent<PayeSchemeAddedEvent>>>().Use<PayeSchemeAddedEventHandler>();
+            For<IEventHandler<GenericEvent<PayeSchemeRemovedEvent>>>().Use<PayeSchemeRemovedEventHandler>();
 
             //Legacy support
             For<IEventHandler<AccountEventView>>().Use<AccountEventHandler>();
@@ -62,12 +64,12 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
 
         private void RegisterEventCollectors()
         {
-            For<IEventsCollector<AccountCreatedEvent>>().Use<GenericEventCollector<AccountCreatedEvent>>();
-            For<IEventsCollector<AccountRenamedEvent>>().Use<GenericEventCollector<AccountRenamedEvent>>();
+            For<IEventsCollector<GenericEvent<AccountCreatedEvent>>>().Use<GenericEventCollector<AccountCreatedEvent>>();
+            For<IEventsCollector<GenericEvent<AccountRenamedEvent>>>().Use<GenericEventCollector<AccountRenamedEvent>>();
             For<IEventsCollector<ApprenticeshipEventView>>().Use<ApprenticeshipEventsCollector>();
-            For<IEventsCollector<LegalEntityCreatedEvent>>().Use<GenericEventCollector<LegalEntityCreatedEvent>>();
-            For<IEventsCollector<PayeSchemeAddedEvent>>().Use<GenericEventCollector<PayeSchemeAddedEvent>>();
-            For<IEventsCollector<PayeSchemeRemovedEvent>>().Use<GenericEventCollector<PayeSchemeRemovedEvent>>();
+            For<IEventsCollector<GenericEvent<LegalEntityCreatedEvent>>>().Use<GenericEventCollector<LegalEntityCreatedEvent>>();
+            For<IEventsCollector<GenericEvent<PayeSchemeAddedEvent>>>().Use<GenericEventCollector<PayeSchemeAddedEvent>>();
+            For<IEventsCollector<GenericEvent<PayeSchemeRemovedEvent>>>().Use<GenericEventCollector<PayeSchemeRemovedEvent>>();
 
             //Legacy support
             For<IEventsCollector<AccountEventView>>().Use<AccountEventCollector>();
@@ -75,12 +77,12 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
 
         private void RegisterEventProcessors()
         {
-            For<IEventsProcessor>().Use<EventsProcessor<AccountCreatedEvent>>();
-            For<IEventsProcessor>().Use<EventsProcessor<AccountRenamedEvent>>();
+            For<IEventsProcessor>().Use<EventsProcessor<GenericEvent<AccountCreatedEvent>>>();
+            For<IEventsProcessor>().Use<EventsProcessor<GenericEvent<AccountRenamedEvent>>>();
             For<IEventsProcessor>().Use<EventsProcessor<ApprenticeshipEventView>>();
-            For<IEventsProcessor>().Use<EventsProcessor<LegalEntityCreatedEvent>>();
-            For<IEventsProcessor>().Use<EventsProcessor<PayeSchemeAddedEvent>>();
-            For<IEventsProcessor>().Use<EventsProcessor<PayeSchemeRemovedEvent>>();
+            For<IEventsProcessor>().Use<EventsProcessor<GenericEvent<LegalEntityCreatedEvent>>>();
+            For<IEventsProcessor>().Use<EventsProcessor<GenericEvent<PayeSchemeAddedEvent>>>();
+            For<IEventsProcessor>().Use<EventsProcessor<GenericEvent<PayeSchemeRemovedEvent>>>();
 
             //Legacy support
             For<IEventsProcessor>().Use<EventsProcessor<AccountEventView>>();
