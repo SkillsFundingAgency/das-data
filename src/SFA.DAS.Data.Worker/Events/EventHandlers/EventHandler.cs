@@ -2,12 +2,11 @@
 using System.Threading.Tasks;
 using SFA.DAS.Data.Application.Configuration;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
-using SFA.DAS.Events.Api.Types;
 using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Worker.Events.EventHandlers
 {
-    public abstract class EventHandler<T> : IEventHandler<T> where T : IEventView
+    public abstract class EventHandler<TEventType>
     {
         protected readonly IEventRepository EventRepository;
         private readonly int _failureRetryLimit;
@@ -20,36 +19,36 @@ namespace SFA.DAS.Data.Worker.Events.EventHandlers
             _logger = logger;
         }
 
-        public async Task Handle(T @event)
+        protected async Task Handle<TIdType>(TEventType @event, string eventType, TIdType eventId)
         {
             try
             {
                 await ProcessEvent(@event);
-                await EventRepository.StoreLastProcessedEventId(@event.Type, @event.Id);
+                await EventRepository.StoreLastProcessedEventId(eventType, eventId);
             }
             catch (Exception ex)
             {
-                _logger.Error(ex, $"Error handling event of type {@event.Type} with id {@event.Id}");
+                _logger.Error(ex, $"Error handling event of type {eventType} with id {eventId}");
 
-                await CheckProcessEventRetryAllowed(@event);
+                await CheckProcessEventRetryAllowed(eventType, eventId);
 
                 throw;
             }
         }
 
-        protected abstract Task ProcessEvent(T @event);
+        protected abstract Task ProcessEvent(TEventType @event);
 
-        private async Task CheckProcessEventRetryAllowed(T @event)
+        private async Task CheckProcessEventRetryAllowed<TIdType>(string eventType, TIdType eventId)
         {
-            if (await IncreamentFailureCountForEvent(@event.Id) > _failureRetryLimit)
+            if (await IncreamentFailureCountForEvent(eventId) > _failureRetryLimit)
             {
                 //Too many failures so ignore event
-                await EventRepository.StoreLastProcessedEventId(@event.Type, @event.Id);
-                await EventRepository.SetEventFailureCount(@event.Id, 0);
+                await EventRepository.StoreLastProcessedEventId(eventType, eventId);
+                await EventRepository.SetEventFailureCount(eventId, 0);
             }
         }
 
-        private async Task<int> IncreamentFailureCountForEvent(long id)
+        private async Task<int> IncreamentFailureCountForEvent<TIdType>(TIdType id)
         {
             var failureCount = await EventRepository.GetEventFailureCount(id);
             await EventRepository.SetEventFailureCount(id, ++failureCount);

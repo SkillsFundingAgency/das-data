@@ -175,6 +175,7 @@
     <Compile Include="DependencyResolution\DefaultRegistry.cs" />
     <Compile Include="Events\EventHandlers\AccountEventHandler.cs" />
     <Compile Include="Events\EventHandlers\ApprenticeshipEventHandler.cs" />
+    <Compile Include="Events\EventHandlers\EventApiHandler.cs" />
     <Compile Include="Events\EventHandlers\EventHandler.cs" />
     <Compile Include="Events\EventHandlers\IEventHandler.cs" />
     <Compile Include="Events\EventsCollectors\ApprenticeshipEventsCollector.cs" />

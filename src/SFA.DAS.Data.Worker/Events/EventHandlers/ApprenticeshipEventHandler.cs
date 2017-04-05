@@ -12,7 +12,7 @@ using ApprenticeshipEvent = SFA.DAS.Data.Domain.Models.ApprenticeshipEvent;
 
 namespace SFA.DAS.Data.Worker.Events.EventHandlers
 {
-    public class ApprenticeshipEventHandler : EventHandler<ApprenticeshipEventView>
+    public class ApprenticeshipEventHandler : EventApiHandler<ApprenticeshipEventView>
     {
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
