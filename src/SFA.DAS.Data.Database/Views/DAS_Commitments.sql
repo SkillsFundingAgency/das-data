@@ -1,7 +1,5 @@
 CREATE VIEW Data_Pub.DAS_Commitments
 AS
-     CREATE VIEW Data_Pub.DAS_Commitments
-AS
      SELECT [C].[ID]
           , [C].[CommitmentID]
           , [C].[PaymentStatus]
