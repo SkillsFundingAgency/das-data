@@ -5,16 +5,8 @@ namespace SFA.DAS.Data.Application.Configuration
 {
     public class EventsApiClientConfiguration : IEventsApiClientConfiguration
     {
-        public string BaseUrl
-        {
-            get { return CloudConfigurationManager.GetSetting("EventsApiBaseUrl", false); }
-            set { }
-        }
+        public string BaseUrl { get; set; }
 
-        public string ClientToken
-        {
-            get { return CloudConfigurationManager.GetSetting("EventsApiClientToken", false); }
-            set { }
-        }
+        public string ClientToken { get; set; }
     }
 }

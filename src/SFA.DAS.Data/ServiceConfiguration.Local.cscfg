@@ -4,25 +4,12 @@
     <Instances count="1" />
     <ConfigurationSettings>
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
-      <Setting name="DataConnectionString" value="Server=(localdb)\ProjectsV13;Database=SFA.DAS.Data.Database;Integrated Security = true;Trusted_Connection=True;Pooling=False;Connect Timeout=30;MultipleActiveResultSets=True"/>
-      <Setting name="EventsApiBaseUrl" value="" />
-      <Setting name="EventsApiClientToken" value="" />
-
-      <Setting name="AccountsApiBaseUrl" value="" />
-      <Setting name="AccountsApiClientId" value="" />
-      <Setting name="AccountsApiClientSecret" value="" />
-      <Setting name="AccountsApiIdentifierUri" value="" />
-      <Setting name="AccountsApiTenant" value="" />
-
-      <Setting name="PaymentsEventsApiBaseUrl" value="" />
-      <Setting name="PaymentsEventsApiClientToken" value="" />
-    
       <Setting name="LoggingRedisConnectionString" value=""/>
       <Setting name="LoggingRedisKey" value=""/>
       <Setting name="InstrumentationKey" value="" />
       <Setting name="EnvironmentName" value="LOCAL" />
 
-      <Setting name="EventFailureTolerance" value="10" />
+      <Setting name="ConfigurationStorageConnectionString" value="UseDevelopmentStorage=true;" />
     </ConfigurationSettings>
   </Role>
 </ServiceConfiguration>

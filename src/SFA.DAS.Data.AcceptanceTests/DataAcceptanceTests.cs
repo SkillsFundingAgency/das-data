@@ -1,9 +1,9 @@
-﻿using System.Configuration;
-using Microsoft.Azure;
+﻿using Microsoft.Azure;
 using NUnit.Framework;
 using SFA.DAS.Configuration;
 using SFA.DAS.Configuration.AzureTableStorage;
 using SFA.DAS.Data.AcceptanceTests.ApiSubstitute;
+using SFA.DAS.Data.Application.Configuration;
 
 namespace SFA.DAS.Data.AcceptanceTests
 {
@@ -13,13 +13,11 @@ namespace SFA.DAS.Data.AcceptanceTests
         internal static WebApiSubstitute EventsApi;
         internal static WebApiSubstitute AccountsApi;
         internal static WebApiSubstitute ProviderEventsApi;
-
-        private const string ServiceName = "SFA.DAS.Data.AcceptanceTests";
+        internal static DataConfiguration Config;
 
         [OneTimeSetUp]
         public void SetUp()
         {
-            SetTestConfiguration();
             StartSubstituteApis();
         }
 
@@ -33,34 +31,23 @@ namespace SFA.DAS.Data.AcceptanceTests
 
         private static void StartSubstituteApis()
         {
-            EventsApi = new WebApiSubstitute(ConfigurationManager.AppSettings["EventsApiBaseUrl"]);
-            AccountsApi = new WebApiSubstitute(ConfigurationManager.AppSettings["AccountsApiBaseUrl"]);
-            ProviderEventsApi = new WebApiSubstitute(ConfigurationManager.AppSettings["PaymentsEventsApiBaseUrl"]);
+            Config = GetAzureStorageConfig();
+
+            EventsApi = new WebApiSubstitute(Config.EventsApi.BaseUrl);
+            AccountsApi = new WebApiSubstitute(Config.AccountsApi.ApiBaseUrl);
+            ProviderEventsApi = new WebApiSubstitute(Config.PaymentsEvents.ApiBaseUrl);
 
             EventsApi.Start();
             AccountsApi.Start();
             ProviderEventsApi.Start();
         }
 
-        private void SetTestConfiguration()
-        {
-            var applicationConfig = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            var azureConfig = GetAzureStorageConfig();
-            applicationConfig.AppSettings.Settings["DataConnectionString"].Value = azureConfig.DataConnectionString;
-            applicationConfig.AppSettings.Settings["AccountsApiClientId"].Value = azureConfig.AccountApiConfiguration.ClientId;
-            applicationConfig.AppSettings.Settings["AccountsApiClientSecret"].Value = azureConfig.AccountApiConfiguration.ClientSecret;
-            applicationConfig.AppSettings.Settings["AccountsApiIdentifierUri"].Value = azureConfig.AccountApiConfiguration.IdentifierUri;
-            applicationConfig.AppSettings.Settings["AccountsApiTenant"].Value = azureConfig.AccountApiConfiguration.Tenant;
-            applicationConfig.Save(ConfigurationSaveMode.Modified);
-            ConfigurationManager.RefreshSection("appSettings");
-        }
-
-        private AcceptanceTestConfiguration GetAzureStorageConfig()
+        private static DataConfiguration GetAzureStorageConfig()
         {
             var configurationRepository = new AzureTableStorageConfigurationRepository(CloudConfigurationManager.GetSetting("ConfigurationStorageConnectionString", false));
             var environment = CloudConfigurationManager.GetSetting("EnvironmentName", false);
-            var configurationService = new ConfigurationService(configurationRepository, new ConfigurationOptions(ServiceName, environment, "1.0"));
-            return configurationService.Get<AcceptanceTestConfiguration>();
+            var configurationService = new ConfigurationService(configurationRepository, new ConfigurationOptions(CloudConfigurationManager.GetSetting("ServiceName", false), environment, "1.0"));
+            return configurationService.Get<DataConfiguration>();
         }
     }
 }

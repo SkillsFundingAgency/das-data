@@ -4,25 +4,12 @@
     <Instances count="1" />
     <ConfigurationSettings>
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
-      <Setting name="DataConnectionString" value="__DataConnectionString__"/>
-      <Setting name="EventsApiBaseUrl" value="__EventsApiBaseUrl__" />
-      <Setting name="EventsApiClientToken" value="__EventsApiClientToken__" />
-
-      <Setting name="AccountsApiBaseUrl" value="__AccountsApiBaseUrl__" />
-      <Setting name="AccountsApiClientId" value="__AccountsApiClientId__" />
-      <Setting name="AccountsApiClientSecret" value="__AccountsApiClientSecret__" />
-      <Setting name="AccountsApiIdentifierUri" value="__AccountsApiIdentifierUri__" />
-      <Setting name="AccountsApiTenant" value="__AccountsApiTenant__" />
-
-      <Setting name="PaymentsEventsApiBaseUrl" value="__PaymentsEventsApiBaseUrl__" />
-      <Setting name="PaymentsEventsApiClientToken" value="__PaymentsEventsApiClientToken__" />
 
       <Setting name="LoggingRedisConnectionString" value="__LoggingRedisConnectionString__"/>
       <Setting name="LoggingRedisKey" value="__LoggingRedisKey__"/>
       <Setting name="InstrumentationKey" value="__InstrumentationKey__" />
       <Setting name="EnvironmentName" value="__EnvironmentName__" />
-
-      <Setting name="EventFailureTolerance" value="10" />
+      <Setting name="ConfigurationStorageConnectionString" value="__ConfigurationStorageConnectionString__" />
     </ConfigurationSettings>
   </Role>
   <NetworkConfiguration>

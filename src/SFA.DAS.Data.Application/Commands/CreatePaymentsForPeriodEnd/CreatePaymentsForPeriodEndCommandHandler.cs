@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Transactions;
 using MediatR;
 using SFA.DAS.Data.Application.Interfaces;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
@@ -30,18 +29,13 @@ namespace SFA.DAS.Data.Application.Commands.CreatePaymentsForPeriodEnd
 
         private async Task ProcessPageOfPayments(string periodEndId, int pageNumber)
         {
-            using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            var payments = await GetPayments(periodEndId, pageNumber);
+
+            await SavePayments(payments, periodEndId);
+
+            if (HasMorePagesToProcess(pageNumber, payments.TotalNumberOfPages))
             {
-                var payments = await GetPayments(periodEndId, pageNumber);
-                
-                await SavePayments(payments, periodEndId);
-
-                if (HasMorePagesToProcess(pageNumber, payments.TotalNumberOfPages))
-                {
-                    await ProcessPageOfPayments(periodEndId, ++pageNumber);
-                }
-
-                scope.Complete();
+                await ProcessPageOfPayments(periodEndId, ++pageNumber);
             }
         }
 
