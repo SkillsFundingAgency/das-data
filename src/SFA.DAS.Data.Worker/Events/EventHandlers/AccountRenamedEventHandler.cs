@@ -8,7 +8,7 @@ using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Worker.Events.EventHandlers
 {
-    public class AccountRenamedEventHandler : EventHandler<GenericEvent<AccountRenamedEvent>>
+    public class AccountRenamedEventHandler : EventApiHandler<GenericEvent<AccountRenamedEvent>>
     {
         private readonly IMediator _mediator;
 

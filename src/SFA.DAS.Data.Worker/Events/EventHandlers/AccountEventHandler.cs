@@ -17,7 +17,7 @@ namespace SFA.DAS.Data.Worker.Events.EventHandlers
     /// generic events are used. 
     /// TODO: This handler and related event processor should be removed once the support for the legacy events is not needed 
     /// </summary>
-    public class AccountEventHandler : EventHandler<AccountEventView>
+    public class AccountEventHandler : EventApiHandler<AccountEventView>
     {
         private readonly IMediator _mediator;
         private readonly ILog _logger;

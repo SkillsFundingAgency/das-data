@@ -1,9 +1,8 @@
 ﻿using System.Threading.Tasks;
-using SFA.DAS.Events.Api.Types;
 
 namespace SFA.DAS.Data.Worker.Events.EventHandlers
 {
-    public interface IEventHandler<in T> where T : IEventView
+    public interface IEventHandler<in T>
     {
         Task Handle(T @event);
     }

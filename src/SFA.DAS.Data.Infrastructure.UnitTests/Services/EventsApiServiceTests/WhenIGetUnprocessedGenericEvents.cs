@@ -32,7 +32,7 @@ namespace SFA.DAS.Data.Infrastructure.UnitTests.Services.EventsApiServiceTests
             var lastEventId = 123;
             var expectedEvents = new List<GenericEvent>();
 
-            _eventsRepository.Setup(x => x.GetLastProcessedEventId(eventType)).ReturnsAsync(lastEventId);
+            _eventsRepository.Setup(x => x.GetLastProcessedEventId<long>(eventType)).ReturnsAsync(lastEventId);
             _eventsApi.Setup(x => x.GetGenericEventsById(eventType, lastEventId + 1, 1000, 1)).ReturnsAsync(expectedEvents);
 
             var response = await _service.GetUnprocessedGenericEvents(eventType);

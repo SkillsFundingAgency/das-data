@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Moq;
 using NLog;
 using NUnit.Framework;
-using SFA.DAS.Data.Domain.Interfaces;
+using SFA.DAS.Data.Application.Interfaces;
 using SFA.DAS.Data.Worker.Events.EventsCollectors;
 using SFA.DAS.Data.Worker.Factories;
 using SFA.DAS.Events.Api.Types;

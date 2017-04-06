@@ -33,7 +33,7 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
 
         private async Task<bool> IsDatabaseInExpectedState()
         {
-            var lastProcessedEventId = await EventTestsRepository.GetLastProcessedEventId(EventName);
+            var lastProcessedEventId = await EventTestsRepository.GetLastProcessedEventId<long>(EventName);
             if (lastProcessedEventId != 3)
             {
                 return false;

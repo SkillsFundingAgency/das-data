@@ -27,7 +27,7 @@ namespace SFA.DAS.Data.AcceptanceTests.ApprenticeshipEventTests
 
         private async Task<bool> IsDatabaseInExpectedState()
         {
-            var lastProcessedEventId = await EventTestsRepository.GetLastProcessedEventId("ApprenticeshipEventView");
+            var lastProcessedEventId = await EventTestsRepository.GetLastProcessedEventId<long>("ApprenticeshipEventView");
             if (lastProcessedEventId != 4)
             {
                 return false;
@@ -53,6 +53,8 @@ namespace SFA.DAS.Data.AcceptanceTests.ApprenticeshipEventTests
                     Event = "ApprenticeshipCreated",
                     TrainingStartDate = DateTime.Now.AddDays(1),
                     TrainingEndDate = DateTime.Now.AddYears(2),
+                    AgreementStatus = AgreementStatus.NotAgreed,
+                    PaymentStatus = PaymentStatus.Completed,
                     LegalEntityId = "LEID",
                     LegalEntityName = "LEName",
                     LegalEntityOrganisationType = "LEOrgType"
@@ -63,7 +65,9 @@ namespace SFA.DAS.Data.AcceptanceTests.ApprenticeshipEventTests
                     Id = 4,
                     Event = "ApprenticeshipUpdated",
                     TrainingStartDate = DateTime.Now.AddDays(2),
-                    TrainingEndDate = DateTime.Now.AddYears(3)
+                    TrainingEndDate = DateTime.Now.AddYears(3),
+                    AgreementStatus = AgreementStatus.EmployerAgreed,
+                    PaymentStatus = PaymentStatus.Active
                 }
             };
 

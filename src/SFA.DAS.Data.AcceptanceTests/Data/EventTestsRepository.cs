@@ -23,7 +23,7 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
             await WithConnection(async c =>
             {
                 return await c.ExecuteAsync(
-                    sql: "DELETE FROM [Data_Load].[DAS_Employer_Accounts]",
+                    sql: "TRUNCATE TABLE [Data_Load].[DAS_Employer_Accounts]",
                     commandType: CommandType.Text);
             });
 
@@ -36,7 +36,17 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
             await WithConnection(async c =>
             {
                 return await c.ExecuteAsync(
-                    sql: "DELETE FROM [Data_Load].[DAS_Commitments]",
+                    sql: "TRUNCATE TABLE [Data_Load].[DAS_Commitments]",
+                    commandType: CommandType.Text);
+            });
+        }
+
+        public async Task DeletePayments()
+        {
+            await WithConnection(async c =>
+            {
+                return await c.ExecuteAsync(
+                    sql: "TRUNCATE TABLE [Data_Load].[DAS_Payments]",
                     commandType: CommandType.Text);
             });
         }
@@ -46,19 +56,19 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
             await WithConnection(async c =>
             {
                 return await c.ExecuteAsync(
-                    sql: "DELETE FROM [Data_Load].[DAS_FailedEvents]",
+                    sql: "TRUNCATE TABLE [Data_Load].[DAS_FailedEvents]",
                     commandType: CommandType.Text);
             });
         }
 
-        public Task StoreLastProcessedEventId(string eventFeed, long id)
+        public Task StoreLastProcessedEventId<T>(string eventFeed, T id)
         {
             return _eventRepository.StoreLastProcessedEventId(eventFeed, id);
         }
 
-        public Task<long> GetLastProcessedEventId(string eventFeed)
+        public Task<T> GetLastProcessedEventId<T>(string eventFeed)
         {
-            return _eventRepository.GetLastProcessedEventId(eventFeed);
+            return _eventRepository.GetLastProcessedEventId<T>(eventFeed);
         }
 
         public async Task<int> GetNumberOfAccounts()
@@ -97,12 +107,21 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
             );
         }
 
+        public async Task<int> GetNumberOfPayments()
+        {
+            return await WithConnection(async c =>
+                await c.QuerySingleAsync<int>(
+                    sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_Payments]",
+                    commandType: CommandType.Text)
+            );
+        }
+
         private async Task DeletePayeSchemes()
         {
             await WithConnection(async c =>
             {
                 return await c.ExecuteAsync(
-                    sql: "DELETE FROM [Data_Load].[DAS_Employer_PayeSchemes]",
+                    sql: "TRUNCATE TABLE [Data_Load].[DAS_Employer_PayeSchemes]",
                     commandType: CommandType.Text);
             });
         }
@@ -112,7 +131,7 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
             await WithConnection(async c =>
             {
                 return await c.ExecuteAsync(
-                    sql: "DELETE FROM [Data_Load].[DAS_Employer_LegalEntities]",
+                    sql: "TRUNCATE TABLE [Data_Load].[DAS_Employer_LegalEntities]",
                     commandType: CommandType.Text);
             });
         }

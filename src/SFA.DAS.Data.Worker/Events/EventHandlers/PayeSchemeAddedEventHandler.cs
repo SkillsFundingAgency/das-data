@@ -8,7 +8,7 @@ using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Worker.Events.EventHandlers
 {
-    public class PayeSchemeAddedEventHandler : EventHandler<GenericEvent<PayeSchemeAddedEvent>>
+    public class PayeSchemeAddedEventHandler : EventApiHandler<GenericEvent<PayeSchemeAddedEvent>>
     {
         private readonly IMediator _mediator;
 
