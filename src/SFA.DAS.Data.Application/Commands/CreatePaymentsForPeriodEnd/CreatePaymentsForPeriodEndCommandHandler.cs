@@ -30,7 +30,7 @@ namespace SFA.DAS.Data.Application.Commands.CreatePaymentsForPeriodEnd
 
         private async Task ProcessPageOfPayments(string periodEndId, int pageNumber)
         {
-            using (var scope = new TransactionScope())
+            using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
                 var payments = await GetPayments(periodEndId, pageNumber);
                 

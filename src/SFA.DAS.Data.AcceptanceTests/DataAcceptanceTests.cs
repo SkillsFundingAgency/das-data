@@ -12,6 +12,7 @@ namespace SFA.DAS.Data.AcceptanceTests
     {
         internal static WebApiSubstitute EventsApi;
         internal static WebApiSubstitute AccountsApi;
+        internal static WebApiSubstitute ProviderEventsApi;
 
         private const string ServiceName = "SFA.DAS.Data.AcceptanceTests";
 
@@ -27,15 +28,18 @@ namespace SFA.DAS.Data.AcceptanceTests
         {
             EventsApi.Dispose();
             AccountsApi.Dispose();
+            ProviderEventsApi.Dispose();
         }
 
         private static void StartSubstituteApis()
         {
             EventsApi = new WebApiSubstitute(ConfigurationManager.AppSettings["EventsApiBaseUrl"]);
             AccountsApi = new WebApiSubstitute(ConfigurationManager.AppSettings["AccountsApiBaseUrl"]);
+            ProviderEventsApi = new WebApiSubstitute(ConfigurationManager.AppSettings["PaymentsEventsApiBaseUrl"]);
 
             EventsApi.Start();
             AccountsApi.Start();
+            ProviderEventsApi.Start();
         }
 
         private void SetTestConfiguration()

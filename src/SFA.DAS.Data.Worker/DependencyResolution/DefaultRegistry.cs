@@ -107,6 +107,7 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             For<ILegalEntityRepository>().Use<LegalEntityRepository>().Ctor<string>().Is(connectionString);
             For<IPayeSchemeRepository>().Use<PayeSchemeRepository>().Ctor<string>().Is(connectionString);
             For<IApprenticeshipRepository>().Use<ApprenticeshipRepository>().Ctor<string>().Is(connectionString);
+            For<IPaymentRepository>().Use<PaymentRepository>().Ctor<string>().Is(connectionString);
         }
 
         private void AddMediatrRegistrations()

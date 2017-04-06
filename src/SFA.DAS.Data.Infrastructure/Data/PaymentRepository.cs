@@ -17,7 +17,7 @@ namespace SFA.DAS.Data.Infrastructure.Data
             await WithConnection(async c =>
             {
                 var parameters = new DynamicParameters();
-                parameters.Add("@PaymentId", payment.Id, DbType.Int64);
+                parameters.Add("@PaymentId", payment.Id, DbType.String);
                 parameters.Add("@UkPrn", payment.Ukprn, DbType.Int64);
                 parameters.Add("@Uln", payment.Uln, DbType.Int64);
                 parameters.Add("@EmployerAccountId", payment.EmployerAccountId, DbType.String);

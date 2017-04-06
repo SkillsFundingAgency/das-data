@@ -1,5 +1,5 @@
 ﻿CREATE PROCEDURE [Data_Load].[SavePayment]
-	@PaymentId BIGINT,
+	@PaymentId NVARCHAR(100),
 	@UkPrn BIGINT,
 	@Uln BIGINT,
 	@EmployerAccountId NVARCHAR(100),

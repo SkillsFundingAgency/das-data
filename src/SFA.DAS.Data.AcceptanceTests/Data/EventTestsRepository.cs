@@ -41,6 +41,16 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
             });
         }
 
+        public async Task DeletePayments()
+        {
+            await WithConnection(async c =>
+            {
+                return await c.ExecuteAsync(
+                    sql: "DELETE FROM [Data_Load].[DAS_Payments]",
+                    commandType: CommandType.Text);
+            });
+        }
+
         public async Task DeleteFailedEvents()
         {
             await WithConnection(async c =>
@@ -93,6 +103,15 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
             return await WithConnection(async c =>
                 await c.QuerySingleAsync<int>(
                     sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_Commitments]",
+                    commandType: CommandType.Text)
+            );
+        }
+
+        public async Task<int> GetNumberOfPayments()
+        {
+            return await WithConnection(async c =>
+                await c.QuerySingleAsync<int>(
+                    sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_Payments]",
                     commandType: CommandType.Text)
             );
         }

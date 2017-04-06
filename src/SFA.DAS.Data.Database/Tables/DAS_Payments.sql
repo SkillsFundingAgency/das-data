@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [Data_Load].[DAS_Payments]
 (
 	[Id] BIGINT NOT NULL PRIMARY KEY IDENTITY,
-	[PaymentId]	BIGINT NOT NULL,
+	[PaymentId]	NVARCHAR(100) NOT NULL,
 	[UkPrn]	BIGINT NOT NULL,
 	[Uln]	BIGINT NOT NULL,
 	[EmployerAccountId]	NVARCHAR(100)  NOT NULL,

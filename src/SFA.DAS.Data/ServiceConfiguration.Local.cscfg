@@ -13,6 +13,9 @@
       <Setting name="AccountsApiClientSecret" value="" />
       <Setting name="AccountsApiIdentifierUri" value="" />
       <Setting name="AccountsApiTenant" value="" />
+
+      <Setting name="PaymentsEventsApiBaseUrl" value="" />
+      <Setting name="PaymentsEventsApiClientToken" value="" />
     
       <Setting name="LoggingRedisConnectionString" value=""/>
       <Setting name="LoggingRedisKey" value=""/>
