@@ -31,7 +31,7 @@ namespace SFA.DAS.Data.AcceptanceTests.ApprenticeshipEventTests
 
         private void SetupDatabase()
         {
-            EventTestsRepository = new EventTestsRepository(ConfigurationManager.AppSettings["DataConnectionString"]);
+            EventTestsRepository = new EventTestsRepository(DataAcceptanceTests.Config.DatabaseConnectionString);
             EventTestsRepository.DeleteApprenticeships().Wait();
             EventTestsRepository.DeleteFailedEvents().Wait();
             EventTestsRepository.StoreLastProcessedEventId("ApprenticeshipEventView", 2).Wait();

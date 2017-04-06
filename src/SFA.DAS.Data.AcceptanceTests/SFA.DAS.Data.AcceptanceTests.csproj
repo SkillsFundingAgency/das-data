@@ -142,7 +142,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AcceptanceTestConfiguration.cs" />
     <Compile Include="AccountEventTests\AccountEventTestsBase.cs" />
     <Compile Include="AccountEventTests\WhenAPayeSchemeIsRemovedFromAnAccount.cs" />
     <Compile Include="AccountEventTests\WhenAPayeSchemeIsAddedToAnAccount.cs" />
@@ -188,6 +187,7 @@
     </Content>
     <Content Include="app.release.config">
       <DependentUpon>app.config</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <None Include="packages.config" />
   </ItemGroup>

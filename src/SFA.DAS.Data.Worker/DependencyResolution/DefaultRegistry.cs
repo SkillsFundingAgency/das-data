@@ -4,6 +4,9 @@ using System.Linq;
 using System.Reflection;
 using AutoMapper;
 using MediatR;
+using Microsoft.Azure;
+using SFA.DAS.Configuration;
+using SFA.DAS.Configuration.AzureTableStorage;
 using SFA.DAS.Data.Application.Configuration;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.Data.Infrastructure.Data;
@@ -26,6 +29,9 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
 {
     public class DefaultRegistry : Registry
     {
+        private string ServiceName = CloudConfigurationManager.GetSetting("ServiceName");
+        private const string Version = "1.0";
+
         public DefaultRegistry()
         {
             Scan(scan =>
@@ -147,7 +153,17 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
 
         private DataConfiguration GetConfiguration()
         {
-            return new DataConfiguration();
+            var environment = CloudConfigurationManager.GetSetting("EnvironmentName");
+
+            var configurationRepository = GetConfigurationRepository();
+            var configurationService = new ConfigurationService(configurationRepository, new ConfigurationOptions(ServiceName, environment, Version));
+
+            return configurationService.Get<DataConfiguration>();
+        }
+
+        private static IConfigurationRepository GetConfigurationRepository()
+        {
+            return new AzureTableStorageConfigurationRepository(CloudConfigurationManager.GetSetting("ConfigurationStorageConnectionString"));
         }
 
         private void ConfigureLogging()

@@ -1,5 +1,4 @@
-﻿using System.Configuration;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using NUnit.Framework;
 using SFA.DAS.Data.AcceptanceTests.ApiSubstitute;
 using SFA.DAS.Data.AcceptanceTests.Data;
@@ -34,7 +33,7 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
 
         private void SetupDatabase()
         {
-            EventTestsRepository = new EventTestsRepository(ConfigurationManager.AppSettings["DataConnectionString"]);
+            EventTestsRepository = new EventTestsRepository(DataAcceptanceTests.Config.DatabaseConnectionString);
             EventTestsRepository.DeleteAccounts().Wait();
             EventTestsRepository.DeleteFailedEvents().Wait();
             EventTestsRepository.StoreLastProcessedEventId(EventName, 2).Wait();

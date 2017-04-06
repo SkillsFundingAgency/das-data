@@ -31,7 +31,7 @@ namespace SFA.DAS.Data.AcceptanceTests.PaymentEventTests
 
         private void SetupDatabase()
         {
-            EventTestsRepository = new EventTestsRepository(ConfigurationManager.AppSettings["DataConnectionString"]);
+            EventTestsRepository = new EventTestsRepository(DataAcceptanceTests.Config.DatabaseConnectionString);
             EventTestsRepository.DeletePayments().Wait();
             EventTestsRepository.StoreLastProcessedEventId("PeriodEnd", "PERIOD2").Wait();
         }
