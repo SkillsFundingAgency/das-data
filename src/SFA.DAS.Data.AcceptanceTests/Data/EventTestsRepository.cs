@@ -23,7 +23,7 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
             await WithConnection(async c =>
             {
                 return await c.ExecuteAsync(
-                    sql: "DELETE FROM [Data_Load].[DAS_Employer_Accounts]",
+                    sql: "TRUNCATE TABLE [Data_Load].[DAS_Employer_Accounts]",
                     commandType: CommandType.Text);
             });
 
@@ -36,7 +36,7 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
             await WithConnection(async c =>
             {
                 return await c.ExecuteAsync(
-                    sql: "DELETE FROM [Data_Load].[DAS_Commitments]",
+                    sql: "TRUNCATE TABLE [Data_Load].[DAS_Commitments]",
                     commandType: CommandType.Text);
             });
         }
@@ -46,7 +46,7 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
             await WithConnection(async c =>
             {
                 return await c.ExecuteAsync(
-                    sql: "DELETE FROM [Data_Load].[DAS_Payments]",
+                    sql: "TRUNCATE TABLE [Data_Load].[DAS_Payments]",
                     commandType: CommandType.Text);
             });
         }
@@ -56,7 +56,7 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
             await WithConnection(async c =>
             {
                 return await c.ExecuteAsync(
-                    sql: "DELETE FROM [Data_Load].[DAS_FailedEvents]",
+                    sql: "TRUNCATE TABLE [Data_Load].[DAS_FailedEvents]",
                     commandType: CommandType.Text);
             });
         }
@@ -121,7 +121,7 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
             await WithConnection(async c =>
             {
                 return await c.ExecuteAsync(
-                    sql: "DELETE FROM [Data_Load].[DAS_Employer_PayeSchemes]",
+                    sql: "TRUNCATE TABLE [Data_Load].[DAS_Employer_PayeSchemes]",
                     commandType: CommandType.Text);
             });
         }
@@ -131,7 +131,7 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
             await WithConnection(async c =>
             {
                 return await c.ExecuteAsync(
-                    sql: "DELETE FROM [Data_Load].[DAS_Employer_LegalEntities]",
+                    sql: "TRUNCATE TABLE [Data_Load].[DAS_Employer_LegalEntities]",
                     commandType: CommandType.Text);
             });
         }
