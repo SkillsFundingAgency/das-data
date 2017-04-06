@@ -7,6 +7,7 @@
 AS
 BEGIN
 	SET NOCOUNT ON;
+	SET ANSI_NULLS OFF
 
     IF NOT EXISTS(
 		SELECT * FROM [Data_Load].[DAS_Employer_PayeSchemes]
