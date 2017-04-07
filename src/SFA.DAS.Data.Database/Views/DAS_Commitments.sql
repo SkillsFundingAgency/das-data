@@ -44,16 +44,18 @@ AS
      FROM
         Data_Load.DAS_Commitments AS C
     -- To get las
-        LEFT JOIN
+     LEFT JOIN
      (
-         SELECT [C].[CommitmentId]
+         SELECT [C].[ApprenticeshipId]
               , MAX([C].[UpdateDateTime]) AS [Max_UpdatedDateTime]
-              , 1 AS [Flag_Latest]
+              , MAX([C].ID)  AS Max_ID
+		    , 1 AS [Flag_Latest]
          FROM
             Data_Load.DAS_Commitments AS C
-         GROUP BY [C].[CommitmentId]
-     ) AS LC ON C.CommitmentId = LC.CommitmentId
-                AND LC.Max_UpdatedDateTime = C.UpdateDateTime
+         GROUP BY [C].[ApprenticeshipId]
+     ) AS LC ON LC.ApprenticeshipId = C.ApprenticeshipId
+                AND LC.Max_ID = C.ID
+			 AND LC.Max_UpdatedDateTime = C.UpdateDateTime
 	-- Join to Accounts to get the Hashed DAS Acccount ID
 	LEFT JOIN  [Data_Load].[DAS_Employer_Accounts] AS EA ON EA.AccountID = [C].[EmployerAccountID];
 GO
