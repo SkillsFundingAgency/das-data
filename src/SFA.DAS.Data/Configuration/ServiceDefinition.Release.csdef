@@ -3,25 +3,12 @@
   <WorkerRole name="SFA.DAS.Data.Worker" vmsize="Standard_D2_v2">
     <ConfigurationSettings>
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" />
-      <Setting name="DataConnectionString" />
-      <Setting name="EventsApiBaseUrl" />
-      <Setting name="EventsApiClientToken" />
-
-      <Setting name="AccountsApiBaseUrl" />
-      <Setting name="AccountsApiClientId" />
-      <Setting name="AccountsApiClientSecret" />
-      <Setting name="AccountsApiIdentifierUri" />
-      <Setting name="AccountsApiTenant" />
-
-      <Setting name="PaymentsEventsApiBaseUrl" />
-      <Setting name="PaymentsEventsApiClientToken" />
 
       <Setting name="LoggingRedisConnectionString"/>
       <Setting name="LoggingRedisKey"/>
       <Setting name="InstrumentationKey" />
       <Setting name="EnvironmentName" />
-
-      <Setting name="EventFailureTolerance" />
+      <Setting name="ConfigurationStorageConnectionString" />
     </ConfigurationSettings>
   </WorkerRole>
 </ServiceDefinition>
