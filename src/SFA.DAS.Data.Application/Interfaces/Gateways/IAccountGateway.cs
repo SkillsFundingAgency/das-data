@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using SFA.DAS.EAS.Account.Api.Types;
 
 namespace SFA.DAS.Data.Application.Interfaces.Gateways
@@ -8,5 +9,7 @@ namespace SFA.DAS.Data.Application.Interfaces.Gateways
         Task<AccountDetailViewModel> GetAccount(string accountHref);
         Task<LegalEntityViewModel> GetLegalEntity(string legalEntityHref);
         Task<PayeSchemeViewModel> GetPayeScheme(string payeSchemeHref);
+        Task<List<LevyDeclarationViewModel>> GetLevyDeclarations(string levyDeclarationsHref);
+        Task<List<TransactionViewModel>> GetTransactions(string transactionsHref);
     }
 }

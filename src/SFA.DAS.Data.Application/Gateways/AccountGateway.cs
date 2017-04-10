@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using SFA.DAS.Data.Application.Interfaces.Gateways;
 using SFA.DAS.EAS.Account.Api.Client;
 using SFA.DAS.EAS.Account.Api.Types;
@@ -27,6 +28,16 @@ namespace SFA.DAS.Data.Application.Gateways
         public async Task<PayeSchemeViewModel> GetPayeScheme(string payeSchemeHref)
         {
             return await _accountApiClient.GetResource<PayeSchemeViewModel>(payeSchemeHref);
+        }
+
+        public async Task<List<LevyDeclarationViewModel>> GetLevyDeclarations(string levyDeclarationsHref)
+        {
+            return await _accountApiClient.GetResource<AccountResourceList<LevyDeclarationViewModel>>(levyDeclarationsHref);
+        }
+
+        public async Task<List<TransactionViewModel>> GetTransactions(string transactionsHref)
+        {
+            return await _accountApiClient.GetResource<AccountResourceList<TransactionViewModel>>(transactionsHref);
         }
     }
 }
