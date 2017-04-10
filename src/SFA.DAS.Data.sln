@@ -8,7 +8,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{808AA0D0-5470-4B62-AAE5-C399E7C1B2AD}"
 	ProjectSection(SolutionItems) = preProject
 		Build.fsx = Build.fsx
-		Tools\Nuget\NuGet.exe = Tools\Nuget\NuGet.exe
+		CustomTargets.fsx = CustomTargets.fsx
+		DefaultTargets.fsx = DefaultTargets.fsx
 		RunBuild.bat = RunBuild.bat
 	EndProjectSection
 EndProject
