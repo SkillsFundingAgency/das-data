@@ -18,5 +18,6 @@
     [InactiveTo] DATETIME NULL,
     [HmrcSubmissionId] BIGINT,
     [EnglishFraction] DECIMAL NOT NULL,
-    [TopupPercentage] DECIMAL NOT NULL
+    [TopupPercentage] DECIMAL NOT NULL,
+	[UpdateDateTime] DATETIME NOT NULL DEFAULT (GETDATE()), 
 )

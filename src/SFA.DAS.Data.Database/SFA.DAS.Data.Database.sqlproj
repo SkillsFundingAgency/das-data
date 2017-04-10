@@ -94,6 +94,8 @@
     <Build Include="StoredProcedures\SavePayment.sql" />
     <Build Include="Tables\DAS_LevyDeclarations.sql" />
     <Build Include="Tables\DAS_Transactions.sql" />
+    <Build Include="StoredProcedures\SaveLevyDeclaration.sql" />
+    <Build Include="StoredProcedures\SaveTransaction.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SFA.DAS.Data.Database.refactorlog" />

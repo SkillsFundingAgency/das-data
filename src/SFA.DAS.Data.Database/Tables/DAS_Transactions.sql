@@ -10,5 +10,6 @@
     [Amount] DECIMAL NOT NULL,
     [PayeSchemeRef] NVARCHAR(20) NULL,
     [PeriodEnd] NVARCHAR(50) NULL,
-    [UkPrn] BIGINT NULL
+    [UkPrn] BIGINT NULL,
+	[UpdateDateTime] DATETIME NOT NULL DEFAULT (GETDATE()), 
 )
