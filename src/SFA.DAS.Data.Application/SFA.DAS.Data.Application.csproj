@@ -54,12 +54,12 @@
       <HintPath>..\packages\NLog.4.3.7\lib\net45\NLog.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SFA.DAS.EAS.Account.Api.Client, Version=1.0.0.27372, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.Account.Api.Client.1.0.0.27372\lib\net45\SFA.DAS.EAS.Account.Api.Client.dll</HintPath>
+    <Reference Include="SFA.DAS.EAS.Account.Api.Client, Version=1.0.0.27728, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Account.Api.Client.1.0.0.27728\lib\net45\SFA.DAS.EAS.Account.Api.Client.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SFA.DAS.EAS.Account.Api.Types, Version=1.0.0.27372, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.Account.Api.Types.1.0.0.27372\lib\net45\SFA.DAS.EAS.Account.Api.Types.dll</HintPath>
+    <Reference Include="SFA.DAS.EAS.Account.Api.Types, Version=1.0.0.27728, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Account.Api.Types.1.0.0.27728\lib\net45\SFA.DAS.EAS.Account.Api.Types.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="SFA.DAS.Events.Api.Client, Version=1.20.0.26497, Culture=neutral, processorArchitecture=MSIL">
