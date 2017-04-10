@@ -35,6 +35,8 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
         {
             EventTestsRepository = new EventTestsRepository(DataAcceptanceTests.Config.DatabaseConnectionString);
             EventTestsRepository.DeleteAccounts().Wait();
+            EventTestsRepository.DeleteLevyDeclarations().Wait();
+            EventTestsRepository.DeleteTransactions().Wait();
             EventTestsRepository.DeleteFailedEvents().Wait();
             EventTestsRepository.StoreLastProcessedEventId(EventName, 2).Wait();
         }
@@ -47,8 +49,7 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
 
         private void ClearSubstituteApis()
         {
-            EventsApi.ClearSetup();
-            AccountsApi.ClearSetup();
+            DataAcceptanceTests.ClearApiSetup();
         }
     }
 }

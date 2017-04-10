@@ -68,6 +68,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TransactionViewModelBuilder.cs" />
+    <Compile Include="LevyDeclarationViewModelBuilder.cs" />
     <Compile Include="PayeSchemeViewModelBuilder.cs" />
     <Compile Include="LegalEntityViewModelBuilder.cs" />
     <Compile Include="PaymentBuilder.cs" />

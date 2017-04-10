@@ -44,7 +44,7 @@ namespace SFA.DAS.Data.AcceptanceTests.PaymentEventTests
 
         private void ClearSubstituteApis()
         {
-            EventsApi.ClearSetup();
+            DataAcceptanceTests.ClearApiSetup();
         }
     }
 }

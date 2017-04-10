@@ -29,6 +29,13 @@ namespace SFA.DAS.Data.AcceptanceTests
             ProviderEventsApi.Dispose();
         }
 
+        public static void ClearApiSetup()
+        {
+            EventsApi.ClearSetup();
+            AccountsApi.ClearSetup();
+            ProviderEventsApi.ClearSetup();
+        }
+
         private static void StartSubstituteApis()
         {
             Config = GetAzureStorageConfig();
