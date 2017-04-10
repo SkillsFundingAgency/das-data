@@ -80,6 +80,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\LevyDeclarationRepository.cs" />
     <Compile Include="Data\ApprenticeshipRepository.cs" />
     <Compile Include="Data\PayeSchemeRepository.cs" />
     <Compile Include="Data\LegalEntityRepository.cs" />
