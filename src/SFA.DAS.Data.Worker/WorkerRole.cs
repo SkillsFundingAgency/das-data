@@ -20,7 +20,7 @@ namespace SFA.DAS.Data.Worker
 
         public override void Run()
         {
-            Trace.TraceInformation("SFA.DAS.Data.Worker is running");
+            //Trace.TraceInformation("SFA.DAS.Data.Worker is running");
 
             try
             {
@@ -41,21 +41,21 @@ namespace SFA.DAS.Data.Worker
 
             var result = base.OnStart();
 
-            Trace.TraceInformation("SFA.DAS.Data.Worker has been started");
+            //Trace.TraceInformation("SFA.DAS.Data.Worker has been started");
 
             return result;
         }
 
         public override void OnStop()
         {
-            Trace.TraceInformation("SFA.DAS.Data.Worker is stopping");
+            //Trace.TraceInformation("SFA.DAS.Data.Worker is stopping");
 
             this._cancellationTokenSource.Cancel();
             this._runCompleteEvent.WaitOne();
 
             base.OnStop();
 
-            Trace.TraceInformation("SFA.DAS.Data.Worker has stopped");
+            //Trace.TraceInformation("SFA.DAS.Data.Worker has stopped");
         }
 
         private async Task RunAsync(CancellationToken cancellationToken)
