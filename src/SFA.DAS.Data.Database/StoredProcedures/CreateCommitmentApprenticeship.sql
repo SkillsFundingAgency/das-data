@@ -13,7 +13,8 @@
 	@trainingTotalCost decimal,
 	@legalEntityCode NVARCHAR(50), 
     @legalEntityName NVARCHAR(100), 
-    @legalEntityOrganisationType NVARCHAR(20)
+    @legalEntityOrganisationType NVARCHAR(20),
+	@dateOfBirth DATETIME
 AS
 	INSERT INTO [Data_Load].Das_Commitments 
 	(
@@ -32,6 +33,7 @@ AS
 		LegalEntityCode,
 		LegalEntityName,
 		LegalEntityOrganisationType,
+		DateOfBirth,
 		UpdateDateTime
 	)
 	VALUES
@@ -51,5 +53,6 @@ AS
 		@legalEntityCode,
 		@legalEntityName,
 		@legalEntityOrganisationType,
+		@dateOfBirth,
 		GETUTCDATE()
 	)
