@@ -32,6 +32,7 @@ namespace SFA.DAS.Data.Infrastructure.Data
                 parameters.Add("@legalEntityCode", @event.LegalEntityCode, DbType.String);
                 parameters.Add("@legalEntityName", @event.LegalEntityName, DbType.String);
                 parameters.Add("@legalEntityOrganisationType", @event.LegalEntityOrganisationType, DbType.String);
+                parameters.Add("@dateOfBirth", @event.DateOfBirth, DbType.Date);
 
                 return await c.ExecuteAsync(
                     sql: "[Data_Load].[CreateCommitmentApprenticeship]",
