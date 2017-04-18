@@ -19,9 +19,7 @@ namespace SFA.DAS.Data.Worker.Events.EventHandlers
 
         protected override async Task ProcessEvent(GenericEvent<LevyDeclarationUpdatedEvent> @event)
         {
-            await Task.WhenAll(
-                _mediator.PublishAsync(new CreateLevyDeclarationsCommand { LevyDeclarationsHref = @event.Payload.ResourceUri })
-            );
+            await _mediator.PublishAsync(new CreateLevyDeclarationsCommand { LevyDeclarationsHref = @event.Payload.ResourceUri });
         }
     }
 }
