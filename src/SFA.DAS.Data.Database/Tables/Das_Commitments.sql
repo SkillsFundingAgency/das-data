@@ -16,5 +16,6 @@
     [UpdateDateTime]    DATETIME NOT NULL, 
     [LegalEntityCode] NVARCHAR(50) NULL, 
     [LegalEntityName] NVARCHAR(100) NULL, 
-    [LegalEntityOrganisationType] NVARCHAR(20) NULL
+    [LegalEntityOrganisationType] NVARCHAR(20) NULL,
+	[DateOfBirth] DATETIME NULL
 )
