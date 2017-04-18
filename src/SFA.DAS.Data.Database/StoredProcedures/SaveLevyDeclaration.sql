@@ -16,7 +16,8 @@
     @InactiveTo DATETIME = NULL,
     @HmrcSubmissionId BIGINT,
     @EnglishFraction DECIMAL,
-    @TopupPercentage DECIMAL
+    @TopupPercentage DECIMAL,
+	@TopupAmount DECIMAL
 AS
 	INSERT INTO [Data_Load].DAS_LevyDeclarations
 	(
@@ -37,7 +38,8 @@ AS
 		[InactiveTo],
 		[HmrcSubmissionId],
 		[EnglishFraction],
-		[TopupPercentage]
+		[TopupPercentage],
+		[TopupAmount]
 	)
 	VALUES
 	(
@@ -58,5 +60,6 @@ AS
 		@InactiveTo,
 		@HmrcSubmissionId,
 		@EnglishFraction,
-		@TopupPercentage
+		@TopupPercentage,
+		@TopupAmount
 	)

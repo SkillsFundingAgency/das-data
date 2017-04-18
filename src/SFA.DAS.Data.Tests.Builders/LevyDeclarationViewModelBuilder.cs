@@ -23,6 +23,7 @@ namespace SFA.DAS.Data.Tests.Builders
         private decimal _levyDueYearToDate = 45366.32m;
         private int _levyDeclarationId = 43256;
         private decimal _levyAllowanceForYear = 32478.1m;
+        private decimal _topupAmount = 435.4m;
 
         public LevyDeclarationViewModelBuilder WithDasAccountId(string dasAccountId)
         {
@@ -38,7 +39,7 @@ namespace SFA.DAS.Data.Tests.Builders
                 InactiveFrom = _inactiveFrom,
                 PayrollMonth = _payrollMonth,
                 EndOfYearAdjustment = _endOfYearAdjustment,
-                TopupPercentage = _topupPercentage,
+                TopUpPercentage = _topupPercentage,
                 PayrollYear = _payrollYear,
                 EndOfYearAdjustmentAmount = _endOfYearAdjustmentAmount,
                 SubmissionId = _submissionId,
@@ -49,9 +50,10 @@ namespace SFA.DAS.Data.Tests.Builders
                 PayeSchemeReference = _payeSchemeReference,
                 SubmissionDate = _submissionDate,
                 HmrcSubmissionId = _hmrcSubmissionId,
-                LevyDueYearToDate = _levyDueYearToDate,
-                LevyDeclarationId = _levyDeclarationId,
-                LevyAllowanceForYear = _levyAllowanceForYear
+                LevyDueYtd = _levyDueYearToDate,
+                Id = _levyDeclarationId,
+                LevyAllowanceForYear = _levyAllowanceForYear,
+                TopUp = _topupAmount
             };
         }
     }

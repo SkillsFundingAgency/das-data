@@ -18,9 +18,9 @@ namespace SFA.DAS.Data.Infrastructure.Data
             {
                 var parameters = new DynamicParameters();
                 parameters.Add("@DasAccountId", levyDeclaration.HashedAccountId, DbType.String);
-                parameters.Add("@LevyDeclarationId", levyDeclaration.LevyDeclarationId, DbType.Int64);
+                parameters.Add("@LevyDeclarationId", levyDeclaration.Id, DbType.Int64);
                 parameters.Add("@PayeSchemeReference", levyDeclaration.PayeSchemeReference, DbType.String);
-                parameters.Add("@LevyDueYearToDate", levyDeclaration.LevyDueYearToDate, DbType.Decimal);
+                parameters.Add("@LevyDueYearToDate", levyDeclaration.LevyDueYtd, DbType.Decimal);
                 parameters.Add("@LevyAllowanceForYear", levyDeclaration.LevyAllowanceForYear, DbType.Decimal);
                 parameters.Add("@SubmissionDate", levyDeclaration.SubmissionDate, DbType.DateTime);
                 parameters.Add("@SubmissionId", levyDeclaration.SubmissionId, DbType.Int64);
@@ -34,7 +34,8 @@ namespace SFA.DAS.Data.Infrastructure.Data
                 parameters.Add("@InactiveTo", levyDeclaration.InactiveTo, DbType.DateTime);
                 parameters.Add("@HmrcSubmissionId", levyDeclaration.HmrcSubmissionId, DbType.Int64);
                 parameters.Add("@EnglishFraction", levyDeclaration.EnglishFraction, DbType.Decimal);
-                parameters.Add("@TopupPercentage", levyDeclaration.TopupPercentage, DbType.Decimal);
+                parameters.Add("@TopupPercentage", levyDeclaration.TopUpPercentage, DbType.Decimal);
+                parameters.Add("@TopupAmount", levyDeclaration.TopUp, DbType.Decimal);
 
                 return await c.ExecuteAsync(
                     sql: "[Data_Load].[SaveLevyDeclaration]",

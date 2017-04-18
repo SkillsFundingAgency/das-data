@@ -70,12 +70,12 @@
       <HintPath>..\packages\NUnit.3.6.1\lib\net45\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SFA.DAS.EAS.Account.Api.Client, Version=1.0.0.27788, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.Account.Api.Client.1.0.0.27788\lib\net45\SFA.DAS.EAS.Account.Api.Client.dll</HintPath>
+    <Reference Include="SFA.DAS.EAS.Account.Api.Client, Version=1.0.0.28376, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Account.Api.Client.1.0.0.28376\lib\net45\SFA.DAS.EAS.Account.Api.Client.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SFA.DAS.EAS.Account.Api.Types, Version=1.0.0.27788, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.Account.Api.Types.1.0.0.27788\lib\net45\SFA.DAS.EAS.Account.Api.Types.dll</HintPath>
+    <Reference Include="SFA.DAS.EAS.Account.Api.Types, Version=1.0.0.28376, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Account.Api.Types.1.0.0.28376\lib\net45\SFA.DAS.EAS.Account.Api.Types.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="SFA.DAS.NLog.Logger, Version=1.0.0.23289, Culture=neutral, processorArchitecture=MSIL">
@@ -100,7 +100,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\CreateTransactionsTests\WhenICreateTransactions.cs" />
     <Compile Include="Commands\CreateLevyDeclarationsTests\WhenICreateLevyDeclarations.cs" />
     <Compile Include="Commands\CreatePaymentsForPeriodEndCommandTests\WhenAPeriodEndIsProcessed.cs" />
     <Compile Include="Commands\RemovePayeSchemeTests\WhenIRemoveAPayeScheme.cs" />
@@ -109,7 +108,6 @@
     <Compile Include="Commands\CreatePayeSchemeTests\WhenICreateAPayeScheme.cs" />
     <Compile Include="Commands\CreateLegalEntityTests\WhenICreateALegalEntity.cs" />
     <Compile Include="Gateways\AccountGatewayTests\AccountGatewayTestsBase.cs" />
-    <Compile Include="Gateways\AccountGatewayTests\WhenTransactionsAreRequested.cs" />
     <Compile Include="Gateways\AccountGatewayTests\WhenLevyDeclarationsAreRequested.cs" />
     <Compile Include="Gateways\AccountGatewayTests\WhenAPayeSchemeIsRequested.cs" />
     <Compile Include="Gateways\AccountGatewayTests\WhenALegalEntityIsRequested.cs" />

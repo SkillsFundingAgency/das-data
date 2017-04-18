@@ -17,7 +17,7 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
         protected override string EventName => "LevyDeclarationUpdatedEvent";
 
         [Test]
-        public void ThenTheLevyDeclarationsAndTransactionsAreStored()
+        public void ThenTheLevyDeclarationsAreStored()
         {
             ConfigureEventsApi();
             ConfigureAccountsApi();
@@ -46,32 +46,18 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
                 return false;
             }
 
-            var numberOfTransactions = await EventTestsRepository.GetNumberOfTransactions();
-            if (numberOfTransactions != 4)
-            {
-                return false;
-            }
-
             return true;
         }
 
         private void ConfigureAccountsApi()
         {
-            AccountsApi.SetupGet("api/accounts/ABC123/levy", new AccountResourceList<LevyDeclarationViewModel> { new LevyDeclarationViewModelBuilder().WithDasAccountId("ABC123").Build() });
+            AccountsApi.SetupGet("api/accounts/ABC123/levy", new AccountResourceList<LevyDeclarationViewModel>(new[] { new LevyDeclarationViewModelBuilder().WithDasAccountId("ABC123").Build() }));
             AccountsApi.SetupGet("api/accounts/ZZZ999/levy",
-                new AccountResourceList<LevyDeclarationViewModel>
-                {
+                new AccountResourceList<LevyDeclarationViewModel>(
+                new[] {
                     new LevyDeclarationViewModelBuilder().WithDasAccountId("ZZZ999").Build(),
                     new LevyDeclarationViewModelBuilder().WithDasAccountId("ZZZ999").Build()
-                });
-            AccountsApi.SetupGet("api/accounts/ABC123/transactions", new AccountResourceList<TransactionViewModel> { new TransactionViewModelBuilder().WithDasAccountId("ABC123").Build()});
-            AccountsApi.SetupGet("api/accounts/ZZZ999/transactions",
-                new AccountResourceList<TransactionViewModel>
-                {
-                    new TransactionViewModelBuilder().WithDasAccountId("ZZZ999").Build(),
-                    new TransactionViewModelBuilder().WithDasAccountId("ZZZ999").Build(),
-                    new TransactionViewModelBuilder().WithDasAccountId("ZZZ999").Build()
-                });
+                }));
         }
 
         private void ConfigureEventsApi()
@@ -85,8 +71,7 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
                     Type = "LevyDeclarationUpdatedEvent",
                     Payload = JsonConvert.SerializeObject(new LevyDeclarationUpdatedEvent
                     {
-                        LevyDeclarationsResourceUri = "api/accounts/ABC123/levy",
-                        TransactionsResourceUri = "api/accounts/ABC123/transactions"
+                        ResourceUri = "api/accounts/ABC123/levy"
 
                     })
                 },
@@ -97,8 +82,7 @@ namespace SFA.DAS.Data.AcceptanceTests.AccountEventTests
                     Type = "LevyDeclarationUpdatedEvent",
                     Payload = JsonConvert.SerializeObject(new LevyDeclarationUpdatedEvent
                     {
-                        LevyDeclarationsResourceUri = "api/accounts/ZZZ999/levy",
-                        TransactionsResourceUri = "api/accounts/ZZZ999/transactions"
+                        ResourceUri = "api/accounts/ZZZ999/levy"
                     })
                 }
             };

@@ -61,16 +61,6 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
             });
         }
 
-        public async Task DeleteTransactions()
-        {
-            await WithConnection(async c =>
-            {
-                return await c.ExecuteAsync(
-                    sql: "TRUNCATE TABLE [Data_Load].[DAS_Transactions]",
-                    commandType: CommandType.Text);
-            });
-        }
-
         public async Task DeleteFailedEvents()
         {
             await WithConnection(async c =>
@@ -141,15 +131,6 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
             return await WithConnection(async c =>
                 await c.QuerySingleAsync<int>(
                     sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_LevyDeclarations]",
-                    commandType: CommandType.Text)
-            );
-        }
-
-        public async Task<int> GetNumberOfTransactions()
-        {
-            return await WithConnection(async c =>
-                await c.QuerySingleAsync<int>(
-                    sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_Transactions]",
                     commandType: CommandType.Text)
             );
         }

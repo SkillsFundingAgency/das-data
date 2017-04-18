@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using MediatR;
 using SFA.DAS.Data.Application.Commands.CreateLevyDeclarations;
-using SFA.DAS.Data.Application.Commands.CreateTransactions;
 using SFA.DAS.Data.Application.Configuration;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.EAS.Account.Api.Types.Events.Levy;
@@ -21,8 +20,7 @@ namespace SFA.DAS.Data.Worker.Events.EventHandlers
         protected override async Task ProcessEvent(GenericEvent<LevyDeclarationUpdatedEvent> @event)
         {
             await Task.WhenAll(
-                _mediator.PublishAsync(new CreateLevyDeclarationsCommand { LevyDeclarationsHref = @event.Payload.LevyDeclarationsResourceUri }),
-                _mediator.PublishAsync(new CreateTransactionsCommand() { TransactionsHref = @event.Payload.TransactionsResourceUri })
+                _mediator.PublishAsync(new CreateLevyDeclarationsCommand { LevyDeclarationsHref = @event.Payload.ResourceUri })
             );
         }
     }

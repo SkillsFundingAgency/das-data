@@ -34,10 +34,5 @@ namespace SFA.DAS.Data.Application.Gateways
         {
             return await _accountApiClient.GetResource<AccountResourceList<LevyDeclarationViewModel>>(levyDeclarationsHref);
         }
-
-        public async Task<List<TransactionViewModel>> GetTransactions(string transactionsHref)
-        {
-            return await _accountApiClient.GetResource<AccountResourceList<TransactionViewModel>>(transactionsHref);
-        }
     }
 }

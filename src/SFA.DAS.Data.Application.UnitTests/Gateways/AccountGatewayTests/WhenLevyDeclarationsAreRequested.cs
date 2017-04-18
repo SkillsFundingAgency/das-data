@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
@@ -12,7 +13,7 @@ namespace SFA.DAS.Data.Application.UnitTests.Gateways.AccountGatewayTests
         [Test]
         public async Task ThenTheLevyDeclarationsAreReturned()
         {
-            var expectedLevyDeclarations = new AccountResourceList<LevyDeclarationViewModel>();
+            var expectedLevyDeclarations = new AccountResourceList<LevyDeclarationViewModel>(new List<LevyDeclarationViewModel>());
 
             var levyHref = $"/api/accounts/2385/levy/";
                 

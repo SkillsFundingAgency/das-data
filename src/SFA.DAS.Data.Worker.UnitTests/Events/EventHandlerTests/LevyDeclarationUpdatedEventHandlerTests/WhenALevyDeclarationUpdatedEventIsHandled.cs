@@ -3,7 +3,6 @@ using MediatR;
 using Moq;
 using NUnit.Framework;
 using SFA.DAS.Data.Application.Commands.CreateLevyDeclarations;
-using SFA.DAS.Data.Application.Commands.CreateTransactions;
 using SFA.DAS.Data.Application.Configuration;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.Data.Worker.Events;
@@ -41,30 +40,14 @@ namespace SFA.DAS.Data.Worker.UnitTests.Events.EventHandlerTests.LevyDeclaration
             //Arrange
             var levyDeclaration = new GenericEvent<LevyDeclarationUpdatedEvent>
             {
-                Payload = new LevyDeclarationUpdatedEvent { LevyDeclarationsResourceUri = "LevyUri", TransactionsResourceUri = "TransactionUri" }
+                Payload = new LevyDeclarationUpdatedEvent { ResourceUri = "LevyUri" }
             };
 
             //Act
             await _handler.Handle(levyDeclaration);
 
             //Assert
-            _mediator.Verify(x => x.PublishAsync(It.Is<CreateLevyDeclarationsCommand>(c => c.LevyDeclarationsHref == levyDeclaration.Payload.LevyDeclarationsResourceUri)), Times.Once);
-        }
-
-        [Test]
-        public async Task ThenTheCreateTransactionsCommandShouldBeSent()
-        {
-            //Arrange
-            var levyDeclaration = new GenericEvent<LevyDeclarationUpdatedEvent>
-            {
-                Payload = new LevyDeclarationUpdatedEvent { LevyDeclarationsResourceUri = "LevyUri", TransactionsResourceUri = "TransactionUri" }
-            };
-
-            //Act
-            await _handler.Handle(levyDeclaration);
-
-            //Assert
-            _mediator.Verify(x => x.PublishAsync(It.Is<CreateTransactionsCommand>(c => c.TransactionsHref == levyDeclaration.Payload.TransactionsResourceUri)), Times.Once);
+            _mediator.Verify(x => x.PublishAsync(It.Is<CreateLevyDeclarationsCommand>(c => c.LevyDeclarationsHref == levyDeclaration.Payload.ResourceUri)), Times.Once);
         }
     }
 }
