@@ -45,7 +45,7 @@ namespace SFA.DAS.Data.AcceptanceTests.ApprenticeshipEventTests
 
         private void ClearSubstituteApis()
         {
-            EventsApi.ClearSetup();
+            DataAcceptanceTests.ClearApiSetup();
         }
     }
 }

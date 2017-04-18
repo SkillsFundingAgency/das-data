@@ -16,6 +16,7 @@ using SFA.DAS.Data.Worker.Events.EventsCollectors;
 using SFA.DAS.EAS.Account.Api.Client;
 using SFA.DAS.EAS.Account.Api.Types.Events.Account;
 using SFA.DAS.EAS.Account.Api.Types.Events.LegalEntity;
+using SFA.DAS.EAS.Account.Api.Types.Events.Levy;
 using SFA.DAS.EAS.Account.Api.Types.Events.PayeScheme;
 using SFA.DAS.Events.Api.Client;
 using SFA.DAS.Events.Api.Types;
@@ -65,6 +66,7 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             For<IEventHandler<GenericEvent<LegalEntityCreatedEvent>>>().Use<LegalEntityCreatedEventHandler>();
             For<IEventHandler<GenericEvent<PayeSchemeAddedEvent>>>().Use<PayeSchemeAddedEventHandler>();
             For<IEventHandler<GenericEvent<PayeSchemeRemovedEvent>>>().Use<PayeSchemeRemovedEventHandler>();
+            For<IEventHandler<GenericEvent<LevyDeclarationUpdatedEvent>>>().Use<LevyDeclarationUpdatedEventHandler>();
             For<IEventHandler<PeriodEnd>>().Use<PeriodEndEventHandler>();
 
             //Legacy support
@@ -79,6 +81,7 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             For<IEventsCollector<GenericEvent<LegalEntityCreatedEvent>>>().Use<GenericEventCollector<LegalEntityCreatedEvent>>();
             For<IEventsCollector<GenericEvent<PayeSchemeAddedEvent>>>().Use<GenericEventCollector<PayeSchemeAddedEvent>>();
             For<IEventsCollector<GenericEvent<PayeSchemeRemovedEvent>>>().Use<GenericEventCollector<PayeSchemeRemovedEvent>>();
+            For<IEventsCollector<GenericEvent<LevyDeclarationUpdatedEvent>>>().Use<GenericEventCollector<LevyDeclarationUpdatedEvent>>();
             For<IEventsCollector<PeriodEnd>>().Use<PaymentEventsCollector>();
 
             //Legacy support
@@ -93,6 +96,7 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             For<IEventsProcessor>().Use<EventsProcessor<GenericEvent<LegalEntityCreatedEvent>>>();
             For<IEventsProcessor>().Use<EventsProcessor<GenericEvent<PayeSchemeAddedEvent>>>();
             For<IEventsProcessor>().Use<EventsProcessor<GenericEvent<PayeSchemeRemovedEvent>>>();
+            For<IEventsProcessor>().Use<EventsProcessor<GenericEvent<LevyDeclarationUpdatedEvent>>>();
             For<IEventsProcessor>().Use<EventsProcessor<PeriodEnd>>();
 
             //Legacy support
@@ -114,6 +118,7 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             For<IPayeSchemeRepository>().Use<PayeSchemeRepository>().Ctor<string>().Is(connectionString);
             For<IApprenticeshipRepository>().Use<ApprenticeshipRepository>().Ctor<string>().Is(connectionString);
             For<IPaymentRepository>().Use<PaymentRepository>().Ctor<string>().Is(connectionString);
+            For<ILevyDeclarationRepository>().Use<LevyDeclarationRepository>().Ctor<string>().Is(connectionString);
         }
 
         private void AddMediatrRegistrations()
