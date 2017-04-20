@@ -55,7 +55,7 @@ AS
                         ELSE DATEDIFF(YEAR,C.DateOfBirth,C.TrainingStartDate)
                    END BETWEEN 0 AND 18 THEN '16-18'
 			    ELSE '19+' END AS CommitmentAgeAtStartBand
-		, CASE WHEN P.TotalAmount > 0  THEN 'Yes' ELSE 'No' END AS RealisedCommitment
+		, CASE WHEN PP.TotalAmount > 0  THEN 'Yes' ELSE 'No' END AS RealisedCommitment
 		--, CASE WHEN C.AgreementStatus = 'BothAgreed' THEN 'Yes'
 		--	 ELSE 'No'END AS FullyAgreedCommitment
 		, CASE WHEN [C].[TrainingStartDate] BETWEEN DATEADD(mm, DATEDIFF(mm, 0, GETDATE()), 0) AND DATEADD (dd, -1, DATEADD(mm, DATEDIFF(mm, 0, GETDATE()) + 1, 0)) THEN 'Yes'
@@ -88,6 +88,6 @@ AS
 				    , SUM(P.Amount) AS TotalAmount
 		      FROM Data_pub.DAS_Payments AS P 
 			 WHERE P.Flag_latest = 1
-			 GROUP BY P.CommitmentId) AS P ON C.ApprenticeshipID = P.CommitmentID
+			 GROUP BY P.CommitmentId) AS PP ON C.ApprenticeshipID = PP.CommitmentID
 	;
 GO
