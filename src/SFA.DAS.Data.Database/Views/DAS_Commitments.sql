@@ -1,18 +1,18 @@
 CREATE VIEW Data_Pub.DAS_Commitments
 AS
-     SELECT [C].[ID]
-          , [C].[CommitmentID]
-          , [C].[PaymentStatus]
-          , [C].[ApprenticeshipID]
-          , [c].[AgreementStatus]
+  SELECT [C].[ID]
+          , CAST([C].[CommitmentID] AS BIGINT) AS EventID
+          , CAST([C].[PaymentStatus] AS VARCHAR(50)) AS PaymentStatus
+          , CAST([C].[ApprenticeshipID]AS BIGINT) AS CommitmentID
+          , CAST([c].[AgreementStatus] AS VARCHAR(50)) AS AgreementStatus
           , CASE WHEN ISNUMERIC([C].[ProviderID])=1 then CAST([C].[ProviderID] AS BIGINT) ELSE -2 END AS [UKPRN]
 		, CASE WHEN ISNUMERIC([C].[LearnerID])=1 then CAST([C].[LearnerID] AS BIGINT) ELSE -2 END AS [ULN]  
-		, [C].[ProviderID] 
-          , [C].[LearnerID]           
-	  , [C].[EmployerAccountID] 
-	  , EA.[DASAccountID]
-          , [C].[TrainingTypeID]
-          , [C].[TrainingID]
+		, CAST([C].[ProviderID] AS VARCHAR(255)) AS ProviderID 
+          , CAST([C].[LearnerID] AS VARCHAR(255)) AS LearnerID           
+	  , CAST([C].[EmployerAccountID] AS VARCHAR(255)) AS EmployerAccountID
+	  , CAST(EA.[DASAccountID] AS VARCHAR(100)) AS DASAccountID
+          , CAST([C].[TrainingTypeID] AS VARCHAR(255)) AS TrainingTypeID
+          , CAST([C].[TrainingID] AS VARCHAR(255)) AS TrainingID
           , CASE
                 WHEN [C].[TrainingTypeID] = 'Standard' AND ISNUMERIC([C].[TrainingID]) = 1
                 THEN CAST([C].[TrainingID] AS INT)
@@ -33,18 +33,35 @@ AS
                 THEN CAST(SUBSTRING(SUBSTRING([C].[TrainingID], CHARINDEX('-', [C].[TrainingID])+1, LEN([C].[TrainingID])), CHARINDEX('-', SUBSTRING([C].[TrainingID], CHARINDEX('-', [C].[TrainingID])+1, LEN([C].[TrainingID])))+1, LEN(SUBSTRING([C].[TrainingID], CHARINDEX('-', [C].[TrainingID])+1, LEN([C].[TrainingID])))) AS INT)
                 ELSE '-1'
             END AS [PwayCode]
-          , [C].[TrainingStartDate]
-          , [C].[TrainingEndDate]
-          , [C].[TrainingTotalCost]
-          , [C].[UpdateDateTime]
+          , CAST([C].[TrainingStartDate] AS DATE) AS TrainingStartDate
+          , CAST([C].[TrainingEndDate] AS DATE) AS TrainingEndDate
+          , CAST([C].[TrainingTotalCost] AS DECIMAL(18,0)) AS TrainingTotalCost
+          , CAST([C].[UpdateDateTime] AS DATETIME) AS UpdateDateTime
             -- Additional Columns for UpdateDateTime represented as a Date
           , CAST([C].[UpdateDateTime] AS DATE) AS [UpdateDate]
             -- Flag to say if latest record from subquery, Using Coalesce to set null value to 0
-          , COALESCE([LC].[Flag_Latest], 0) AS [Flag_Latest]
-		, C.[LegalEntityCode]
-		, C.[LegalEntityName]
-		, C.[LegalEntityOrganisationType] AS LegalEntitySource
-		, COALESCE(ELE.[DasLegalEntityId],-1) AS [DasLegalEntityId]
+          , CAST(COALESCE([LC].[Flag_Latest], 0) AS INT) AS [Flag_Latest]
+		, CAST(C.[LegalEntityCode] AS VARCHAR(50)) AS LegalEntityCode
+		, CAST(C.[LegalEntityName] AS VARCHAR(100)) AS LegalEntityName
+		, CAST(C.[LegalEntityOrganisationType] AS VARCHAR(20)) AS LegalEntitySource
+		, CAST(COALESCE(ELE.[DasLegalEntityId],-1) AS BIGINT) AS [DasLegalEntityId]
+		, CAST(C.DateOfBirth AS DATE) AS DateOfBirth
+		, CASE WHEN C.DateOfBirth IS NULL THEN -1
+                        WHEN DATEPART(M,C.DateOfBirth) > DATEPART(M,C.TrainingStartDate) OR (DATEPART(M,C.DateOfBirth) = DATEPART(M,C.TrainingStartDate) AND DATEPART(DD,C.DateOfBirth) > DATEPART(DD,C.TrainingStartDate)) THEN DATEDIFF(YEAR,C.DateOfBirth,C.TrainingStartDate) -1
+                        ELSE DATEDIFF(YEAR,C.DateOfBirth,C.TrainingStartDate)
+                   END AS CommitmentAgeAtStart
+		, CASE WHEN CASE WHEN C.DateOfBirth IS NULL THEN -1
+                        WHEN DATEPART(M,C.DateOfBirth) > DATEPART(M,C.TrainingStartDate) OR (DATEPART(M,C.DateOfBirth) = DATEPART(M,C.TrainingStartDate) AND DATEPART(DD,C.DateOfBirth) > DATEPART(DD,C.TrainingStartDate)) THEN DATEDIFF(YEAR,C.DateOfBirth,C.TrainingStartDate) -1
+                        ELSE DATEDIFF(YEAR,C.DateOfBirth,C.TrainingStartDate)
+                   END BETWEEN 0 AND 18 THEN '16-18'
+			    ELSE '19+' END AS CommitmentAgeAtStartBand
+		, CASE WHEN P.TotalAmount > 0  THEN 'Yes' ELSE 'No' END AS RealisedCommitment
+		--, CASE WHEN C.AgreementStatus = 'BothAgreed' THEN 'Yes'
+		--	 ELSE 'No'END AS FullyAgreedCommitment
+		, CASE WHEN [C].[TrainingStartDate] BETWEEN DATEADD(mm, DATEDIFF(mm, 0, GETDATE()), 0) AND DATEADD (dd, -1, DATEADD(mm, DATEDIFF(mm, 0, GETDATE()) + 1, 0)) THEN 'Yes'
+				ELSE 'No' END ASStartDateInCurrentMonth
+		-- , DATEADD(mm, DATEDIFF(mm, 0, GETDATE()), 0) AS [Start day of current month]  
+		-- , DATEADD (dd, -1, DATEADD(mm, DATEDIFF(mm, 0, GETDATE()) + 1, 0)) AS [Last day of current month]
      FROM
         Data_Load.DAS_Commitments AS C
     -- To get latest record
@@ -67,5 +84,10 @@ AS
 												AND CASE WHEN C.LegalEntityOrganisationType IN ('PublicBodies','Other') THEN '' ELSE C.[LegalEntityCode] END = ELE.[LegalEntityNumber]
 												AND C.[LegalEntityName] = ELE.LegalEntityName 
 												AND ELE.Flag_latest = 1
+	LEFT JOIN (SELECT P.CommitmentId
+				    , SUM(P.Amount) AS TotalAmount
+		      FROM Data_pub.DAS_Payments AS P 
+			 WHERE P.Flag_latest = 1
+			 GROUP BY P.CommitmentId) AS P ON C.ApprenticeshipID = P.CommitmentID
 	;
 GO
