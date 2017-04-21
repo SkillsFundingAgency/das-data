@@ -59,7 +59,7 @@ AS
 		--, CASE WHEN C.AgreementStatus = 'BothAgreed' THEN 'Yes'
 		--	 ELSE 'No'END AS FullyAgreedCommitment
 		, CASE WHEN [C].[TrainingStartDate] BETWEEN DATEADD(mm, DATEDIFF(mm, 0, GETDATE()), 0) AND DATEADD (dd, -1, DATEADD(mm, DATEDIFF(mm, 0, GETDATE()) + 1, 0)) THEN 'Yes'
-				ELSE 'No' END ASStartDateInCurrentMonth
+				ELSE 'No' END AS StartDateInCurrentMonth
 		-- , DATEADD(mm, DATEDIFF(mm, 0, GETDATE()), 0) AS [Start day of current month]  
 		-- , DATEADD (dd, -1, DATEADD(mm, DATEDIFF(mm, 0, GETDATE()) + 1, 0)) AS [Last day of current month]
      FROM
