@@ -29,6 +29,16 @@ SELECT
 	 -- Flag to say if latest record from subquery, Using Coalesce to set null value to 0
       , COALESCE([LP].[Flag_Latest], 0) AS [Flag_Latest]
 	 , COALESCE([FP].[Flag_FirstPayment], 0) AS Flag_FirstPayment
+	-- , CAST(C.DateOfBirth AS DATE) AS DateOfBirth
+		, CASE WHEN C.DateOfBirth IS NULL THEN -1
+                        WHEN DATEPART(M,C.DateOfBirth) > DATEPART(M,P.[UpdateDateTime]) OR (DATEPART(M,C.DateOfBirth) = DATEPART(M,P.[UpdateDateTime]) AND DATEPART(DD,C.DateOfBirth) > DATEPART(DD,P.[UpdateDateTime])) THEN DATEDIFF(YEAR,C.DateOfBirth,P.[UpdateDateTime]) -1
+                        ELSE DATEDIFF(YEAR,C.DateOfBirth,P.[UpdateDateTime])
+                   END AS PaymentAge
+		, CASE WHEN CASE WHEN C.DateOfBirth IS NULL THEN -1
+                        WHEN DATEPART(M,C.DateOfBirth) > DATEPART(M,P.[UpdateDateTime]) OR (DATEPART(M,C.DateOfBirth) = DATEPART(M,P.[UpdateDateTime]) AND DATEPART(DD,C.DateOfBirth) > DATEPART(DD,P.[UpdateDateTime])) THEN DATEDIFF(YEAR,C.DateOfBirth,P.[UpdateDateTime]) -1
+                      ELSE DATEDIFF(YEAR,C.DateOfBirth, P.[UpdateDateTime])
+                   END BETWEEN 0 AND 18 THEN '16-18'
+			    ELSE '19+' END AS PaymentAgeBand
   FROM [Data_Load].[DAS_Payments] AS P
    LEFT JOIN
    --Looking to get the max Collection information for the delivery Period, Commitment ID and Employer Account ID
@@ -66,5 +76,25 @@ SELECT
 	
      ) AS FP ON FP.EmployerAccountID = P.EmployerAccountID
 			 AND FP.ApprenticeshipId = P.ApprenticeshipId
-			 AND FP.Min_FirstPayment = (CAST(P.DeliveryYear AS VARCHAR(255)) + '-'+CAST(P.DeliveryMonth AS VARCHAR(255))+'-'+CAST([P].[UpdateDateTime] AS VARCHAR(255))+'-'+P.PaymentId);
+			 AND FP.Min_FirstPayment = (CAST(P.DeliveryYear AS VARCHAR(255)) + '-'+CAST(P.DeliveryMonth AS VARCHAR(255))+'-'+CAST([P].[UpdateDateTime] AS VARCHAR(255))+'-'+P.PaymentId)
+   --Payment Age
+   LEFT JOIN (
+		  SELECT 
+			 	C.ApprenticeshipId
+			 ,	C.EmployerAccountID
+			 ,	C.DateOfBirth
+		  FROM [Data_Load].[DAS_Commitments] AS C
+		  INNER JOIN (SELECT 
+							 C.ApprenticeshipId
+						  ,	 C.EmployerAccountID
+						  ,	 MAX(C.UpdateDateTime) AS Max_UpdateDateTime	  
+				    FROM [Data_Load].[DAS_Commitments] AS C
+				    GROUP BY C.ApprenticeshipId
+						  ,	 C.EmployerAccountID ) AS C2 ON C2.ApprenticeshipId = C.ApprenticeshipId 
+												    AND C2.EmployerAccountID = C.EmployerAccountID
+												    AND C2.Max_UpdateDateTime = C.UpdateDateTime	  
+
+		  ) AS C ON C.ApprenticeshipId= P.ApprenticeshipId
+								    AND C.EmployerAccountID = P.EmployerAccountID; 
+
 GO 
