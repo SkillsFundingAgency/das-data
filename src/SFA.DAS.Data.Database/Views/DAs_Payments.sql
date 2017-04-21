@@ -6,7 +6,7 @@ SELECT
       ,CAST([P].[UkPrn] AS BIGINT) AS UKPRN
       ,CAST([P].[Uln] AS BIGINT) AS ULN
       ,[P].[EmployerAccountId] AS EmployerAccountID
-	 ,[EA].[DASAccountID]
+	 ,[EA].[DASAccountID] AS DasAccountId
       ,[P].[ApprenticeshipId] AS CommitmentID
       ,[P].[DeliveryMonth]
       ,[P].[DeliveryYear]
