@@ -1,6 +1,6 @@
 CREATE VIEW Data_Pub.DAS_Commitments
 AS
-  SELECT [C].[ID]
+	SELECT [C].[ID]
           , CAST([C].[CommitmentID] AS BIGINT) AS EventID
           , CAST([C].[PaymentStatus] AS VARCHAR(50)) AS PaymentStatus
           , CAST([C].[ApprenticeshipID]AS BIGINT) AS CommitmentID
@@ -10,7 +10,7 @@ AS
 		, CAST([C].[ProviderID] AS VARCHAR(255)) AS ProviderID 
           , CAST([C].[LearnerID] AS VARCHAR(255)) AS LearnerID           
 	  , CAST([C].[EmployerAccountID] AS VARCHAR(255)) AS EmployerAccountID
-	  , CAST(EA.[DASAccountID] AS VARCHAR(100)) AS DASAccountID
+	  , CAST(EA.[DASAccountID] AS VARCHAR(100)) AS DasAccountId
           , CAST([C].[TrainingTypeID] AS VARCHAR(255)) AS TrainingTypeID
           , CAST([C].[TrainingID] AS VARCHAR(255)) AS TrainingID
           , CASE
@@ -59,7 +59,7 @@ AS
 		--, CASE WHEN C.AgreementStatus = 'BothAgreed' THEN 'Yes'
 		--	 ELSE 'No'END AS FullyAgreedCommitment
 		, CASE WHEN [C].[TrainingStartDate] BETWEEN DATEADD(mm, DATEDIFF(mm, 0, GETDATE()), 0) AND DATEADD (dd, -1, DATEADD(mm, DATEDIFF(mm, 0, GETDATE()) + 1, 0)) THEN 'Yes'
-				ELSE 'No' END ASStartDateInCurrentMonth
+				ELSE 'No' END AS StartDateInCurrentMonth
 		-- , DATEADD(mm, DATEDIFF(mm, 0, GETDATE()), 0) AS [Start day of current month]  
 		-- , DATEADD (dd, -1, DATEADD(mm, DATEDIFF(mm, 0, GETDATE()) + 1, 0)) AS [Last day of current month]
      FROM
