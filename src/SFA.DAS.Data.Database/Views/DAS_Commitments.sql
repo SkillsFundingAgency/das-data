@@ -10,7 +10,7 @@ AS
 		, CAST([C].[ProviderID] AS VARCHAR(255)) AS ProviderID 
           , CAST([C].[LearnerID] AS VARCHAR(255)) AS LearnerID           
 	  , CAST([C].[EmployerAccountID] AS VARCHAR(255)) AS EmployerAccountID
-	  , CAST(EA.[DASAccountID] AS VARCHAR(100)) AS DasAccountId
+	  , CAST(EA.[DasAccountId] AS VARCHAR(100)) AS DasAccountId
           , CAST([C].[TrainingTypeID] AS VARCHAR(255)) AS TrainingTypeID
           , CAST([C].[TrainingID] AS VARCHAR(255)) AS TrainingID
           , CASE
