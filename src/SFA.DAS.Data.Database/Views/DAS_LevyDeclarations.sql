@@ -4,7 +4,7 @@ AS
 SELECT LD.[Id]
       ,LD.[DasAccountId] AS DASAccountID
       ,LD.[LevyDeclarationId] AS LevyDeclarationID 
-      ,HASHBYTES('SHA2_512',LD.[PayeSchemeReference]) AS PAYEReference
+      ,HASHBYTES('SHA2_512',RTRIM(LTRIM(CAST(LD.[PayeSchemeReference] AS VARCHAR(20))))) AS PAYEReference
       ,LD.[LevyDueYearToDate]
       ,LD.[LevyAllowanceForYear]
       ,LD.[SubmissionDate]
@@ -42,5 +42,4 @@ SELECT LD.[Id]
 	--		) AS LEPS ON EPS.DasAccountId = LEPS.DasAccountId
 	--				AND EPS.[Ref] = LEPS.[Ref]
 	--				AND EPS.[UpdateDateTime] = LEPS.Max_UpdatedDateTime
-
 GO
