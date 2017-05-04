@@ -78,7 +78,8 @@ AS
                 AND LC.Max_ID = C.ID
 			 AND LC.Max_UpdatedDateTime = C.UpdateDateTime
 	-- Join to Accounts to get the Hashed DAS Acccount ID
-	LEFT JOIN  [Data_Load].[DAS_Employer_Accounts] AS EA ON EA.AccountID = [C].[EmployerAccountID]
+	LEFT JOIN  (SELECT DISTINCT EA.[DasAccountId], EA.AccountID
+				FROM [Data_Load].[DAS_Employer_Accounts] AS EA) AS EA ON EA.AccountID = [C].[EmployerAccountID]
 	---- Join Legal Entity to get Legal_Entity_ID
 	LEFT JOIN Data_Pub.DAS_Employer_LegalEntities AS ELE ON C.LegalEntityOrganisationType = ELE.[LegalEntitySource]
 												AND CASE WHEN C.LegalEntityOrganisationType IN ('PublicBodies','Other') THEN '' ELSE C.[LegalEntityCode] END = ELE.[LegalEntityNumber]
