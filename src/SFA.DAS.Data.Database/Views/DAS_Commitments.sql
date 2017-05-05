@@ -62,6 +62,12 @@ AS
 				ELSE 'No' END AS StartDateInCurrentMonth
 		-- , DATEADD(mm, DATEDIFF(mm, 0, GETDATE()), 0) AS [Start day of current month]  
 		-- , DATEADD (dd, -1, DATEADD(mm, DATEDIFF(mm, 0, GETDATE()) + 1, 0)) AS [Last day of current month]
+		, CASE	 
+			 WHEN [AgreementStatus] = 'NotAgreed'      THEN 1
+			 WHEN [AgreementStatus] = 'EmployerAgreed' THEN 2
+			 WHEN [AgreementStatus] = 'ProviderAgreed' THEN 3
+			 WHEN  [AgreementStatus] = 'BothAgreed'	   THEN 4
+	   		 ELSE 9 END AS [AgreementStatus_SortOrder]
      FROM
         Data_Load.DAS_Commitments AS C
     -- To get latest record
