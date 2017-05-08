@@ -1,4 +1,4 @@
-CREATE VIEW Data_Pub.DAS_Commitments
+CREATE VIEW [Data_Pub].[DAS_Commitments]
 AS
 	SELECT [C].[ID]
           , CAST([C].[CommitmentID] AS BIGINT) AS EventID
@@ -87,14 +87,25 @@ AS
 	LEFT JOIN  (SELECT DISTINCT EA.[DasAccountId], EA.AccountID
 				FROM [Data_Load].[DAS_Employer_Accounts] AS EA) AS EA ON EA.AccountID = [C].[EmployerAccountID]
 	---- Join Legal Entity to get Legal_Entity_ID
-	LEFT JOIN Data_Pub.DAS_Employer_LegalEntities AS ELE ON C.LegalEntityOrganisationType = ELE.[LegalEntitySource]
-												AND CASE WHEN C.LegalEntityOrganisationType IN ('PublicBodies','Other') THEN '' ELSE C.[LegalEntityCode] END = ELE.[LegalEntityNumber]
+	LEFT JOIN (SELECT 
+				    DISTINCT
+						  DasAccountId
+						, [LegalEntityNumber]
+						,[LegalEntityName]
+						,REPLACE([LegalEntitySource],' ','') AS [LegalEntitySource] 
+						,[DasLegalEntityId]
+			 FROM 
+				Data_Pub.DAS_Employer_LegalEntities 
+			 WHERE Flag_latest = 1) AS ELE ON C.LegalEntityOrganisationType = ELE.[LegalEntitySource]
+												AND  C.[LegalEntityCode] = ELE.[LegalEntityNumber]
 												AND C.[LegalEntityName] = ELE.LegalEntityName 
-												AND ELE.Flag_latest = 1
+												AND EA.DasAccountId = ELE.DasAccountId
+												
 	LEFT JOIN (SELECT P.CommitmentId
 				    , SUM(P.Amount) AS TotalAmount
 		      FROM Data_pub.DAS_Payments AS P 
 			 WHERE P.Flag_latest = 1
 			 GROUP BY P.CommitmentId) AS PP ON C.ApprenticeshipID = PP.CommitmentID
 	;
+
 GO
