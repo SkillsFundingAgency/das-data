@@ -47,7 +47,6 @@ namespace SFA.DAS.Data.Worker.Events.EventHandlers
             {
                 //Too many failures so ignore event
                 await EventRepository.StoreLastProcessedEventId(eventType, eventId);
-                await EventRepository.SetEventFailureCount(eventId, 0);
             }
         }
 

@@ -88,10 +88,6 @@ namespace SFA.DAS.Data.Worker.UnitTests.Events.EventHandlerTests.ApprenticeshipE
             //Assert
             _eventRepository.Verify(
                 x => x.StoreLastProcessedEventId(nameof(ApprenticeshipEventView), It.IsAny<long>()), Times.Once);
-
-            _eventRepository.Verify(
-              x => x.SetEventFailureCount(It.IsAny<long>(), 0), Times.Once);
-
         }
     }
 }
