@@ -4,7 +4,7 @@
 	[PaymentId]	NVARCHAR(100) NOT NULL,
 	[UkPrn]	BIGINT NOT NULL,
 	[Uln]	BIGINT NOT NULL,
-	[EmployerAccountId]	NVARCHAR(100)  NOT NULL,
+	[EmployerAccountId]	NVARCHAR(100) NULL,
 	[ApprenticeshipId]	BIGINT NULL,
 	[DeliveryMonth]	INT NOT NULL,
 	[DeliveryYear]	INT NOT NULL,

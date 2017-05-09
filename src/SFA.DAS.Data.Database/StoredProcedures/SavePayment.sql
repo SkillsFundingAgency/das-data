@@ -2,7 +2,7 @@
 	@PaymentId NVARCHAR(100),
 	@UkPrn BIGINT,
 	@Uln BIGINT,
-	@EmployerAccountId NVARCHAR(100),
+	@EmployerAccountId NVARCHAR(100) = NULL,
 	@ApprenticeshipId BIGINT = NULL,
 	@DeliveryMonth INT,
 	@DeliveryYear INT,
