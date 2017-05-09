@@ -8,5 +8,6 @@ namespace SFA.DAS.Data.Application.Configuration
         string DatabaseConnectionString { get; set; }
         EventsApiClientConfiguration EventsApi { get; set; }
         int FailureTolerance { get; set; }
+        bool PaymentsEnabled { get; set; }
     }
 }

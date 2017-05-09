@@ -14,5 +14,6 @@ namespace SFA.DAS.Data.Application.Configuration
         public AccountApiConfiguration AccountsApi { get; set; }
 
         public PaymentsEventsApiConfiguration PaymentsEvents { get; set; }
+        public bool PaymentsEnabled { get; set; }
     }
 }

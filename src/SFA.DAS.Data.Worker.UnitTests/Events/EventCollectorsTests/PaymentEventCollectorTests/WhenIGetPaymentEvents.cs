@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
+using SFA.DAS.Data.Application.Configuration;
 using SFA.DAS.Data.Application.Interfaces;
 using SFA.DAS.Data.Worker.Events.EventsCollectors;
 using SFA.DAS.NLog.Logger;
@@ -27,7 +29,7 @@ namespace SFA.DAS.Data.Worker.UnitTests.Events.EventCollectorsTests.PaymentEvent
 
             _eventService.Setup(x => x.GetUnprocessedPeriodEnds()).ReturnsAsync(_expectedPeriodEnds);
 
-            _collector = new PaymentEventsCollector(_eventService.Object, _logger.Object);
+            _collector = new PaymentEventsCollector(_eventService.Object, _logger.Object, new DataConfiguration { PaymentsEnabled = true });
         }
 
         [Test]
@@ -51,6 +53,21 @@ namespace SFA.DAS.Data.Worker.UnitTests.Events.EventCollectorsTests.PaymentEvent
 
             //Assert
             Assert.IsEmpty(result);
+        }
+
+        [Test]
+        public async Task ThenShouldReturnEmptyCollectionIfPaymentsAreNotEnabled()
+        {
+            //Arrange
+            var collector = new PaymentEventsCollector(_eventService.Object, _logger.Object, new DataConfiguration { PaymentsEnabled = false });
+
+            //Act
+            var result = await collector.GetEvents();
+
+            //Assert
+            Assert.IsEmpty(result);
+
+            _eventService.Verify(x => x.GetUnprocessedPeriodEnds(), Times.Never);
         }
     }
 }

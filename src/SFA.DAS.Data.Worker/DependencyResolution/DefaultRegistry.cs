@@ -43,7 +43,7 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
 
             var config = GetConfiguration();
 
-            For<IEventsWatcher>().Use<EventsWatcher>().Ctor<int>().Is(config.FailureTolerance);
+            For<IDataConfiguration>().Use(config);
             RegisterRepositories(config.DatabaseConnectionString);
             RegisterApis(config);
 
