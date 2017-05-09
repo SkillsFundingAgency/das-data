@@ -1,4 +1,4 @@
-CREATE VIEW Data_Pub.DAS_Payments
+CREATE VIEW [Data_Pub].[DAS_Payments]
 AS
 SELECT  
 	  [P].[Id] AS ID
@@ -61,9 +61,10 @@ SELECT
 			 AND LP.DeliveryMonth = P.DeliveryMonth
 			 AND LP.DeliveryYear = P.DeliveryYear
 			 AND LP.Max_CollectionPeriod = (CAST(P.CollectionYear AS VARCHAR(255)) + '-'+CAST(P.CollectionMonth AS VARCHAR(255)))
-  --Getting the DAS Account ID from DAS Account Tables
-  LEFT JOIN  [Data_Load].[DAS_Employer_Accounts] AS EA ON EA.AccountID = [P].[EmployerAccountID]
-  --First Payment
+	-- Join to Accounts to get the Hashed DAS Acccount ID
+	LEFT JOIN  (SELECT DISTINCT EA.[DasAccountId], EA.AccountID
+				FROM [Data_Load].[DAS_Employer_Accounts] AS EA) AS EA ON EA.AccountID = [P].[EmployerAccountID]
+  -- First Payment
   LEFT JOIN (  SELECT [P].[EmployerAccountID]
 		    , P.ApprenticeshipId
               , MIN(CAST(P.DeliveryYear AS VARCHAR(255)) + '-'+CAST(P.DeliveryMonth AS VARCHAR(255))+'-'+CAST([P].[UpdateDateTime] AS VARCHAR(255))+'-'+P.PaymentId) AS [Min_FirstPayment]
@@ -95,6 +96,7 @@ SELECT
 												    AND C2.Max_UpdateDateTime = C.UpdateDateTime	  
 
 		  ) AS C ON C.ApprenticeshipId= P.ApprenticeshipId
-								    AND C.EmployerAccountID = P.EmployerAccountID; 
+								    AND C.EmployerAccountID = P.EmployerAccountID;
+GO
 
-GO 
+

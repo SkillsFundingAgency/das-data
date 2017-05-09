@@ -68,7 +68,8 @@ AS
 			 WHEN [AgreementStatus] = 'ProviderAgreed' THEN 3
 			 WHEN  [AgreementStatus] = 'BothAgreed'	   THEN 4
 	   		 ELSE 9 END AS [AgreementStatus_SortOrder]
-     FROM
+	  , EAA.AccountName AS DASAccountName
+	FROM
         Data_Load.DAS_Commitments AS C
     -- To get latest record
         LEFT JOIN
@@ -87,25 +88,74 @@ AS
 	LEFT JOIN  (SELECT DISTINCT EA.[DasAccountId], EA.AccountID
 				FROM [Data_Load].[DAS_Employer_Accounts] AS EA) AS EA ON EA.AccountID = [C].[EmployerAccountID]
 	---- Join Legal Entity to get Legal_Entity_ID
-	LEFT JOIN (SELECT 
-				    DISTINCT
-						  DasAccountId
-						, [LegalEntityNumber]
-						,[LegalEntityName]
-						,REPLACE([LegalEntitySource],' ','') AS [LegalEntitySource] 
-						,[DasLegalEntityId]
-			 FROM 
-				Data_Pub.DAS_Employer_LegalEntities 
-			 WHERE Flag_latest = 1) AS ELE ON C.LegalEntityOrganisationType = ELE.[LegalEntitySource]
-												AND  C.[LegalEntityCode] = ELE.[LegalEntityNumber]
-												AND C.[LegalEntityName] = ELE.LegalEntityName 
-												AND EA.DasAccountId = ELE.DasAccountId
+    LEFT JOIN (SELECT 
+    			    DISTINCT
+    					  ELE.DasAccountId
+    					, ELE.[LegalEntityNumber]
+    					, ELE.[LegalEntityName]
+    					,REPLACE(ELE.[LegalEntitySource],' ','') AS [LegalEntitySource] 
+    					,ELE.[DasLegalEntityId]
+    		 FROM 
+    			Data_Pub.DAS_Employer_LegalEntities AS ELE
+    		 INNER JOIN  (
+			SELECT		
+						ELE.[DasAccountId]
+					,	ELE.[DasLegalEntityId]
+					,	MAX(ELE.[UpdateDateTime]) AS Max_UpdatedDateTime
+					,	1 AS Flag_Latest 
+			FROM [Data_Load].[DAS_Employer_LegalEntities] AS ELE
+			GROUP BY 
+						ELE.[DasAccountId]
+					,	ELE.[DasLegalEntityId]
+			) AS LELE ON ELE.DasAccountId = LELE.DasAccountId
+					AND ELE.DasLegalEntityId = LELE.DasLegalEntityId
+					AND ELE.[UpdateDateTime] = LELE.Max_UpdatedDateTime) AS ELE ON C.LegalEntityOrganisationType = ELE.[LegalEntitySource]
+    											AND  C.[LegalEntityCode] = ELE.[LegalEntityNumber]
+    											AND C.[LegalEntityName] = ELE.LegalEntityName 
+    											AND EA.DasAccountId = ELE.DasAccountId
 												
-	LEFT JOIN (SELECT P.CommitmentId
-				    , SUM(P.Amount) AS TotalAmount
-		      FROM Data_pub.DAS_Payments AS P 
-			 WHERE P.Flag_latest = 1
-			 GROUP BY P.CommitmentId) AS PP ON C.ApprenticeshipID = PP.CommitmentID
-	;
+    LEFT JOIN (SELECT P.ApprenticeshipId AS CommitmentId
+    			    , SUM(P.Amount) AS TotalAmount
+    	      FROM Data_Load.DAS_Payments AS P 
+		 INNER JOIN  
+   --Looking to get the max Collection information for the delivery Period, Commitment ID and Employer Account ID
+        (
+         SELECT [P].[EmployerAccountID]
+		    , P.ApprenticeshipId 
+		    , P.DeliveryMonth
+		    , P.DeliveryYear
+              , MAX(CAST(P.CollectionYear AS VARCHAR(255)) + '-'+CAST(P.CollectionMonth AS VARCHAR(255))) AS [Max_CollectionPeriod]
+		    , 1 AS [Flag_Latest]
+         FROM
+            [Data_Load].[DAS_Payments] AS P
+	    GROUP BY 
+			 P.EmployerAccountID
+		    , P.ApprenticeshipId
+		    , P.DeliveryMonth
+		    , P.DeliveryYear
+     ) AS LP ON LP.EmployerAccountID = P.EmployerAccountID
+			 AND LP.ApprenticeshipId = P.ApprenticeshipId
+			 AND LP.DeliveryMonth = P.DeliveryMonth
+			 AND LP.DeliveryYear = P.DeliveryYear
+			 AND LP.Max_CollectionPeriod = (CAST(P.CollectionYear AS VARCHAR(255)) + '-'+CAST(P.CollectionMonth AS VARCHAR(255)))
+    		 GROUP BY P.ApprenticeshipId) AS PP ON C.ApprenticeshipID = PP.CommitmentID
+    -- DAS Account Name
+    LEFT JOIN (SELECT 
+				A.DASAccountID
+				,A.AccountID
+				,A.AccountName
+			 FROM [Data_Load].[DAS_Employer_Accounts] AS A
 
+			 INNER JOIN (
+						 SELECT		
+									 EA.[DasAccountId]
+								 ,	MAX(EA.[UpdateDateTime]) AS Max_UpdatedDateTime
+								 ,	1 AS Flag_Latest 
+						 FROM [Data_Load].[DAS_Employer_Accounts] AS EA
+						 GROUP BY 
+						EA.[DasAccountId]
+			) AS LEA ON A.DasAccountId = LEA.DasAccountId 
+					AND lea.Max_UpdatedDateTime = A.[UpdateDateTime]) AS EAA ON EAA.AccountID = [C].[EmployerAccountID]
+	
+	;
 GO
