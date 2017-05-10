@@ -14,7 +14,7 @@
 	[EmployerAccountVersion]	NVARCHAR(50) NOT NULL,
 	[ApprenticeshipVersion]	NVARCHAR(50) NOT NULL,
 	[FundingSource]	NVARCHAR(25) NOT NULL,
-	[TransactionType]	NVARCHAR(25) NOT NULL,
+	[TransactionType]	NVARCHAR(50) NOT NULL,
 	[Amount]	DECIMAL NOT NULL,
 	[StandardCode]	BIGINT NULL,
 	[FrameworkCode]	INT NULL,
