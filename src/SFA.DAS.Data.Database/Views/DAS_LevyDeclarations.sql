@@ -29,6 +29,11 @@ SELECT LD.[Id]
 	-- Flag to say if latest record from subquery, Using Coalesce to set null value to 0
 
 	, COALESCE(LLD.Flag_Latest,0) AS Flag_Latest 
+     , DATENAME(month,DATEFROMPARTS(CASE WHEN LD.[PayrollMonth] Between 10 and 12 then '20'+ CAST(RIGHT(LD.[PayrollYear],2) AS VARCHAR(255))
+								    ELSE '20'+CAST(LEFT(LD.[PayrollYear],2) AS VARCHAR(255)) END  ,CASE WHEN LD.[PayrollMonth] Between 10 and 12 THEN LD.[PayrollMonth]- 9
+											ELSE LD.[PayrollMonth] +3 END ,1)) +' - ' + CASE WHEN LD.[PayrollMonth] Between 10 and 12 then '20'+ CAST(RIGHT(LD.[PayrollYear],2) AS VARCHAR(255))
+																		  ELSE '20'+ CAST(LEFT(LD.[PayrollYear],2) AS VARCHAR(255))END AS PayrollMonthNameYear
+
   FROM [Data_Load].[DAS_LevyDeclarations] AS LD
  -- -- Adding flag to say latest record for Account ID
 	LEFT JOIN (
