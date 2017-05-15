@@ -12,7 +12,7 @@
 	@EmployerAccountVersion NVARCHAR(50),
 	@ApprenticeshipVersion NVARCHAR(50),
 	@FundingSource NVARCHAR(25),
-	@TransactionType NVARCHAR(25),
+	@TransactionType NVARCHAR(50),
 	@Amount DECIMAL,
 	@StandardCode BIGINT = NULL,
 	@FrameworkCode INT = NULL,
