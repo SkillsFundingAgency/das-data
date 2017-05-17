@@ -72,6 +72,14 @@ AS
                 WHEN [AgreementStatus] = 'BothAgreed'     THEN 4
                 ELSE 9
             END AS [AgreementStatus_SortOrder]
+          , CASE
+                WHEN [PaymentStatus] = 'PendingApproval' THEN 1
+                WHEN [PaymentStatus] = 'Active'          THEN 2
+                WHEN [PaymentStatus] = 'Paused'          THEN 3
+                WHEN [PaymentStatus] = 'Withdrawn'       THEN 4
+                WHEN [PaymentStatus] = 'Deleted'         THEN 5
+                ELSE 9
+            END AS [PaymentStatus_SortOrder]
           , EAA.AccountName AS DASAccountName
   FROM
         Data_Load.DAS_Commitments AS C
