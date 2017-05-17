@@ -24,6 +24,8 @@ namespace SFA.DAS.Data.Tests.Builders
         private int _levyDeclarationId = 43256;
         private decimal _levyAllowanceForYear = 32478.1m;
         private decimal _topupAmount = 435.4m;
+        private int _levyDeclaredInMonth = 3245;
+        private int _totalAmount = 495;
 
         public LevyDeclarationViewModelBuilder WithDasAccountId(string dasAccountId)
         {
@@ -53,7 +55,9 @@ namespace SFA.DAS.Data.Tests.Builders
                 LevyDueYtd = _levyDueYearToDate,
                 Id = _levyDeclarationId,
                 LevyAllowanceForYear = _levyAllowanceForYear,
-                TopUp = _topupAmount
+                TopUp = _topupAmount,
+                LevyDeclaredInMonth = _levyDeclaredInMonth,
+                TotalAmount = _totalAmount
             };
         }
     }
