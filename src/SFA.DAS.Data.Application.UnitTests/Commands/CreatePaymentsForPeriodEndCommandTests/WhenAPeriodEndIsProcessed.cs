@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
@@ -43,12 +44,7 @@ namespace SFA.DAS.Data.Application.UnitTests.Commands.CreatePaymentsForPeriodEnd
 
             await _handler.Handle(_command);
 
-            _paymentRepository.Verify(x => x.SavePayment(It.IsAny<Payment>()), Times.Exactly(3));
-
-            foreach (var payment in payments.Items)
-            {
-                _paymentRepository.Verify(x => x.SavePayment(payment), Times.Once);
-            }
+            _paymentRepository.Verify(x => x.SavePayments(payments.Items), Times.Once());
         }
 
         [Test]
@@ -78,22 +74,11 @@ namespace SFA.DAS.Data.Application.UnitTests.Commands.CreatePaymentsForPeriodEnd
 
             await _handler.Handle(_command);
 
-            _paymentRepository.Verify(x => x.SavePayment(It.IsAny<Payment>()), Times.Exactly(8));
+            _paymentRepository.Verify(x => x.SavePayments(It.IsAny<IEnumerable<Payment>>()), Times.Exactly(3));
 
-            foreach (var payment in paymentsPage1.Items)
-            {
-                _paymentRepository.Verify(x => x.SavePayment(payment), Times.Once);
-            }
-
-            foreach (var payment in paymentsPage2.Items)
-            {
-                _paymentRepository.Verify(x => x.SavePayment(payment), Times.Once);
-            }
-
-            foreach (var payment in paymentsPage3.Items)
-            {
-                _paymentRepository.Verify(x => x.SavePayment(payment), Times.Once);
-            }
+            _paymentRepository.Verify(x => x.SavePayments(paymentsPage1.Items), Times.Once);
+            _paymentRepository.Verify(x => x.SavePayments(paymentsPage2.Items), Times.Once);
+            _paymentRepository.Verify(x => x.SavePayments(paymentsPage3.Items), Times.Once);
         }
 
         [Test]
@@ -120,11 +105,11 @@ namespace SFA.DAS.Data.Application.UnitTests.Commands.CreatePaymentsForPeriodEnd
                 Items = new[] { new Payment(), failingPayment, new Payment() }
             };
             _providerEventService.Setup(x => x.GetPayments(_command.PeriodEndId, 1)).ReturnsAsync(payments);
-            _paymentRepository.Setup(x => x.SavePayment(failingPayment)).Throws(expectedException);
+            _paymentRepository.Setup(x => x.SavePayments(payments.Items)).Throws(expectedException);
 
             Assert.ThrowsAsync<Exception>(() => _handler.Handle(_command));
 
-            _logger.Verify(x => x.Error(expectedException, $"Exception thrown saving payment {failingPayment.Id} for period end {_command.PeriodEndId}"));
+            _logger.Verify(x => x.Error(expectedException, $"Exception thrown saving payments for period end {_command.PeriodEndId}"));
         }
     }
 }

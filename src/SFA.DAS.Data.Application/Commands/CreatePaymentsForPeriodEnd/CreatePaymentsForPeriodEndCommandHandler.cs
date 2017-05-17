@@ -60,19 +60,13 @@ namespace SFA.DAS.Data.Application.Commands.CreatePaymentsForPeriodEnd
 
         private async Task SavePayments(PageOfResults<Payment> payments, string periodEndId)
         {
-            var tasks = payments.Items.Select(x => SavePayment(x, periodEndId));
-            await Task.WhenAll(tasks);
-        }
-
-        private Task SavePayment(Payment payment, string periodEndId)
-        {
             try
             {
-                return _paymentRepository.SavePayment(payment);
+                await _paymentRepository.SavePayments(payments.Items);
             }
             catch (Exception ex)
             {
-                _logger.Error(ex, $"Exception thrown saving payment {payment.Id} for period end {periodEndId}");
+                _logger.Error(ex, $"Exception thrown saving payments for period end {periodEndId}");
                 throw;
             }
         }
