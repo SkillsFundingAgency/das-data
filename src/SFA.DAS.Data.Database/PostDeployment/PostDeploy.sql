@@ -10,3 +10,5 @@ BEGIN
 	GRANT SELECT ON [Data_Pub].[DAS_Employer_PayeSchemes] TO ViewSpecificReadOnly
 	GRANT SELECT ON [Data_Pub].[DAS_Commitments] TO ViewSpecificReadOnly
 END
+
+Exec Data_Load.UpdateCalendarMonth
