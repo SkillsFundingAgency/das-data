@@ -17,7 +17,9 @@
     @HmrcSubmissionId BIGINT,
     @EnglishFraction DECIMAL,
     @TopupPercentage DECIMAL,
-	@TopupAmount DECIMAL
+	@TopupAmount DECIMAL,
+	@LevyDeclaredInMonth DECIMAL = NULL,
+	@LevyAvailableInMonth DECIMAL = NULL
 AS
 	INSERT INTO [Data_Load].DAS_LevyDeclarations
 	(
@@ -39,7 +41,9 @@ AS
 		[HmrcSubmissionId],
 		[EnglishFraction],
 		[TopupPercentage],
-		[TopupAmount]
+		[TopupAmount],
+		[LevyDeclaredInMonth],
+		[LevyAvailableInMonth]
 	)
 	VALUES
 	(
@@ -61,5 +65,7 @@ AS
 		@HmrcSubmissionId,
 		@EnglishFraction,
 		@TopupPercentage,
-		@TopupAmount
+		@TopupAmount,
+		@LevyDeclaredInMonth,
+		@LevyAvailableInMonth
 	)

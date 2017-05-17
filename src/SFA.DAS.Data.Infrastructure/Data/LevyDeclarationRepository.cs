@@ -36,6 +36,8 @@ namespace SFA.DAS.Data.Infrastructure.Data
                 parameters.Add("@EnglishFraction", levyDeclaration.EnglishFraction, DbType.Decimal);
                 parameters.Add("@TopupPercentage", levyDeclaration.TopUpPercentage, DbType.Decimal);
                 parameters.Add("@TopupAmount", levyDeclaration.TopUp, DbType.Decimal);
+                parameters.Add("@LevyDeclaredInMonth", levyDeclaration.LevyDeclaredInMonth, DbType.Decimal);
+                parameters.Add("@LevyAvailableInMonth", levyDeclaration.TotalAmount, DbType.Decimal);
 
                 return await c.ExecuteAsync(
                     sql: "[Data_Load].[SaveLevyDeclaration]",

@@ -21,4 +21,6 @@
     [TopupPercentage] DECIMAL NOT NULL,
 	[TopupAmount] DECIMAL NOT NULL,
 	[UpdateDateTime] DATETIME NOT NULL DEFAULT (GETDATE()), 
+    [LevyDeclaredInMonth] DECIMAL NULL, 
+    [LevyAvailableInMonth] DECIMAL NULL, 
 )
