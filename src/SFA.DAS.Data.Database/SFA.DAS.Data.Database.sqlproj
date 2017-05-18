@@ -94,7 +94,7 @@
     <Build Include="StoredProcedures\SavePayment.sql" />
     <Build Include="Tables\DAS_LevyDeclarations.sql" />
     <Build Include="StoredProcedures\SaveLevyDeclaration.sql" />
-    <Build Include="Views\DAs_Payments.sql" />
+    <Build Include="Views\DAS_Payments.sql" />
     <Build Include="Schemas\Reporting.sql" />
     <Build Include="Views\PaymentsOverview.sql" />
     <Build Include="Views\DAS_LevyDeclarations.sql" />
