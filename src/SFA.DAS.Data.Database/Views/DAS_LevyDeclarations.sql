@@ -7,8 +7,6 @@ SELECT LD.[Id]
       ,HASHBYTES('SHA2_512',RTRIM(LTRIM(CAST(LD.[PayeSchemeReference] AS VARCHAR(20))))) AS PAYEReference
       ,LD.[LevyDueYearToDate]
       ,LD.[LevyAllowanceForYear]
-      ,LD.[LevyDeclaredInMonth]
-      ,LD.[LevyAvailableInMonth]
       ,LD.[SubmissionDate] AS SubmissionDateTime
       ,CAST(LD.[SubmissionDate] AS DATE) AS SubmissionDate
       ,LD.[SubmissionId] AS SubmissionID
