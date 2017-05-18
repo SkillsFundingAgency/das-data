@@ -47,17 +47,27 @@ AS
           , CAST(COALESCE(ELE.[DasLegalEntityId],-1) AS BIGINT) AS [DasLegalEntityId]
           , CAST(C.DateOfBirth AS DATE) AS DateOfBirth
           , CASE
-                WHEN C.DateOfBirth IS NULL THEN -1
-                WHEN DATEPART(M,C.DateOfBirth) > DATEPART(M,C.TrainingStartDate) OR (DATEPART(M,C.DateOfBirth) = DATEPART(M,C.TrainingStartDate) AND DATEPART(DD,C.DateOfBirth) > DATEPART(DD,C.TrainingStartDate)) THEN DATEDIFF(YEAR,C.DateOfBirth,C.TrainingStartDate) -1
-                ELSE DATEDIFF(YEAR,C.DateOfBirth,C.TrainingStartDate)
-            END AS CommitmentAgeAtStart
+                WHEN [C].[DateOfBirth] IS NULL
+                THEN-1
+                WHEN DATEPART([M], [C].[DateOfBirth]) > DATEPART([M], [C].[TrainingStartDate])
+                     OR DATEPART([M], [C].[DateOfBirth]) = DATEPART([M], [C].[TrainingStartDate])
+                        AND DATEPART([DD], [C].[DateOfBirth]) > DATEPART([DD], [C].[TrainingStartDate])
+                THEN DATEDIFF(YEAR, [C].[DateOfBirth], [C].[TrainingStartDate]) - 1
+                ELSE DATEDIFF(YEAR, [C].[DateOfBirth], [C].[TrainingStartDate])
+            END AS [CommitmentAgeAtStart]
           , CASE
-                WHEN CASE WHEN C.DateOfBirth IS NULL THEN -1
-                WHEN DATEPART(M,C.DateOfBirth) > DATEPART(M,C.TrainingStartDate) OR (DATEPART(M,C.DateOfBirth) = DATEPART(M,C.TrainingStartDate) AND DATEPART(DD,C.DateOfBirth) > DATEPART(DD,C.TrainingStartDate)) THEN DATEDIFF(YEAR,C.DateOfBirth,C.TrainingStartDate) -1
-                ELSE DATEDIFF(YEAR,C.DateOfBirth,C.TrainingStartDate)
-                END BETWEEN 0 AND 18 THEN '16-18'
+                WHEN CASE
+                         WHEN [C].[DateOfBirth] IS NULL
+                         THEN-1
+                         WHEN DATEPART([M], [C].[DateOfBirth]) > DATEPART([M], [C].[TrainingStartDate])
+                              OR DATEPART([M], [C].[DateOfBirth]) = DATEPART([M], [C].[TrainingStartDate])
+                                 AND DATEPART([DD], [C].[DateOfBirth]) > DATEPART([DD], [C].[TrainingStartDate])
+                         THEN DATEDIFF(YEAR, [C].[DateOfBirth], [C].[TrainingStartDate]) - 1
+                         ELSE DATEDIFF(YEAR, [C].[DateOfBirth], [C].[TrainingStartDate])
+                     END BETWEEN 0 AND 18
+                THEN '16-18'
                 ELSE '19+'
-            END AS CommitmentAgeAtStartBand
+            END AS [CommitmentAgeAtStartBand]
           , CASE WHEN PP.TotalAmount > 0  THEN 'Yes' ELSE 'No' END AS RealisedCommitment
         --, CASE WHEN C.AgreementStatus = 'BothAgreed' THEN 'Yes'
         --  ELSE 'No'END AS FullyAgreedCommitment
