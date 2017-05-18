@@ -69,8 +69,7 @@ AS
                 ELSE '19+'
             END AS [CommitmentAgeAtStartBand]
           , CASE WHEN PP.TotalAmount > 0  THEN 'Yes' ELSE 'No' END AS RealisedCommitment
-        --, CASE WHEN C.AgreementStatus = 'BothAgreed' THEN 'Yes'
-        --  ELSE 'No'END AS FullyAgreedCommitment
+
           , CASE WHEN [C].[TrainingStartDate] BETWEEN DATEADD(mm, DATEDIFF(mm, 0, GETDATE()), 0) AND DATEADD (dd, -1, DATEADD(mm, DATEDIFF(mm, 0, GETDATE()) + 1, 0)) THEN 'Yes'
             ELSE 'No' END AS StartDateInCurrentMonth
        -- , DATEADD(mm, DATEDIFF(mm, 0, GETDATE()), 0) AS [Start day of current month]
@@ -87,10 +86,13 @@ AS
                 WHEN [PaymentStatus] = 'Active'          THEN 2
                 WHEN [PaymentStatus] = 'Paused'          THEN 3
                 WHEN [PaymentStatus] = 'Withdrawn'       THEN 4
-                WHEN [PaymentStatus] = 'Deleted'         THEN 5
+                WHEN [PaymentStatus] = 'Completed'       THEN 5
+                WHEN [PaymentStatus] = 'Deleted'         THEN 6
                 ELSE 9
             END AS [PaymentStatus_SortOrder]
           , EAA.AccountName AS DASAccountName
+          , CASE WHEN C.AgreementStatus = 'BothAgreed' THEN 'Yes'
+                 ELSE 'No' END AS FullyAgreedCommitment
   FROM
         Data_Load.DAS_Commitments AS C
     -- To get latest record
