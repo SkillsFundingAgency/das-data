@@ -39,6 +39,7 @@ SELECT
                       ELSE DATEDIFF(YEAR,C.DateOfBirth, P.[UpdateDateTime])
                    END BETWEEN 0 AND 18 THEN '16-18'
 			    ELSE '19+' END AS PaymentAgeBand
+     , CM.CalendarMonthShortNameYear AS DeliveryMonthShortNameYear
   FROM [Data_Load].[DAS_Payments] AS P
    LEFT JOIN
    --Looking to get the max Collection information for the delivery Period, Commitment ID and Employer Account ID
@@ -96,7 +97,7 @@ SELECT
 												    AND C2.Max_UpdateDateTime = C.UpdateDateTime	  
 
 		  ) AS C ON C.ApprenticeshipId= P.ApprenticeshipId
-								    AND C.EmployerAccountID = P.EmployerAccountID;
+								    AND C.EmployerAccountID = P.EmployerAccountID
+           INNER JOIN Data_Load.DAS_CalendarMonth  AS CM ON CM.CalendarMonthNumber = P.DeliveryMonth
+                                                                                     AND CM.CalendarYear = P.DeliveryYear;
 GO
-
-
