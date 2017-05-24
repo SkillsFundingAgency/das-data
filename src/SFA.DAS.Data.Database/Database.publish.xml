@@ -6,5 +6,6 @@
     <DeployScriptFileName>SFA.DAS.Data.Database.sql</DeployScriptFileName>
     <ProfileVersionNumber>1</ProfileVersionNumber>
     <TargetConnectionString>Data Source=[DBServer];Persist Security Info=True;User ID=[DBUser];Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True</TargetConnectionString>
+    <BlockOnPossibleDataLoss>False</BlockOnPossibleDataLoss>
   </PropertyGroup>
 </Project>
