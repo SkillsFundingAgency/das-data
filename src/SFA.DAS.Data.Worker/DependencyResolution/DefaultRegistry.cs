@@ -23,6 +23,7 @@ using SFA.DAS.Events.Api.Types;
 using SFA.DAS.NLog.Logger;
 using SFA.DAS.Provider.Events.Api.Client;
 using SFA.DAS.Provider.Events.Api.Types;
+using SFA.Roatp.Api.Client;
 using StructureMap;
 using StructureMap.TypeRules;
 
@@ -108,6 +109,7 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             For<IEventsApi>().Use(new EventsApi(config.EventsApi));
             For<IPaymentsEventsApiClient>().Use(new PaymentsEventsApiClient(config.PaymentsEvents));
             For<IAccountApiClient>().Use<AccountApiClient>().Ctor<IAccountApiConfiguration>().Is(config.AccountsApi);
+            For<IRoatpClient>().Use<RoatpApiClient>();
         }
 
         private void RegisterRepositories(string connectionString)

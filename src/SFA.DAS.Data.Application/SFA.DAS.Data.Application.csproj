@@ -86,6 +86,10 @@
       <HintPath>..\packages\SFA.DAS.Provider.Events.Api.Client.2.0.0.27426\lib\net45\SFA.DAS.Provider.Events.Api.Types.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SFA.Roatp.Api.Client, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.Roatp.Api.Client.0.1.68\lib\net45\SFA.Roatp.Api.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="SFA.Roatp.Api.Types, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.Roatp.Api.Types.0.1.68\lib\net45\SFA.Roatp.Api.Types.dll</HintPath>
       <Private>True</Private>
@@ -101,6 +105,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\AddRoatpProvider\AddRoatpProviderCommand.cs" />
+    <Compile Include="Commands\AddRoatpProvider\AddRoatpProviderCommandHandler.cs" />
     <Compile Include="Commands\CreateCommitmentApprenticeshipEntry\CreateCommitmentApprenticeshipEntryCommand.cs" />
     <Compile Include="Commands\CreateCommitmentApprenticeshipEntry\CreateCommitmentApprenticeshipEntryCommandHandler.cs" />
     <Compile Include="Commands\CreateCommitmentApprenticeshipEntry\CreateCommitmentApprenticeshipEntryResponse.cs" />
@@ -122,7 +128,9 @@
     <Compile Include="Configuration\EventsApiClientConfiguration.cs" />
     <Compile Include="Configuration\IDataConfiguration.cs" />
     <Compile Include="Gateways\AccountGateway.cs" />
+    <Compile Include="Gateways\RoatpGateway.cs" />
     <Compile Include="Interfaces\Gateways\IAccountGateway.cs" />
+    <Compile Include="Interfaces\Gateways\IRoatpGateway.cs" />
     <Compile Include="Interfaces\IProviderEventService.cs" />
     <Compile Include="Interfaces\IEventService.cs" />
     <Compile Include="Interfaces\Repositories\IApprenticeshipRepository.cs" />
