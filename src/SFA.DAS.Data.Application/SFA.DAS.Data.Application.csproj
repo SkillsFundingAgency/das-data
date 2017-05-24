@@ -82,6 +82,10 @@
       <HintPath>..\packages\SFA.DAS.Provider.Events.Api.Client.2.0.0.27426\lib\net45\SFA.DAS.Provider.Events.Api.Types.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SFA.Roatp.Api.Types, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.Roatp.Api.Types.0.1.68\lib\net45\SFA.Roatp.Api.Types.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Transactions" />
@@ -124,6 +128,7 @@
     <Compile Include="Interfaces\Repositories\IEventRepository.cs" />
     <Compile Include="Interfaces\Repositories\IAccountRepository.cs" />
     <Compile Include="Interfaces\Repositories\IPaymentRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IRoatpRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
