@@ -109,6 +109,8 @@
     <Build Include="StoredProcedures\SaveRoatp.sql" />
     <Build Include="StoredProcedures\SaveProvider.sql" />
     <Build Include="StoredProcedures\SaveProviderAddress.sql" />
+    <Build Include="Tables\DAS_ProviderAlias.sql" />
+    <Build Include="StoredProcedures\SaveProviderAlias.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SFA.DAS.Data.Database.refactorlog" />
