@@ -2,24 +2,24 @@
 	@DasAccountId NVARCHAR(100),
     @LevyDeclarationId BIGINT,
     @PayeSchemeReference NVARCHAR(20),
-	@LevyDueYearToDate DECIMAL = NULL,
-    @LevyAllowanceForYear DECIMAL = NULL,
+	@LevyDueYearToDate DECIMAL(18,5) = NULL,
+    @LevyAllowanceForYear DECIMAL(18,5) = NULL,
 	@SubmissionDate DATETIME = NULL,
     @SubmissionId BIGINT,
     @PayrollYear NVARCHAR(10),
     @PayrollMonth TINYINT,
     @CreatedDate DATETIME,
     @EndOfYearAdjustment BIT,
-    @EndOfYearAdjustmentAmount DECIMAL = NULL,
+    @EndOfYearAdjustmentAmount DECIMAL(18,5) = NULL,
     @DateCeased DATETIME = NULL,
 	@InactiveFrom DATETIME = NULL,
     @InactiveTo DATETIME = NULL,
     @HmrcSubmissionId BIGINT,
-    @EnglishFraction DECIMAL,
-    @TopupPercentage DECIMAL,
-	@TopupAmount DECIMAL,
-	@LevyDeclaredInMonth DECIMAL = NULL,
-	@LevyAvailableInMonth DECIMAL = NULL
+    @EnglishFraction DECIMAL(18,5),
+    @TopupPercentage DECIMAL(18,5),
+	@TopupAmount DECIMAL(18,5),
+	@LevyDeclaredInMonth DECIMAL(18,5) = NULL,
+	@LevyAvailableInMonth DECIMAL(18,5) = NULL
 AS
 	INSERT INTO [Data_Load].DAS_LevyDeclarations
 	(

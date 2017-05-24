@@ -13,7 +13,7 @@
 	@ApprenticeshipVersion NVARCHAR(50),
 	@FundingSource NVARCHAR(25),
 	@TransactionType NVARCHAR(50),
-	@Amount DECIMAL,
+	@Amount DECIMAL(18,5),
 	@StandardCode BIGINT = NULL,
 	@FrameworkCode INT = NULL,
 	@ProgrammeType INT = NULL,

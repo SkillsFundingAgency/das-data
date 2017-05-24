@@ -15,7 +15,7 @@
 	[ApprenticeshipVersion]	NVARCHAR(50) NULL,
 	[FundingSource]	NVARCHAR(25) NULL,
 	[TransactionType]	NVARCHAR(50) NULL,
-	[Amount]	DECIMAL NULL,
+	[Amount]	DECIMAL(18, 5) NULL,
 	[StandardCode]	BIGINT NULL,
 	[FrameworkCode]	INT NULL,
 	[ProgrammeType]	INT NULL,
