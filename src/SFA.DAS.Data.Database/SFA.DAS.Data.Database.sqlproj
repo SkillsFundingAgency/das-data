@@ -114,6 +114,9 @@
     <Build Include="Tables\DAS_Standard_JobRoles.sql" />
     <Build Include="Tables\DAS_Standard_Keywords.sql" />
     <Build Include="Tables\DAS_Standards.sql" />
+    <Build Include="StoredProcedures\SaveStandard.sql" />
+    <Build Include="StoredProcedures\SaveStandardJobRole.sql" />
+    <Build Include="StoredProcedures\SaveStandardKeyword.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SFA.DAS.Data.Database.refactorlog" />

@@ -1,6 +1,7 @@
-﻿CREATE TABLE [Data_Load].[DAS_Standard_Keyword]
+﻿CREATE TABLE [Data_Load].[DAS_Standard_Keywords]
 (
 	[Id] BIGINT IDENTITY NOT NULL PRIMARY KEY,
+	[StandardId] NVARCHAR(255) NOT NULL,
 	[Keyword] NVARCHAR(255) NOT NULL,
 	[UpdateDateTime] DATETIME NOT NULL DEFAULT (GETDATE())
 )
