@@ -134,6 +134,7 @@
     <Compile Include="Interfaces\IProviderEventService.cs" />
     <Compile Include="Interfaces\IEventService.cs" />
     <Compile Include="Interfaces\Repositories\IApprenticeshipRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IStandardRepository.cs" />
     <Compile Include="Interfaces\Repositories\ILevyDeclarationRepository.cs" />
     <Compile Include="Interfaces\Repositories\IPayeSchemeRepository.cs" />
     <Compile Include="Interfaces\Repositories\ILegalEntityRepository.cs" />
