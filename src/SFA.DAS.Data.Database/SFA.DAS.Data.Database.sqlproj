@@ -111,6 +111,9 @@
     <Build Include="StoredProcedures\SaveProviderAddress.sql" />
     <Build Include="Tables\DAS_ProviderAlias.sql" />
     <Build Include="StoredProcedures\SaveProviderAlias.sql" />
+    <Build Include="Tables\DAS_Standard_JobRoles.sql" />
+    <Build Include="Tables\DAS_Standard_Keywords.sql" />
+    <Build Include="Tables\DAS_Standards.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SFA.DAS.Data.Database.refactorlog" />
