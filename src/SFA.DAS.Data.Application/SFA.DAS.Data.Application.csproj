@@ -109,6 +109,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\AddStandard\AddStandardCommand.cs" />
+    <Compile Include="Commands\AddStandard\AddStandardCommandHandler.cs" />
     <Compile Include="Commands\AddRoatpProvider\AddRoatpProviderCommand.cs" />
     <Compile Include="Commands\AddRoatpProvider\AddRoatpProviderCommandHandler.cs" />
     <Compile Include="Commands\CreateCommitmentApprenticeshipEntry\CreateCommitmentApprenticeshipEntryCommand.cs" />
