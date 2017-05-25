@@ -54,6 +54,10 @@
       <HintPath>..\packages\NLog.4.3.7\lib\net45\NLog.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SFA.DAS.Apprenticeships.Api.Client, Version=0.10.48.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Apprenticeships.Api.Client.0.10.48\lib\net45\SFA.DAS.Apprenticeships.Api.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="SFA.DAS.Apprenticeships.Api.Types, Version=0.10.62.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.Apprenticeships.Api.Types.0.10.62\lib\net45\SFA.DAS.Apprenticeships.Api.Types.dll</HintPath>
       <Private>True</Private>
@@ -129,8 +133,10 @@
     <Compile Include="Configuration\IDataConfiguration.cs" />
     <Compile Include="Gateways\AccountGateway.cs" />
     <Compile Include="Gateways\RoatpGateway.cs" />
+    <Compile Include="Gateways\StandardGateway.cs" />
     <Compile Include="Interfaces\Gateways\IAccountGateway.cs" />
     <Compile Include="Interfaces\Gateways\IRoatpGateway.cs" />
+    <Compile Include="Interfaces\Gateways\IStandardGateway.cs" />
     <Compile Include="Interfaces\IProviderEventService.cs" />
     <Compile Include="Interfaces\IEventService.cs" />
     <Compile Include="Interfaces\Repositories\IApprenticeshipRepository.cs" />

@@ -70,6 +70,14 @@
       <HintPath>..\packages\NUnit.3.6.1\lib\net45\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SFA.DAS.Apprenticeships.Api.Client, Version=0.10.48.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Apprenticeships.Api.Client.0.10.48\lib\net45\SFA.DAS.Apprenticeships.Api.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SFA.DAS.Apprenticeships.Api.Types, Version=0.10.48.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Apprenticeships.Api.Types.0.10.48\lib\net45\SFA.DAS.Apprenticeships.Api.Types.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="SFA.DAS.EAS.Account.Api.Client, Version=1.0.0.30620, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.Account.Api.Client.1.0.0.30620\lib\net45\SFA.DAS.EAS.Account.Api.Client.dll</HintPath>
       <Private>True</Private>
@@ -122,6 +130,7 @@
     <Compile Include="Gateways\AccountGatewayTests\WhenALegalEntityIsRequested.cs" />
     <Compile Include="Gateways\AccountGatewayTests\WhenAccountDetailsAreRequested.cs" />
     <Compile Include="Gateways\RoatpGatewayTests\WhenProviderDetailsAreRequested.cs" />
+    <Compile Include="Gateways\StandardGatewayTests\WhenStandardDetailsAreRequested.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

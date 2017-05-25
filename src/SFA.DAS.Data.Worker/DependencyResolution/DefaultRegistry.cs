@@ -5,6 +5,7 @@ using System.Reflection;
 using AutoMapper;
 using MediatR;
 using Microsoft.Azure;
+using SFA.DAS.Apprenticeships.Api.Client;
 using SFA.DAS.Configuration;
 using SFA.DAS.Configuration.AzureTableStorage;
 using SFA.DAS.Data.Application.Configuration;
@@ -110,6 +111,7 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             For<IPaymentsEventsApiClient>().Use(new PaymentsEventsApiClient(config.PaymentsEvents));
             For<IAccountApiClient>().Use<AccountApiClient>().Ctor<IAccountApiConfiguration>().Is(config.AccountsApi);
             For<IRoatpClient>().Use<RoatpApiClient>();
+            For<IStandardApiClient>().Use<StandardApiClient>();
         }
 
         private void RegisterRepositories(string connectionString)
