@@ -22,9 +22,10 @@ SELECT
      , Levy.TopupPercentage
      , Levy.TopupAmount
      , Levy.updatedatetime
-	 , Levy.PayrollMonthShortNameYear
-	 , Levy.LevyDeclaredInMonth
-	 , Levy.LevyAvailableInMonth
+	, Levy.PayrollMonthShortNameYear
+	, Levy.LevyDeclaredInMonth
+	, Levy.LevyAvailableInMonth
+     , Levy.LevyDeclaredInMonth * Levy.EnglishFraction AS LevyDeclaredInMonthWithEnglishFractionApplied
 FROM
    Data_Pub.DAS_LevyDeclarations Levy
    INNER JOIN Data_pub.DAS_Employer_PayeSchemes PAYE ON PAYE.PAYEReference = Levy.PAYEReference
