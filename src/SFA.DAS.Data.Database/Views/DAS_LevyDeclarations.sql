@@ -1,6 +1,5 @@
 CREATE VIEW [Data_Pub].[DAS_LevyDeclarations]
 AS
-
 SELECT LD.[Id]
       ,LD.[DasAccountId] AS DASAccountID
       ,LD.[LevyDeclarationId] AS LevyDeclarationID
@@ -31,6 +30,7 @@ SELECT LD.[Id]
      , CM.CalendarMonthShortNameYear AS PayrollMonthShortNameYear
      , LD.LevyDeclaredInMonth
      , LD.LevyAvailableInMonth
+     , LD.LevyDeclaredInMonth * LD.EnglishFraction AS LevyDeclaredInMonthWithEnglishFractionApplied
   FROM [Data_Load].[DAS_LevyDeclarations] AS LD
  -- -- Adding flag to say latest record for Account ID after getting highest submission date using Update data time to get back one row
 	LEFT JOIN (
