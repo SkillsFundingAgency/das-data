@@ -3,7 +3,7 @@ AS
 SELECT
        [PayrollMonthShortNameYear] AS CalendarMonthShortNameYear
      , 'LevyIn' AS ValueType
-     , SUM([LevyAvailableInMonth]) AS Value
+     , SUM([LevyDeclaredInMonthWithEnglishFractionApplied]) AS Value
   FROM [Data_Pub].[DAS_LevyDeclarations]
  WHERE Flag_latest = 1
  GROUP BY
@@ -25,4 +25,5 @@ SELECT
   FROM [Data_Pub].[DAS_Payments]
  WHERE Flag_latest = 1
  GROUP BY
-       [DeliveryMonthShortNameYear]
+       [DeliveryMonthShortNameYear];
+GO
