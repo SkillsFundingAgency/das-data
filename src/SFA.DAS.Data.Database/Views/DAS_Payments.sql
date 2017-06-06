@@ -40,6 +40,7 @@ SELECT
                    END BETWEEN 0 AND 18 THEN '16-18'
 			    ELSE '19+' END AS PaymentAgeBand
      , CM.CalendarMonthShortNameYear AS DeliveryMonthShortNameYear
+     , EAA.AccountName AS DASAccountName
   FROM [Data_Load].[DAS_Payments] AS P
    LEFT JOIN
    --Looking to get the max Collection information for the delivery Period, Commitment ID and Employer Account ID
@@ -99,5 +100,23 @@ SELECT
 		  ) AS C ON C.ApprenticeshipId= P.ApprenticeshipId
 								    AND C.EmployerAccountID = P.EmployerAccountID
            INNER JOIN Data_Load.DAS_CalendarMonth  AS CM ON CM.CalendarMonthNumber = P.DeliveryMonth
-                                                                                     AND CM.CalendarYear = P.DeliveryYear;
+                                                                                     AND CM.CalendarYear = P.DeliveryYear
+           -- DAS Account Name
+           LEFT JOIN (SELECT
+                  A.DASAccountID
+                  ,A.AccountID
+                  ,A.AccountName
+                 FROM [Data_Load].[DAS_Employer_Accounts] AS A
+
+                 INNER JOIN (
+                       SELECT
+                             EA.[DasAccountId]
+                           ,	MAX(EA.[UpdateDateTime]) AS Max_UpdatedDateTime
+                           ,	1 AS Flag_Latest
+                       FROM [Data_Load].[DAS_Employer_Accounts] AS EA
+                       GROUP BY
+                      EA.[DasAccountId]
+                ) AS LEA ON A.DasAccountId = LEA.DasAccountId
+                    AND lea.Max_UpdatedDateTime = A.[UpdateDateTime]) AS EAA ON EAA.AccountID = [P].[EmployerAccountID];
+
 GO
