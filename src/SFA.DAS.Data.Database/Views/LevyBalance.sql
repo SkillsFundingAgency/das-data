@@ -2,36 +2,47 @@ CREATE VIEW Reporting.LevyBalance
        AS
        SELECT
               [PayrollMonthShortNameYear] AS CalendarMonthShortNameYear
-            , PayrollMonth
-            , Payrollyear = cast (left(Payrollyear,2) AS INT)
+            , CalendarMonthNumber
+            , CalendarYear
+            , DateSort = CalendarMonthNumber*10000 + CalendarYear
             , 'Levy funds' AS ValueType
             , SUM([LevyDeclaredInMonthWithEnglishFractionApplied]) AS Value
             , ValueTypeSort = 1
-         FROM [Data_Pub].[DAS_LevyDeclarations]
+         FROM [Data_Pub].[DAS_LevyDeclarations] Dec
+              JOIN [Data_Pub].DAS_CalendarMonth Cal
+              ON Cal.TaxMonthNumber = Dec.PayrollMonth
+              AND Cal.TaxYear = Dec.PayrollYear
         WHERE Flag_latest = 1
      GROUP BY
               [PayrollMonthShortNameYear]
-            , PayrollMonth
-            , CAST(left(Payrollyear,2) AS INT)
+            , CalendarMonthNumber
+            , CalendarYear
+            , CalendarMonthNumber*10000 + CalendarYear
 UNION ALL
        SELECT
               [PayrollMonthShortNameYear] AS CalendarMonthShortNameYear
-            , PayrollMonth
-            , Payrollyear = CAST (left(Payrollyear,2) AS INT)
+            , CalendarMonthNumber
+            , CalendarYear
+            , DateSort = CalendarMonthNumber*10000 + CalendarYear
             , 'Levy top-up funds' AS ValueType
             , SUM([TopupAmount]) AS Value
             , ValueTypeSort = 2
-         FROM [Data_Pub].[DAS_LevyDeclarations]
+         FROM [Data_Pub].[DAS_LevyDeclarations] Dec
+              JOIN [Data_Pub].DAS_CalendarMonth Cal
+              ON Cal.TaxMonthNumber = Dec.PayrollMonth
+              AND Cal.TaxYear = Dec.PayrollYear
         WHERE Flag_latest = 1
      GROUP BY
               [PayrollMonthShortNameYear]
-            , PayrollMonth
-            , CAST(left(Payrollyear,2) AS INT)
+            , CalendarMonthNumber
+            , CalendarYear
+            , CalendarMonthNumber*10000 + CalendarYear
 UNION ALL
        SELECT
               [DeliveryMonthShortNameYear] AS CalendarMonthShortNameYear
             , DeliveryMonth
-            , DeliveryYear =CAST(Right(DeliveryYear,2)AS INT)
+            , DeliveryYear
+            , DateSort = DeliveryMonth*10000 + DeliveryYear
             , 'Levy Payment' AS ValueType
             , SUM([Amount]) AS Value
             , ValueTypeSort = 3
@@ -41,27 +52,31 @@ UNION ALL
      GROUP BY
               [DeliveryMonthShortNameYear]
             , DeliveryMonth
-            , CAST(Right(DeliveryYear,2)AS INT)
+            , DeliveryYear
+            , DeliveryMonth*10000 + DeliveryYear
 UNION ALL
        SELECT
               [DeliveryMonthShortNameYear] AS CalendarMonthShortNameYear
-              , DeliveryMonth
-              , DeliveryYear = CAST(Right(DeliveryYear,2)AS INT)
+            , DeliveryMonth
+            , DeliveryYear
+            , DateSort = DeliveryMonth*10000 + DeliveryYear
             , 'Fully funded SFA' AS ValueType
             , SUM([Amount]) AS Value
-              ,ValueTypeSort = 6
+            , ValueTypeSort = 6
          FROM [Data_Pub].[DAS_Payments]
         WHERE Flag_latest = 1
           AND FundingSource = 'FullyFundedSfa'
      GROUP BY
               [DeliveryMonthShortNameYear]
             , DeliveryMonth
-            , CAST(Right(DeliveryYear,2)AS INT)
+            , DeliveryYear
+            , DeliveryMonth*10000 + DeliveryYear
 UNION ALL
        SELECT
               [DeliveryMonthShortNameYear] AS CalendarMonthShortNameYear
             , DeliveryMonth
-            , DeliveryYear = CAST(Right(DeliveryYear,2)AS INT)
+            , DeliveryYear
+            , DateSort = DeliveryMonth*10000 + DeliveryYear
             , 'Co-invested Employer' AS ValueType
             , SUM([Amount]) AS Value
             , ValueTypeSort = 4
@@ -71,12 +86,14 @@ UNION ALL
      GROUP BY
               [DeliveryMonthShortNameYear]
             , DeliveryMonth
-            , CAST(Right(DeliveryYear,2)AS INT)
+            , DeliveryYear
+            , DeliveryMonth*10000 + DeliveryYear
 UNION ALL
        SELECT
               [DeliveryMonthShortNameYear] AS CalendarMonthShortNameYear
             , DeliveryMonth
-            , DeliveryYear = CAST(Right(DeliveryYear,2)AS INT)
+            , DeliveryYear
+            , DateSort = DeliveryMonth*10000 + DeliveryYear
             , 'Co-invested SFA' AS ValueType
             , SUM([Amount]) AS Value
             , ValueTypeSort = 5
@@ -86,5 +103,6 @@ UNION ALL
      GROUP BY
               [DeliveryMonthShortNameYear]
             , DeliveryMonth
-            , CAST(Right(DeliveryYear,2)AS INT);
+            , DeliveryYear
+            , DeliveryMonth*10000 + DeliveryYear;
 GO
