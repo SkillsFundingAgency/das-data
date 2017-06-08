@@ -42,11 +42,11 @@ SELECT
 			    ELSE '19+' END AS PaymentAgeBand
      , CM.CalendarMonthShortNameYear AS DeliveryMonthShortNameYear
      , EAA.AccountName AS DASAccountName
-  FROM [Data_Load].[DAS_Payments] AS P
-	-- Join to Accounts to get the Hashed DAS Acccount ID
-	LEFT JOIN  (SELECT DISTINCT EA.[DasAccountId], EA.AccountID
+FROM [Data_Load].[DAS_Payments] AS P
+  -- Join to Accounts to get the Hashed DAS Acccount ID
+  LEFT JOIN  (SELECT DISTINCT EA.[DasAccountId], EA.AccountID
 				FROM [Data_Load].[DAS_Employer_Accounts] AS EA) AS EA ON EA.AccountID = [P].[EmployerAccountID]
-  -- First Payment
+   --First Payment
   LEFT JOIN (  SELECT [P].[EmployerAccountID]
 		    , P.ApprenticeshipId
               , MIN(CAST(P.DeliveryYear AS VARCHAR(255)) + '-'+CAST(P.DeliveryMonth AS VARCHAR(255))+'-'+CAST([P].[UpdateDateTime] AS VARCHAR(255))+'-'+P.PaymentId) AS [Min_FirstPayment]
@@ -67,21 +67,35 @@ SELECT
 			 ,	C.EmployerAccountID
 			 ,	C.DateOfBirth
 		  FROM [Data_Load].[DAS_Commitments] AS C
-		  INNER JOIN (SELECT 
-							 C.ApprenticeshipId
-						  ,	 C.EmployerAccountID
-						  ,	 MAX(C.UpdateDateTime) AS Max_UpdateDateTime	  
-				    FROM [Data_Load].[DAS_Commitments] AS C
-				    GROUP BY C.ApprenticeshipId
-						  ,	 C.EmployerAccountID ) AS C2 ON C2.ApprenticeshipId = C.ApprenticeshipId 
-												    AND C2.EmployerAccountID = C.EmployerAccountID
-												    AND C2.Max_UpdateDateTime = C.UpdateDateTime	  
+		  INNER JOIN (
+            
+                       SELECT      C.ApprenticeshipId
+						  ,	C.EmployerAccountID
+						  ,	C.UpdateDateTime
+                                ,  MAX(CommitmentID) AS Max_EventID
+                       FROM [Data_Load].[DAS_Commitments] AS C
+                              INNER JOIN (   SELECT 
+							                    C.ApprenticeshipId
+						                    ,	 C.EmployerAccountID
+						                    ,	 MAX(C.UpdateDateTime) AS Max_UpdateDateTime	  
+				                         FROM [Data_Load].[DAS_Commitments] AS C
+				                         GROUP BY C.ApprenticeshipId
+						                    ,	 C.EmployerAccountID ) AS C2 ON C2.ApprenticeshipId = C.ApprenticeshipId 
+												                    AND C2.EmployerAccountID = C.EmployerAccountID
+												                    AND C2.Max_UpdateDateTime = C.UpdateDateTime 
+                       GROUP BY C.ApprenticeshipId
+						  ,	C.EmployerAccountID
+						  ,	C.UpdateDateTime
+                                ) AS C3  ON C3.ApprenticeshipId = C.ApprenticeshipId 
+												          AND C3.EmployerAccountID = C.EmployerAccountID
+												          AND C3.UpdateDateTime = C.UpdateDateTime
+                                                                      AND C3. Max_EventID = C.CommitmentID	  
 
 		  ) AS C ON C.ApprenticeshipId= P.ApprenticeshipId
 								    AND C.EmployerAccountID = P.EmployerAccountID
            INNER JOIN Data_Load.DAS_CalendarMonth  AS CM ON CM.CalendarMonthNumber = P.DeliveryMonth
                                                                                      AND CM.CalendarYear = P.DeliveryYear
-           -- DAS Account Name
+           ---- DAS Account Name
            LEFT JOIN (SELECT
                   A.DASAccountID
                   ,A.AccountID
@@ -98,6 +112,4 @@ SELECT
                       EA.[DasAccountId]
                 ) AS LEA ON A.DasAccountId = LEA.DasAccountId
                     AND lea.Max_UpdatedDateTime = A.[UpdateDateTime]) AS EAA ON EAA.AccountID = [P].[EmployerAccountID];
-
-
 GO
