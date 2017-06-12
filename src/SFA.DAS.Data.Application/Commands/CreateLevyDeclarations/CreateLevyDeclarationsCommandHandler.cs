@@ -28,8 +28,10 @@ namespace SFA.DAS.Data.Application.Commands.CreateLevyDeclarations
 
         private async Task SaveLevyDeclarations(List<LevyDeclarationViewModel> levyDeclarations)
         {
-            var tasks = levyDeclarations.Select(x => _levyDeclarationRepository.SaveLevyDeclaration(x));
-            await Task.WhenAll(tasks);
+            foreach (var levyDeclaration in levyDeclarations)
+            {
+                await _levyDeclarationRepository.SaveLevyDeclaration(levyDeclaration);
+            }
         }
     }
 }
