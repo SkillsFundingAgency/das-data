@@ -10,5 +10,6 @@ namespace SFA.DAS.Data.Application.Interfaces.Gateways
         Task<LegalEntityViewModel> GetLegalEntity(string legalEntityHref);
         Task<PayeSchemeViewModel> GetPayeScheme(string payeSchemeHref);
         Task<List<LevyDeclarationViewModel>> GetLevyDeclarations(string levyDeclarationsHref);
+        Task<EmployerAgreementView> GetEmployerAgreement(string agreementHref);
     }
 }
