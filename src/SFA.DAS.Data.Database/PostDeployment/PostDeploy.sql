@@ -42,3 +42,10 @@ BEGIN
 	SET IsLatest = 1
 	WHERE Id IN (SELECT	MAX([Id]) FROM [Data_Load].[DAS_Commitments] GROUP BY [ApprenticeshipID])
 END
+
+IF (SELECT COUNT(*) FROM [Data_Load].[DAS_LevyDeclarations] WHERE IsLatest = 1) = 0
+BEGIN
+	UPDATE [Data_Load].[DAS_LevyDeclarations]
+	SET IsLatest = 1
+	WHERE Id IN (SELECT	MAX([Id]) FROM [Data_Load].[DAS_LevyDeclarations] GROUP BY [PayeSchemeReference], [PayrollMonth], [PayrollYear])
+END

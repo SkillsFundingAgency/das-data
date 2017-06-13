@@ -22,7 +22,8 @@ CREATE TABLE [Data_Load].[DAS_LevyDeclarations]
     [TopupAmount] DECIMAL(18,5) NOT NULL,
     [UpdateDateTime] DATETIME NOT NULL DEFAULT (GETDATE()),
     [LevyDeclaredInMonth] DECIMAL(18,5) NULL,
-    [LevyAvailableInMonth] DECIMAL(18,5) NULL,
+    [LevyAvailableInMonth] DECIMAL(18,5) NULL, 
+    [IsLatest] BIT NOT NULL DEFAULT 0,
 )
 GO
 CREATE INDEX [IX_LevyDeclaration_Submission] ON [Data_Load].[DAS_LevyDeclarations] ([DasAccountId], [PayeSchemeReference], [PayrollYear], [PayrollMonth], [SubmissionID])
