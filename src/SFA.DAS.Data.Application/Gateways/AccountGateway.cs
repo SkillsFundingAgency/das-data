@@ -34,5 +34,10 @@ namespace SFA.DAS.Data.Application.Gateways
         {
             return await _accountApiClient.GetResource<AccountResourceList<LevyDeclarationViewModel>>(levyDeclarationsHref);
         }
+
+        public async Task<EmployerAgreementView> GetEmployerAgreement(string agreementHref)
+        {
+            return await _accountApiClient.GetResource<EmployerAgreementView>(agreementHref);
+        }
     }
 }

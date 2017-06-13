@@ -61,6 +61,16 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
             });
         }
 
+        public async Task DeleteEmployerAgreements()
+        {
+            await WithConnection(async c =>
+            {
+                return await c.ExecuteAsync(
+                    sql: "TRUNCATE TABLE [Data_Load].[DAS_Employer_Agreements]",
+                    commandType: CommandType.Text);
+            });
+        }
+
         public async Task DeleteFailedEvents()
         {
             await WithConnection(async c =>
@@ -131,6 +141,15 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
             return await WithConnection(async c =>
                 await c.QuerySingleAsync<int>(
                     sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_LevyDeclarations]",
+                    commandType: CommandType.Text)
+            );
+        }
+
+        public async Task<int> GetNumberOfEmployerAgreements()
+        {
+            return await WithConnection(async c =>
+                await c.QuerySingleAsync<int>(
+                    sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_Employer_Agreements]",
                     commandType: CommandType.Text)
             );
         }
