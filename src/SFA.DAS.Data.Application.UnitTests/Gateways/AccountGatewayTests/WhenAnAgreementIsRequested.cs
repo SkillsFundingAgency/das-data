@@ -7,21 +7,21 @@ using SFA.DAS.EAS.Account.Api.Types;
 namespace SFA.DAS.Data.Application.UnitTests.Gateways.AccountGatewayTests
 {
     [TestFixture]
-    public class WhenAPayeSchemeIsRequested : AccountGatewayTestsBase
+    public class WhenAnAgreementIsRequested : AccountGatewayTestsBase
     {
         [Test]
-        public async Task ThenThePayeSchemeIsReturned()
+        public async Task ThenTheAgreementIsReturned()
         {
-            var expectedPayeScheme = new PayeSchemeViewModel();
+            var expectedAgreement = new EmployerAgreementView();
 
-            var payeSchemeHref = $"/api/accounts/2385/payeschemes/123456";
+            var agreementHref = $"/api/accounts/2385/agreements/123456";
                 
-            AccountApiClient.Setup(x => x.GetResource<PayeSchemeViewModel>(payeSchemeHref)).ReturnsAsync(expectedPayeScheme);
+            AccountApiClient.Setup(x => x.GetResource<EmployerAgreementView>(agreementHref)).ReturnsAsync(expectedAgreement);
 
-            var result = await AccountGateway.GetPayeScheme(payeSchemeHref);
+            var result = await AccountGateway.GetEmployerAgreement(agreementHref);
 
-            result.Should().Be(expectedPayeScheme);
-            AccountApiClient.Verify(x => x.GetResource<PayeSchemeViewModel>(payeSchemeHref), Times.Once);
+            result.Should().Be(expectedAgreement);
+            AccountApiClient.Verify(x => x.GetResource<EmployerAgreementView>(agreementHref), Times.Once);
         }
     }
 }

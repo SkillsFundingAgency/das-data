@@ -15,6 +15,7 @@ using SFA.DAS.Data.Worker.Events.EventHandlers;
 using SFA.DAS.Data.Worker.Events.EventsCollectors;
 using SFA.DAS.EAS.Account.Api.Client;
 using SFA.DAS.EAS.Account.Api.Types.Events.Account;
+using SFA.DAS.EAS.Account.Api.Types.Events.Agreement;
 using SFA.DAS.EAS.Account.Api.Types.Events.LegalEntity;
 using SFA.DAS.EAS.Account.Api.Types.Events.Levy;
 using SFA.DAS.EAS.Account.Api.Types.Events.PayeScheme;
@@ -67,6 +68,7 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             For<IEventHandler<GenericEvent<PayeSchemeAddedEvent>>>().Use<PayeSchemeAddedEventHandler>();
             For<IEventHandler<GenericEvent<PayeSchemeRemovedEvent>>>().Use<PayeSchemeRemovedEventHandler>();
             For<IEventHandler<GenericEvent<LevyDeclarationUpdatedEvent>>>().Use<LevyDeclarationUpdatedEventHandler>();
+            For<IEventHandler<GenericEvent<AgreementSignedEvent>>>().Use<AgreementSignedEventHandler>();
             For<IEventHandler<PeriodEnd>>().Use<PeriodEndEventHandler>();
 
             //Legacy support
@@ -82,6 +84,7 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             For<IEventsCollector<GenericEvent<PayeSchemeAddedEvent>>>().Use<GenericEventCollector<PayeSchemeAddedEvent>>();
             For<IEventsCollector<GenericEvent<PayeSchemeRemovedEvent>>>().Use<GenericEventCollector<PayeSchemeRemovedEvent>>();
             For<IEventsCollector<GenericEvent<LevyDeclarationUpdatedEvent>>>().Use<GenericEventCollector<LevyDeclarationUpdatedEvent>>();
+            For<IEventsCollector<GenericEvent<AgreementSignedEvent>>>().Use<GenericEventCollector<AgreementSignedEvent>>();
             For<IEventsCollector<PeriodEnd>>().Use<PaymentEventsCollector>();
 
             //Legacy support
@@ -97,6 +100,7 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             For<IEventsProcessor>().Use<EventsProcessor<GenericEvent<PayeSchemeAddedEvent>>>();
             For<IEventsProcessor>().Use<EventsProcessor<GenericEvent<PayeSchemeRemovedEvent>>>();
             For<IEventsProcessor>().Use<EventsProcessor<GenericEvent<LevyDeclarationUpdatedEvent>>>();
+            For<IEventsProcessor>().Use<EventsProcessor<GenericEvent<AgreementSignedEvent>>>();
             For<IEventsProcessor>().Use<EventsProcessor<PeriodEnd>>();
 
             //Legacy support

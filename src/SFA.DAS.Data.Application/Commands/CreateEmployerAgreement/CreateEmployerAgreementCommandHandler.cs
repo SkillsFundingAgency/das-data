@@ -9,13 +9,11 @@ namespace SFA.DAS.Data.Application.Commands.CreateEmployerAgreement
     {
         private readonly IEmployerAgreementRepository _employerAgreementRepository;
         private readonly IAccountGateway _accountGateway;
-        private readonly IMediator _mediator;
 
-        public CreateEmployerAgreementCommandHandler(IEmployerAgreementRepository employerAgreementRepository, IAccountGateway accountGateway, IMediator mediator)
+        public CreateEmployerAgreementCommandHandler(IEmployerAgreementRepository employerAgreementRepository, IAccountGateway accountGateway)
         {
             _employerAgreementRepository = employerAgreementRepository;
             _accountGateway = accountGateway;
-            _mediator = mediator;
         }
 
         public async Task Handle(CreateEmployerAgreementCommand notification)
