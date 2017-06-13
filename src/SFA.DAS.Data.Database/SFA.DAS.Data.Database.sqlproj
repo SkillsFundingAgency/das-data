@@ -68,7 +68,6 @@
   </ItemGroup>
   <ItemGroup>
     <Build Include="Schemas\Data_Load.sql" />
-    <Build Include="Tables\DAS_Employer_Registrations.sql" />
     <Build Include="Tables\DAS_LoadedEvents.sql" />
     <Build Include="Tables\DAS_FailedEvents.sql" />
     <Build Include="StoredProcedures\SaveAccount.sql" />
