@@ -102,6 +102,8 @@
     <Build Include="StoredProcedures\UpdateCalendarMonth.sql" />
     <Build Include="Views\DAS_CalendarMonth.sql" />
     <Build Include="Views\LevyBalance.sql" />
+    <Build Include="Tables\DAS_Employer_Agreements.sql" />
+    <Build Include="StoredProcedures\SaveEmployerAgreement.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SFA.DAS.Data.Database.refactorlog" />
