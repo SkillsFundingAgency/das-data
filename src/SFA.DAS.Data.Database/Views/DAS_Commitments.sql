@@ -40,7 +40,7 @@ AS
             -- Additional Columns for UpdateDateTime represented as a Date
           , CAST([C].[UpdateDateTime] AS DATE) AS [UpdateDate]
             -- Flag to say if latest record from subquery, Using Coalesce to set null value to 0
-          , CAST(COALESCE([LC].[Flag_Latest], 0) AS INT) AS [Flag_Latest]
+          , [C].[IsLatest] AS [Flag_Latest]
           , CAST(C.[LegalEntityCode] AS VARCHAR(50)) AS LegalEntityCode
           , CAST(C.[LegalEntityName] AS VARCHAR(100)) AS LegalEntityName
           , CAST(C.[LegalEntityOrganisationType] AS VARCHAR(20)) AS LegalEntitySource
@@ -94,17 +94,6 @@ AS
           , CASE WHEN C.AgreementStatus = 'BothAgreed' THEN 'Yes'
                  ELSE 'No' END AS FullyAgreedCommitment
 	FROM Data_Load.DAS_Commitments AS C
-		-- To get latest record
-		LEFT JOIN
-		(
-			 SELECT [C].[ApprenticeshipId]
-				  , MAX([C].[UpdateDateTime]) AS [Max_UpdatedDateTime]
-				  , MAX([C].ID)  AS Max_ID
-				  , 1 AS [Flag_Latest]
-			 FROM
-				Data_Load.DAS_Commitments AS C
-			 GROUP BY [C].[ApprenticeshipId]
-		 ) AS LC ON LC.ApprenticeshipId = C.ApprenticeshipId AND LC.Max_ID = C.ID AND LC.Max_UpdatedDateTime = C.UpdateDateTime
 		 -- DAS Account
 		 LEFT JOIN [Data_Load].[DAS_Employer_Accounts] EAA ON EAA.AccountId = [C].[EmployerAccountID] AND EAA.IsLatest = 1
 

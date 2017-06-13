@@ -56,36 +56,8 @@ FROM [Data_Load].[DAS_Payments] AS P
 			AND FP.ApprenticeshipId = P.ApprenticeshipId
 			AND FP.Min_FirstPayment = (CAST(P.DeliveryYear AS VARCHAR(255)) + '-'+CAST(P.DeliveryMonth AS VARCHAR(255))+'-'+CAST([P].[UpdateDateTime] AS VARCHAR(255))+'-'+P.PaymentId)
 	--Payment Age
-	LEFT JOIN 
-	(SELECT 
-		C.ApprenticeshipId
-		,C.EmployerAccountID
-		,C.DateOfBirth
-	 FROM [Data_Load].[DAS_Commitments] AS C
-		INNER JOIN 
-		(SELECT      
-			 C.ApprenticeshipId
-			,C.EmployerAccountID
-			,C.UpdateDateTime
-            ,MAX(CommitmentID) AS Max_EventID
-         FROM [Data_Load].[DAS_Commitments] AS C
-			INNER JOIN 
-			(SELECT 
-				 C.ApprenticeshipId
-				,C.EmployerAccountID
-				,MAX(C.UpdateDateTime) AS Max_UpdateDateTime	  
-			 FROM [Data_Load].[DAS_Commitments] AS C
-			 GROUP BY C.ApprenticeshipId, C.EmployerAccountID 
-			) AS C2 ON C2.ApprenticeshipId = C.ApprenticeshipId 
-					AND C2.EmployerAccountID = C.EmployerAccountID
-					AND C2.Max_UpdateDateTime = C.UpdateDateTime 
-         GROUP BY C.ApprenticeshipId, C.EmployerAccountID ,	C.UpdateDateTime
-         ) AS C3 ON C3.ApprenticeshipId = C.ApprenticeshipId 
-				AND C3.EmployerAccountID = C.EmployerAccountID
-				AND C3.UpdateDateTime = C.UpdateDateTime
-                AND C3. Max_EventID = C.CommitmentID	  
-	) AS C ON C.ApprenticeshipId = P.ApprenticeshipId AND C.EmployerAccountID = P.EmployerAccountID
-    
+	LEFT JOIN [Data_Load].[Das_Commitments] C ON [c].[ApprenticeshipID] = [p].[ApprenticeshipId] AND [c].[IsLatest] = 1
+
 	INNER JOIN Data_Load.DAS_CalendarMonth  AS CM ON CM.CalendarMonthNumber = P.DeliveryMonth AND CM.CalendarYear = P.DeliveryYear
     ---- DAS Account Name
 	LEFT JOIN [Data_Load].[DAS_Employer_Accounts] EA ON EA.AccountId = [P].[EmployerAccountId] AND EA.IsLatest = 1
