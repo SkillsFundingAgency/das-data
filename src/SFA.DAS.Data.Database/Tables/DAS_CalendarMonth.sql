@@ -12,4 +12,5 @@
     , TaxYear VARCHAR(20) NOT NULL
     , AcademicMonthNumber INT NOT NULL
     , AcademicYear VARCHAR(20) NOT NULL
+    , CalendarYearMonth_SortOrder INT NOT NULL
 )
