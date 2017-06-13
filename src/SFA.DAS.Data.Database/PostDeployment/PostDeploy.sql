@@ -21,3 +21,10 @@ BEGIN
 	SET IsLatest = 1
 	WHERE Id IN (SELECT	MAX([Id]) FROM [Data_Load].[DAS_Employer_Accounts] GROUP BY [DasAccountId])
 END
+
+IF (SELECT COUNT(*) FROM [Data_Load].[DAS_Employer_LegalEntities] WHERE IsLatest = 1) = 0
+BEGIN
+	UPDATE [Data_Load].[DAS_Employer_LegalEntities]
+	SET IsLatest = 1
+	WHERE Id IN (SELECT	MAX([Id]) FROM [Data_Load].[DAS_Employer_LegalEntities] GROUP BY [DasAccountId], [DasLegalEntityId])
+END

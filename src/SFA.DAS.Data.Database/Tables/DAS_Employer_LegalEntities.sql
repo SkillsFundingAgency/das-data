@@ -9,7 +9,8 @@
     [InceptionDate] DATETIME NULL, 
     [Code] NVARCHAR(50) NULL, 
     [Status] NVARCHAR(50) NULL, 
-    [UpdateDateTime] DATETIME NOT NULL DEFAULT (GETDATE())
+    [UpdateDateTime] DATETIME NOT NULL DEFAULT (GETDATE()), 
+    [IsLatest] BIT NOT NULL DEFAULT 0
 )
 GO
 CREATE INDEX [IX_LegalEntity_AccountId_LegalEntityId] ON [Data_Load].[DAS_Employer_LegalEntities] ([DasAccountId], [DasLegalEntityId], [UpdateDateTime])

@@ -109,28 +109,12 @@ AS
 		 LEFT JOIN [Data_Load].[DAS_Employer_Accounts] EAA ON EAA.AccountId = [C].[EmployerAccountID] AND EAA.IsLatest = 1
 
 		 ---- Join Legal Entity to get Legal_Entity_ID
-		 LEFT JOIN (SELECT DISTINCT
-						ELE.DasAccountId
-					  , ELE.[LegalEntityNumber]
-					  , ELE.[LegalEntityName]
-					  ,REPLACE(ELE.[LegalEntitySource],' ','') AS [LegalEntitySource]
-					  ,ELE.[DasLegalEntityId]
-				FROM Data_Pub.DAS_Employer_LegalEntities AS ELE
-				INNER JOIN  (
-					 SELECT
-							ELE.[DasAccountId]
-						  ,	ELE.[DasLegalEntityId]
-						  ,	MAX(ELE.[UpdateDateTime]) AS Max_UpdatedDateTime
-						  ,	1 AS Flag_Latest
-					 FROM [Data_Load].[DAS_Employer_LegalEntities] AS ELE
-					 GROUP BY
-							ELE.[DasAccountId]
-						  ,	ELE.[DasLegalEntityId]
-					  ) AS LELE ON ELE.DasAccountId = LELE.DasAccountId AND ELE.DasLegalEntityId = LELE.DasLegalEntityId AND ELE.[UpdateDateTime] = LELE.Max_UpdatedDateTime) 
-				AS ELE ON C.LegalEntityOrganisationType = ELE.[LegalEntitySource]
-								  AND C.[LegalEntityCode] = ELE.[LegalEntityNumber]
-								  AND C.[LegalEntityName] = ELE.LegalEntityName
-								  AND EAA.DasAccountId = ELE.DasAccountId
+		 LEFT JOIN Data_Pub.DAS_Employer_LegalEntities ELE
+			ON C.LegalEntityOrganisationType = ELE.[LegalEntitySource]
+				AND C.[LegalEntityCode] = ELE.[LegalEntityNumber]
+				AND C.[LegalEntityName] = ELE.LegalEntityName
+				AND EAA.DasAccountId = ELE.DasAccountId
+				AND ELE.Flag_Latest = 1
 
 		  LEFT JOIN (SELECT P.ApprenticeshipId AS CommitmentId
 					  , SUM(P.Amount) AS TotalAmount
