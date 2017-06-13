@@ -20,4 +20,4 @@
 	[DateOfBirth] DATETIME NULL
 )
 GO
-CREATE INDEX [IX_Commitment_Apprenticeship] ON [Data_Load].[DAS_Commitments] ([ApprenticeshipId], [UpdateDateTime], [Id])
+CREATE INDEX [IX_Commitment_Apprenticeship] ON [Data_Load].[DAS_Commitments] ([ApprenticeshipId], [Id], [UpdateDateTime])

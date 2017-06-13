@@ -6,7 +6,8 @@
     [DateRegistered] DATETIME NOT NULL, 
     [OwnerEmail] NVARCHAR(255) NOT NULL, 
     [UpdateDateTime] DATETIME NOT NULL DEFAULT (GETDATE()), 
-    [AccountId] BIGINT NOT NULL DEFAULT 0
+    [AccountId] BIGINT NOT NULL DEFAULT 0, 
+    [IsLatest] BIT NOT NULL DEFAULT 0
 )
 GO
 CREATE INDEX [IX_Account_AccountId] ON [Data_Load].[DAS_Employer_Accounts] ([AccountId])

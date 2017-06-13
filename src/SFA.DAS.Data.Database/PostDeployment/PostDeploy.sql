@@ -14,3 +14,10 @@ BEGIN
 END
 
 Exec Data_Load.UpdateCalendarMonth
+
+IF (SELECT COUNT(*) FROM [Data_Load].[DAS_Employer_Accounts] WHERE IsLatest = 1) = 0
+BEGIN
+	UPDATE [Data_Load].[DAS_Employer_Accounts]
+	SET IsLatest = 1
+	WHERE Id IN (SELECT	MAX([Id]) FROM [Data_Load].[DAS_Employer_Accounts] GROUP BY [DasAccountId])
+END
