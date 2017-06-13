@@ -8,3 +8,7 @@
     [UpdateDateTime] DATETIME NOT NULL DEFAULT (GETDATE()), 
     [AccountId] BIGINT NOT NULL DEFAULT 0
 )
+GO
+CREATE INDEX [IX_Account_AccountId] ON [Data_Load].[DAS_Employer_Accounts] ([AccountId])
+GO
+CREATE INDEX [IX_Account_DasAccountId] ON [Data_Load].[DAS_Employer_Accounts] ([DasAccountId], [UpdateDateTime])

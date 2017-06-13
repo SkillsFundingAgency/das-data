@@ -19,3 +19,5 @@
     [LegalEntityOrganisationType] NVARCHAR(20) NULL,
 	[DateOfBirth] DATETIME NULL
 )
+GO
+CREATE INDEX [IX_Commitment_Apprenticeship] ON [Data_Load].[DAS_Commitments] ([ApprenticeshipId], [UpdateDateTime], [Id])

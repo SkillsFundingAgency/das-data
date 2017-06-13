@@ -24,3 +24,5 @@ CREATE TABLE [Data_Load].[DAS_LevyDeclarations]
     [LevyDeclaredInMonth] DECIMAL(18,5) NULL,
     [LevyAvailableInMonth] DECIMAL(18,5) NULL,
 )
+GO
+CREATE INDEX [IX_LevyDeclaration_Submission] ON [Data_Load].[DAS_LevyDeclarations] ([DasAccountId], [PayeSchemeReference], [PayrollYear], [PayrollMonth], [SubmissionID])

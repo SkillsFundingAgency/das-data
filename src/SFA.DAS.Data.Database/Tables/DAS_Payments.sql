@@ -23,3 +23,7 @@
 	[ContractType]	NVARCHAR(50) NULL, 
     [UpdateDateTime] DATETIME NOT NULL DEFAULT (GETDATE())
 )
+GO
+CREATE INDEX [IX_Payment_ApprenticeshipId] ON [Data_Load].[DAS_Payments] ([ApprenticeshipId])
+GO
+CREATE INDEX [IX_Payment_ApprenticeshipDeliveryMonth] ON [Data_Load].[DAS_Payments] ([EmployerAccountID], [ApprenticeshipId], [DeliveryMonth], [DeliveryYear])

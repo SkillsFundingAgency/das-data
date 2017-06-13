@@ -8,3 +8,5 @@
     [RemovedDate] DATETIME NULL, 
     [UpdateDateTime] DATETIME NOT NULL DEFAULT (GETDATE())
 )
+GO
+CREATE INDEX [IX_PayeScheme_AccountId_Ref] ON [Data_Load].[DAS_Employer_PayeSchemes] ([DasAccountId], [Ref], [UpdateDateTime])
