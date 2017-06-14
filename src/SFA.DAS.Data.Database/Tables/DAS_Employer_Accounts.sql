@@ -10,6 +10,6 @@
     [IsLatest] BIT NOT NULL DEFAULT 0
 )
 GO
-CREATE INDEX [IX_Account_AccountId] ON [Data_Load].[DAS_Employer_Accounts] ([AccountId])
+CREATE INDEX [IX_Account_AccountId_IsLatest] ON [Data_Load].[DAS_Employer_Accounts] ([AccountId], [IsLatest])
 GO
-CREATE INDEX [IX_Account_DasAccountId] ON [Data_Load].[DAS_Employer_Accounts] ([DasAccountId], [UpdateDateTime])
+CREATE INDEX [IX_Account_DasAccountId_IsLatest] ON [Data_Load].[DAS_Employer_Accounts] ([DasAccountId], [IsLatest])

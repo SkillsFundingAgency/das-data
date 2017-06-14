@@ -21,4 +21,4 @@
     [IsLatest] BIT NOT NULL DEFAULT 0
 )
 GO
-CREATE INDEX [IX_Commitment_Apprenticeship] ON [Data_Load].[DAS_Commitments] ([ApprenticeshipId], [Id], [UpdateDateTime])
+CREATE INDEX [IX_Commitment_Apprenticeship] ON [Data_Load].[DAS_Commitments] ([ApprenticeshipId], [IsLatest])

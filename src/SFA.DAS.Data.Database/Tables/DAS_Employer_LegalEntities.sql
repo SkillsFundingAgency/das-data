@@ -13,6 +13,6 @@
     [IsLatest] BIT NOT NULL DEFAULT 0
 )
 GO
-CREATE INDEX [IX_LegalEntity_AccountId_LegalEntityId] ON [Data_Load].[DAS_Employer_LegalEntities] ([DasAccountId], [DasLegalEntityId], [UpdateDateTime])
+CREATE INDEX [IX_LegalEntity_Details] ON [Data_Load].[DAS_Employer_LegalEntities] ([Source], [Code], [Name], [DasAccountId], [IsLatest])
 GO
-CREATE INDEX [IX_LegalEntity_Details] ON [Data_Load].[DAS_Employer_LegalEntities] ([Source], [Code], [Name])
+CREATE INDEX [IX_LegalEntity_AccountId] ON [Data_Load].[DAS_Employer_LegalEntities] ([DasAccountId], [IsLatest])

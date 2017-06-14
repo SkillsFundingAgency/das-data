@@ -26,4 +26,4 @@ CREATE TABLE [Data_Load].[DAS_LevyDeclarations]
     [IsLatest] BIT NOT NULL DEFAULT 0,
 )
 GO
-CREATE INDEX [IX_LevyDeclaration_Submission] ON [Data_Load].[DAS_LevyDeclarations] ([DasAccountId], [PayeSchemeReference], [PayrollYear], [PayrollMonth], [SubmissionID])
+CREATE INDEX [IX_LevyDeclaration_IsLatest] ON [Data_Load].[DAS_LevyDeclarations] ([IsLatest])

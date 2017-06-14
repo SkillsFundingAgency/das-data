@@ -24,6 +24,6 @@
     [UpdateDateTime] DATETIME NOT NULL DEFAULT (GETDATE())
 )
 GO
-CREATE INDEX [IX_Payment_ApprenticeshipId] ON [Data_Load].[DAS_Payments] ([ApprenticeshipId])
+CREATE INDEX [IX_Payment_FundingSource] ON [Data_Load].[DAS_Payments] ([FundingSource])
 GO
 CREATE INDEX [IX_Payment_ApprenticeshipDeliveryMonth] ON [Data_Load].[DAS_Payments] ([EmployerAccountID], [ApprenticeshipId], [DeliveryMonth], [DeliveryYear])
