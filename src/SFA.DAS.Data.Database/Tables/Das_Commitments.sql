@@ -21,4 +21,10 @@
     [IsLatest] BIT NOT NULL DEFAULT 0
 )
 GO
-CREATE INDEX [IX_Commitment_Apprenticeship] ON [Data_Load].[DAS_Commitments] ([ApprenticeshipId], [IsLatest])
+CREATE INDEX [IX_Commitment_Apprenticeship] ON [Data_Load].[DAS_Commitments] ([ApprenticeshipID], [IsLatest])
+GO
+CREATE INDEX [IX_Commitment_IsLatest_AgreementStatus_StartDate] ON [Data_Load].[DAS_Commitments] ([IsLatest], [AgreementStatus], [TrainingStartDate])
+GO
+CREATE INDEX [IX_Commitment_IsLatest_PaymentStatus] ON [Data_Load].[DAS_Commitments] ([IsLatest], [PaymentStatus])
+GO
+CREATE INDEX [IX_Commitment_EmployerAccount_IsLatest] ON [Data_Load].[DAS_Commitments] ([EmployerAccountId], [IsLatest])

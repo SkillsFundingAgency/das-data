@@ -13,3 +13,5 @@ GO
 CREATE INDEX [IX_PayeScheme_AccountId] ON [Data_Load].[DAS_Employer_PayeSchemes] ([DasAccountId], [IsLatest])
 GO
 CREATE INDEX [IX_PayeScheme_Account_Ref] ON [Data_Load].[DAS_Employer_PayeSchemes] ([DasAccountId], [Ref], [IsLatest])
+GO
+CREATE INDEX [IX_PayeScheme_IsLatest] ON [Data_Load].[DAS_Employer_PayeSchemes] ([IsLatest])

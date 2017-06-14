@@ -16,3 +16,5 @@ GO
 CREATE INDEX [IX_LegalEntity_Details] ON [Data_Load].[DAS_Employer_LegalEntities] ([Source], [Code], [Name], [DasAccountId], [IsLatest])
 GO
 CREATE INDEX [IX_LegalEntity_AccountId] ON [Data_Load].[DAS_Employer_LegalEntities] ([DasAccountId], [IsLatest])
+GO
+CREATE INDEX [IX_LegalEntity_IsLatest_Source] ON [Data_Load].[DAS_Employer_LegalEntities] ([IsLatest], [Source])
