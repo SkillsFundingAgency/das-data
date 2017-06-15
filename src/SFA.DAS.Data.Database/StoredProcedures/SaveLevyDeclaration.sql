@@ -21,6 +21,9 @@
 	@LevyDeclaredInMonth DECIMAL(18,5) = NULL,
 	@LevyAvailableInMonth DECIMAL(18,5) = NULL
 AS
+
+	UPDATE [Data_Load].DAS_LevyDeclarations SET [IsLatest] = 0 WHERE [PayeSchemeReference] = @PayeSchemeReference AND [PayrollMonth] = @PayrollMonth AND [PayrollYear] = @PayrollYear
+
 	INSERT INTO [Data_Load].DAS_LevyDeclarations
 	(
 		[DasAccountId],
@@ -43,7 +46,8 @@ AS
 		[TopupPercentage],
 		[TopupAmount],
 		[LevyDeclaredInMonth],
-		[LevyAvailableInMonth]
+		[LevyAvailableInMonth],
+		[IsLatest]
 	)
 	VALUES
 	(
@@ -67,5 +71,6 @@ AS
 		@TopupPercentage,
 		@TopupAmount,
 		@LevyDeclaredInMonth,
-		@LevyAvailableInMonth
+		@LevyAvailableInMonth,
+		1
 	)

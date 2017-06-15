@@ -7,6 +7,9 @@
 	@DasLegalEntityId BIGINT,
 	@DasAgreementId NVARCHAR(100)
 AS
+
+	UPDATE [Data_Load].DAS_Employer_Agreements SET IsLatest = 0 WHERE [DasAgreementId] = @DasAgreementId
+
 	INSERT INTO [Data_Load].DAS_Employer_Agreements
 	(
 		[DasAccountId],
@@ -15,7 +18,8 @@ AS
 		[SignedDate],
 		[ExpiredDate],
 		[DasLegalEntityId],
-		[DasAgreementId]
+		[DasAgreementId],
+		[IsLatest]
 	)
 	VALUES
 	(
@@ -25,5 +29,6 @@ AS
 		@SignedDate,
 		@ExpiredDate,
 		@DasLegalEntityId,
-		@DasAgreementId
+		@DasAgreementId,
+		1
 	)

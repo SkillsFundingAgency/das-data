@@ -24,8 +24,10 @@ BEGIN
 			[Status] = @status
 	)
 	BEGIN
-		INSERT INTO [Data_Load].[DAS_Employer_LegalEntities] ([DasAccountId],[DasLegalEntityId],[Name],[Address],[Source],[InceptionDate],[Code],[Status])
-			VALUES (@dasAccountId, @dasLegalEntityId, @name, @address, @source, @inceptionDate, @code, @status)
+		UPDATE [Data_Load].[DAS_Employer_LegalEntities] SET IsLatest = 0 WHERE [DasAccountId] = @dasAccountId AND [DasLegalEntityId] = @dasLegalEntityId
+
+		INSERT INTO [Data_Load].[DAS_Employer_LegalEntities] ([DasAccountId],[DasLegalEntityId],[Name],[Address],[Source],[InceptionDate],[Code],[Status], [IsLatest])
+			VALUES (@dasAccountId, @dasLegalEntityId, @name, @address, @source, @inceptionDate, @code, @status, 1)
 	END
 END
 GO

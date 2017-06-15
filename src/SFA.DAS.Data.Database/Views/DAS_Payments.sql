@@ -29,87 +29,36 @@ SELECT
 	 -- Flag to say if latest record from subquery, Using Coalesce to set null value to 0
       , --Default to 1 as not needed for payments as is immutable as every payment is latest
       1 AS [Flag_Latest]
-	 , COALESCE([FP].[Flag_FirstPayment], 0) AS Flag_FirstPayment
-	-- , CAST(C.DateOfBirth AS DATE) AS DateOfBirth
-		, CASE WHEN C.DateOfBirth IS NULL THEN -1
-                        WHEN DATEPART(M,C.DateOfBirth) > DATEPART(M,P.[UpdateDateTime]) OR (DATEPART(M,C.DateOfBirth) = DATEPART(M,P.[UpdateDateTime]) AND DATEPART(DD,C.DateOfBirth) > DATEPART(DD,P.[UpdateDateTime])) THEN DATEDIFF(YEAR,C.DateOfBirth,P.[UpdateDateTime]) -1
-                        ELSE DATEDIFF(YEAR,C.DateOfBirth,P.[UpdateDateTime])
-                   END AS PaymentAge
-		, CASE WHEN CASE WHEN C.DateOfBirth IS NULL THEN -1
-                        WHEN DATEPART(M,C.DateOfBirth) > DATEPART(M,P.[UpdateDateTime]) OR (DATEPART(M,C.DateOfBirth) = DATEPART(M,P.[UpdateDateTime]) AND DATEPART(DD,C.DateOfBirth) > DATEPART(DD,P.[UpdateDateTime])) THEN DATEDIFF(YEAR,C.DateOfBirth,P.[UpdateDateTime]) -1
-                      ELSE DATEDIFF(YEAR,C.DateOfBirth, P.[UpdateDateTime])
-                   END BETWEEN 0 AND 18 THEN '16-18'
-			    ELSE '19+' END AS PaymentAgeBand
+	 ,COALESCE([FP].[Flag_FirstPayment], 0) AS Flag_FirstPayment
+	 ,CASE WHEN C.DateOfBirth IS NULL THEN -1
+           WHEN DATEPART(M,C.DateOfBirth) > DATEPART(M,P.[UpdateDateTime]) OR (DATEPART(M,C.DateOfBirth) = DATEPART(M,P.[UpdateDateTime]) AND DATEPART(DD,C.DateOfBirth) > DATEPART(DD,P.[UpdateDateTime])) THEN DATEDIFF(YEAR,C.DateOfBirth,P.[UpdateDateTime]) -1
+           ELSE DATEDIFF(YEAR,C.DateOfBirth,P.[UpdateDateTime])
+      END AS PaymentAge
+	 ,CASE WHEN 
+		CASE WHEN C.DateOfBirth IS NULL THEN -1
+             WHEN DATEPART(M,C.DateOfBirth) > DATEPART(M,P.[UpdateDateTime]) OR (DATEPART(M,C.DateOfBirth) = DATEPART(M,P.[UpdateDateTime]) AND DATEPART(DD,C.DateOfBirth) > DATEPART(DD,P.[UpdateDateTime])) THEN DATEDIFF(YEAR,C.DateOfBirth,P.[UpdateDateTime]) -1
+             ELSE DATEDIFF(YEAR,C.DateOfBirth, P.[UpdateDateTime])
+		END BETWEEN 0 AND 18 THEN '16-18'
+		ELSE '19+' END AS PaymentAgeBand
      , CM.CalendarMonthShortNameYear AS DeliveryMonthShortNameYear
-     , EAA.AccountName AS DASAccountName
+     , EA.AccountName AS DASAccountName
 FROM [Data_Load].[DAS_Payments] AS P
-  -- Join to Accounts to get the Hashed DAS Acccount ID
-  LEFT JOIN  (SELECT DISTINCT EA.[DasAccountId], EA.AccountID
-				FROM [Data_Load].[DAS_Employer_Accounts] AS EA) AS EA ON EA.AccountID = [P].[EmployerAccountID]
-   --First Payment
-  LEFT JOIN (  SELECT [P].[EmployerAccountID]
-		    , P.ApprenticeshipId
-              , MIN(CAST(P.DeliveryYear AS VARCHAR(255)) + '-'+CAST(P.DeliveryMonth AS VARCHAR(255))+'-'+CAST([P].[UpdateDateTime] AS VARCHAR(255))+'-'+P.PaymentId) AS [Min_FirstPayment]
-		    , 1 AS [Flag_FirstPayment]
-         FROM
-            [Data_Load].[DAS_Payments] AS P
-	    GROUP BY 
-			 P.EmployerAccountID
-		    , P.ApprenticeshipId
-	
-     ) AS FP ON FP.EmployerAccountID = P.EmployerAccountID
-			 AND FP.ApprenticeshipId = P.ApprenticeshipId
-			 AND FP.Min_FirstPayment = (CAST(P.DeliveryYear AS VARCHAR(255)) + '-'+CAST(P.DeliveryMonth AS VARCHAR(255))+'-'+CAST([P].[UpdateDateTime] AS VARCHAR(255))+'-'+P.PaymentId)
-   --Payment Age
-   LEFT JOIN (
-		  SELECT 
-			 	C.ApprenticeshipId
-			 ,	C.EmployerAccountID
-			 ,	C.DateOfBirth
-		  FROM [Data_Load].[DAS_Commitments] AS C
-		  INNER JOIN (
-            
-                       SELECT      C.ApprenticeshipId
-						  ,	C.EmployerAccountID
-						  ,	C.UpdateDateTime
-                                ,  MAX(CommitmentID) AS Max_EventID
-                       FROM [Data_Load].[DAS_Commitments] AS C
-                              INNER JOIN (   SELECT 
-							                    C.ApprenticeshipId
-						                    ,	 C.EmployerAccountID
-						                    ,	 MAX(C.UpdateDateTime) AS Max_UpdateDateTime	  
-				                         FROM [Data_Load].[DAS_Commitments] AS C
-				                         GROUP BY C.ApprenticeshipId
-						                    ,	 C.EmployerAccountID ) AS C2 ON C2.ApprenticeshipId = C.ApprenticeshipId 
-												                    AND C2.EmployerAccountID = C.EmployerAccountID
-												                    AND C2.Max_UpdateDateTime = C.UpdateDateTime 
-                       GROUP BY C.ApprenticeshipId
-						  ,	C.EmployerAccountID
-						  ,	C.UpdateDateTime
-                                ) AS C3  ON C3.ApprenticeshipId = C.ApprenticeshipId 
-												          AND C3.EmployerAccountID = C.EmployerAccountID
-												          AND C3.UpdateDateTime = C.UpdateDateTime
-                                                                      AND C3. Max_EventID = C.CommitmentID	  
+	--First Payment
+	LEFT JOIN 
+		(SELECT [P].[EmployerAccountID]
+			   ,P.ApprenticeshipId
+			   ,MIN(CAST(P.DeliveryYear AS VARCHAR(255)) + '-'+CAST(P.DeliveryMonth AS VARCHAR(255))+'-'+CAST([P].[UpdateDateTime] AS VARCHAR(255))+'-'+P.PaymentId) AS [Min_FirstPayment]
+			   ,1 AS [Flag_FirstPayment]
+		 FROM [Data_Load].[DAS_Payments] AS P
+		 GROUP BY P.EmployerAccountID, P.ApprenticeshipId	
+		 ) 
+		 AS FP ON FP.EmployerAccountID = P.EmployerAccountID
+			AND FP.ApprenticeshipId = P.ApprenticeshipId
+			AND FP.Min_FirstPayment = (CAST(P.DeliveryYear AS VARCHAR(255)) + '-'+CAST(P.DeliveryMonth AS VARCHAR(255))+'-'+CAST([P].[UpdateDateTime] AS VARCHAR(255))+'-'+P.PaymentId)
+	--Payment Age
+	LEFT JOIN [Data_Load].[Das_Commitments] C ON [c].[ApprenticeshipID] = [p].[ApprenticeshipId] AND [c].[IsLatest] = 1
 
-		  ) AS C ON C.ApprenticeshipId= P.ApprenticeshipId
-								    AND C.EmployerAccountID = P.EmployerAccountID
-           INNER JOIN Data_Load.DAS_CalendarMonth  AS CM ON CM.CalendarMonthNumber = P.DeliveryMonth
-                                                                                     AND CM.CalendarYear = P.DeliveryYear
-           ---- DAS Account Name
-           LEFT JOIN (SELECT
-                  A.DASAccountID
-                  ,A.AccountID
-                  ,A.AccountName
-                 FROM [Data_Load].[DAS_Employer_Accounts] AS A
-
-                 INNER JOIN (
-                       SELECT
-                             EA.[DasAccountId]
-                           ,	MAX(EA.[UpdateDateTime]) AS Max_UpdatedDateTime
-                           ,	1 AS Flag_Latest
-                       FROM [Data_Load].[DAS_Employer_Accounts] AS EA
-                       GROUP BY
-                      EA.[DasAccountId]
-                ) AS LEA ON A.DasAccountId = LEA.DasAccountId
-                    AND lea.Max_UpdatedDateTime = A.[UpdateDateTime]) AS EAA ON EAA.AccountID = [P].[EmployerAccountID];
+	INNER JOIN Data_Load.DAS_CalendarMonth  AS CM ON CM.CalendarMonthNumber = P.DeliveryMonth AND CM.CalendarYear = P.DeliveryYear
+    ---- DAS Account Name
+	LEFT JOIN [Data_Load].[DAS_Employer_Accounts] EA ON EA.AccountId = [P].[EmployerAccountId] AND EA.IsLatest = 1
 GO

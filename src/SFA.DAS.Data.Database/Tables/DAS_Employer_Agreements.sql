@@ -8,5 +8,8 @@
 	[ExpiredDate] DATETIME NULL,
 	[DasLegalEntityId] BIGINT NOT NULL,
 	[DasAgreementId] NVARCHAR(100) NOT NULL, 
-	[UpdateDateTime] DATETIME NOT NULL DEFAULT (GETDATE())
+	[UpdateDateTime] DATETIME NOT NULL DEFAULT (GETDATE()),
+	[IsLatest] BIT NOT NULL DEFAULT 0
 )
+GO
+CREATE INDEX [IX_Agreement_DasAccountId_IsLatest] ON [Data_Load].[DAS_Employer_Agreements] ([DasAccountId], [IsLatest])

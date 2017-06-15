@@ -10,7 +10,7 @@ AS
           , CAST([C].[ProviderID] AS VARCHAR(255)) AS ProviderID
           , CAST([C].[LearnerID] AS VARCHAR(255)) AS LearnerID
           , CAST([C].[EmployerAccountID] AS VARCHAR(255)) AS EmployerAccountID
-          , CAST(EA.[DasAccountId] AS VARCHAR(100)) AS DasAccountId
+          , CAST(EAA.[DasAccountId] AS VARCHAR(100)) AS DasAccountId
           , CAST([C].[TrainingTypeID] AS VARCHAR(255)) AS TrainingTypeID
           , CAST([C].[TrainingID] AS VARCHAR(255)) AS TrainingID
           , CASE
@@ -40,7 +40,7 @@ AS
             -- Additional Columns for UpdateDateTime represented as a Date
           , CAST([C].[UpdateDateTime] AS DATE) AS [UpdateDate]
             -- Flag to say if latest record from subquery, Using Coalesce to set null value to 0
-          , CAST(COALESCE([LC].[Flag_Latest], 0) AS INT) AS [Flag_Latest]
+          , [C].[IsLatest] AS [Flag_Latest]
           , CAST(C.[LegalEntityCode] AS VARCHAR(50)) AS LegalEntityCode
           , CAST(C.[LegalEntityName] AS VARCHAR(100)) AS LegalEntityName
           , CAST(C.[LegalEntityOrganisationType] AS VARCHAR(20)) AS LegalEntitySource
@@ -93,93 +93,41 @@ AS
           , EAA.AccountName AS DASAccountName
           , CASE WHEN C.AgreementStatus = 'BothAgreed' THEN 'Yes'
                  ELSE 'No' END AS FullyAgreedCommitment
-  FROM
-        Data_Load.DAS_Commitments AS C
-    -- To get latest record
-        LEFT JOIN
-     (
-         SELECT [C].[ApprenticeshipId]
-              , MAX([C].[UpdateDateTime]) AS [Max_UpdatedDateTime]
-              , MAX([C].ID)  AS Max_ID
-              , 1 AS [Flag_Latest]
-         FROM
-            Data_Load.DAS_Commitments AS C
-         GROUP BY [C].[ApprenticeshipId]
-     ) AS LC ON LC.ApprenticeshipId = C.ApprenticeshipId
-                AND LC.Max_ID = C.ID
-       AND LC.Max_UpdatedDateTime = C.UpdateDateTime
-  -- Join to Accounts to get the Hashed DAS Acccount ID
-  LEFT JOIN  (SELECT DISTINCT EA.[DasAccountId], EA.AccountID
-        FROM [Data_Load].[DAS_Employer_Accounts] AS EA) AS EA ON EA.AccountID = [C].[EmployerAccountID]
-  ---- Join Legal Entity to get Legal_Entity_ID
-  LEFT JOIN (SELECT
-              DISTINCT
-                ELE.DasAccountId
-              , ELE.[LegalEntityNumber]
-              , ELE.[LegalEntityName]
-              ,REPLACE(ELE.[LegalEntitySource],' ','') AS [LegalEntitySource]
-              ,ELE.[DasLegalEntityId]
-         FROM
-          Data_Pub.DAS_Employer_LegalEntities AS ELE
-         INNER JOIN  (
-      SELECT
-            ELE.[DasAccountId]
-          ,	ELE.[DasLegalEntityId]
-          ,	MAX(ELE.[UpdateDateTime]) AS Max_UpdatedDateTime
-          ,	1 AS Flag_Latest
-      FROM [Data_Load].[DAS_Employer_LegalEntities] AS ELE
-      GROUP BY
-            ELE.[DasAccountId]
-          ,	ELE.[DasLegalEntityId]
-      ) AS LELE ON ELE.DasAccountId = LELE.DasAccountId
-          AND ELE.DasLegalEntityId = LELE.DasLegalEntityId
-          AND ELE.[UpdateDateTime] = LELE.Max_UpdatedDateTime) AS ELE ON C.LegalEntityOrganisationType = ELE.[LegalEntitySource]
-                          AND  C.[LegalEntityCode] = ELE.[LegalEntityNumber]
-                          AND C.[LegalEntityName] = ELE.LegalEntityName
-                          AND EA.DasAccountId = ELE.DasAccountId
+	FROM Data_Load.DAS_Commitments AS C
+		 -- DAS Account
+		 LEFT JOIN [Data_Load].[DAS_Employer_Accounts] EAA ON EAA.AccountId = [C].[EmployerAccountID] AND EAA.IsLatest = 1
 
-  LEFT JOIN (SELECT P.ApprenticeshipId AS CommitmentId
-              , SUM(P.Amount) AS TotalAmount
-            FROM Data_Load.DAS_Payments AS P
-     INNER JOIN
-   --Looking to get the max Collection information for the delivery Period, Commitment ID and Employer Account ID
-        (
-         SELECT [P].[EmployerAccountID]
-        , P.ApprenticeshipId
-        , P.DeliveryMonth
-        , P.DeliveryYear
-              , MAX(CAST(P.CollectionYear AS VARCHAR(255)) + '-'+CAST(P.CollectionMonth AS VARCHAR(255))) AS [Max_CollectionPeriod]
-        , 1 AS [Flag_Latest]
-         FROM
-            [Data_Load].[DAS_Payments] AS P
-      GROUP BY
-       P.EmployerAccountID
-        , P.ApprenticeshipId
-        , P.DeliveryMonth
-        , P.DeliveryYear
-     ) AS LP ON LP.EmployerAccountID = P.EmployerAccountID
-       AND LP.ApprenticeshipId = P.ApprenticeshipId
-       AND LP.DeliveryMonth = P.DeliveryMonth
-       AND LP.DeliveryYear = P.DeliveryYear
-       AND LP.Max_CollectionPeriod = (CAST(P.CollectionYear AS VARCHAR(255)) + '-'+CAST(P.CollectionMonth AS VARCHAR(255)))
-         GROUP BY P.ApprenticeshipId) AS PP ON C.ApprenticeshipID = PP.CommitmentID
-    -- DAS Account Name
-  LEFT JOIN (SELECT
-        A.DASAccountID
-        ,A.AccountID
-        ,A.AccountName
-       FROM [Data_Load].[DAS_Employer_Accounts] AS A
+		 ---- Join Legal Entity to get Legal_Entity_ID
+		 LEFT JOIN Data_Pub.DAS_Employer_LegalEntities ELE
+			ON C.LegalEntityOrganisationType = ELE.[LegalEntitySource]
+				AND C.[LegalEntityCode] = ELE.[LegalEntityNumber]
+				AND C.[LegalEntityName] = ELE.LegalEntityName
+				AND EAA.DasAccountId = ELE.DasAccountId
+				AND ELE.Flag_Latest = 1
 
-       INNER JOIN (
-             SELECT
-                   EA.[DasAccountId]
-                 ,	MAX(EA.[UpdateDateTime]) AS Max_UpdatedDateTime
-                 ,	1 AS Flag_Latest
-             FROM [Data_Load].[DAS_Employer_Accounts] AS EA
-             GROUP BY
-            EA.[DasAccountId]
-      ) AS LEA ON A.DasAccountId = LEA.DasAccountId
-          AND lea.Max_UpdatedDateTime = A.[UpdateDateTime]) AS EAA ON EAA.AccountID = [C].[EmployerAccountID]
-
-  ;
+		  LEFT JOIN (SELECT P.ApprenticeshipId AS CommitmentId
+					  , SUM(P.Amount) AS TotalAmount
+					 FROM Data_Load.DAS_Payments AS P
+					 INNER JOIN
+				   --Looking to get the max Collection information for the delivery Period, Commitment ID and Employer Account ID
+						(
+						 SELECT [P].[EmployerAccountID]
+						, P.ApprenticeshipId
+						, P.DeliveryMonth
+						, P.DeliveryYear
+							  , MAX(CAST(P.CollectionYear AS VARCHAR(255)) + '-'+CAST(P.CollectionMonth AS VARCHAR(255))) AS [Max_CollectionPeriod]
+						, 1 AS [Flag_Latest]
+						 FROM
+							[Data_Load].[DAS_Payments] AS P
+					  GROUP BY
+					   P.EmployerAccountID
+						, P.ApprenticeshipId
+						, P.DeliveryMonth
+						, P.DeliveryYear
+					 ) AS LP ON LP.EmployerAccountID = P.EmployerAccountID
+					   AND LP.ApprenticeshipId = P.ApprenticeshipId
+					   AND LP.DeliveryMonth = P.DeliveryMonth
+					   AND LP.DeliveryYear = P.DeliveryYear
+					   AND LP.Max_CollectionPeriod = (CAST(P.CollectionYear AS VARCHAR(255)) + '-'+CAST(P.CollectionMonth AS VARCHAR(255)))
+						 GROUP BY P.ApprenticeshipId) AS PP ON C.ApprenticeshipID = PP.CommitmentID
 GO

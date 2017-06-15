@@ -15,11 +15,14 @@ BEGIN
 			[DateRegistered] = @dateRegistered AND
 			[OwnerEmail] = @ownerEmail AND
 			[DasAccountId] = @hashedAccountId AND
-			[AccountId] = @accountId
+			[AccountId] = @accountId AND
+			[IsLatest] = 1
 	)
 	BEGIN
-		INSERT INTO [Data_Load].[DAS_Employer_Accounts] ([AccountName],[DateRegistered],[OwnerEmail], [DasAccountId], [AccountId])
-			VALUES (@dasAccountName, @dateRegistered, @ownerEmail, @hashedAccountId, @accountId)
+		UPDATE [Data_Load].[DAS_Employer_Accounts] SET [IsLatest] = 0 WHERE [DasAccountId] = @hashedAccountId
+
+		INSERT INTO [Data_Load].[DAS_Employer_Accounts] ([AccountName],[DateRegistered],[OwnerEmail], [DasAccountId], [AccountId], [IsLatest])
+			VALUES (@dasAccountName, @dateRegistered, @ownerEmail, @hashedAccountId, @accountId, 1)
 	END
 END
 GO

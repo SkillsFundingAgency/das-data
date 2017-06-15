@@ -19,8 +19,11 @@ BEGIN
 			[RemovedDate] = @removedDate
 	)
 	BEGIN
-		INSERT INTO [Data_Load].[DAS_Employer_PayeSchemes] ([DasAccountId],[Ref],[Name],[AddedDate], [RemovedDate])
-			VALUES (@dasAccountId, @ref, @name, @addedDate, @removedDate)
+
+		UPDATE [Data_Load].[DAS_Employer_PayeSchemes] SET [IsLatest] = 0 WHERE [DasAccountId] = @dasAccountId AND [Ref] = @ref
+
+		INSERT INTO [Data_Load].[DAS_Employer_PayeSchemes] ([DasAccountId],[Ref],[Name],[AddedDate], [RemovedDate], [IsLatest])
+			VALUES (@dasAccountId, @ref, @name, @addedDate, @removedDate, 1)
 	END
 END
 GO
