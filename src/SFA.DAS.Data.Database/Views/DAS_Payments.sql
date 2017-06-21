@@ -34,12 +34,12 @@ SELECT
            WHEN DATEPART(M,C.DateOfBirth) > DATEPART(M,P.[UpdateDateTime]) OR (DATEPART(M,C.DateOfBirth) = DATEPART(M,P.[UpdateDateTime]) AND DATEPART(DD,C.DateOfBirth) > DATEPART(DD,P.[UpdateDateTime])) THEN DATEDIFF(YEAR,C.DateOfBirth,P.[UpdateDateTime]) -1
            ELSE DATEDIFF(YEAR,C.DateOfBirth,P.[UpdateDateTime])
       END AS PaymentAge
-	 ,CASE WHEN 
-		CASE WHEN C.DateOfBirth IS NULL THEN -1
-             WHEN DATEPART(M,C.DateOfBirth) > DATEPART(M,P.[UpdateDateTime]) OR (DATEPART(M,C.DateOfBirth) = DATEPART(M,P.[UpdateDateTime]) AND DATEPART(DD,C.DateOfBirth) > DATEPART(DD,P.[UpdateDateTime])) THEN DATEDIFF(YEAR,C.DateOfBirth,P.[UpdateDateTime]) -1
-             ELSE DATEDIFF(YEAR,C.DateOfBirth, P.[UpdateDateTime])
-		END BETWEEN 0 AND 18 THEN '16-18'
-		ELSE '19+' END AS PaymentAgeBand
+	 ,CASE WHEN C.DateOfBirth IS NULL THEN 'Unknown DOB (no commitment)'  -- Setting the Band for records with no DOB to Unknow --JIRA DATA-427
+            WHEN CASE WHEN C.DateOfBirth IS NULL THEN -1
+                        WHEN DATEPART(M,C.DateOfBirth) > DATEPART(M,P.[UpdateDateTime]) OR (DATEPART(M,C.DateOfBirth) = DATEPART(M,P.[UpdateDateTime]) AND DATEPART(DD,C.DateOfBirth) > DATEPART(DD,P.[UpdateDateTime])) THEN DATEDIFF(YEAR,C.DateOfBirth,P.[UpdateDateTime]) -1
+                      ELSE DATEDIFF(YEAR,C.DateOfBirth, P.[UpdateDateTime])
+                   END BETWEEN 0 AND 18 THEN '16-18'
+		  ELSE '19+' END AS PaymentAgeBand
      , CM.CalendarMonthShortNameYear AS DeliveryMonthShortNameYear
      , EA.AccountName AS DASAccountName
 FROM [Data_Load].[DAS_Payments] AS P
