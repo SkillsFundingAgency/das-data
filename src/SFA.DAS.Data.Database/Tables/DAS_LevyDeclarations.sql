@@ -27,3 +27,5 @@ CREATE TABLE [Data_Load].[DAS_LevyDeclarations]
 )
 GO
 CREATE INDEX [IX_LevyDeclaration_IsLatest] ON [Data_Load].[DAS_LevyDeclarations] ([IsLatest])
+GO
+CREATE INDEX [IX_LevyDeclaration_SchemeMonthYear] ON [Data_Load].[DAS_LevyDeclarations] ([PayeSchemeReference], [PayrollMonth], [PayrollYear])
