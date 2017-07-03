@@ -1,6 +1,6 @@
 CREATE VIEW [Data_Pub].[DAS_Commitments]
 AS
-  SELECT [C].[ID]
+SELECT [C].[ID]
           , CAST([C].[CommitmentID] AS BIGINT) AS EventID
           , CAST([C].[PaymentStatus] AS VARCHAR(50)) AS PaymentStatus
           , CAST([C].[ApprenticeshipID]AS BIGINT) AS CommitmentID
@@ -19,12 +19,14 @@ AS
                 ELSE '-1'
             END AS [StdCode]
           , CASE
-                WHEN [C].[TrainingTypeID] = 'Framework'
+                WHEN [C].[TrainingTypeID] = 'Framework' 
+                    AND CHARINDEX('-', [C].[TrainingID]) <> 0 -- This to fix the issues when standard codes are being recorded as Frameworks
                 THEN CAST(SUBSTRING([C].[TrainingID], 1, CHARINDEX('-', [C].[TrainingID])-1) AS INT)
                 ELSE '-1'
             END AS [FworkCode]
           , CASE
                 WHEN [C].[TrainingTypeID] = 'Framework'
+                    AND CHARINDEX('-', [C].[TrainingID]) <> 0 -- This to fix the issues when standard codes are being recorded as Frameworks
                 THEN CAST(SUBSTRING(SUBSTRING([C].[TrainingID], CHARINDEX('-', [C].[TrainingID])+1, LEN([C].[TrainingID])), 1, CHARINDEX('-', SUBSTRING([C].[TrainingID], CHARINDEX('-', [C].[TrainingID])+1, LEN([C].[TrainingID])))-1) AS INT)
                 ELSE '-1'
             END AS [ProgType]
@@ -98,12 +100,21 @@ AS
 		 LEFT JOIN [Data_Load].[DAS_Employer_Accounts] EAA ON EAA.AccountId = [C].[EmployerAccountID] AND EAA.IsLatest = 1
 
 		 ---- Join Legal Entity to get Legal_Entity_ID
-		 LEFT JOIN Data_Pub.DAS_Employer_LegalEntities ELE
-			ON C.LegalEntityOrganisationType = ELE.[LegalEntitySource]
-				AND C.[LegalEntityCode] = ELE.[LegalEntityNumber]
-				AND C.[LegalEntityName] = ELE.LegalEntityName
-				AND EAA.DasAccountId = ELE.DasAccountId
-				AND ELE.Flag_Latest = 1
+		 LEFT JOIN (SELECT
+                    DISTINCT
+                      ELE.DasAccountId
+                    , ELE.COde AS [LegalEntityNumber]
+                    , ELE.Name AS [LegalEntityName]
+                    , REPLACE(ELE.Source,' ','') AS [LegalEntitySource]
+                    , ELE.[DasLegalEntityId]
+               FROM
+                    Data_Load.DAS_Employer_LegalEntities AS ELE
+               WHERE
+                   IsLatest = 1
+               ) AS ELE ON C.LegalEntityOrganisationType = ELE.[LegalEntitySource]
+                          AND  C.[LegalEntityCode] = ELE.[LegalEntityNumber]
+                          AND C.[LegalEntityName] = ELE.LegalEntityName
+                          AND EAA.DasAccountId = ELE.DasAccountId
 
 		  LEFT JOIN (SELECT P.ApprenticeshipId AS CommitmentId
 					  , SUM(P.Amount) AS TotalAmount
@@ -129,5 +140,5 @@ AS
 					   AND LP.DeliveryMonth = P.DeliveryMonth
 					   AND LP.DeliveryYear = P.DeliveryYear
 					   AND LP.Max_CollectionPeriod = (CAST(P.CollectionYear AS VARCHAR(255)) + '-'+CAST(P.CollectionMonth AS VARCHAR(255)))
-						 GROUP BY P.ApprenticeshipId) AS PP ON C.ApprenticeshipID = PP.CommitmentID
+						 GROUP BY P.ApprenticeshipId) AS PP ON C.ApprenticeshipID = PP.CommitmentID;
 GO
