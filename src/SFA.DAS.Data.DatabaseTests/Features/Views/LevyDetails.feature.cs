@@ -31,8 +31,8 @@ namespace SFA.DAS.Data.DatabaseTests.Features.Views
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "LevyDetails", "\tIn order to make sure that i am presenting right data\r\n\tAs a Test Analyst\r\n\tI wa" +
-                    "nt to be told the views are working as expected", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "LevyDetails", "  In order to understand trends in levy details\r\n  As a senior stakeholder\r\n  I c" +
+                    "an see levy details", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -119,7 +119,7 @@ this.ScenarioSetup(scenarioInfo);
                         "3245.00000",
                         "495.00000"});
 #line 8
-testRunner.Given("I have DAS_LevyDeclarations", ((string)(null)), table1, "Given ");
+testRunner.Given("the following DAS_LevyDeclarations", ((string)(null)), table1, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
                         "DasAccountId",
@@ -136,7 +136,7 @@ testRunner.Given("I have DAS_LevyDeclarations", ((string)(null)), table1, "Given
                         "",
                         ""});
 #line 11
-testRunner.And("I have DAS_Employer_PayeSchemes", ((string)(null)), table2, "And ");
+testRunner.And("the following DAS_Employer_PayeSchemes", ((string)(null)), table2, "And ");
 #line hidden
             TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
                         "DasAccountId",
@@ -153,7 +153,7 @@ testRunner.And("I have DAS_Employer_PayeSchemes", ((string)(null)), table2, "And
                         "",
                         "65412354"});
 #line 14
-testRunner.And("I have DAS_Employer_Accounts", ((string)(null)), table3, "And ");
+testRunner.And("the following DAS_Employer_Accounts", ((string)(null)), table3, "And ");
 #line 17
 testRunner.When("I execute View [Reporting].[LevyDetails]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 18
