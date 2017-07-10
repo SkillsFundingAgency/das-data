@@ -30,9 +30,9 @@
       | CalendarMonthShortNameYear | CalendarMonthNumber | CalendarYear | DateSort | ValueType            | Value     | ValueTypeSort |
       | Nov - 2017                 | 11                  | 2017         | 112017   | Levy Payment         | 100.00000 | 3             |
       | Oct - 2017                 | 10                  | 2017         | 102017   | Levy Payment         | 100.00000 | 3             |
-      | Nov - 2017                 | 11                  | 2017         | 112017   | Fully funded SFA     | 10.00000  | 6             |
       | Nov - 2017                 | 11                  | 2017         | 112017   | Co-invested Employer | 15.00000  | 4             |
       | Nov - 2017                 | 11                  | 2017         | 112017   | Co-invested SFA      | 20.00000  | 5             |
+	  | Nov - 2017                 | 11                  | 2017         | 112017   | Fully funded SFA     | 10.00000  | 6             |
 	#Then the view contains
  #     | CalendarMonthShortNameYear | CalendarMonthNumber | CalendarYear | ValueType            | Value | ValueTypeSort |
  #     | April - 2017               | 4                   | 2017         | Levy funds           | 10000 | 1             |

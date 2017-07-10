@@ -225,14 +225,6 @@ namespace SFA.DAS.Data.DatabaseTests.Features.Views
                         "11",
                         "2017",
                         "112017",
-                        "Fully funded SFA",
-                        "10.00000",
-                        "6"});
-            table5.AddRow(new string[] {
-                        "Nov - 2017",
-                        "11",
-                        "2017",
-                        "112017",
                         "Co-invested Employer",
                         "15.00000",
                         "4"});
@@ -244,6 +236,14 @@ namespace SFA.DAS.Data.DatabaseTests.Features.Views
                         "Co-invested SFA",
                         "20.00000",
                         "5"});
+            table5.AddRow(new string[] {
+                        "Nov - 2017",
+                        "11",
+                        "2017",
+                        "112017",
+                        "Fully funded SFA",
+                        "10.00000",
+                        "6"});
 #line 29
  testRunner.Then("the view contains", ((string)(null)), table5, "Then ");
 #line hidden
