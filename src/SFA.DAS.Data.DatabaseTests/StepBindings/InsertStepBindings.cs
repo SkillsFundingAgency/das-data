@@ -17,15 +17,7 @@ namespace SFA.DAS.Data.DatabaseTests.StepBindings
             dbHelper = new InsertHelper(ScenarioContext.Current.Get<string>("connectionstring"));
         }
 
-        private void Insertinto(IEnumerable<dynamic> values, Action<dynamic> action)
-        {
-            foreach (dynamic value in values)
-            {
-                action(value);
-            }
-        }
-
-        [Given(@"I have DAS_LevyDeclarations")]
+        [Given(@"the following DAS_LevyDeclarations")]
         public void GivenIHaveDAS_LevyDeclarations(Table table)
         {
             IEnumerable<dynamic> values = table.CreateDynamicSet(true);
@@ -33,7 +25,7 @@ namespace SFA.DAS.Data.DatabaseTests.StepBindings
             Insertinto(values, dbHelper.InsertIntoLevyDeclarations);
         }
 
-        [Given(@"I have DAS_Employer_PayeSchemes")]
+        [Given(@"the following DAS_Employer_PayeSchemes")]
         public void GivenIHaveDAS_Employer_PayeSchemes(Table table)
         {
             IEnumerable<dynamic> values = table.CreateDynamicSet(true);
@@ -41,12 +33,28 @@ namespace SFA.DAS.Data.DatabaseTests.StepBindings
             Insertinto(values, dbHelper.InsertIntoEmployerPayeSchemes);
         }
 
-        [Given(@"I have DAS_Employer_Accounts")]
+        [Given(@"the following DAS_Employer_Accounts")]
         public void GivenIHaveDAS_Employer_Accounts(Table table)
         {
             IEnumerable<dynamic> values = table.CreateDynamicSet(true);
             
             Insertinto(values, dbHelper.InsertIntoEmployerAccounts);
         }
-    }  
+
+        [Given(@"the following DAS_Payments")]
+        public void GivenTheFollowingDAS_Payments(Table table)
+        {
+            IEnumerable<dynamic> values = table.CreateDynamicSet(true);
+            Insertinto(values, dbHelper.InsertIntoPayments);
+        }
+
+        private void Insertinto(IEnumerable<dynamic> values, Action<dynamic, ICollection<string>> action)
+        {
+            foreach (dynamic value in values)
+            {
+                action(value, ((IDictionary<string, object>)value).Keys);
+            }
+        }
+
+    }
 }

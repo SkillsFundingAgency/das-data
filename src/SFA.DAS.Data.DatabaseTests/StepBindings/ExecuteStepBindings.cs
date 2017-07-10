@@ -21,7 +21,7 @@ namespace SFA.DAS.Data.DatabaseTests.StepBindings
         {
             var asynccall = dbHelper.ExecuteView(view);
             asynccall.Wait();
-            List<object> results = asynccall.Result.ToList();
+            List<dynamic> results = asynccall.Result.ToList();
             ScenarioContext.Current.Set(results, "viewresults");
         }
     }
