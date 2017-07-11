@@ -50,7 +50,7 @@ BEGIN
 	WHERE Id IN (SELECT	MAX([Id]) FROM [Data_Load].[DAS_LevyDeclarations] GROUP BY [PayeSchemeReference], [PayrollMonth], [PayrollYear])
 END
 
-IF (SELECT COUNT(*) FROM [Data_Load].[PP_LastRun]) = 0
+IF (SELECT COUNT(*) FROM [PerformancePlatform].[PP_LastRun]) = 0
 BEGIN
-	INSERT INTO [Data_Load].[PP_LastRun] ([DateTime]) VALUES ('2017-01-01 00:00:00')
+	INSERT INTO [PerformancePlatform].[PP_LastRun] ([DateTime]) VALUES ('2017-01-01 00:00:00')
 END
