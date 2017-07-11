@@ -1,0 +1,4 @@
+﻿CREATE TABLE [Data_Load].[PP_LastRun]
+(
+	[DateTime] DATETIME NOT NULL PRIMARY KEY
+)
