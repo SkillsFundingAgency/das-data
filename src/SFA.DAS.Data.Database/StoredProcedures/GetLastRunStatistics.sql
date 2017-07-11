@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [PerformancePlatform].[GetLastRunStatistics]
+﻿	CREATE PROCEDURE [PerformancePlatform].[GetLastRunStatistics]
 	@dataType NVARCHAR(255)
 AS
 	SELECT TOP 1 NumberOfRecords FROM [PerformancePlatform].[PP_HistoricalStatistics]
