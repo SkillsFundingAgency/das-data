@@ -108,6 +108,7 @@
     <Compile Include="Commands\CreateAccountTests\WhenICreateAnAccount.cs" />
     <Compile Include="Commands\CreatePayeSchemeTests\WhenICreateAPayeScheme.cs" />
     <Compile Include="Commands\CreateLegalEntityTests\WhenICreateALegalEntity.cs" />
+    <Compile Include="DataExtractors\AccountsDataExtractorTests\WhenIExtractAccountData.cs" />
     <Compile Include="Gateways\AccountGatewayTests\AccountGatewayTestsBase.cs" />
     <Compile Include="Gateways\AccountGatewayTests\WhenAnAgreementIsRequested.cs" />
     <Compile Include="Gateways\AccountGatewayTests\WhenLevyDeclarationsAreRequested.cs" />
