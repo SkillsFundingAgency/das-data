@@ -104,6 +104,13 @@
     <Build Include="Views\LevyBalance.sql" />
     <Build Include="Tables\DAS_Employer_Agreements.sql" />
     <Build Include="StoredProcedures\SaveEmployerAgreement.sql" />
+    <Build Include="Tables\PP_HistoricalStatistics.sql" />
+    <Build Include="Tables\PP_LastRun.sql" />
+    <Build Include="StoredProcedures\SetPerformancePlatformLastRun.sql" />
+    <Build Include="StoredProcedures\GetLastRunStatistics.sql" />
+    <Build Include="StoredProcedures\CreateRunStatistics.sql" />
+    <Build Include="Schemas\PerformancePlatform.sql" />
+    <Build Include="StoredProcedures\GetNumberOfEmployerAccounts.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SFA.DAS.Data.Database.refactorlog" />

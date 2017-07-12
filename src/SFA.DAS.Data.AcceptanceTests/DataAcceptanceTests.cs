@@ -25,28 +25,22 @@ namespace SFA.DAS.Data.AcceptanceTests
         public void TearDown()
         {
             EventsApi.Dispose();
-            AccountsApi.Dispose();
-            ProviderEventsApi.Dispose();
         }
 
         public static void ClearApiSetup()
         {
             EventsApi.ClearSetup();
-            AccountsApi.ClearSetup();
-            ProviderEventsApi.ClearSetup();
         }
 
         private static void StartSubstituteApis()
         {
             Config = GetAzureStorageConfig();
 
-            EventsApi = new WebApiSubstitute(Config.EventsApi.BaseUrl);
-            AccountsApi = new WebApiSubstitute(Config.AccountsApi.ApiBaseUrl);
-            ProviderEventsApi = new WebApiSubstitute(Config.PaymentsEvents.ApiBaseUrl);
+            EventsApi = new WebApiSubstitute(Config.EventsApi.BaseUrl, Config.AccountsApi.ApiBaseUrl, Config.PaymentsEvents.ApiBaseUrl);
+            AccountsApi = EventsApi;
+            ProviderEventsApi = EventsApi;
 
             EventsApi.Start();
-            AccountsApi.Start();
-            ProviderEventsApi.Start();
         }
 
         private static DataConfiguration GetAzureStorageConfig()

@@ -88,6 +88,8 @@
     <Compile Include="Data\BaseRepository.cs" />
     <Compile Include="Data\EventRepository.cs" />
     <Compile Include="Data\PaymentRepository.cs" />
+    <Compile Include="Data\PerformancePlatformRepository.cs" />
+    <Compile Include="HttpClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Data\AccountRepository.cs" />
     <Compile Include="Services\ProviderEventsService.cs" />

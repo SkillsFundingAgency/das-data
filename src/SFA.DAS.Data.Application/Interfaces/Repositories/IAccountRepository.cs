@@ -6,5 +6,7 @@ namespace SFA.DAS.Data.Application.Interfaces.Repositories
     public interface IAccountRepository
     {
         Task SaveAccount(AccountDetailViewModel account);
+
+        Task<long> GetTotalNumberOfAccounts();
     }
 }
