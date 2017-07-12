@@ -102,6 +102,8 @@
     <Compile Include="Commands\CreateLevyDeclarations\CreateLevyDeclarationsCommandHandler.cs" />
     <Compile Include="Commands\CreatePaymentsForPeriodEnd\CreatePaymentsForPeriodEndCommandHandler.cs" />
     <Compile Include="Commands\CreatePaymentsForPeriodEnd\CreatePaymentsForPeriodEndCommand.cs" />
+    <Compile Include="Commands\ExportPerformancePlatformStatistics\ExportPerformancePlatformStatisticsCommand.cs" />
+    <Compile Include="Commands\ExportPerformancePlatformStatistics\ExportPerformancePlatformStatisticsCommandHandler.cs" />
     <Compile Include="Commands\RemovePayeScheme\RemovePayeSchemeCommand.cs" />
     <Compile Include="Commands\RemovePayeScheme\RemovePayeSchemeCommandHandler.cs" />
     <Compile Include="Commands\RenameAccount\RenameAccountCommand.cs" />

@@ -103,6 +103,7 @@
     <Compile Include="Commands\CreateEmployerAgreementTests\WhenICreateAnEmployerAgreement.cs" />
     <Compile Include="Commands\CreateLevyDeclarationsTests\WhenICreateLevyDeclarations.cs" />
     <Compile Include="Commands\CreatePaymentsForPeriodEndCommandTests\WhenAPeriodEndIsProcessed.cs" />
+    <Compile Include="Commands\ExportPerformancePlatformStatisticsTests\WhenPerformancePlatformStatisticsAreExported.cs" />
     <Compile Include="Commands\RemovePayeSchemeTests\WhenIRemoveAPayeScheme.cs" />
     <Compile Include="Commands\RenameAccountTests\WhenIRenameAnAccount.cs" />
     <Compile Include="Commands\CreateAccountTests\WhenICreateAnAccount.cs" />
