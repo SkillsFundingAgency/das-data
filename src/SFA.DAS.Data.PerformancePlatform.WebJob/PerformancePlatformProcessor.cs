@@ -5,7 +5,7 @@ using SFA.DAS.Data.Application.Commands.ExportPerformancePlatformStatistics;
 
 namespace SFA.DAS.Data.PerformancePlatform.WebJob
 {
-    public class PerformancePlatformProcessor : IPerformancePlatformProcessor
+    public class PerformancePlatformProcessor
     {
         private readonly IMediator _mediator;
 
@@ -16,7 +16,7 @@ namespace SFA.DAS.Data.PerformancePlatform.WebJob
 
         public async Task ExportData()
         {
-            await _mediator.PublishAsync(new ExportPerformancePlatformStatisticsCommand { ExtractDateTime = DateTime.Now });
+            await _mediator.PublishAsync(new ExportPerformancePlatformStatisticsCommand { ExtractDateTime = DateTime.UtcNow });
         }
     }
 }

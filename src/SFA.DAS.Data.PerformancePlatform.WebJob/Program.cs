@@ -8,7 +8,7 @@ namespace SFA.DAS.Data.PerformancePlatform.WebJob
         static void Main()
         {
             var container = ConfigureIocContainer();
-            var paymentUpdater = container.GetInstance<IPerformancePlatformProcessor>();
+            var paymentUpdater = container.GetInstance<PerformancePlatformProcessor>();
             paymentUpdater.ExportData().Wait();
         }
 
