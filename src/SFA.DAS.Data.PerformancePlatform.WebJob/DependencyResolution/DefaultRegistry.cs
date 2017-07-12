@@ -37,6 +37,7 @@ namespace SFA.DAS.Data.PerformancePlatform.WebJob.DependencyResolution
         private void RegisterRepositories(string connectionString)
         {
             For<IAccountRepository>().Use<AccountRepository>().Ctor<string>().Is(connectionString);
+            For<IPayeSchemeRepository>().Use<PayeSchemeRepository>().Ctor<string>().Is(connectionString);
             For<IPerformancePlatformRepository>().Use<PerformancePlatformRepository>().Ctor<string>().Is(connectionString);
         }
 

@@ -29,5 +29,15 @@ namespace SFA.DAS.Data.Infrastructure.Data
                     commandType: CommandType.StoredProcedure);
             });
         }
+
+        public async Task<long> GetTotalNumberOfPayeSchemes()
+        {
+            return await WithConnection(async c =>
+            {
+                return await c.ExecuteScalarAsync<long>(
+                    sql: "[PerformancePlatform].[GetNumberOfPayeSchemes]",
+                    commandType: CommandType.StoredProcedure);
+            });
+        }
     }
 }
