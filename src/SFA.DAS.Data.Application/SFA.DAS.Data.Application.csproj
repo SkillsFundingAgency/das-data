@@ -112,13 +112,17 @@
     <Compile Include="Commands\CreatePayeScheme\CreatePayeSchemeCommand.cs" />
     <Compile Include="Commands\CreateAccount\CreateAccountCommand.cs" />
     <Compile Include="Commands\CreateAccount\CreateAccountCommandHandler.cs" />
+    <Compile Include="Configuration\PerformancePlatformConfiguration.cs" />
     <Compile Include="Configuration\DataConfiguration.cs" />
     <Compile Include="Configuration\EventsApiClientConfiguration.cs" />
     <Compile Include="Configuration\IDataConfiguration.cs" />
     <Compile Include="DataExtractors\AccountsDataExtractor.cs" />
     <Compile Include="Gateways\AccountGateway.cs" />
+    <Compile Include="Gateways\PerformancePlatformGateway.cs" />
     <Compile Include="Interfaces\Gateways\IAccountGateway.cs" />
-    <Compile Include="Interfaces\IPerformancePlaformDataExtractor.cs" />
+    <Compile Include="Interfaces\Gateways\IPerformancePlatformGateway.cs" />
+    <Compile Include="Interfaces\IHttpClient.cs" />
+    <Compile Include="Interfaces\IPerformancePlatformDataExtractor.cs" />
     <Compile Include="Interfaces\IProviderEventService.cs" />
     <Compile Include="Interfaces\IEventService.cs" />
     <Compile Include="Interfaces\Repositories\IApprenticeshipRepository.cs" />
@@ -130,7 +134,7 @@
     <Compile Include="Interfaces\Repositories\IAccountRepository.cs" />
     <Compile Include="Interfaces\Repositories\IPaymentRepository.cs" />
     <Compile Include="Interfaces\Repositories\IPerformancePlatformRepository.cs" />
-    <Compile Include="PerformancePlanData.cs" />
+    <Compile Include="PerformancePlatformData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

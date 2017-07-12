@@ -5,7 +5,7 @@ using SFA.DAS.Data.Application.Interfaces.Repositories;
 
 namespace SFA.DAS.Data.Application.DataExtractors
 {
-    public class AccountsDataExtractor : IPerformancePlaformDataExtractor
+    public class AccountsDataExtractor : IPerformancePlatformDataExtractor
     {
         private const string DataType = "account registered";
 
@@ -18,12 +18,12 @@ namespace SFA.DAS.Data.Application.DataExtractors
             _accountRepository = accountRepository;
         }
 
-        public async Task<PerformancePlanData> Extract(DateTime extractDateTime)
+        public async Task<PerformancePlatformData> Extract(DateTime extractDateTime)
         {
             var currentRecordCount = await _accountRepository.GetTotalNumberOfAccounts();
             var newRecords = await GetNumberOfNewRecords(currentRecordCount);
 
-            return new PerformancePlanData(extractDateTime.AddDays(-1).Date, DataType, newRecords, currentRecordCount);
+            return new PerformancePlatformData(extractDateTime.AddDays(-1).Date, DataType, newRecords, currentRecordCount);
         }
 
         private async Task<long> GetNumberOfNewRecords(long currentRecordCount)

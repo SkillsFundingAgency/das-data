@@ -2,9 +2,9 @@
 
 namespace SFA.DAS.Data.Application
 {
-    public class PerformancePlanData
+    public class PerformancePlatformData
     {
-        public PerformancePlanData(DateTime timestamp, string dataType, long recordsSinceLastRun, long totalNumberOfRecords)
+        public PerformancePlatformData(DateTime timestamp, string dataType, long recordsSinceLastRun, long totalNumberOfRecords)
         {
             Timestamp = timestamp;
             DataType = dataType;

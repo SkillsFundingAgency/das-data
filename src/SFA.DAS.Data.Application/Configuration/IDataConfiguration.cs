@@ -9,5 +9,6 @@ namespace SFA.DAS.Data.Application.Configuration
         EventsApiClientConfiguration EventsApi { get; set; }
         int FailureTolerance { get; set; }
         bool PaymentsEnabled { get; set; }
+        PerformancePlatformConfiguration PerformancePlatform { get; set; }
     }
 }

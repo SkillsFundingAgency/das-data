@@ -115,6 +115,7 @@
     <Compile Include="Gateways\AccountGatewayTests\WhenAPayeSchemeIsRequested.cs" />
     <Compile Include="Gateways\AccountGatewayTests\WhenALegalEntityIsRequested.cs" />
     <Compile Include="Gateways\AccountGatewayTests\WhenAccountDetailsAreRequested.cs" />
+    <Compile Include="Gateways\PerformancePlatformGatewayTests\WhenISendPerformanceData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
