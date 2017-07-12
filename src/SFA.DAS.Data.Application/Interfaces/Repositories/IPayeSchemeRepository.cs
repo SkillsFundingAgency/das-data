@@ -6,5 +6,6 @@ namespace SFA.DAS.Data.Application.Interfaces.Repositories
     public interface IPayeSchemeRepository
     {
         Task SavePayeScheme(PayeSchemeViewModel payeScheme);
+        Task<long> GetTotalNumberOfPayeSchemes();
     }
 }
