@@ -56,8 +56,8 @@ namespace SFA.DAS.Data.Application.UnitTests.Commands.ExportPerformancePlatformS
 
             await _commandHandler.Handle(command);
 
-            _repository.Verify(x => x.CreateRunStatistics(extractor1Data.DataType, command.ExtractDateTime, extractor1Data.TotalNumberOfRecords));
-            _repository.Verify(x => x.CreateRunStatistics(extractor2Data.DataType, command.ExtractDateTime, extractor2Data.TotalNumberOfRecords));
+            _repository.Verify(x => x.CreateRunStatistics(extractor1Data.Type, command.ExtractDateTime, extractor1Data.TotalNumberOfRecords));
+            _repository.Verify(x => x.CreateRunStatistics(extractor2Data.Type, command.ExtractDateTime, extractor2Data.TotalNumberOfRecords));
         }
     }
 }

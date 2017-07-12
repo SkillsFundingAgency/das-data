@@ -37,7 +37,7 @@ namespace SFA.DAS.Data.Application.UnitTests.DataExtractors.AccountsDataExtracto
 
             var data = await _extractor.Extract(extractDateTime);
 
-            Assert.AreEqual(ExpectedDataType, data.DataType);
+            Assert.AreEqual(ExpectedDataType, data.Type);
             Assert.AreEqual(extractDateTime.AddDays(-1).Date, data.Timestamp);
             Assert.AreEqual(5, data.RecordsSinceLastRun);
             Assert.AreEqual(currentNumberOfRecords, data.TotalNumberOfRecords);

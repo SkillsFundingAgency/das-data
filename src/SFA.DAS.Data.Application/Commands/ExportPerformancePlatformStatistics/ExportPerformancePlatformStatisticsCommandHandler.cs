@@ -32,7 +32,7 @@ namespace SFA.DAS.Data.Application.Commands.ExportPerformancePlatformStatistics
 
         private async Task CreateRunStatistics(ExportPerformancePlatformStatisticsCommand notification, PerformancePlatformData[] data)
         {
-            var tasks = data.Select(x => _repository.CreateRunStatistics(x.DataType, notification.ExtractDateTime, x.TotalNumberOfRecords));
+            var tasks = data.Select(x => _repository.CreateRunStatistics(x.Type, notification.ExtractDateTime, x.TotalNumberOfRecords));
             await Task.WhenAll(tasks);
         }
 

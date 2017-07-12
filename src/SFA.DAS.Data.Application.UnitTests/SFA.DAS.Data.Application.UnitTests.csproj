@@ -117,6 +117,7 @@
     <Compile Include="Gateways\AccountGatewayTests\WhenALegalEntityIsRequested.cs" />
     <Compile Include="Gateways\AccountGatewayTests\WhenAccountDetailsAreRequested.cs" />
     <Compile Include="Gateways\PerformancePlatformGatewayTests\WhenISendPerformanceData.cs" />
+    <Compile Include="PerformancePlatformDataTests\WhenICreatePerformancePlatformData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
