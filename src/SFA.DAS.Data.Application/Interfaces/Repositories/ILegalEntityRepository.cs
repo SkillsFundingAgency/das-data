@@ -6,5 +6,6 @@ namespace SFA.DAS.Data.Application.Interfaces.Repositories
     public interface ILegalEntityRepository
     {
         Task SaveLegalEntity(LegalEntityViewModel legalEntity);
+        Task<long> GetTotalNumberOfLegalEntities();
     }
 }

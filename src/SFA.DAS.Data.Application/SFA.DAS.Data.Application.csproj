@@ -118,6 +118,7 @@
     <Compile Include="Configuration\DataConfiguration.cs" />
     <Compile Include="Configuration\EventsApiClientConfiguration.cs" />
     <Compile Include="Configuration\IDataConfiguration.cs" />
+    <Compile Include="DataExtractors\OrganisationsDataExtractor.cs" />
     <Compile Include="DataExtractors\PayeSchemesDataExtractor.cs" />
     <Compile Include="DataExtractors\AccountsDataExtractor.cs" />
     <Compile Include="Gateways\AccountGateway.cs" />

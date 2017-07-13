@@ -32,5 +32,15 @@ namespace SFA.DAS.Data.Infrastructure.Data
                     commandType: CommandType.StoredProcedure);
             });
         }
+
+        public async Task<long> GetTotalNumberOfLegalEntities()
+        {
+            return await WithConnection(async c =>
+            {
+                return await c.ExecuteScalarAsync<long>(
+                    sql: "[PerformancePlatform].[GetNumberOfLegalEntities]",
+                    commandType: CommandType.StoredProcedure);
+            });
+        }
     }
 }
