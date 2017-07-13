@@ -40,5 +40,15 @@ namespace SFA.DAS.Data.Infrastructure.Data
                     commandType: CommandType.StoredProcedure);
             });
         }
+
+        public async Task<long> GetTotalNumberOfAgreedApprenticeships()
+        {
+            return await WithConnection(async c =>
+            {
+                return await c.ExecuteScalarAsync<long>(
+                    sql: "[PerformancePlatform].[GetNumberOfApprovedApprenticeships]",
+                    commandType: CommandType.StoredProcedure);
+            });
+        }
     }
 }
