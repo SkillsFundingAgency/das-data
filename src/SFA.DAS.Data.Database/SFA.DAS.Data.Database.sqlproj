@@ -112,6 +112,7 @@
     <Build Include="Schemas\PerformancePlatform.sql" />
     <Build Include="StoredProcedures\GetNumberOfEmployerAccounts.sql" />
     <Build Include="StoredProcedures\GetNumberOfPayeSchemes.sql" />
+    <Build Include="StoredProcedures\GetNumberOfLegalEntities.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SFA.DAS.Data.Database.refactorlog" />
