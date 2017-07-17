@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using SFA.DAS.Data.Application.Interfaces;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
+using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Application.DataExtractors
 {
@@ -9,17 +10,21 @@ namespace SFA.DAS.Data.Application.DataExtractors
     {
         private const string DataType = "organisations added";
 
-        private IPerformancePlatformRepository _performancePlatformRepository;
-        private ILegalEntityRepository _legalEntityRepository;
+        private readonly IPerformancePlatformRepository _performancePlatformRepository;
+        private readonly ILegalEntityRepository _legalEntityRepository;
+        private readonly ILog _logger;
 
-        public OrganisationsDataExtractor(IPerformancePlatformRepository performancePlatformRepository, ILegalEntityRepository legalEntityRepository)
+        public OrganisationsDataExtractor(IPerformancePlatformRepository performancePlatformRepository, ILegalEntityRepository legalEntityRepository, ILog logger)
         {
             _performancePlatformRepository = performancePlatformRepository;
             _legalEntityRepository = legalEntityRepository;
+            _logger = logger;
         }
 
         public async Task<PerformancePlatformData> Extract(DateTime extractDateTime)
         {
+            _logger.Info($"Getting organisation data for publishing to the performance platform.");
+
             var currentRecordCount = await _legalEntityRepository.GetTotalNumberOfLegalEntities();
             var newRecords = await GetNumberOfNewRecords(currentRecordCount);
 

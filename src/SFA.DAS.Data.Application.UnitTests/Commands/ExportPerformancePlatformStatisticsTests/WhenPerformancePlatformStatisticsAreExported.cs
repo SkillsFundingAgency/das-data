@@ -8,6 +8,7 @@ using SFA.DAS.Data.Application.Commands.ExportPerformancePlatformStatistics;
 using SFA.DAS.Data.Application.Interfaces;
 using SFA.DAS.Data.Application.Interfaces.Gateways;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
+using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Application.UnitTests.Commands.ExportPerformancePlatformStatisticsTests
 {
@@ -28,7 +29,7 @@ namespace SFA.DAS.Data.Application.UnitTests.Commands.ExportPerformancePlatformS
             var extractors = new List<IPerformancePlatformDataExtractor> { _extractor1.Object, _extractor2.Object };
             _gateway = new Mock<IPerformancePlatformGateway>();
             _repository = new Mock<IPerformancePlatformRepository>();
-            _commandHandler = new ExportPerformancePlatformStatisticsCommandHandler(extractors, _gateway.Object, _repository.Object);
+            _commandHandler = new ExportPerformancePlatformStatisticsCommandHandler(extractors, _gateway.Object, _repository.Object, Mock.Of<ILog>());
         }
 
         [Test]

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using SFA.DAS.Data.Application.Interfaces;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
+using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Application.DataExtractors
 {
@@ -9,17 +10,21 @@ namespace SFA.DAS.Data.Application.DataExtractors
     {
         private const string DataType = "account registered";
 
-        private IPerformancePlatformRepository _performancePlatformRepository;
-        private IAccountRepository _accountRepository;
+        private readonly IPerformancePlatformRepository _performancePlatformRepository;
+        private readonly IAccountRepository _accountRepository;
+        private readonly ILog _logger;
 
-        public AccountsDataExtractor(IPerformancePlatformRepository performancePlatformRepository, IAccountRepository accountRepository)
+        public AccountsDataExtractor(IPerformancePlatformRepository performancePlatformRepository, IAccountRepository accountRepository, ILog logger)
         {
             _performancePlatformRepository = performancePlatformRepository;
             _accountRepository = accountRepository;
+            _logger = logger;
         }
 
         public async Task<PerformancePlatformData> Extract(DateTime extractDateTime)
         {
+            _logger.Info($"Getting accounts data for publishing to the performance platform.");
+
             var currentRecordCount = await _accountRepository.GetTotalNumberOfAccounts();
             var newRecords = await GetNumberOfNewRecords(currentRecordCount);
 
