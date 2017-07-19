@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using SFA.DAS.Data.Application.Interfaces;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
+using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Application.DataExtractors
 {
@@ -9,17 +10,21 @@ namespace SFA.DAS.Data.Application.DataExtractors
     {
         private const string DataType = "paye schemes added";
 
-        private IPerformancePlatformRepository _performancePlatformRepository;
-        private IPayeSchemeRepository _payeSchemeRepository;
+        private readonly IPerformancePlatformRepository _performancePlatformRepository;
+        private readonly IPayeSchemeRepository _payeSchemeRepository;
+        private readonly ILog _logger;
 
-        public PayeSchemesDataExtractor(IPerformancePlatformRepository performancePlatformRepository, IPayeSchemeRepository payeSchemeRepository)
+        public PayeSchemesDataExtractor(IPerformancePlatformRepository performancePlatformRepository, IPayeSchemeRepository payeSchemeRepository, ILog logger)
         {
             _performancePlatformRepository = performancePlatformRepository;
             _payeSchemeRepository = payeSchemeRepository;
+            _logger = logger;
         }
 
         public async Task<PerformancePlatformData> Extract(DateTime extractDateTime)
         {
+            _logger.Info($"Getting paye scheme data for publishing to the performance platform.");
+
             var currentRecordCount = await _payeSchemeRepository.GetTotalNumberOfPayeSchemes();
             var newRecords = await GetNumberOfNewRecords(currentRecordCount);
 

@@ -4,6 +4,7 @@ using Moq;
 using NUnit.Framework;
 using SFA.DAS.Data.Application.DataExtractors;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
+using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Application.UnitTests.DataExtractors.PayeSchemesDataExtractorTests
 {
@@ -22,7 +23,7 @@ namespace SFA.DAS.Data.Application.UnitTests.DataExtractors.PayeSchemesDataExtra
             _performancePlatformRepository = new Mock<IPerformancePlatformRepository>();
             _payeSchemeRepository = new Mock<IPayeSchemeRepository>();
 
-            _extractor = new PayeSchemesDataExtractor(_performancePlatformRepository.Object, _payeSchemeRepository.Object);
+            _extractor = new PayeSchemesDataExtractor(_performancePlatformRepository.Object, _payeSchemeRepository.Object, Mock.Of<ILog>());
         }
 
         [Test]

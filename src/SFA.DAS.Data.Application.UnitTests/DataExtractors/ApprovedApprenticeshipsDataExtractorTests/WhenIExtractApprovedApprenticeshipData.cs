@@ -4,6 +4,7 @@ using Moq;
 using NUnit.Framework;
 using SFA.DAS.Data.Application.DataExtractors;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
+using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Application.UnitTests.DataExtractors.ApprovedApprenticeshipsDataExtractorTests
 {
@@ -22,7 +23,7 @@ namespace SFA.DAS.Data.Application.UnitTests.DataExtractors.ApprovedApprenticesh
             _performancePlatformRepository = new Mock<IPerformancePlatformRepository>();
             _apprenticeshipRepository = new Mock<IApprenticeshipRepository>();
 
-            _extractor = new ApprovedApprenticeshipsDataExtractor(_performancePlatformRepository.Object, _apprenticeshipRepository.Object);
+            _extractor = new ApprovedApprenticeshipsDataExtractor(_performancePlatformRepository.Object, _apprenticeshipRepository.Object, Mock.Of<ILog>());
         }
 
         [Test]

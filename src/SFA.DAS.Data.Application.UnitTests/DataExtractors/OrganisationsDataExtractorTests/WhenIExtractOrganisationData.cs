@@ -4,6 +4,7 @@ using Moq;
 using NUnit.Framework;
 using SFA.DAS.Data.Application.DataExtractors;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
+using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Application.UnitTests.DataExtractors.OrganisationsDataExtractorTests
 {
@@ -22,7 +23,7 @@ namespace SFA.DAS.Data.Application.UnitTests.DataExtractors.OrganisationsDataExt
             _performancePlatformRepository = new Mock<IPerformancePlatformRepository>();
             _legalEntityRepository = new Mock<ILegalEntityRepository>();
 
-            _extractor = new OrganisationsDataExtractor(_performancePlatformRepository.Object, _legalEntityRepository.Object);
+            _extractor = new OrganisationsDataExtractor(_performancePlatformRepository.Object, _legalEntityRepository.Object, Mock.Of<ILog>());
         }
 
         [Test]

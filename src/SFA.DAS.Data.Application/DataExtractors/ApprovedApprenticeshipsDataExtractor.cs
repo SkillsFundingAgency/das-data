@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using SFA.DAS.Data.Application.Interfaces;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
+using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Application.DataExtractors
 {
@@ -9,17 +10,20 @@ namespace SFA.DAS.Data.Application.DataExtractors
     {
         private const string DataType = "apprentices approved";
 
-        private IPerformancePlatformRepository _performancePlatformRepository;
-        private IApprenticeshipRepository _apprenticeshipRepository;
+        private readonly IPerformancePlatformRepository _performancePlatformRepository;
+        private readonly IApprenticeshipRepository _apprenticeshipRepository;
+        private readonly ILog _logger;
 
-        public ApprovedApprenticeshipsDataExtractor(IPerformancePlatformRepository performancePlatformRepository, IApprenticeshipRepository apprenticeshipRepository)
+        public ApprovedApprenticeshipsDataExtractor(IPerformancePlatformRepository performancePlatformRepository, IApprenticeshipRepository apprenticeshipRepository, ILog logger)
         {
             _performancePlatformRepository = performancePlatformRepository;
             _apprenticeshipRepository = apprenticeshipRepository;
+            _logger = logger;
         }
 
         public async Task<PerformancePlatformData> Extract(DateTime extractDateTime)
         {
+            _logger.Info($"Getting approved apprenticeships data for publishing to the performance platform.");
             var currentRecordCount = await _apprenticeshipRepository.GetTotalNumberOfAgreedApprenticeships();
             var newRecords = await GetNumberOfNewRecords(currentRecordCount);
 
