@@ -114,6 +114,8 @@
     <Build Include="StoredProcedures\GetNumberOfPayeSchemes.sql" />
     <Build Include="StoredProcedures\GetNumberOfLegalEntities.sql" />
     <Build Include="StoredProcedures\GetNumberOfApprovedApprenticeships.sql" />
+    <Build Include="Views\DAS_Employer_Agreements.sql" />
+    <Build Include="Views\DAS_Employer_AccountTransactions.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SFA.DAS.Data.Database.refactorlog" />
