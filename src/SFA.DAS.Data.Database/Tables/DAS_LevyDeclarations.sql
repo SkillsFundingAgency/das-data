@@ -28,6 +28,6 @@ CREATE TABLE [Data_Load].[DAS_LevyDeclarations]
 GO
 CREATE INDEX [IX_LevyDeclaration_IsLatest] ON [Data_Load].[DAS_LevyDeclarations] ([IsLatest])
 GO
-CREATE INDEX [IX_LevyDeclaration_SchemeMonthYear] ON [Data_Load].[DAS_LevyDeclarations] ([PayeSchemeReference], [PayrollMonth], [PayrollYear])
+CREATE INDEX [IX_LevyDeclaration_SchemeMonthYear] ON [Data_Load].[DAS_LevyDeclarations] ([PayeSchemeReference], [PayrollMonth], [PayrollYear]) INCLUDE ([IsLatest])
 GO
 CREATE INDEX [IX_LevyDeclaration_IsLatest_Payroll] ON [Data_Load].[DAS_LevyDeclarations] ([IsLatest], [PayrollMonth], [PayrollYear]) INCLUDE ([CreatedDate], [DasAccountId], [EnglishFraction], [LevyAvailableInMonth], [LevyDeclaredInMonth], [LevyDueYearToDate], [PayeSchemeReference], [SubmissionDate], [TopupAmount], [TopupPercentage])
