@@ -47,14 +47,14 @@ FROM [Data_Load].[DAS_Payments] AS P
 	LEFT JOIN 
 		(SELECT [P].[EmployerAccountID]
 			   ,P.ApprenticeshipId
-			   ,MIN(CAST(P.DeliveryYear AS VARCHAR(255)) + '-'+CAST(P.DeliveryMonth AS VARCHAR(255))+'-'+CAST([P].[UpdateDateTime] AS VARCHAR(255))+'-'+P.PaymentId) AS [Min_FirstPayment]
+			   ,MIN(CAST(P.DeliveryYear AS VARCHAR(255)) + '-'+CAST(P.DeliveryMonth AS VARCHAR(255))+'-'+CONVERT(NVARCHAR(MAX), [P].[UpdateDateTime], 121)+'-'+P.PaymentId) AS [Min_FirstPayment]
 			   ,1 AS [Flag_FirstPayment]
 		 FROM [Data_Load].[DAS_Payments] AS P
 		 GROUP BY P.EmployerAccountID, P.ApprenticeshipId	
 		 ) 
 		 AS FP ON FP.EmployerAccountID = P.EmployerAccountID
 			AND FP.ApprenticeshipId = P.ApprenticeshipId
-			AND FP.Min_FirstPayment = (CAST(P.DeliveryYear AS VARCHAR(255)) + '-'+CAST(P.DeliveryMonth AS VARCHAR(255))+'-'+CAST([P].[UpdateDateTime] AS VARCHAR(255))+'-'+P.PaymentId)
+			AND FP.Min_FirstPayment = (CAST(P.DeliveryYear AS VARCHAR(255)) + '-'+CAST(P.DeliveryMonth AS VARCHAR(255))+'-'+CONVERT(NVARCHAR(MAX), [P].[UpdateDateTime], 121)+'-'+P.PaymentId)
 	--Payment Age
 	LEFT JOIN [Data_Load].[Das_Commitments] C ON [c].[ApprenticeshipID] = [p].[ApprenticeshipId] AND [c].[IsLatest] = 1
 
