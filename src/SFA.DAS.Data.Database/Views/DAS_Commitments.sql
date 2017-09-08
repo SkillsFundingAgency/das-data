@@ -95,6 +95,7 @@ SELECT [C].[ID]
           , EAA.AccountName AS DASAccountName
           , CASE WHEN C.AgreementStatus = 'BothAgreed' THEN 'Yes'
                  ELSE 'No' END AS FullyAgreedCommitment
+          , ELE.LegalEntityRegisteredAddress
 	FROM Data_Load.DAS_Commitments AS C
 		 -- DAS Account
 		 LEFT JOIN [Data_Load].[DAS_Employer_Accounts] EAA ON EAA.AccountId = [C].[EmployerAccountID] AND EAA.IsLatest = 1
@@ -106,7 +107,8 @@ SELECT [C].[ID]
                     , ELE.COde AS [LegalEntityNumber]
                     , ELE.Name AS [LegalEntityName]
                     , REPLACE(ELE.Source,' ','') AS [LegalEntitySource]
-                    , ELE.[DasLegalEntityId]
+                    , ELE.[DasLegalEntityId] 
+                    , ELE.[Address] AS LegalEntityRegisteredAddress
                FROM
                     Data_Load.DAS_Employer_LegalEntities AS ELE
                WHERE
@@ -141,4 +143,3 @@ SELECT [C].[ID]
 					   AND LP.DeliveryYear = P.DeliveryYear
 					   AND LP.Max_CollectionPeriod = (CAST(P.CollectionYear AS VARCHAR(255)) + '-'+CAST(P.CollectionMonth AS VARCHAR(255)))
 						 GROUP BY P.ApprenticeshipId) AS PP ON C.ApprenticeshipID = PP.CommitmentID;
-GO
