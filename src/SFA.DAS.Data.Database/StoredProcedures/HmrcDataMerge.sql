@@ -11,7 +11,7 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-   MERGE [dbo].[HMRC-DATA-Live] AS Target
+   MERGE  [HMRC].[DATA-Live] AS Target
 USING (SELECT  l.[tax_year]
       ,l.[tax_month]
       ,l.[emp_ref]
@@ -87,7 +87,7 @@ USING (SELECT  l.[tax_year]
       ,l.[historical_adjustment_levy_allowance_previous_5]
       ,l.[historical_adjustment_levy_due_previous_6]
       ,l.[historical_adjustment_ef_previous_6]
-      ,l.[historical_adjustment_levy_allowance_previous_6] from [dbo].[HMRC-DATA-Staging] as l) AS Source
+      ,l.[historical_adjustment_levy_allowance_previous_6] from [HMRC].[DATA-Staging] as l) AS Source
 ON (Target.[emp_ref] = Source.[emp_ref] and Target.[tax_month] = source.[tax_month] and Target.[tax_year] = source.[tax_year]  )
 When matched THEN 
 	  update set 

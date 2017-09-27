@@ -1,0 +1,2 @@
+﻿CREATE VIEW [HMRC].[HMRC_MI_View]
+	AS SELECT * FROM  [HMRC].[DATA-Live]

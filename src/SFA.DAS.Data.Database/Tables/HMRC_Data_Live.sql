@@ -1,5 +1,5 @@
 ﻿
-CREATE TABLE [dbo].[HMRC-DATA-Live](
+CREATE TABLE [HMRC].[DATA-Live](
 	[tax_year] SMALLINT NULL,
 	[tax_month] INT NULL,
 	[emp_ref] [varchar](256) NULL,

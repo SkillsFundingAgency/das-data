@@ -1,5 +1,5 @@
 ﻿
-CREATE TABLE [dbo].[HMRC-DATA-Staging](
+CREATE TABLE [HMRC].[DATA-Staging](
 	[tax_year] [varchar](256) NULL,
 	[tax_month] [varchar](256) NULL,
 	[emp_ref] [varchar](256) NULL,
