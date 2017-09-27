@@ -116,6 +116,9 @@
     <Build Include="StoredProcedures\GetNumberOfApprovedApprenticeships.sql" />
     <Build Include="Views\DAS_Employer_Agreements.sql" />
     <Build Include="Views\DAS_Employer_AccountTransactions.sql" />
+    <Build Include="Tables\HMRC-Data-Staging.sql" />
+    <Build Include="StoredProcedures\HmrcDataMerge.sql" />
+    <Build Include="Tables\HMRC-Data-Live.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SFA.DAS.Data.Database.refactorlog" />
