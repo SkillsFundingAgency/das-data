@@ -33,3 +33,5 @@ GO
 CREATE INDEX [IX_Payment_TransactionType_Delivery] ON [Data_Load].[DAS_Payments] ([TransactionType], [DeliveryYear], [DeliveryMonth])
 GO
 CREATE INDEX [IX_Payment_DeliveryMonth_DeliveryYear] ON [Data_Load].[DAS_Payments] ([DeliveryMonth], [DeliveryYear]) INCLUDE ([Amount], [ApprenticeshipId], [EmployerAccountId], [FundingSource], [UpdateDateTime])
+GO
+CREATE INDEX [IX_Payment_PaymentId] ON [Data_Load].[DAS_Payments] ([PaymentId])
