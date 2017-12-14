@@ -121,6 +121,14 @@
     <Build Include="Tables\HMRC_Data_Live.sql" />
     <Build Include="Views\HMRC_MI_View.sql" />
     <Build Include="Schemas\HMRC.sql" />
+    <Build Include="Tables\Configuration_Data_Quality_Tests.sql" />
+    <Build Include="Tables\Data_Quality_Tests_Log.sql" />
+    <Build Include="Tables\Process_Log.sql" />
+    <Build Include="Tables\Load_Control.sql" />
+    <Build Include="Tables\Data_Live.sql" />
+    <Build Include="Tables\Data_History.sql" />
+    <Build Include="Tables\Data_Staging.sql" />
+    <Build Include="StoredProcedures\Load_Data.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SFA.DAS.Data.Database.refactorlog" />
