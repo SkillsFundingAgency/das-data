@@ -548,7 +548,7 @@ BEGIN
             ,  'No records loaded' AS ProcessEventDescription
             ,  -9999999999999 AS SourceFile_ID
 END
-
+  --SELECT 1/0
 END TRY
 
 BEGIN CATCH
@@ -576,9 +576,9 @@ SET
 FROM 
      [HMRC].[Load_Control] AS LC
 WHERE
-     [SourceFile_ID] = @BISourceFile_ID
+     [SourceFile_ID] = @BISourceFile_ID;
 
-
+THROW 50000,'Load Error',1;
 
 
 END CATCH
