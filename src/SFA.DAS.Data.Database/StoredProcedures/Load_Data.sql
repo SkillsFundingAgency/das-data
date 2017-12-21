@@ -1,4 +1,4 @@
-CREATE PROCEDURE HMRC.Load_Data
+CREATE PROCEDURE [HMRC].[Load_Data]
 
 AS
 BEGIN
@@ -62,7 +62,7 @@ BEGIN
 
      -- CessationDate set to be 31st Dec 2999 if null
      UPDATE S
-     SET S.[CessationDate] = '31 DEC 2999'
+     SET S.[CessationDate] = '29991231'
      FROM [HMRC].[Data_Staging] AS S
      WHERE S.[CessationDate] IS NULL
 
@@ -584,3 +584,4 @@ THROW 50000,'Load Error',1;
 END CATCH
 
 END
+
