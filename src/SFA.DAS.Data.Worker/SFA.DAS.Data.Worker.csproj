@@ -181,6 +181,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DependencyResolution\DefaultRegistry.cs" />
+    <Compile Include="Events\EventHandlers\EmploymentCheckCompleteEventHandler.cs" />
     <Compile Include="Events\EventHandlers\AccountEventHandler.cs" />
     <Compile Include="Events\EventHandlers\LevyDeclarationUpdatedEventHandler.cs" />
     <Compile Include="Events\EventHandlers\AgreementSignedEventHandler.cs" />
@@ -239,6 +240,10 @@
     <ProjectReference Include="..\SFA.DAS.Data.Infrastructure\SFA.DAS.Data.Infrastructure.csproj">
       <Project>{1634D299-63E6-45DC-B161-AD8BDBDB0C40}</Project>
       <Name>SFA.DAS.Data.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Temp\Temp.csproj">
+      <Project>{1E0A5A0E-51C4-46FF-B553-1FA0A71E1F29}</Project>
+      <Name>Temp</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

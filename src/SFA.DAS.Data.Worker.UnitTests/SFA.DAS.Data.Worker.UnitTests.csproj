@@ -104,6 +104,7 @@
     <Compile Include="Events\EventCollectorsTests\PaymentEventCollectorTests\WhenIGetPaymentEvents.cs" />
     <Compile Include="Events\EventCollectorsTests\ApprenticeshipEventCollectorTests\WhenIGetApprenticeshipEvents.cs" />
     <Compile Include="Events\EventCollectorsTests\GenericEventCollectorTests\WhenGenericEventsAreRequested.cs" />
+    <Compile Include="Events\EventHandlerTests\EmploymentCheckCompleteEventHandlerTests\WhenAnEmploymentCheckCompleteEventIsHandled.cs" />
     <Compile Include="Events\EventHandlerTests\AgreementSignedEventHandlerTests\WhenAnAgreementSignedEventIsHandled.cs" />
     <Compile Include="Events\EventHandlerTests\LevyDeclarationUpdatedEventHandlerTests\WhenALevyDeclarationUpdatedEventIsHandled.cs" />
     <Compile Include="Events\EventHandlerTests\PeriodEndEventHandlerTests\WhenAPeriodEndEventIsHandled.cs" />
@@ -129,6 +130,10 @@
     <ProjectReference Include="..\SFA.DAS.Data.Worker\SFA.DAS.Data.Worker.csproj">
       <Project>{4EC2EA06-3477-4F22-98B4-70DC29FC67A8}</Project>
       <Name>SFA.DAS.Data.Worker</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Temp\Temp.csproj">
+      <Project>{1E0A5A0E-51C4-46FF-B553-1FA0A71E1F29}</Project>
+      <Name>Temp</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
