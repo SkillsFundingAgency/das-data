@@ -93,6 +93,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\CreateEmploymentCheck\CreateEmploymentCheckCommand.cs" />
+    <Compile Include="Commands\CreateEmploymentCheck\CreateEmploymentCheckCommandHandler.cs" />
     <Compile Include="Commands\CreateCommitmentApprenticeshipEntry\CreateCommitmentApprenticeshipEntryCommand.cs" />
     <Compile Include="Commands\CreateCommitmentApprenticeshipEntry\CreateCommitmentApprenticeshipEntryCommandHandler.cs" />
     <Compile Include="Commands\CreateCommitmentApprenticeshipEntry\CreateCommitmentApprenticeshipEntryResponse.cs" />

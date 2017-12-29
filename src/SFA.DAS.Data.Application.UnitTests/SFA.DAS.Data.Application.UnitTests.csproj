@@ -100,6 +100,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\CreateEmploymentCheckTests\WhenAnEmploymentCheckIsComplete.cs" />
     <Compile Include="Commands\CreateEmployerAgreementTests\WhenICreateAnEmployerAgreement.cs" />
     <Compile Include="Commands\CreateLevyDeclarationsTests\WhenICreateLevyDeclarations.cs" />
     <Compile Include="Commands\CreatePaymentsForPeriodEndCommandTests\WhenAPeriodEndIsProcessed.cs" />
@@ -135,6 +136,10 @@
     <ProjectReference Include="..\SFA.DAS.Data.Tests.Builders\SFA.DAS.Data.Tests.Builders.csproj">
       <Project>{D25D12F9-952C-484F-8E23-CA4F207FEC79}</Project>
       <Name>SFA.DAS.Data.Tests.Builders</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Temp\Temp.csproj">
+      <Project>{1E0A5A0E-51C4-46FF-B553-1FA0A71E1F29}</Project>
+      <Name>Temp</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
