@@ -80,6 +80,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\EmploymentCheckRepository.cs" />
     <Compile Include="Data\EmployerAgreementRepository.cs" />
     <Compile Include="Data\LevyDeclarationRepository.cs" />
     <Compile Include="Data\ApprenticeshipRepository.cs" />
@@ -103,6 +104,10 @@
     <ProjectReference Include="..\SFA.DAS.Data.Domain\SFA.DAS.Data.Domain.csproj">
       <Project>{4AAD17AA-1127-471A-8D28-BA1C5DA7D18A}</Project>
       <Name>SFA.DAS.Data.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Temp\Temp.csproj">
+      <Project>{1E0A5A0E-51C4-46FF-B553-1FA0A71E1F29}</Project>
+      <Name>Temp</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

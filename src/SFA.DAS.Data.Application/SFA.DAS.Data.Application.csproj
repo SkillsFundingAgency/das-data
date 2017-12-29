@@ -130,6 +130,7 @@
     <Compile Include="Interfaces\IPerformancePlatformDataExtractor.cs" />
     <Compile Include="Interfaces\IProviderEventService.cs" />
     <Compile Include="Interfaces\IEventService.cs" />
+    <Compile Include="Interfaces\Repositories\IEmploymentCheckRepository.cs" />
     <Compile Include="Interfaces\Repositories\IApprenticeshipRepository.cs" />
     <Compile Include="Interfaces\Repositories\IEmployerAgreementRepository.cs" />
     <Compile Include="Interfaces\Repositories\ILevyDeclarationRepository.cs" />
@@ -150,6 +151,10 @@
     <ProjectReference Include="..\SFA.DAS.Data.Domain\SFA.DAS.Data.Domain.csproj">
       <Project>{4AAD17AA-1127-471A-8D28-BA1C5DA7D18A}</Project>
       <Name>SFA.DAS.Data.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Temp\Temp.csproj">
+      <Project>{1e0a5a0e-51c4-46ff-b553-1fa0a71e1f29}</Project>
+      <Name>Temp</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
