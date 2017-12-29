@@ -157,6 +157,8 @@
     <Compile Include="ApiSubstitute\ApiStartup.cs" />
     <Compile Include="ApiSubstitute\ApiSubstituteMessageHandler.cs" />
     <Compile Include="ApiSubstitute\WebApiSubstitute.cs" />
+    <Compile Include="EmploymentCheckEventTests\EmploymentCheckEventTestsBase.cs" />
+    <Compile Include="EmploymentCheckEventTests\WhenAnEmploymentCheckIsComplete.cs" />
     <Compile Include="ApprenticeshipEventTests\ApprenticeshipEventTestsBase.cs" />
     <Compile Include="ApprenticeshipEventTests\WhenAnApprenticeshipIsSaved.cs" />
     <Compile Include="Data\EventTestsRepository.cs" />
@@ -182,6 +184,10 @@
     <ProjectReference Include="..\SFA.DAS.Data.Worker\SFA.DAS.Data.Worker.csproj">
       <Project>{4ec2ea06-3477-4f22-98b4-70dc29fc67a8}</Project>
       <Name>SFA.DAS.Data.Worker</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Temp\Temp.csproj">
+      <Project>{1E0A5A0E-51C4-46FF-B553-1FA0A71E1F29}</Project>
+      <Name>Temp</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
