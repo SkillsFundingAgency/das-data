@@ -19,6 +19,7 @@ using SFA.DAS.EAS.Account.Api.Types.Events.Agreement;
 using SFA.DAS.EAS.Account.Api.Types.Events.LegalEntity;
 using SFA.DAS.EAS.Account.Api.Types.Events.Levy;
 using SFA.DAS.EAS.Account.Api.Types.Events.PayeScheme;
+using SFA.DAS.EmploymentCheck.Events;
 using SFA.DAS.Events.Api.Client;
 using SFA.DAS.Events.Api.Types;
 using SFA.DAS.NLog.Logger;
@@ -70,6 +71,7 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             For<IEventHandler<GenericEvent<LevyDeclarationUpdatedEvent>>>().Use<LevyDeclarationUpdatedEventHandler>();
             For<IEventHandler<GenericEvent<AgreementSignedEvent>>>().Use<AgreementSignedEventHandler>();
             For<IEventHandler<PeriodEnd>>().Use<PeriodEndEventHandler>();
+            For<IEventHandler<GenericEvent<EmploymentCheckCompleteEvent>>>().Use<EmploymentCheckCompleteEventHandler>();
 
             //Legacy support
             For<IEventHandler<AccountEventView>>().Use<AccountEventHandler>();
@@ -86,6 +88,7 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             For<IEventsCollector<GenericEvent<LevyDeclarationUpdatedEvent>>>().Use<GenericEventCollector<LevyDeclarationUpdatedEvent>>();
             For<IEventsCollector<GenericEvent<AgreementSignedEvent>>>().Use<GenericEventCollector<AgreementSignedEvent>>();
             For<IEventsCollector<PeriodEnd>>().Use<PaymentEventsCollector>();
+            For<IEventsCollector<GenericEvent<EmploymentCheckCompleteEvent>>>().Use<GenericEventCollector<EmploymentCheckCompleteEvent>>();
 
             //Legacy support
             For<IEventsCollector<AccountEventView>>().Use<AccountEventCollector>();
@@ -102,6 +105,7 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             For<IEventsProcessor>().Use<EventsProcessor<GenericEvent<LevyDeclarationUpdatedEvent>>>();
             For<IEventsProcessor>().Use<EventsProcessor<GenericEvent<AgreementSignedEvent>>>();
             For<IEventsProcessor>().Use<EventsProcessor<PeriodEnd>>();
+            For<IEventsProcessor>().Use<EventsProcessor<GenericEvent<EmploymentCheckCompleteEvent>>>();
 
             //Legacy support
             For<IEventsProcessor>().Use<EventsProcessor<AccountEventView>>();
@@ -124,6 +128,7 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             For<IPaymentRepository>().Use<PaymentRepository>().Ctor<string>().Is(connectionString);
             For<ILevyDeclarationRepository>().Use<LevyDeclarationRepository>().Ctor<string>().Is(connectionString);
             For<IEmployerAgreementRepository>().Use<EmployerAgreementRepository>().Ctor<string>().Is(connectionString);
+            For<IEmploymentCheckRepository>().Use<EmploymentCheckRepository>().Ctor<string>().Is(connectionString);
         }
 
         private void AddMediatrRegistrations()

@@ -129,6 +129,8 @@
     <Build Include="Tables\Data_History.sql" />
     <Build Include="Tables\Data_Staging.sql" />
     <Build Include="StoredProcedures\Load_Data.sql" />
+    <Build Include="Tables\DAS_EmploymentCheck.sql" />
+    <Build Include="StoredProcedures\CreateEmploymentCheck.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SFA.DAS.Data.Database.refactorlog" />
