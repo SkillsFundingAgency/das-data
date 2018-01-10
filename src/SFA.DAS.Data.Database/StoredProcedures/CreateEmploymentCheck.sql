@@ -7,7 +7,7 @@
 	@checkPassed BIT
 AS
 
-	UPDATE [Data_Load].[DAS_EmploymentCheck] SET IsLatest = 0 WHERE Uln = @uln
+	UPDATE [Data_Load].[DAS_EmploymentCheck] SET IsLatest = 0 WHERE Uln = @uln AND IsLatest = 1
 
 	INSERT INTO [Data_Load].DAS_EmploymentCheck 
 	(
