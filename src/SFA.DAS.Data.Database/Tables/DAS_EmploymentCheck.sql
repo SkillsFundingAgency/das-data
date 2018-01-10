@@ -11,5 +11,3 @@
 )
 GO
 CREATE INDEX [IX_EmploymentCheck_Uln] ON [Data_Load].[DAS_EmploymentCheck] ([Uln], [IsLatest])
-GO
-CREATE INDEX [IX_EmploymentCheck_CheckPassed] ON [Data_Load].[DAS_EmploymentCheck] ([IsLatest], [CheckPassed])
