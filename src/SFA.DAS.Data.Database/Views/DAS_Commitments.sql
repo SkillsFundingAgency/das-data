@@ -101,8 +101,8 @@ SELECT [C].[ID]
 		 LEFT JOIN [Data_Load].[DAS_Employer_Accounts] EAA ON EAA.AccountId = [C].[EmployerAccountID] AND EAA.IsLatest = 1
 
 		 ---- Join Legal Entity to get Legal_Entity_ID
-		 LEFT JOIN (SELECT
-                    DISTINCT
+		 LEFT JOIN (SELECT 
+                    DISTINCT TOP 1
                       ELE.DasAccountId
                     , ELE.COde AS [LegalEntityNumber]
                     , ELE.Name AS [LegalEntityName]
