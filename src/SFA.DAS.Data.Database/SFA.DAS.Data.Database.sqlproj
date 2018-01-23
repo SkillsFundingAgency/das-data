@@ -131,6 +131,7 @@
     <Build Include="StoredProcedures\Load_Data.sql" />
     <Build Include="Tables\DAS_EmploymentCheck.sql" />
     <Build Include="StoredProcedures\CreateEmploymentCheck.sql" />
+    <Build Include="StoredProcedures\LevySnapshot.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SFA.DAS.Data.Database.refactorlog" />
