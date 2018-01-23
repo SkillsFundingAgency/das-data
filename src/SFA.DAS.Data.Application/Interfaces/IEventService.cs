@@ -11,5 +11,7 @@ namespace SFA.DAS.Data.Application.Interfaces
         Task<ICollection<ApprenticeshipEventView>> GetUnprocessedApprenticeshipEvents();
 
         Task<ICollection<AccountEventView>> GetUnprocessedAccountEvents();
+
+        Task<ICollection<AgreementEventView>> GetUnprocessedAgreementEvents();
     }
 }

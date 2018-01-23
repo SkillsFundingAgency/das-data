@@ -1,0 +1,5 @@
+﻿CREATE TABLE [RoATP].[ProviderType]
+(
+	[Id] INT NOT NULL PRIMARY KEY,
+	[Description] NVARCHAR(MAX) NOT NULL
+)

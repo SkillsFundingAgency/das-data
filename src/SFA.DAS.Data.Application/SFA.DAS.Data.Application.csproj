@@ -88,6 +88,12 @@
       <HintPath>..\packages\SFA.DAS.Provider.Events.Api.Client.2.0.0.27426\lib\net45\SFA.DAS.Provider.Events.Api.Types.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SFA.Roatp.Api.Client, Version=0.1.119.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.Roatp.Api.Client.0.1.119\lib\net45\SFA.Roatp.Api.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="SFA.Roatp.Api.Types, Version=0.1.119.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.Roatp.Api.Types.0.1.119\lib\net45\SFA.Roatp.Api.Types.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Transactions" />
@@ -110,6 +116,9 @@
     <Compile Include="Commands\CreateLevyDeclarations\CreateLevyDeclarationsCommandHandler.cs" />
     <Compile Include="Commands\CreatePaymentsForPeriodEnd\CreatePaymentsForPeriodEndCommandHandler.cs" />
     <Compile Include="Commands\CreatePaymentsForPeriodEnd\CreatePaymentsForPeriodEndCommand.cs" />
+    <Compile Include="Commands\CreateRoatpProvider\CreateProviderCommand.cs" />
+    <Compile Include="Commands\CreateRoatpProvider\CreateProviderCommandHandler.cs" />
+    <Compile Include="Commands\CreateRoatpProvider\CreateProviderResponse.cs" />
     <Compile Include="Commands\ExportPerformancePlatformStatistics\ExportPerformancePlatformStatisticsCommand.cs" />
     <Compile Include="Commands\ExportPerformancePlatformStatistics\ExportPerformancePlatformStatisticsCommandHandler.cs" />
     <Compile Include="Commands\RemovePayeScheme\RemovePayeSchemeCommand.cs" />
@@ -132,8 +141,10 @@
     <Compile Include="DataExtractors\AccountsDataExtractor.cs" />
     <Compile Include="Gateways\AccountGateway.cs" />
     <Compile Include="Gateways\PerformancePlatformGateway.cs" />
+    <Compile Include="Gateways\RoatpGateway.cs" />
     <Compile Include="Interfaces\Gateways\IAccountGateway.cs" />
     <Compile Include="Interfaces\Gateways\IPerformancePlatformGateway.cs" />
+    <Compile Include="Interfaces\Gateways\IRoatpGateway.cs" />
     <Compile Include="Interfaces\IHttpClient.cs" />
     <Compile Include="Interfaces\IPerformancePlatformDataExtractor.cs" />
     <Compile Include="Interfaces\IProviderEventService.cs" />
@@ -148,12 +159,17 @@
     <Compile Include="Interfaces\Repositories\IAccountRepository.cs" />
     <Compile Include="Interfaces\Repositories\IPaymentRepository.cs" />
     <Compile Include="Interfaces\Repositories\IPerformancePlatformRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IProviderRepository.cs" />
     <Compile Include="PerformancePlatformData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SFA.DAS.Data.Domain\SFA.DAS.Data.Domain.csproj">

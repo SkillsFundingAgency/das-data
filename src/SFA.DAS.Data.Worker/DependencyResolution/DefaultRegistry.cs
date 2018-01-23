@@ -25,6 +25,7 @@ using SFA.DAS.Events.Api.Types;
 using SFA.DAS.NLog.Logger;
 using SFA.DAS.Provider.Events.Api.Client;
 using SFA.DAS.Provider.Events.Api.Types;
+using SFA.Roatp.Api.Client;
 using StructureMap;
 using StructureMap.TypeRules;
 
@@ -75,6 +76,7 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
 
             //Legacy support
             For<IEventHandler<AccountEventView>>().Use<AccountEventHandler>();
+            For<IEventHandler<AgreementEventView>>().Use<AgreementEventHandler>();
         }
 
         private void RegisterEventCollectors()
@@ -92,6 +94,7 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
 
             //Legacy support
             For<IEventsCollector<AccountEventView>>().Use<AccountEventCollector>();
+            For<IEventsCollector<AgreementEventView>>().Use<AgreementEventCollector>();
         }
 
         private void RegisterEventProcessors()
@@ -109,6 +112,7 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
 
             //Legacy support
             For<IEventsProcessor>().Use<EventsProcessor<AccountEventView>>();
+            For<IEventsProcessor>().Use<EventsProcessor<AgreementEventView>>();
         }
 
         private void RegisterApis(DataConfiguration config)
@@ -116,6 +120,14 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             For<IEventsApi>().Use(new EventsApi(config.EventsApi));
             For<IPaymentsEventsApiClient>().Use(new PaymentsEventsApiClient(config.PaymentsEvents));
             For<IAccountApiClient>().Use<AccountApiClient>().Ctor<IAccountApiConfiguration>().Is(config.AccountsApi);
+            if (string.IsNullOrWhiteSpace(config.AgreementsApi.BaseUrl))
+            {
+                For<IRoatpClient>().Use<RoatpApiClient>();  // use default url
+            }
+            else
+            {
+                For<IRoatpClient>().Use(new RoatpApiClient(config.AgreementsApi.BaseUrl));
+            }
         }
 
         private void RegisterRepositories(string connectionString)
@@ -129,6 +141,7 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             For<ILevyDeclarationRepository>().Use<LevyDeclarationRepository>().Ctor<string>().Is(connectionString);
             For<IEmployerAgreementRepository>().Use<EmployerAgreementRepository>().Ctor<string>().Is(connectionString);
             For<IEmploymentCheckRepository>().Use<EmploymentCheckRepository>().Ctor<string>().Is(connectionString);
+            For<IProviderRepository>().Use<ProviderRepository>().Ctor<string>().Is(connectionString);
         }
 
         private void AddMediatrRegistrations()

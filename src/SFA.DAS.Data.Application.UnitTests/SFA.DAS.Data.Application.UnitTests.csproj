@@ -80,6 +80,9 @@
     <Reference Include="SFA.DAS.EmploymentCheck.Events, Version=1.0.0.51324, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.EmploymentCheck.Events.1.0.0.51324\lib\net45\SFA.DAS.EmploymentCheck.Events.dll</HintPath>
     </Reference>
+    <Reference Include="SFA.DAS.Events.Api.Types, Version=1.23.0.28215, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Events.Api.Types.1.23.0.28215\lib\net45\SFA.DAS.Events.Api.Types.dll</HintPath>
+    </Reference>
     <Reference Include="SFA.DAS.Messaging, Version=3.0.0.49552, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.Messaging.3.0.0.49552\lib\net45\SFA.DAS.Messaging.dll</HintPath>
     </Reference>
@@ -95,6 +98,12 @@
       <HintPath>..\packages\SFA.DAS.Provider.Events.Api.Client.2.0.0.27426\lib\net45\SFA.DAS.Provider.Events.Api.Types.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SFA.Roatp.Api.Client, Version=0.1.119.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.Roatp.Api.Client.0.1.119\lib\net45\SFA.Roatp.Api.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="SFA.Roatp.Api.Types, Version=0.1.119.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.Roatp.Api.Types.0.1.119\lib\net45\SFA.Roatp.Api.Types.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -109,6 +118,7 @@
     <Compile Include="Commands\CreateEmployerAgreementTests\WhenICreateAnEmployerAgreement.cs" />
     <Compile Include="Commands\CreateLevyDeclarationsTests\WhenICreateLevyDeclarations.cs" />
     <Compile Include="Commands\CreatePaymentsForPeriodEndCommandTests\WhenAPeriodEndIsProcessed.cs" />
+    <Compile Include="Commands\CreateRoatpProviderTests\WhenICreateAProvider.cs" />
     <Compile Include="Commands\ExportPerformancePlatformStatisticsTests\WhenPerformancePlatformStatisticsAreExported.cs" />
     <Compile Include="Commands\RemovePayeSchemeTests\WhenIRemoveAPayeScheme.cs" />
     <Compile Include="Commands\RenameAccountTests\WhenIRenameAnAccount.cs" />
@@ -126,12 +136,19 @@
     <Compile Include="Gateways\AccountGatewayTests\WhenALegalEntityIsRequested.cs" />
     <Compile Include="Gateways\AccountGatewayTests\WhenAccountDetailsAreRequested.cs" />
     <Compile Include="Gateways\PerformancePlatformGatewayTests\WhenISendPerformanceData.cs" />
+    <Compile Include="Gateways\RoatpGatewayTests\RoatpGatewayTestsBase.cs" />
+    <Compile Include="Gateways\RoatpGatewayTests\WhenICallConstructor.cs" />
+    <Compile Include="Gateways\RoatpGatewayTests\WhenICheckIfProviderExists.cs" />
+    <Compile Include="Gateways\RoatpGatewayTests\WhenIFindAllProviders.cs" />
+    <Compile Include="Gateways\RoatpGatewayTests\WhenIGetProvider.cs" />
     <Compile Include="PerformancePlatformDataTests\WhenICreatePerformancePlatformData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SFA.DAS.Data.Application\SFA.DAS.Data.Application.csproj">

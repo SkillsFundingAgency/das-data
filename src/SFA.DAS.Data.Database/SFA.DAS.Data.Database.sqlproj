@@ -131,6 +131,10 @@
     <Build Include="StoredProcedures\Load_Data.sql" />
     <Build Include="Tables\DAS_EmploymentCheck.sql" />
     <Build Include="StoredProcedures\CreateEmploymentCheck.sql" />
+    <Build Include="Tables\RoATP_Provider.sql" />
+    <Build Include="Tables\RoATP_ProviderType.sql" />
+    <Build Include="StoredProcedures\SaveRoatpProvider.sql" />
+    <Build Include="Schemas\RoATP.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SFA.DAS.Data.Database.refactorlog" />

@@ -13,6 +13,7 @@ namespace SFA.DAS.Data.AcceptanceTests
         internal static WebApiSubstitute EventsApi;
         internal static WebApiSubstitute AccountsApi;
         internal static WebApiSubstitute ProviderEventsApi;
+        internal static WebApiSubstitute AgreementEventsApi;
         internal static DataConfiguration Config;
 
         [OneTimeSetUp]
@@ -36,9 +37,10 @@ namespace SFA.DAS.Data.AcceptanceTests
         {
             Config = GetAzureStorageConfig();
 
-            EventsApi = new WebApiSubstitute(Config.EventsApi.BaseUrl, Config.AccountsApi.ApiBaseUrl, Config.PaymentsEvents.ApiBaseUrl);
+            EventsApi = new WebApiSubstitute(Config.EventsApi.BaseUrl, Config.AccountsApi.ApiBaseUrl, Config.PaymentsEvents.ApiBaseUrl , Config.AgreementsApi.BaseUrl);
             AccountsApi = EventsApi;
             ProviderEventsApi = EventsApi;
+            AgreementEventsApi = EventsApi;
 
             EventsApi.Start();
         }

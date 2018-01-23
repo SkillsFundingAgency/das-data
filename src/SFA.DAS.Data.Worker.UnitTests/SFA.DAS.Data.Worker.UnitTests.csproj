@@ -106,6 +106,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Events\EventCollectorsTests\AgreementEventCollectorTests\WhenICallConstructor.cs" />
+    <Compile Include="Events\EventCollectorsTests\AgreementEventCollectorTests\WhenIGetAgreementEvents.cs" />
     <Compile Include="Events\EventCollectorsTests\PaymentEventCollectorTests\WhenIGetPaymentEvents.cs" />
     <Compile Include="Events\EventCollectorsTests\ApprenticeshipEventCollectorTests\WhenIGetApprenticeshipEvents.cs" />
     <Compile Include="Events\EventCollectorsTests\GenericEventCollectorTests\WhenGenericEventsAreRequested.cs" />

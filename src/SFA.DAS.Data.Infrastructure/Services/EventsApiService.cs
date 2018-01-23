@@ -38,5 +38,12 @@ namespace SFA.DAS.Data.Infrastructure.Services
 
             return await _eventsApi.GetAccountEventsById(eventId + 1);
         }
+
+        public async Task<ICollection<AgreementEventView>> GetUnprocessedAgreementEvents()
+        {
+            var eventId = await _eventRepository.GetLastProcessedEventId<long>(typeof(AgreementEventView).Name);
+
+            return await _eventsApi.GetAgreementEventsById(eventId + 1);
+        }
     }
 }

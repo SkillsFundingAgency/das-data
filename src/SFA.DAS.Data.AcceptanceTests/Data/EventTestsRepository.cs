@@ -91,6 +91,13 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
             });
         }
 
+        public async Task DeleteProviders()
+        {
+            await WithConnection(async c => await c.ExecuteAsync(
+                sql: "TRUNCATE TABLE [RoATP].[Provider]",
+                commandType: CommandType.Text));
+        }
+
         public Task StoreLastProcessedEventId<T>(string eventFeed, T id)
         {
             return _eventRepository.StoreLastProcessedEventId(eventFeed, id);
@@ -200,6 +207,15 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
                 await connection.OpenAsync();
                 return await getData(connection);
             }
+        }
+
+        public async Task<int> GetNumberOfProviders()
+        {
+            return await WithConnection(async c => 
+                await c.QuerySingleAsync<int>(
+                    sql: "SELECT COUNT(*) FROM [RoATP].[Provider]",
+                    commandType: CommandType.Text)
+            );
         }
     }
 }
