@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Dapper;
 using Dapper.Contrib.Extensions;
+using SFA.DAS.Data.AcceptanceTests.Data.DTOs;
 
 namespace SFA.DAS.Data.AcceptanceTests.Data
 {
@@ -20,6 +19,11 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
         public async Task DeleteLive()
         {
             await ExecuteAsync("TRUNCATE TABLE [HMRC].[Data_Live]");
+        }
+
+        public async Task DeleteHistory()
+        {
+            await ExecuteAsync("TRUNCATE TABLE [HMRC].[Data_History]");
         }
 
         public async Task ExecuteLoadData()
@@ -63,30 +67,24 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
                     await c.InsertAsync(stagingRecordRecord)
             );
         }
-    }
 
-    [Table("[HMRC].[Data_Staging]")]
-    public class DataStagingRecord
-    {
-        [Key]
-        public long Record_ID { get; set; }
+        public async Task<IEnumerable<DataStagingRecord>> GetStagingRecords()
+        {
+            return await WithConnection(async c => await c.GetAllAsync<DataStagingRecord>());
+        }
 
-        public string SchemePAYERef { get; set; }
-    }
+        public async Task<LoadControlRecord> GetLoadControl()
+        {
+            return await WithConnection(async c =>
+                await c.QueryFirstAsync<LoadControlRecord>("SELECT TOP(1) * FROM [HMRC].[Load_Control]"));
+        }
 
-    [Table("[HMRC].[Load_Control]")]
-    public class LoadControlRecord
-    {
-        [Key]
-        public long SourceFile_ID { get; set; }
-        public string SourceFile_Name{ get; set; }
-        public string SourceFile_Status { get; set; }
-        public DateTime InsertDate { get; set; }
-    }
-
-    public class ProcessLogRecord
-    {
-        public string ProcessEventName { get; set; }
-        public string ProcessEventDescription { get; set; }
+        public async Task InsertIntoHistory(DataHistoryRecord dataHistoryRecord)
+        {
+            await WithConnection(
+                async c =>
+                    await c.InsertAsync(dataHistoryRecord)
+            );
+        }
     }
 }

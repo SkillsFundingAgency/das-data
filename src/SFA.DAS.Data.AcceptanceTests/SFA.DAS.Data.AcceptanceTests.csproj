@@ -177,7 +177,10 @@
     <Compile Include="ApiSubstitute\ApiStartup.cs" />
     <Compile Include="ApiSubstitute\ApiSubstituteMessageHandler.cs" />
     <Compile Include="ApiSubstitute\WebApiSubstitute.cs" />
+    <Compile Include="Data\DTOs\DataStagingRecord.cs" />
     <Compile Include="Data\HmrcDataTestsRepository.cs" />
+    <Compile Include="Data\DTOs\LoadControlRecord.cs" />
+    <Compile Include="Data\DTOs\ProcessLogRecord.cs" />
     <Compile Include="Data\TestsRepositoryBase.cs" />
     <Compile Include="EmploymentCheckEventTests\EmploymentCheckEventTestsBase.cs" />
     <Compile Include="EmploymentCheckEventTests\WhenAnEmploymentCheckIsComplete.cs" />
@@ -185,7 +188,10 @@
     <Compile Include="ApprenticeshipEventTests\WhenAnApprenticeshipIsSaved.cs" />
     <Compile Include="Data\EventTestsRepository.cs" />
     <Compile Include="DataAcceptanceTests.cs" />
+    <Compile Include="Data\DTOs\DataHistoryRecord.cs" />
+    <Compile Include="HmrcDataLoadTests\HmrcDataLoadTestsBase.cs" />
     <Compile Include="HmrcDataLoadTests\WhenDataLoadIsExecutedWithNoPendingImports.cs" />
+    <Compile Include="HmrcDataLoadTests\WhenDataLoadIsExecutedWithNoValidationTests.cs" />
     <Compile Include="PaymentEventTests\PaymentEventTestsBase.cs" />
     <Compile Include="PaymentEventTests\WhenAPeriodEndEventIsCreated.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
