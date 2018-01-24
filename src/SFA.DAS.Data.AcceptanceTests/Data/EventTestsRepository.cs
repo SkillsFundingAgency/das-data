@@ -1,20 +1,16 @@
-﻿using System;
-using System.Data;
-using System.Data.SqlClient;
+﻿using System.Data;
 using System.Threading.Tasks;
 using Dapper;
 using SFA.DAS.Data.Infrastructure.Data;
 
 namespace SFA.DAS.Data.AcceptanceTests.Data
 {
-    public class EventTestsRepository
+    public class EventTestsRepository : TestsRepositoryBase
     {
-        private readonly string _connectionString;
         private readonly EventRepository _eventRepository;
 
-        public EventTestsRepository(string connectionString)
+        public EventTestsRepository(string connectionString) : base(connectionString)
         {
-            _connectionString = connectionString;
             _eventRepository = new EventRepository(connectionString);
         }
 
@@ -191,15 +187,6 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
                     sql: "TRUNCATE TABLE [Data_Load].[DAS_Employer_LegalEntities]",
                     commandType: CommandType.Text);
             });
-        }
-
-        private async Task<T> WithConnection<T>(Func<IDbConnection, Task<T>> getData)
-        {
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                await connection.OpenAsync();
-                return await getData(connection);
-            }
         }
     }
 }
