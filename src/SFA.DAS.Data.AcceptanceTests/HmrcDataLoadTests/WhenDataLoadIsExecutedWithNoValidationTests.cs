@@ -86,7 +86,7 @@ namespace SFA.DAS.Data.AcceptanceTests.HmrcDataLoadTests
         }
 
         [Test]
-        public void ThenLoadControl_Flag_Flag_LoadedSuccessfullyintoHistoryTable_IsSetToTrue()
+        public void ThenLoadControl_Flag_Flag_LoadedSuccessfullyintoHistoryTable_IsSetToTrue() 
         {
             InsertPendingLoadControl();
 

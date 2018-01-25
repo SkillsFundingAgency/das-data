@@ -192,6 +192,7 @@
     <Compile Include="HmrcDataLoadTests\HmrcDataLoadTestsBase.cs" />
     <Compile Include="HmrcDataLoadTests\WhenDataLoadIsExecutedWithNoPendingImports.cs" />
     <Compile Include="HmrcDataLoadTests\WhenDataLoadIsExecutedWithNoValidationTests.cs" />
+    <Compile Include="HmrcDataLoadTests\WhenDataLoadIsExecutedWithNullCessationDates.cs" />
     <Compile Include="PaymentEventTests\PaymentEventTestsBase.cs" />
     <Compile Include="PaymentEventTests\WhenAPeriodEndEventIsCreated.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

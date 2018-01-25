@@ -1,4 +1,5 @@
-﻿using Dapper.Contrib.Extensions;
+﻿using System;
+using Dapper.Contrib.Extensions;
 
 namespace SFA.DAS.Data.AcceptanceTests.Data.DTOs
 {
@@ -11,5 +12,7 @@ namespace SFA.DAS.Data.AcceptanceTests.Data.DTOs
         public string SchemePAYERef { get; set; }
 
         public long SourceFile_ID { get; set; }
+
+        public string CessationDate { get; set; }
     }
 }
