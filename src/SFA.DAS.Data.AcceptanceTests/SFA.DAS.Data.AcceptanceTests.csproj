@@ -190,6 +190,7 @@
     <Compile Include="DataAcceptanceTests.cs" />
     <Compile Include="Data\DTOs\DataHistoryRecord.cs" />
     <Compile Include="HmrcDataLoadTests\HmrcDataLoadTestsBase.cs" />
+    <Compile Include="HmrcDataLoadTests\WhenDataIsReloaded.cs" />
     <Compile Include="HmrcDataLoadTests\WhenDataLoadIsExecutedWithNoPendingImports.cs" />
     <Compile Include="HmrcDataLoadTests\WhenDataLoadIsExecutedWithNoValidationTests.cs" />
     <Compile Include="HmrcDataLoadTests\WhenDataLoadIsExecutedWithNullCessationDates.cs" />
