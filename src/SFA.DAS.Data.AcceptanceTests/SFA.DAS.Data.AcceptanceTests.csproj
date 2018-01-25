@@ -178,6 +178,7 @@
     <Compile Include="ApiSubstitute\ApiSubstituteMessageHandler.cs" />
     <Compile Include="ApiSubstitute\WebApiSubstitute.cs" />
     <Compile Include="Data\DTOs\DataStagingRecord.cs" />
+    <Compile Include="Data\DTOs\QualityLog.cs" />
     <Compile Include="Data\HmrcDataTestsRepository.cs" />
     <Compile Include="Data\DTOs\LoadControlRecord.cs" />
     <Compile Include="Data\DTOs\ProcessLogRecord.cs" />
@@ -189,8 +190,10 @@
     <Compile Include="Data\EventTestsRepository.cs" />
     <Compile Include="DataAcceptanceTests.cs" />
     <Compile Include="Data\DTOs\DataHistoryRecord.cs" />
+    <Compile Include="Data\DTOs\DataQualityTestRecord.cs" />
     <Compile Include="HmrcDataLoadTests\HmrcDataLoadTestsBase.cs" />
     <Compile Include="HmrcDataLoadTests\WhenDataIsReloaded.cs" />
+    <Compile Include="HmrcDataLoadTests\WhenDataLoadIsExecutedWithAStringLengthTest.cs" />
     <Compile Include="HmrcDataLoadTests\WhenDataLoadIsExecutedWithNoPendingImports.cs" />
     <Compile Include="HmrcDataLoadTests\WhenDataLoadIsExecutedWithNoValidationTests.cs" />
     <Compile Include="HmrcDataLoadTests\WhenDataLoadIsExecutedWithNullCessationDates.cs" />
