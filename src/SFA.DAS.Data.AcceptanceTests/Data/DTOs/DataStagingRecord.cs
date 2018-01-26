@@ -14,5 +14,6 @@ namespace SFA.DAS.Data.AcceptanceTests.Data.DTOs
         public long SourceFile_ID { get; set; }
 
         public string CessationDate { get; set; }
+        public string EnglishFraction { get; set; }
     }
 }

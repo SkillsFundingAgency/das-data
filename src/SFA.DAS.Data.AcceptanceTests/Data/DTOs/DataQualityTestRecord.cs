@@ -11,5 +11,7 @@ namespace SFA.DAS.Data.AcceptanceTests.Data.DTOs
         public int ColumnLength { get; set; }
         public bool RunColumnTests { get; set; }
         public bool FlagStopLoadIfTestTextLenght { get; set; }
+        public int ColumnPrecision { get; set; }
+        public bool FlagStopLoadIfTestDecimalPlaces { get; set; }
     }
 }

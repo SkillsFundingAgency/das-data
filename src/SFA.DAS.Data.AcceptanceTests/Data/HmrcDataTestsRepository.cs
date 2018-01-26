@@ -58,7 +58,7 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
                 await ctx.InsertAsync(loadControlRecord));
         }
 
-        public async Task<IEnumerable<ProcessLogRecord>> GetProcessLog()
+        public async Task<IEnumerable<ProcessLogRecord>> GetProcessLogs()
         {
             return await WithConnection(async c =>
                 await c.QueryAsync<ProcessLogRecord>("SELECT * FROM [HMRC].[Process_Log]", commandType: CommandType.Text));

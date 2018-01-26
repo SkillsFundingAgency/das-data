@@ -35,7 +35,105 @@ BEGIN
 					(ProcessEventName, ProcessEventDescription, SourceFile_ID)
 			 VALUES ('Ending Updating Staging values', '', @BISourceFile_ID)
 
-			 IF ISNULL((SELECT SUM(FlagStopLoad) 
+			 -------------------
+			 -------------------
+
+
+			      --Check String Lengths
+
+			--String length test
+
+			DECLARE @ColumnName VARCHAR(255), @ColumnType VARCHAR(255), @ColumnLength INT, @TestName VARCHAR(255), @ErrorMessage VARCHAR(255), 
+				@ColumnStopOnErrorFlag BIT, 
+				@ColumnPrecision INT,
+				@Sql nvarchar(2000) 
+
+			DECLARE StringTestConfig CURSOR FOR
+			SELECT TTC.ColumnName
+				,TTC.ColumnType
+				, TTC.ColumnLength
+				, 'String Length Test'
+				, 'String length exceeds Specification.' AS ErrorMessage
+				, TTC.FlagStopLoadIfTestTextLenght
+			FROM HMRC.Configuration_Data_Quality_Tests AS TTC
+			WHERE TTC.ColumnType IN ('VARCHAR', 'NVARCHAR','CHAR','NCHAR')
+
+			OPEN StringTestConfig
+			FETCH NEXT FROM StringTestConfig INTO
+			@ColumnName, @ColumnType, @ColumnLength, @TestName, @ErrorMessage, @ColumnStopOnErrorFlag
+
+			WHILE @@FETCH_STATUS = 0
+			BEGIN
+				   SET @SQL='
+				   INSERT INTO HMRC.Data_Quality_Tests_Log
+				  ( Record_ID, ColumnName, TestName, ErrorMessage, FlagStopLoad, SourceFile_ID ) 
+				   SELECT Record_ID,
+						'''+ @ColumnName + ''' AS ColumnName, 
+						'''+ @TestName + ''' AS TestName,
+						'''+ @ErrorMessage +' Actual: '' + CAST(LEN('+ @ColumnName + ')AS VARCHAR(255))+ '' Against spec size: '+CAST(@columnLength AS VARCHAR(255)) + ''' AS ErrorMessage, 
+						'''+ CAST(@ColumnStopOnErrorFlag AS VARCHAR(255)) +''' AS FlagStopLoad, 
+						'''+ CAST(@BISourceFile_ID AS VARCHAR(255)) +''' AS SourceFile_ID
+					FROM [HMRC].[Data_Staging]
+				   WHERE LEN('+ @ColumnName + ') > '+ CAST(@ColumnLength AS varchar(255)) +''
+	   
+				EXEC (@SQL)
+
+				FETCH NEXT FROM StringTestConfig INTO
+				@ColumnName, @ColumnType, @ColumnLength, @TestName, @ErrorMessage, @ColumnStopOnErrorFlag
+			END
+
+			CLOSE StringTestConfig
+			DEALLOCATE StringTestConfig
+
+			-- End String length test
+
+			-- Decimal place test
+
+			DECLARE DecimalPlacesTestConfig CURSOR FOR
+			SELECT TTC.ColumnName
+				,TTC.ColumnType
+				, TTC.ColumnLength
+				, 'Decimal Places Test'
+				, 'Decimal places do not match specification.' AS ErrorMessage
+				, TTC.ColumnPrecision
+				, TTC.FlagStopLoadIfTestDecimalPlaces
+			FROM HMRC.Configuration_Data_Quality_Tests AS TTC
+			WHERE   TTC.ColumnType = 'DECIMAL'
+
+			OPEN DecimalPlacesTestConfig
+			FETCH NEXT FROM DecimalPlacesTestConfig INTO 
+			@ColumnName, @ColumnType, @ColumnLength, @TestName, @ErrorMessage, @ColumnPrecision, @ColumnStopOnErrorFlag
+
+			WHILE @@FETCH_STATUS = 0
+			BEGIN
+				SET @SQL='
+				INSERT INTO HMRC.Data_Quality_Tests_Log
+				( Record_ID, ColumnName, TestName, ErrorMessage, FlagStopLoad, SourceFile_ID ) 
+				SELECT Record_ID,
+					'''+ @ColumnName + ''' AS ColumnName, 
+					'''+ @TestName + ''' AS TestName,
+					'''+ @ErrorMessage +' Actual: ''+ CAST('+ @ColumnName +' AS VARCHAR(255)) +'' Expected Decimal Places: '+ CAST(@ColumnPrecision  AS VARCHAR(255)) +''' AS ErrorMessage, 
+					'''+ CAST(@ColumnStopOnErrorFlag AS VARCHAR(255)) +'''  AS FlagStopLoad, 
+					'''+ CAST(@BISourceFile_ID AS VARCHAR(255)) +'''  AS SourceFile_ID
+				FROM [HMRC].[Data_Staging]
+				WHERE ISNUMERIC(COALESCE(LTRIM(RTRIM('+ @ColumnName + ')),''0'')) = 1
+					AND LEN('+ @ColumnName + ') > 0
+					AND (CHARINDEX(''.'','+ @ColumnName + ',1) =  0
+					OR LEN(RIGHT('+ @ColumnName + ',LEN('+ @ColumnName + ')-CHARINDEX(''.'','+ @ColumnName + ',1))) <> '+ CAST(@ColumnPrecision  AS VARCHAR(255)) +')'
+				
+				EXEC (@SQL)
+
+				FETCH NEXT FROM DecimalPlacesTestConfig INTO 
+				@ColumnName, @ColumnType, @ColumnLength, @TestName, @ErrorMessage, @ColumnPrecision, @ColumnStopOnErrorFlag
+			END
+
+			CLOSE DecimalPlacesTestConfig
+			DEALLOCATE DecimalPlacesTestConfig
+			   
+			 -------------------
+			 -------------------
+
+			IF ISNULL((SELECT SUM(FlagStopLoad) 
 				  FROM HMRC.Data_Quality_Tests_Log
 				  WHERE SourceFile_ID = @BISourceFile_ID),0) = 0 
 			 BEGIN
@@ -415,7 +513,7 @@ BEGIN
 
 			 INSERT INTO [HMRC].[Process_Log]
 					(ProcessEventName, ProcessEventDescription, SourceFile_ID)
-			 VALUES ('Ending Insert Date from Staging Process', 'Ending Insert Date from Staging Process', @BISourceFile_ID)
+			 VALUES ('Ending Insert Data from Staging Process', 'Ending Insert Data from Staging Process', @BISourceFile_ID)
 		END
 		ELSE
 		--If @BISourceFile_ID is Null

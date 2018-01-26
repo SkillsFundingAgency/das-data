@@ -7,21 +7,22 @@ using SFA.DAS.Data.AcceptanceTests.Data.DTOs;
 namespace SFA.DAS.Data.AcceptanceTests.HmrcDataLoadTests
 {
     [TestFixture]
-    public class WhenDataLoadIsExecutedWithAStringLengthTest : HmrcDataLoadTestsBase
+    public class WhenDataLoadIsExecutedWithADecimalTest : HmrcDataLoadTestsBase
     {
         [Test]
         public void ThenValidationFailuresAreLoggedIntoConfigurationDataQualityTests()
         {
             InsertPendingLoadControl();
 
-            HmrcDataTestsRepository.InsertIntoStaging(new DataStagingRecord{SchemePAYERef = "123456789"}).Wait();
+            HmrcDataTestsRepository.InsertIntoStaging(new DataStagingRecord{ EnglishFraction = "2123312.121212"}).Wait();
 
             HmrcDataTestsRepository.InsertIntoDataQualityTests(new DataQualityTestRecord
             {
-                ColumnName = "SchemePAYERef",
+                ColumnName = "EnglishFraction",
                 ColumnNullable = true,
-                ColumnType = "NVARCHAR",
-                ColumnLength = 5,
+                ColumnType = "DECIMAL",
+                ColumnLength = 18,
+                ColumnPrecision = 5,
                 RunColumnTests = true
             }).Wait();
 
@@ -30,8 +31,8 @@ namespace SFA.DAS.Data.AcceptanceTests.HmrcDataLoadTests
             var qualityLogs = HmrcDataTestsRepository.GetQualityLogs().Result.ToList();
 
             qualityLogs.Count().Should().Be(1);
-            qualityLogs.First().ColumnName.Should().Be("SchemePAYERef");
-            qualityLogs.First().ErrorMessage.Should().Be("String length exceeds Specification. Actual: 9 Against spec size: 5");
+            qualityLogs.First().ColumnName.Should().Be("EnglishFraction");
+            qualityLogs.First().ErrorMessage.Should().Be("Decimal places do not match specification. Actual: 2123312.121212 Expected Decimal Places: 5");
 
             var loadControl = HmrcDataTestsRepository.GetLoadControl().Result;
             loadControl.SourceFile_Status.Should().Be("Complete");
@@ -42,16 +43,17 @@ namespace SFA.DAS.Data.AcceptanceTests.HmrcDataLoadTests
         {
             InsertPendingLoadControl();
 
-            HmrcDataTestsRepository.InsertIntoStaging(new DataStagingRecord { SchemePAYERef = "123456789" }).Wait();
+            HmrcDataTestsRepository.InsertIntoStaging(new DataStagingRecord { EnglishFraction = "2123312.121212" }).Wait();
 
             HmrcDataTestsRepository.InsertIntoDataQualityTests(new DataQualityTestRecord
             {
-                ColumnName = "SchemePAYERef",
+                ColumnName = "EnglishFraction",
                 ColumnNullable = true,
-                ColumnType = "NVARCHAR",
-                ColumnLength = 5,
+                ColumnType = "DECIMAL",
+                ColumnLength = 18,
+                ColumnPrecision = 5,
                 RunColumnTests = true,
-                FlagStopLoadIfTestTextLenght = true
+                FlagStopLoadIfTestDecimalPlaces = true
             }).Wait();
 
             HmrcDataTestsRepository.ExecuteLoadData().Wait();
@@ -59,8 +61,8 @@ namespace SFA.DAS.Data.AcceptanceTests.HmrcDataLoadTests
             var qualityLogs = HmrcDataTestsRepository.GetQualityLogs().Result.ToList();
 
             qualityLogs.Count().Should().Be(1);
-            qualityLogs.First().ColumnName.Should().Be("SchemePAYERef");
-            qualityLogs.First().ErrorMessage.Should().Be("String length exceeds Specification. Actual: 9 Against spec size: 5");
+            qualityLogs.First().ColumnName.Should().Be("EnglishFraction");
+            qualityLogs.First().ErrorMessage.Should().Be("Decimal places do not match specification. Actual: 2123312.121212 Expected Decimal Places: 5");
 
             var loadControl = HmrcDataTestsRepository.GetLoadControl().Result;
             loadControl.SourceFile_Status.Should().Be("Failed");
