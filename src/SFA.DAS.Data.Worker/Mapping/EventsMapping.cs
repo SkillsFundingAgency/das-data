@@ -15,11 +15,6 @@ namespace SFA.DAS.Data.Worker.Mapping
                 .ForMember(target => target.AgreementStatus,
                     config => config.MapFrom(source => Enum.GetName(typeof(AgreementStatus), source.AgreementStatus)))
                 .ForMember(target => target.LegalEntityCode, config => config.MapFrom(source => source.LegalEntityId));
-
-            CreateMap<AgreementEventView, AgreementEvent>()
-                .ForMember(target => target.Event, config => config.MapFrom(source => source.Event))
-                .ForMember(target => target.ProviderId, config => config.MapFrom(source => source.ProviderId))
-                .ForMember(target => target.ContractType, config => config.MapFrom(source => source.ContractType));
         }
     }
 }

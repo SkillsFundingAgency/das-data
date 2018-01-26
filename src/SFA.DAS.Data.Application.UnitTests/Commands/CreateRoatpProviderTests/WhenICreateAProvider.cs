@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using MediatR;
 using Moq;
 using NUnit.Framework;
@@ -35,14 +36,15 @@ namespace SFA.DAS.Data.Application.UnitTests.Commands.CreateRoatpProviderTests
         public async Task ThenTheProviderIsSaved()
         {
             var expectedProvider = new ProviderBuilder().Build();
-            var ukprn = $"/api/providers/{expectedProvider.Ukprn}";
 
             _roatpGateway.Setup(x => x.GetProvider(expectedProvider.Ukprn.ToString())).Returns(expectedProvider);
 
-            var evt = new AgreementEvent()
+            var evt = new AgreementEventView()
             {
                 ContractType = "ProviderAgreement",
                 Event = "INITIATED",
+                CreatedOn = DateTime.Now.AddDays(-1),
+                Id = 3,
                 ProviderId = "12345678"
             };
 

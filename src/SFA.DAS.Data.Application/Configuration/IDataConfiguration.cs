@@ -10,5 +10,6 @@ namespace SFA.DAS.Data.Application.Configuration
         int FailureTolerance { get; set; }
         bool PaymentsEnabled { get; set; }
         PerformancePlatformConfiguration PerformancePlatform { get; set; }
+        string AgreementsApiUrl { get; set; }
     }
 }

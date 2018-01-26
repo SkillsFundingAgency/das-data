@@ -11,22 +11,12 @@ namespace SFA.DAS.Data.Application.Gateways
 
         public RoatpGateway(IRoatpClient roatpClient)
         {
-            _roatpClient = roatpClient ?? throw new ArgumentNullException(nameof(roatpClient));
+            _roatpClient = roatpClient;
         }
 
         public Roatp.Api.Types.Provider GetProvider(string ukPrn)
         {
             return _roatpClient.Get(ukPrn);
-        }
-
-        public bool ProviderExists(string ukPrn)
-        {
-            return _roatpClient.Exists(ukPrn);
-        }
-
-        public IEnumerable<Roatp.Api.Types.Provider> FindAllProviders()
-        {
-            return _roatpClient.FindAll();
         }
     }
 }

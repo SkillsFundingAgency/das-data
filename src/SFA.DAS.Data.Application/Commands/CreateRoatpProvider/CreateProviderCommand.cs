@@ -3,8 +3,8 @@ using SFA.DAS.Events.Api.Types;
 
 namespace SFA.DAS.Data.Application.Commands.CreateRoatpProvider
 {
-    public class CreateProviderCommand : IAsyncRequest<CreateProviderResponse>
+    public class CreateProviderCommand : IAsyncNotification
     {
-        public AgreementEvent Event { get; set; }
+        public AgreementEventView Event { get; set; }
     }
 }

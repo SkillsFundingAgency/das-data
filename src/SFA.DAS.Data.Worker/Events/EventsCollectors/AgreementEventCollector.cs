@@ -14,8 +14,8 @@ namespace SFA.DAS.Data.Worker.Events.EventsCollectors
 
         public AgreementEventCollector(IEventService eventService, ILog logger)
         {
-            _eventService = eventService ?? throw new ArgumentNullException(nameof(eventService));
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _eventService = eventService;
+            _logger = logger;
         }
 
         public async Task<ICollection<AgreementEventView>> GetEvents()

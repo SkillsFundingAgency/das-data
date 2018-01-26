@@ -150,9 +150,3 @@ UNION ALL SELECT 'HistoricAdjustmentsTaxYear5AnnualAllowanceAmount' AS ColumnNam
 UNION ALL SELECT 'HistoricAdjustmentsTaxYear6LevyDueYearToDate' AS ColumnName, 1 AS ColumnNullable , 'DECIMAL' AS ColumnType, '18' AS ColumnLength, '2' AS ColumnPrecision, '' AS ColumnDefault, 1 as RunColumnTests, '' AS ColumnPatternMatching, '' AS ColumnMinValue, '' AS ColumnMaxValue,0 AS FlagStopLoadIfTestTextLenght,0 AS FlagStopLoadIfTestIsNumeric,0 AS FlagStopLoadIfTestPatternMatch,0 AS FlagStopLoadIfTestValueRange,0 AS FlagStopLoadIfTestDecimalPlaces
 UNION ALL SELECT 'HistoricAdjustmentsTaxYear6EnglishFraction' AS ColumnName, 1 AS ColumnNullable , 'DECIMAL' AS ColumnType, '18' AS ColumnLength, '5' AS ColumnPrecision, '' AS ColumnDefault, 1 as RunColumnTests, '' AS ColumnPatternMatching, '' AS ColumnMinValue, '' AS ColumnMaxValue,0 AS FlagStopLoadIfTestTextLenght,0 AS FlagStopLoadIfTestIsNumeric,0 AS FlagStopLoadIfTestPatternMatch,0 AS FlagStopLoadIfTestValueRange,0 AS FlagStopLoadIfTestDecimalPlaces
 UNION ALL SELECT 'HistoricAdjustmentsTaxYear6AnnualAllowanceAmount' AS ColumnName, 1 AS ColumnNullable , 'DECIMAL' AS ColumnType, '18' AS ColumnLength, '2' AS ColumnPrecision, '' AS ColumnDefault, 1 as RunColumnTests, '' AS ColumnPatternMatching, '' AS ColumnMinValue, '' AS ColumnMaxValue,0 AS FlagStopLoadIfTestTextLenght,0 AS FlagStopLoadIfTestIsNumeric,0 AS FlagStopLoadIfTestPatternMatch,0 AS FlagStopLoadIfTestValueRange,0 AS FlagStopLoadIfTestDecimalPlaces
-
-INSERT INTO [RoATP].[ProviderType]
-VALUES
-(1, 'MainProvider'),
-(2, 'SupportingProvider'),
-(3, 'EmployerProvider')

@@ -25,12 +25,7 @@ namespace SFA.DAS.Data.Worker.Events.EventHandlers
 
         protected override async Task ProcessEvent(AgreementEventView @event)
         {
-            var commandEvent = _mapper.Map<AgreementEvent>(@event);
-
-            await _mediator.SendAsync(new CreateProviderCommand
-            {
-                Event = commandEvent
-            });
+            await _mediator.PublishAsync(new CreateProviderCommand() {Event = @event});
         }
     }
 }

@@ -37,7 +37,7 @@ namespace SFA.DAS.Data.AcceptanceTests
         {
             Config = GetAzureStorageConfig();
 
-            EventsApi = new WebApiSubstitute(Config.EventsApi.BaseUrl, Config.AccountsApi.ApiBaseUrl, Config.PaymentsEvents.ApiBaseUrl , Config.AgreementsApi.BaseUrl);
+            EventsApi = new WebApiSubstitute(Config.EventsApi.BaseUrl, Config.AccountsApi.ApiBaseUrl, Config.PaymentsEvents.ApiBaseUrl , Config.AgreementsApiUrl);
             AccountsApi = EventsApi;
             ProviderEventsApi = EventsApi;
             AgreementEventsApi = EventsApi;

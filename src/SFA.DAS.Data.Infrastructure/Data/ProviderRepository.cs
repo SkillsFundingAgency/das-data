@@ -18,13 +18,14 @@ namespace SFA.DAS.Data.Infrastructure.Data
                 var parameters = new DynamicParameters();
                 parameters.Add("@ukprn", provider.Ukprn, DbType.Int64);
                 parameters.Add("@uri", provider.Uri, DbType.String);
-                parameters.Add("@providerType", provider.ProviderType, DbType.Int32);
+                parameters.Add("@providerTypeId", provider.ProviderType, DbType.Int32);
+                parameters.Add("@providerTypeDescription", provider.ProviderType.ToString() );
                 parameters.Add("@parentCompanyGuarantee", provider.ParentCompanyGuarantee, DbType.Boolean);
                 parameters.Add("@newOrganisationWithoutFinancialTrackRecord", provider.NewOrganisationWithoutFinancialTrackRecord, DbType.Boolean);
                 parameters.Add("@startDate", provider.StartDate, DbType.DateTime );
 
                 return await c.ExecuteAsync(
-                    sql: "[RoATP].[SaveRoatpProvider]",
+                    sql: "[Data_Load].[SaveProvider]",
                     param: parameters,
                     commandType: CommandType.StoredProcedure);
             });

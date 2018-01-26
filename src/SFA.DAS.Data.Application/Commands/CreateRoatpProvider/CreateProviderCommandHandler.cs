@@ -7,7 +7,7 @@ using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Application.Commands.CreateRoatpProvider
 {
-    public class CreateProviderCommandHandler : IAsyncRequestHandler<CreateProviderCommand, CreateProviderResponse>
+    public class CreateProviderCommandHandler : IAsyncNotificationHandler<CreateProviderCommand>
     {
         private readonly IProviderRepository _providerRepository;
         private readonly IRoatpGateway _roatpGateway;
@@ -15,12 +15,19 @@ namespace SFA.DAS.Data.Application.Commands.CreateRoatpProvider
 
         public CreateProviderCommandHandler(IProviderRepository providerRepository, IRoatpGateway roatpGateway, ILog logger)
         {
-            // todo: null checks - mahinder
             _providerRepository = providerRepository;
             _roatpGateway = roatpGateway;
             _logger = logger;
         }
 
+        public async Task Handle(CreateProviderCommand command)
+        {
+            var provider = GetProvider(command.Event.ProviderId);
+
+            if (provider == null) return;
+
+            await SaveProvider(provider);
+        }
 
         private Roatp.Api.Types.Provider GetProvider(string ukprn)
         {
@@ -39,17 +46,6 @@ namespace SFA.DAS.Data.Application.Commands.CreateRoatpProvider
                _logger.Error(ex, $"Exception thrown getting Provider for Ukprn:{ukprn}, from Roatp Api Client");
                 throw;
             }
-        }
-
-        public async Task<CreateProviderResponse> Handle(CreateProviderCommand command)
-        {
-            var provider = GetProvider(command.Event.ProviderId);
-
-            if (provider == null) return null;
-
-            await SaveProvider(provider);
-            
-            return new CreateProviderResponse();
         }
 
         private async Task SaveProvider(Roatp.Api.Types.Provider provider)

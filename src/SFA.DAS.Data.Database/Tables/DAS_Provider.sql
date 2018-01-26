@@ -1,9 +1,10 @@
-﻿CREATE TABLE [RoATP].[Provider]
+﻿CREATE TABLE [Data_Load].[Provider]
 (
 	[Id] BIGINT NOT NULL PRIMARY KEY IDENTITY,
 	[Ukprn] BIGINT NOT NULL,
 	[Uri] NVARCHAR(MAX) NULL,
-	[ProviderType] INT NOT NULL FOREIGN KEY REFERENCES [RoATP].ProviderType(Id),
+	[ProviderTypeId] INT NULL,
+	[ProviderTypeDescription] NVARCHAR(MAX) NULL,
 	[ParentCompanyGuarantee] BIT NOT NULL,
 	[NewOrganisationWithoutFinancialTrackRecord] BIT NOT NULL,
 	[StartDate] DATETIME NULL,

@@ -24,44 +24,6 @@ namespace SFA.DAS.Data.Application.UnitTests.Gateways.RoatpGatewayTests
 
             RoatpClient.Setup(y => y.Get(ValidUkPrn)).Returns(new Roatp.Api.Types.Provider());
             RoatpClient.Setup(y => y.Exists(ValidUkPrn)).Returns(true);
-
-            SetupListOfAllProviders();
-
-            RoatpClient.Setup(x => x.FindAll()).Returns(AllProviders);
-        }
-
-        private void SetupListOfAllProviders()
-        {
-            AllProviders = new List<Roatp.Api.Types.Provider>
-            {
-                new Roatp.Api.Types.Provider()
-                {
-                    NewOrganisationWithoutFinancialTrackRecord = true,
-                    ParentCompanyGuarantee = true,
-                    ProviderType = ProviderType.EmployerProvider,
-                    StartDate = DateTime.Now,
-                    Ukprn = 10007315,
-                    Uri = "ABC"
-                },
-                new Roatp.Api.Types.Provider()
-                {
-                    NewOrganisationWithoutFinancialTrackRecord = true,
-                    ParentCompanyGuarantee = true,
-                    ProviderType = ProviderType.MainProvider,
-                    StartDate = DateTime.Now,
-                    Ukprn = 10007316,
-                    Uri = "XYZ"
-                },
-                new Roatp.Api.Types.Provider()
-                {
-                    NewOrganisationWithoutFinancialTrackRecord = true,
-                    ParentCompanyGuarantee = true,
-                    ProviderType = ProviderType.SupportingProvider,
-                    StartDate = DateTime.Now,
-                    Ukprn = 10007317,
-                    Uri = "123"
-                }
-            };
         }
     }
 }

@@ -94,7 +94,7 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
         public async Task DeleteProviders()
         {
             await WithConnection(async c => await c.ExecuteAsync(
-                sql: "TRUNCATE TABLE [RoATP].[Provider]",
+                sql: "TRUNCATE TABLE [Data_Load].[Provider]",
                 commandType: CommandType.Text));
         }
 
@@ -213,7 +213,7 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
         {
             return await WithConnection(async c => 
                 await c.QuerySingleAsync<int>(
-                    sql: "SELECT COUNT(*) FROM [RoATP].[Provider]",
+                    sql: "SELECT COUNT(*) FROM [Data_Load].[Provider]",
                     commandType: CommandType.Text)
             );
         }

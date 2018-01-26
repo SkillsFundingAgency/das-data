@@ -1,7 +1,8 @@
-﻿CREATE PROCEDURE [RoATP].[SaveRoatpProvider]
+﻿CREATE PROCEDURE [Data_Load].[SaveProvider]
 	@ukprn bigint,
 	@uri nvarchar(max),
-	@providerType int,
+	@providerTypeId int,
+	@providerTypeDescription nvarchar(max),
 	@parentCompanyGuarantee bit,
 	@newOrganisationWithoutFinancialTrackRecord bit,
 	@startDate datetime = NULL
@@ -10,13 +11,14 @@ AS
 	SET NOCOUNT ON;
 	SET ANSI_NULLS OFF
 
-	UPDATE [RoATP].[Provider] SET IsLatest = 0 WHERE [Ukprn] = @ukprn
+	UPDATE [Data_Load].[Provider] SET IsLatest = 0 WHERE [Ukprn] = @ukprn
 
-	INSERT INTO [RoATP].[Provider]
+	INSERT INTO [Data_Load].[Provider]
 	(
 		[Ukprn],
 		[Uri],
-		[ProviderType],
+		[ProviderTypeId],
+		[ProviderTypeDescription],
 		[ParentCompanyGuarantee],
 		[NewOrganisationWithoutFinancialTrackRecord],
 		[StartDate],
@@ -26,7 +28,8 @@ AS
 	(
 		@ukprn,
 		@uri,
-		@providerType,
+		@providerTypeId,
+		@providerTypeDescription,
 		@parentCompanyGuarantee,
 		@newOrganisationWithoutFinancialTrackRecord,
 		@startDate,
