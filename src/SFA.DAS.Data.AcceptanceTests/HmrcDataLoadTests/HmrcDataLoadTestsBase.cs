@@ -23,6 +23,8 @@ namespace SFA.DAS.Data.AcceptanceTests.HmrcDataLoadTests
             HmrcDataTestsRepository.DeleteLoadControl().Wait();
             HmrcDataTestsRepository.DeleteProcessLog().Wait();
             HmrcDataTestsRepository.DeleteHistory().Wait();
+            HmrcDataTestsRepository.DeleteQualityTests().Wait();
+            HmrcDataTestsRepository.DeleteQualityLog().Wait();
         }
 
         protected void InsertPendingLoadControl()
