@@ -1,20 +1,16 @@
-﻿using System;
-using System.Data;
-using System.Data.SqlClient;
+﻿using System.Data;
 using System.Threading.Tasks;
 using Dapper;
 using SFA.DAS.Data.Infrastructure.Data;
 
 namespace SFA.DAS.Data.AcceptanceTests.Data
 {
-    public class EventTestsRepository
+    public class EventTestsRepository : TestsRepositoryBase
     {
-        private readonly string _connectionString;
         private readonly EventRepository _eventRepository;
 
-        public EventTestsRepository(string connectionString)
+        public EventTestsRepository(string connectionString) : base(connectionString)
         {
-            _connectionString = connectionString;
             _eventRepository = new EventRepository(connectionString);
         }
 
@@ -199,7 +195,7 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
                     commandType: CommandType.Text);
             });
         }
-
+        
         public async Task<int> GetNumberOfProviders()
         {
             return await WithConnection(async c =>

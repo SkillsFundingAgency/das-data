@@ -31,9 +31,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Dapper, Version=1.50.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Dapper.1.50.2\lib\net451\Dapper.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Dapper, Version=1.50.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.1.50.4\lib\net451\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Dapper.Contrib, Version=1.50.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.Contrib.1.50.4\lib\net451\Dapper.Contrib.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentAssertions, Version=4.18.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentAssertions.4.18.0\lib\net45\FluentAssertions.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentAssertions.Core, Version=4.18.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentAssertions.4.18.0\lib\net45\FluentAssertions.Core.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Data.Edm, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Data.Edm.5.6.4\lib\net40\Microsoft.Data.Edm.dll</HintPath>
@@ -136,6 +144,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
       <Private>True</Private>
@@ -172,12 +181,23 @@
     <Compile Include="ApiSubstitute\ApiStartup.cs" />
     <Compile Include="ApiSubstitute\ApiSubstituteMessageHandler.cs" />
     <Compile Include="ApiSubstitute\WebApiSubstitute.cs" />
+    <Compile Include="Data\DTOs\DataStagingRecord.cs" />
+    <Compile Include="Data\HmrcDataTestsRepository.cs" />
+    <Compile Include="Data\DTOs\LoadControlRecord.cs" />
+    <Compile Include="Data\DTOs\ProcessLogRecord.cs" />
+    <Compile Include="Data\TestsRepositoryBase.cs" />
     <Compile Include="EmploymentCheckEventTests\EmploymentCheckEventTestsBase.cs" />
     <Compile Include="EmploymentCheckEventTests\WhenAnEmploymentCheckIsComplete.cs" />
     <Compile Include="ApprenticeshipEventTests\ApprenticeshipEventTestsBase.cs" />
     <Compile Include="ApprenticeshipEventTests\WhenAnApprenticeshipIsSaved.cs" />
     <Compile Include="Data\EventTestsRepository.cs" />
     <Compile Include="DataAcceptanceTests.cs" />
+    <Compile Include="Data\DTOs\DataHistoryRecord.cs" />
+    <Compile Include="HmrcDataLoadTests\HmrcDataLoadTestsBase.cs" />
+    <Compile Include="HmrcDataLoadTests\WhenDataIsReloaded.cs" />
+    <Compile Include="HmrcDataLoadTests\WhenDataLoadIsExecutedWithNoPendingImports.cs" />
+    <Compile Include="HmrcDataLoadTests\WhenDataLoadIsExecutedWithNoValidationTests.cs" />
+    <Compile Include="HmrcDataLoadTests\WhenDataLoadIsExecutedWithNullCessationDates.cs" />
     <Compile Include="PaymentEventTests\PaymentEventTestsBase.cs" />
     <Compile Include="PaymentEventTests\WhenAPeriodEndEventIsCreated.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
