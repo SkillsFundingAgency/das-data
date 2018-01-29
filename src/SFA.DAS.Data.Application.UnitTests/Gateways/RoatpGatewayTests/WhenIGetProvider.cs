@@ -8,16 +8,16 @@ namespace SFA.DAS.Data.Application.UnitTests.Gateways.RoatpGatewayTests
         [Test]
         public void WithNullUkPrnReturnsNull()
         {
-            var x = RoatpGateway.GetProvider(null);
-            Assert.IsNull(x);
+            var provider = RoatpGateway.GetProvider(null);
+            Assert.IsNull(provider);
         }
 
         [Test]
         public void WithValidUkPrnReturnsProvider()
         {
-            var x = RoatpGateway.GetProvider(ValidUkPrn);
-            Assert.IsNotNull(x);
-            Assert.IsTrue(x.GetType() == typeof(Roatp.Api.Types.Provider));
+            var provider = RoatpGateway.GetProvider(ValidUkPrn);
+            Assert.IsNotNull(provider);
+            Assert.AreEqual(provider, ExpectedProvider);
         }
     }
 }

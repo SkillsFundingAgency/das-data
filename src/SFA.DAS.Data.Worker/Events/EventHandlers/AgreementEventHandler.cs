@@ -12,15 +12,13 @@ namespace SFA.DAS.Data.Worker.Events.EventHandlers
     public class AgreementEventHandler : EventApiHandler<AgreementEventView>
     {
         private readonly IMediator _mediator;
-        private readonly IMapper _mapper;
 
         public AgreementEventHandler(IMediator mediator,
-            IMapper mapper, IEventRepository eventRepository, 
+            IEventRepository eventRepository, 
             IDataConfiguration configuration, ILog logger) 
             : base(eventRepository, configuration, logger)
         {
             _mediator = mediator;
-            _mapper = mapper;
         }
 
         protected override async Task ProcessEvent(AgreementEventView @event)

@@ -11,17 +11,14 @@ namespace SFA.DAS.Data.Worker.UnitTests.Events.EventCollectorsTests.AgreementEve
 {
     public class WhenIGetAgreementEvents
     {
-        // MPD-466
         private Mock<IEventService> _eventService;
         private AgreementEventView _agreementViewEvent;
         private Mock<ILog> _logger;
         private AgreementEventCollector _collector;
-        private AgreementEvent _agreementEvent;
 
         [SetUp]
         public void Arrange()
         {
-            _agreementEvent = new AgreementEvent();
             _agreementViewEvent = new AgreementEventView();
 
             _eventService = new Mock<IEventService>();
