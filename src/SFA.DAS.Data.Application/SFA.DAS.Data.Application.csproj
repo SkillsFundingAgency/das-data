@@ -118,7 +118,6 @@
     <Compile Include="Commands\CreatePaymentsForPeriodEnd\CreatePaymentsForPeriodEndCommand.cs" />
     <Compile Include="Commands\CreateRoatpProvider\CreateProviderCommand.cs" />
     <Compile Include="Commands\CreateRoatpProvider\CreateProviderCommandHandler.cs" />
-    <Compile Include="Commands\CreateRoatpProvider\CreateProviderResponse.cs" />
     <Compile Include="Commands\ExportPerformancePlatformStatistics\ExportPerformancePlatformStatisticsCommand.cs" />
     <Compile Include="Commands\ExportPerformancePlatformStatistics\ExportPerformancePlatformStatisticsCommandHandler.cs" />
     <Compile Include="Commands\RemovePayeScheme\RemovePayeSchemeCommand.cs" />

@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Moq;
 using NUnit.Framework;
 using SFA.DAS.Data.Application.Gateways;
+using SFA.DAS.Data.Tests.Builders;
 using SFA.Roatp.Api.Client;
-using SFA.Roatp.Api.Types;
 
 namespace SFA.DAS.Data.Application.UnitTests.Gateways.RoatpGatewayTests
 {
@@ -16,15 +15,7 @@ namespace SFA.DAS.Data.Application.UnitTests.Gateways.RoatpGatewayTests
 
         protected readonly string ValidUkPrn = "10007315";
 
-        protected Roatp.Api.Types.Provider ExpectedProvider = new Roatp.Api.Types.Provider
-        {
-            Ukprn = 10007315,
-            Uri = "https://localhost:8005/api/providers/10007315",
-            NewOrganisationWithoutFinancialTrackRecord = false,
-            ParentCompanyGuarantee = false,
-            ProviderType = ProviderType.MainProvider,
-            StartDate = DateTime.Now.AddDays(-1)
-        };
+        protected Roatp.Api.Types.Provider ExpectedProvider = new ProviderBuilder().Build();
 
         [SetUp]
         public void Arrange()

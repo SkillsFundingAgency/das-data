@@ -17,7 +17,7 @@ namespace SFA.DAS.Data.Application.UnitTests.Gateways.RoatpGatewayTests
         {
             var provider = RoatpGateway.GetProvider(ValidUkPrn);
             Assert.IsNotNull(provider);
-            Assert.AreEqual(provider, ExpectedProvider);
+            Assert.AreSame(provider, ExpectedProvider);
         }
     }
 }

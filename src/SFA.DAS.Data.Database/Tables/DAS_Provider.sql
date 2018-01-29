@@ -10,3 +10,5 @@
 	[StartDate] DATETIME NULL,
 	[IsLatest] BIT NOT NULL DEFAULT 0
 )
+GO
+CREATE INDEX [IX_Provider_Ukprn_IsLatest] ON [Data_Load].[Provider] ([Ukprn], [IsLatest])

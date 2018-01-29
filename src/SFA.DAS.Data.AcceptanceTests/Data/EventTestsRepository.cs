@@ -200,6 +200,15 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
             });
         }
 
+        public async Task<int> GetNumberOfProviders()
+        {
+            return await WithConnection(async c =>
+                await c.QuerySingleAsync<int>(
+                    sql: "SELECT COUNT(*) FROM [Data_Load].[Provider]",
+                    commandType: CommandType.Text)
+            );
+        }
+
         private async Task<T> WithConnection<T>(Func<IDbConnection, Task<T>> getData)
         {
             using (var connection = new SqlConnection(_connectionString))
@@ -207,15 +216,6 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
                 await connection.OpenAsync();
                 return await getData(connection);
             }
-        }
-
-        public async Task<int> GetNumberOfProviders()
-        {
-            return await WithConnection(async c => 
-                await c.QuerySingleAsync<int>(
-                    sql: "SELECT COUNT(*) FROM [Data_Load].[Provider]",
-                    commandType: CommandType.Text)
-            );
         }
     }
 }
