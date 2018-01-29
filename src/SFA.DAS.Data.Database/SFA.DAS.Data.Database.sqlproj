@@ -131,6 +131,7 @@
     <Build Include="StoredProcedures\Load_Data.sql" />
     <Build Include="Tables\DAS_EmploymentCheck.sql" />
     <Build Include="StoredProcedures\CreateEmploymentCheck.sql" />
+    <Build Include="StoredProcedures\LevySnapshot.sql" />
     <Build Include="Tables\DAS_Provider.sql" />
     <Build Include="StoredProcedures\SaveProvider.sql" />
   </ItemGroup>

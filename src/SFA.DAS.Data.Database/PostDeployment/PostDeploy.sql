@@ -13,6 +13,63 @@ BEGIN
 	GRANT SELECT ON [Data_Pub].[DAS_LevyDeclarations] TO ViewSpecificReadOnly
 END
 
+--Developer - Read all tables / views excluding HMRC
+IF DATABASE_PRINCIPAL_ID('Developer') IS NULL
+BEGIN
+	CREATE ROLE [Developer]
+END
+
+GRANT SELECT ON [Data_Load].[DAS_CalendarMonth] TO Developer
+GRANT SELECT ON [Data_Load].[Das_Commitments] TO Developer
+GRANT SELECT ON [Data_Load].[DAS_Employer_Accounts] TO Developer
+GRANT SELECT ON [Data_Load].[DAS_Employer_Agreements] TO Developer
+GRANT SELECT ON [Data_Load].[DAS_Employer_LegalEntities] TO Developer
+GRANT SELECT ON [Data_Load].[DAS_Employer_PayeSchemes] TO Developer
+GRANT SELECT ON [Data_Load].[DAS_EmploymentCheck] TO Developer
+GRANT SELECT ON [Data_Load].[DAS_FailedEvents] TO Developer
+GRANT SELECT ON [Data_Load].[DAS_LevyDeclarations] TO Developer
+GRANT SELECT ON [Data_Load].[DAS_LoadedEvents] TO Developer
+GRANT SELECT ON [Data_Load].[DAS_Payments] TO Developer
+GRANT SELECT ON [Data_Pub].[DAS_Employer_Accounts] TO Developer
+GRANT SELECT ON [Data_Pub].[DAS_Employer_LegalEntities] TO Developer
+GRANT SELECT ON [Data_Pub].[DAS_Employer_PayeSchemes] TO Developer
+GRANT SELECT ON [Data_Pub].[DAS_Commitments] TO Developer
+GRANT SELECT ON [Data_Pub].[DAS_CalendarMonth] TO Developer
+GRANT SELECT ON [Data_Pub].[DAS_LevyDeclarations] TO Developer
+GRANT SELECT ON [Data_Pub].[DAS_Employer_AccountTransactions] TO Developer
+GRANT SELECT ON [Data_Pub].[DAS_Employer_Agreements] TO Developer
+GRANT SELECT ON [Data_Pub].[DAS_Payments] TO Developer
+
+--Data Analyst - Read all views excluding HMRC
+IF DATABASE_PRINCIPAL_ID('DataAnalyst') IS NULL
+BEGIN
+	CREATE ROLE [DataAnalyst]
+END
+
+GRANT SELECT ON [Data_Pub].[DAS_Employer_Accounts] TO DataAnalyst
+GRANT SELECT ON [Data_Pub].[DAS_Employer_LegalEntities] TO DataAnalyst
+GRANT SELECT ON [Data_Pub].[DAS_Employer_PayeSchemes] TO DataAnalyst
+GRANT SELECT ON [Data_Pub].[DAS_Commitments] TO DataAnalyst
+GRANT SELECT ON [Data_Pub].[DAS_CalendarMonth] TO DataAnalyst
+GRANT SELECT ON [Data_Pub].[DAS_LevyDeclarations] TO DataAnalyst
+GRANT SELECT ON [Data_Pub].[DAS_Employer_AccountTransactions] TO DataAnalyst
+GRANT SELECT ON [Data_Pub].[DAS_Employer_Agreements] TO DataAnalyst
+GRANT SELECT ON [Data_Pub].[DAS_Payments] TO DataAnalyst
+
+--HMRC MI / API Reader - read HMRC Tables / Views
+IF DATABASE_PRINCIPAL_ID('HMRCReader') IS NULL
+BEGIN
+	CREATE ROLE [HMRCReader]
+END
+
+GRANT SELECT ON [HMRC].[Data_History] TO HMRCReader
+GRANT SELECT ON [HMRC].[Data_Live] TO HMRCReader
+GRANT SELECT ON [HMRC].[Data_Quality_Tests_Log] TO HMRCReader
+GRANT SELECT ON [HMRC].[Data_Staging] TO HMRCReader
+GRANT SELECT ON [HMRC].[DATA-Live] TO HMRCReader
+GRANT SELECT ON [HMRC].[DATA-Staging] TO HMRCReader
+GRANT SELECT ON [HMRC].[HMRC_MI_View] TO HMRCReader
+
 Exec Data_Load.UpdateCalendarMonth
 
 IF (SELECT COUNT(*) FROM [Data_Load].[DAS_Employer_Accounts] WHERE IsLatest = 1) = 0
