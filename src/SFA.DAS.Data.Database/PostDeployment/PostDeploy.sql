@@ -125,11 +125,11 @@ INSERT INTO HMRC.Configuration_Data_Quality_Tests
     , ColumnPatternMatching
     , ColumnMinValue
     , ColumnMaxValue
-    , FlagStopLoadIfTestTextLength 
-    , FlagStopLoadIfTestIsNumeric 
-    , FlagStopLoadIfTestPatternMatch 
-    , FlagStopLoadIfTestValueRange 
-    , FlagStopLoadIfTestDecimalPlaces 
+    , StopLoadIfTestTextLength 
+    , StopLoadIfTestIsNumeric 
+    , StopLoadIfTestPatternMatch 
+    , StopLoadIfTestValueRange 
+    , StopLoadIfTestDecimalPlaces 
     )
 SELECT 'TaxPeriodStartYear' AS ColumnName, 1 AS ColumnNullable , 'INT' AS ColumnType, '' AS ColumnLength, '' AS ColumnPrecision, '' AS ColumnDefault, 1 as RunColumnTests, '20[1-9][0-9]' AS ColumnPatternMatching, '2016' AS ColumnMinValue, '9999' AS ColumnMaxValue,0 AS StopLoadIfTestTextLength,0 AS StopLoadIfTestIsNumeric,0 AS StopLoadIfTestPatternMatch,1 AS StopLoadIfTestValueRange,0 AS StopLoadIfTestDecimalPlaces
 UNION ALL SELECT 'TaxPeriodMonth' AS ColumnName, 1 AS ColumnNullable , 'INT' AS ColumnType, '' AS ColumnLength, '' AS ColumnPrecision, '' AS ColumnDefault, 1 as RunColumnTests, '' AS ColumnPatternMatching, '1' AS ColumnMinValue, '12' AS ColumnMaxValue,0 AS StopLoadIfTestTextLength,0 AS StopLoadIfTestIsNumeric,0 AS StopLoadIfTestPatternMatch,1 AS StopLoadIfTestValueRange,0 AS StopLoadIfTestDecimalPlaces
