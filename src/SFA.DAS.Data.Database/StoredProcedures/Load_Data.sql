@@ -46,6 +46,7 @@ BEGIN
 			DECLARE @ColumnName VARCHAR(255), @ColumnType VARCHAR(255), @ColumnLength INT, @TestName VARCHAR(255), @ErrorMessage VARCHAR(255), 
 				@ColumnStopOnErrorFlag BIT, 
 				@ColumnPrecision INT,
+				@ColumnPatternMatching nvarchar(255),
 				@Sql nvarchar(2000) 
 
 			DECLARE StringTestConfig CURSOR FOR
@@ -54,7 +55,7 @@ BEGIN
 				, TTC.ColumnLength
 				, 'String Length Test'
 				, 'String length exceeds Specification.' AS ErrorMessage
-				, TTC.FlagStopLoadIfTestTextLenght
+				, TTC.StopLoadIfTestTextLength
 			FROM HMRC.Configuration_Data_Quality_Tests AS TTC
 			WHERE TTC.ColumnType IN ('VARCHAR', 'NVARCHAR','CHAR','NCHAR')
 
@@ -96,7 +97,7 @@ BEGIN
 				, 'Decimal Places Test'
 				, 'Decimal places do not match specification.' AS ErrorMessage
 				, TTC.ColumnPrecision
-				, TTC.FlagStopLoadIfTestDecimalPlaces
+				, TTC.StopLoadIfTestDecimalPlaces
 			FROM HMRC.Configuration_Data_Quality_Tests AS TTC
 			WHERE   TTC.ColumnType = 'DECIMAL'
 
@@ -129,6 +130,57 @@ BEGIN
 
 			CLOSE DecimalPlacesTestConfig
 			DEALLOCATE DecimalPlacesTestConfig
+			   
+			 -------------------
+			 -------------------
+
+			 -- Pattern match test
+
+			DECLARE PatternMatchTestConfig CURSOR FOR
+			SELECT TTC.ColumnName
+				,TTC.ColumnType
+				, TTC.ColumnLength
+				, 'Pattern Matching Test'
+				, 'Column pattern does not match specification.' AS ErrorMessage
+				, TTC.ColumnPatternMatching
+				, TTC.StopLoadIfTestPatternMatch
+			FROM HMRC.Configuration_Data_Quality_Tests AS TTC
+			WHERE   TTC.ColumnPatternMatching != ''
+
+			OPEN PatternMatchTestConfig
+			FETCH NEXT FROM PatternMatchTestConfig INTO 
+			@ColumnName, @ColumnType, @ColumnLength, @TestName, @ErrorMessage, @ColumnPatternMatching, @ColumnStopOnErrorFlag
+
+			WHILE @@FETCH_STATUS = 0
+			BEGIN
+				SET @SQL='
+				INSERT INTO HMRC.Data_Quality_Tests_Log
+					  ( Record_ID 
+					, ColumnName 
+					, TestName
+					, ErrorMessage 
+					, FlagStopLoad	
+					, SourceFile_ID
+					   ) 
+					   SELECT Record_ID
+							,'''+ @ColumnName + ''' AS ColumnName
+							, '''+ @TestName + ''' AS TestName
+							, '''+ @ErrorMessage +' Actual: ''+ CAST('+ @ColumnName +' AS VARCHAR(255)) +'' Expected Pattern: '+ @ColumnPatternMatching +''' AS ErrorMessage
+							  , '''+ CAST(@ColumnStopOnErrorFlag AS VARCHAR(255)) +'''  AS FlagStopLoad
+							   , '''+ CAST(@BISourceFile_ID AS VARCHAR(255)) +'''  AS SourceFile_ID	   
+						FROM [HMRC].[Data_Staging]
+					   WHERE LTRIM(RTRIM('+ @ColumnName + ')) NOT LIKE '''+ @ColumnPatternMatching +'''
+		  
+					   '
+				
+				EXEC (@SQL)
+
+				FETCH NEXT FROM PatternMatchTestConfig INTO 
+				@ColumnName, @ColumnType, @ColumnLength, @TestName, @ErrorMessage, @ColumnPatternMatching, @ColumnStopOnErrorFlag
+			END
+
+			CLOSE PatternMatchTestConfig
+			DEALLOCATE PatternMatchTestConfig
 			   
 			 -------------------
 			 -------------------
@@ -513,7 +565,7 @@ BEGIN
 
 			 INSERT INTO [HMRC].[Process_Log]
 					(ProcessEventName, ProcessEventDescription, SourceFile_ID)
-			 VALUES ('Ending Insert Data from Staging Process', 'Ending Insert Data from Staging Process', @BISourceFile_ID)
+			 VALUES ('Ending Insert Date from Staging Process', 'Ending Insert Date from Staging Process', @BISourceFile_ID)
 		END
 		ELSE
 		--If @BISourceFile_ID is Null

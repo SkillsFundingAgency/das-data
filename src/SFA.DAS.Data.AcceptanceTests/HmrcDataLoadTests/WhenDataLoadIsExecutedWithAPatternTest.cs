@@ -7,21 +7,20 @@ using SFA.DAS.Data.AcceptanceTests.Data.DTOs;
 namespace SFA.DAS.Data.AcceptanceTests.HmrcDataLoadTests
 {
     [TestFixture]
-    public class WhenDataLoadIsExecutedWithAStringLengthTest : HmrcDataLoadTestsBase
+    public class WhenDataLoadIsExecutedWithAPatternTest : HmrcDataLoadTestsBase
     {
         [Test]
         public void ThenValidationFailuresAreLoggedIntoConfigurationDataQualityTests()
         {
             InsertPendingLoadControl();
 
-            HmrcDataTestsRepository.InsertIntoStaging(new DataStagingRecord{SchemePAYERef = "123456789"}).Wait();
+            HmrcDataTestsRepository.InsertIntoStaging(new DataStagingRecord{ SchemePAYERef = "DG123"}).Wait();
 
             HmrcDataTestsRepository.InsertIntoDataQualityTests(new DataQualityTestRecord
             {
                 ColumnName = "SchemePAYERef",
                 ColumnNullable = true,
-                ColumnType = "NVARCHAR",
-                ColumnLength = 5,
+                ColumnPatternMatching = "[0-9][0-9][0-9]/[A-Z]%",
                 RunColumnTests = true
             }).Wait();
 
@@ -31,7 +30,7 @@ namespace SFA.DAS.Data.AcceptanceTests.HmrcDataLoadTests
 
             qualityLogs.Count().Should().Be(1);
             qualityLogs.First().ColumnName.Should().Be("SchemePAYERef");
-            qualityLogs.First().ErrorMessage.Should().Be("String length exceeds Specification. Actual: 9 Against spec size: 5");
+            qualityLogs.First().ErrorMessage.Should().Be("Column pattern does not match specification. Actual: DG123 Expected Pattern: [0-9][0-9][0-9]/[A-Z]%");
 
             var loadControl = HmrcDataTestsRepository.GetLoadControl().Result;
             loadControl.SourceFile_Status.Should().Be("Complete");
@@ -42,16 +41,15 @@ namespace SFA.DAS.Data.AcceptanceTests.HmrcDataLoadTests
         {
             InsertPendingLoadControl();
 
-            HmrcDataTestsRepository.InsertIntoStaging(new DataStagingRecord { SchemePAYERef = "123456789" }).Wait();
+            HmrcDataTestsRepository.InsertIntoStaging(new DataStagingRecord { SchemePAYERef = "DG123" }).Wait();
 
             HmrcDataTestsRepository.InsertIntoDataQualityTests(new DataQualityTestRecord
             {
                 ColumnName = "SchemePAYERef",
                 ColumnNullable = true,
-                ColumnType = "NVARCHAR",
-                ColumnLength = 5,
+                ColumnPatternMatching = "[0-9][0-9][0-9]/[A-Z]%",
                 RunColumnTests = true,
-                StopLoadIfTestTextLength = true
+                StopLoadIfTestPatternMatch = true
             }).Wait();
 
             HmrcDataTestsRepository.ExecuteLoadData().Wait();
@@ -60,7 +58,8 @@ namespace SFA.DAS.Data.AcceptanceTests.HmrcDataLoadTests
 
             qualityLogs.Count().Should().Be(1);
             qualityLogs.First().ColumnName.Should().Be("SchemePAYERef");
-            qualityLogs.First().ErrorMessage.Should().Be("String length exceeds Specification. Actual: 9 Against spec size: 5");
+            qualityLogs.First().ErrorMessage.Should().Be("Column pattern does not match specification. Actual: DG123 Expected Pattern: [0-9][0-9][0-9]/[A-Z]%");
+
 
             var loadControl = HmrcDataTestsRepository.GetLoadControl().Result;
             loadControl.SourceFile_Status.Should().Be("Failed");

@@ -10,8 +10,10 @@ namespace SFA.DAS.Data.AcceptanceTests.Data.DTOs
         public string ColumnType { get; set; }
         public int ColumnLength { get; set; }
         public bool RunColumnTests { get; set; }
-        public bool FlagStopLoadIfTestTextLenght { get; set; }
+        public bool StopLoadIfTestTextLength { get; set; }
         public int ColumnPrecision { get; set; }
-        public bool FlagStopLoadIfTestDecimalPlaces { get; set; }
+        public bool StopLoadIfTestDecimalPlaces { get; set; }
+        public string ColumnPatternMatching { get; set; }
+        public bool StopLoadIfTestPatternMatch { get; set; }
     }
 }

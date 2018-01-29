@@ -53,7 +53,7 @@ namespace SFA.DAS.Data.AcceptanceTests.HmrcDataLoadTests
                 ColumnLength = 18,
                 ColumnPrecision = 5,
                 RunColumnTests = true,
-                FlagStopLoadIfTestDecimalPlaces = true
+                StopLoadIfTestDecimalPlaces = true
             }).Wait();
 
             HmrcDataTestsRepository.ExecuteLoadData().Wait();

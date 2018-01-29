@@ -193,6 +193,7 @@
     <Compile Include="Data\DTOs\DataQualityTestRecord.cs" />
     <Compile Include="HmrcDataLoadTests\HmrcDataLoadTestsBase.cs" />
     <Compile Include="HmrcDataLoadTests\WhenDataIsReloaded.cs" />
+    <Compile Include="HmrcDataLoadTests\WhenDataLoadIsExecutedWithAPatternTest.cs" />
     <Compile Include="HmrcDataLoadTests\WhenDataLoadIsExecutedWithADecimalTest.cs" />
     <Compile Include="HmrcDataLoadTests\WhenDataLoadIsExecutedWithAStringLengthTest.cs" />
     <Compile Include="HmrcDataLoadTests\WhenDataLoadIsExecutedWithNoPendingImports.cs" />
