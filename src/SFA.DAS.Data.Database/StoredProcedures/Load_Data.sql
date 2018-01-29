@@ -47,7 +47,9 @@ BEGIN
 				@ColumnStopOnErrorFlag BIT, 
 				@ColumnPrecision INT,
 				@ColumnPatternMatching nvarchar(255),
-				@Sql nvarchar(2000) 
+				@Sql nvarchar(2000),
+				@ColumnMinValue varchar(255), 
+				@ColumnMaxValue varchar(255) 
 
 			DECLARE StringTestConfig CURSOR FOR
 			SELECT TTC.ColumnName
@@ -184,6 +186,104 @@ BEGIN
 			   
 			 -------------------
 			 -------------------
+
+			  -------------------
+			 -------------------
+
+			 -- IsNumeric match test
+
+			DECLARE IsNumericTestConfig CURSOR FOR
+			SELECT TTC.ColumnName
+				,TTC.ColumnType
+				, TTC.ColumnLength
+				, 'IsNumeric Test'
+				, 'Numeric type field not Numeric.' AS ErrorMessage
+				, TTC.StopLoadIfTestIsNumeric
+			FROM HMRC.Configuration_Data_Quality_Tests AS TTC
+			WHERE   TTC.ColumnType IN ('BIT', 'BIGINT','Long','Int','DECIMAL','SMALLINT', 'TINYINT')
+
+			OPEN IsNumericTestConfig
+			FETCH NEXT FROM IsNumericTestConfig INTO 
+			@ColumnName, @ColumnType, @ColumnLength, @TestName, @ErrorMessage, @ColumnStopOnErrorFlag
+
+			WHILE @@FETCH_STATUS = 0
+			BEGIN
+				SET @SQL='
+				INSERT INTO HMRC.Data_Quality_Tests_Log
+					  ( Record_ID 
+					, ColumnName 
+					, TestName
+					, ErrorMessage 
+					, FlagStopLoad
+					, SourceFile_ID
+					  ) 
+					   SELECT Record_ID
+							,'''+ @ColumnName + ''' AS ColumnName
+							, '''+ @TestName + ''' AS TestName
+							, '''+ @ErrorMessage +' Actual: ''+['+@ColumnName+'] AS ErrorMessage
+							  , '''+ CAST(@ColumnStopOnErrorFlag AS VARCHAR(255)) +'''  AS FlagStopLoad
+							   , '''+ CAST(@BISourceFile_ID AS VARCHAR(255)) +'''  AS SourceFile_ID
+					   FROM [HMRC].[Data_Staging]
+					   WHERE ISNUMERIC(COALESCE(LTRIM(RTRIM('+ @ColumnName + ')),''0'')) = 0 
+						  AND LEN('+ @ColumnName + ') > 0
+		  
+					   '
+				
+				EXEC (@SQL)
+
+				FETCH NEXT FROM IsNumericTestConfig INTO 
+				@ColumnName, @ColumnType, @ColumnLength, @TestName, @ErrorMessage, @ColumnStopOnErrorFlag
+			END
+
+			CLOSE IsNumericTestConfig
+			DEALLOCATE IsNumericTestConfig
+			   
+			 -------------------
+			 -------------------
+
+			  -- Value in Range test
+
+			DECLARE IsWithinRangeTestConfig CURSOR FOR
+			SELECT TTC.ColumnName
+				,TTC.ColumnType
+				, TTC.ColumnLength
+				, 'Value Range Test'
+				, 'Numeric column value outside acceptable values.' AS ErrorMessage
+				, TTC.ColumnMinValue 
+				, TTC.ColumnMaxValue
+				, TTC.StopLoadIfTestValueRange
+			FROM HMRC.Configuration_Data_Quality_Tests AS TTC
+			WHERE   TTC.ColumnMinValue  <>'' 
+					AND TTC.ColumnMaxValue  <>''
+
+			OPEN IsWithinRangeTestConfig
+			FETCH NEXT FROM IsWithinRangeTestConfig INTO 
+			@ColumnName, @ColumnType, @ColumnLength, @TestName, @ErrorMessage, @ColumnMinValue, @ColumnMaxValue, @ColumnStopOnErrorFlag
+
+			WHILE @@FETCH_STATUS = 0
+			BEGIN
+				SET @SQL='INSERT INTO HMRC.Data_Quality_Tests_Log
+						  ( Record_ID, ColumnName, TestName, ErrorMessage, FlagStopLoad, SourceFile_ID ) 
+						   SELECT Record_ID,
+								'''+ @ColumnName + ''' AS ColumnName, 
+								'''+ @TestName + ''' AS TestName, 
+								'''+ @ErrorMessage +' Actual: ''+ CAST('+ @ColumnName +' AS VARCHAR(255)) +''. Range: '+@ColumnMinValue +' - '+@ColumnMaxValue +''' AS ErrorMessage, 
+								'''+ CAST(@ColumnStopOnErrorFlag AS VARCHAR(255)) +'''  AS FlagStopLoad, 
+								'''+ CAST(@BISourceFile_ID AS VARCHAR(255)) +'''  AS SourceFile_ID
+							FROM [HMRC].[Data_Staging]
+							WHERE CAST('+ @ColumnName + ' AS ' + @ColumnType +') NOT BETWEEN CAST('''+ @ColumnMinValue +''' AS ' + @ColumnType +') AND CAST('''+ @ColumnMaxValue +''' AS ' + @ColumnType +')'
+				EXEC (@SQL)
+
+				FETCH NEXT FROM IsWithinRangeTestConfig INTO 
+				@ColumnName, @ColumnType, @ColumnLength, @TestName, @ErrorMessage, @ColumnMinValue, @ColumnMaxValue, @ColumnStopOnErrorFlag
+			END
+
+			CLOSE IsWithinRangeTestConfig
+			DEALLOCATE IsWithinRangeTestConfig
+			   
+			 -------------------
+			 -------------------
+
 
 			IF ISNULL((SELECT SUM(FlagStopLoad) 
 				  FROM HMRC.Data_Quality_Tests_Log
