@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using System.Net.Http;
-using FluentAssertions;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using SFA.DAS.Data.AcceptanceTests.Data.DTOs;
 
 namespace SFA.DAS.Data.AcceptanceTests.HmrcDataLoadTests
@@ -26,14 +23,8 @@ namespace SFA.DAS.Data.AcceptanceTests.HmrcDataLoadTests
 
             HmrcDataTestsRepository.ExecuteLoadData().Wait();
 
-            var qualityLogs = HmrcDataTestsRepository.GetQualityLogs().Result.ToList();
-
-            qualityLogs.Count().Should().Be(1);
-            qualityLogs.First().ColumnName.Should().Be("SchemePAYERef");
-            qualityLogs.First().ErrorMessage.Should().Be("Column pattern does not match specification. Actual: DG123 Expected Pattern: [0-9][0-9][0-9]/[A-Z]%");
-
-            var loadControl = HmrcDataTestsRepository.GetLoadControl().Result;
-            loadControl.SourceFile_Status.Should().Be("Complete");
+            AssertTestFailLogged("SchemePAYERef", "Column pattern does not match specification. Actual: DG123 Expected Pattern: [0-9][0-9][0-9]/[A-Z]%");
+            AssertLoadCompleted();
         }
 
         [Test]
@@ -54,20 +45,8 @@ namespace SFA.DAS.Data.AcceptanceTests.HmrcDataLoadTests
 
             HmrcDataTestsRepository.ExecuteLoadData().Wait();
 
-            var qualityLogs = HmrcDataTestsRepository.GetQualityLogs().Result.ToList();
-
-            qualityLogs.Count().Should().Be(1);
-            qualityLogs.First().ColumnName.Should().Be("SchemePAYERef");
-            qualityLogs.First().ErrorMessage.Should().Be("Column pattern does not match specification. Actual: DG123 Expected Pattern: [0-9][0-9][0-9]/[A-Z]%");
-
-
-            var loadControl = HmrcDataTestsRepository.GetLoadControl().Result;
-            loadControl.SourceFile_Status.Should().Be("Failed");
-
-            var processLogs = HmrcDataTestsRepository.GetProcessLogs().Result;
-            processLogs.Any(l => l.ProcessEventName == "ERROR Data Not loaded Data Quality Issues").Should().BeTrue();
-
-            HmrcDataTestsRepository.GetDataLiveCount().Result.Should().Be(0);
+            AssertTestFailLogged("SchemePAYERef", "Column pattern does not match specification. Actual: DG123 Expected Pattern: [0-9][0-9][0-9]/[A-Z]%");
+            AssertLoadHalted();
         }
     }
 }

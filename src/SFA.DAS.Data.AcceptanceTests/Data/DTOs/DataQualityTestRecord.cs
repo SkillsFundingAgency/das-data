@@ -15,5 +15,6 @@ namespace SFA.DAS.Data.AcceptanceTests.Data.DTOs
         public bool StopLoadIfTestDecimalPlaces { get; set; }
         public string ColumnPatternMatching { get; set; }
         public bool StopLoadIfTestPatternMatch { get; set; }
+        public bool StopLoadIfTestIsNumeric { get; set; }
     }
 }

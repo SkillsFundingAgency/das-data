@@ -15,5 +15,6 @@ namespace SFA.DAS.Data.AcceptanceTests.Data.DTOs
 
         public string CessationDate { get; set; }
         public string EnglishFraction { get; set; }
+        public string TaxPeriodMonth { get; set; }
     }
 }
