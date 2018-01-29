@@ -204,14 +204,5 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
                     commandType: CommandType.Text)
             );
         }
-
-        private async Task<T> WithConnection<T>(Func<IDbConnection, Task<T>> getData)
-        {
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                await connection.OpenAsync();
-                return await getData(connection);
-            }
-        }
     }
 }
