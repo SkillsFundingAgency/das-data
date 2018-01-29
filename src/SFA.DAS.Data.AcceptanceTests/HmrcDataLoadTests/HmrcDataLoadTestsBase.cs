@@ -43,7 +43,7 @@ namespace SFA.DAS.Data.AcceptanceTests.HmrcDataLoadTests
         {
             var qualityLogs = HmrcDataTestsRepository.GetQualityLogs().Result.ToList();
 
-            qualityLogs.Count().Should().Be(1);
+            qualityLogs.Count().Should().Be(1, because: "a Quality Test Log record should have been created");
             qualityLogs.First().ColumnName.Should().Be(expectedColumnName);
             qualityLogs.First().ErrorMessage.Should().Be(expectedErrorMessage);
         }
@@ -56,7 +56,7 @@ namespace SFA.DAS.Data.AcceptanceTests.HmrcDataLoadTests
             var processLogs = HmrcDataTestsRepository.GetProcessLogs().Result;
             processLogs.Any(l => l.ProcessEventName == "ERROR Data Not loaded Data Quality Issues").Should().BeTrue();
 
-            HmrcDataTestsRepository.GetDataLiveCount().Result.Should().Be(0);
+            HmrcDataTestsRepository.GetDataLiveCount().Result.Should().Be(0, because: "no Live records should be inserted");
         }
 
         protected void AssertLoadCompleted()

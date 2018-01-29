@@ -16,5 +16,8 @@ namespace SFA.DAS.Data.AcceptanceTests.Data.DTOs
         public string ColumnPatternMatching { get; set; }
         public bool StopLoadIfTestPatternMatch { get; set; }
         public bool StopLoadIfTestIsNumeric { get; set; }
+        public string ColumnMinValue { get; set; }
+        public string ColumnMaxValue { get; set; }
+        public bool StopLoadIfTestValueRange { get; set; }
     }
 }
