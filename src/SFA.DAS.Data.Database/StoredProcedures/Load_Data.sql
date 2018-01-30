@@ -676,6 +676,36 @@ BEGIN
 		END
 	END TRY
 	BEGIN CATCH
+		IF CURSOR_STATUS('local','StringTestConfig')>=-1
+		BEGIN
+			CLOSE StringTestConfig
+			DEALLOCATE StringTestConfig
+		END
+
+		IF CURSOR_STATUS('local','DecimalPlacesTestConfig')>=-1
+		BEGIN
+			CLOSE DecimalPlacesTestConfig
+			DEALLOCATE DecimalPlacesTestConfig
+		END
+
+		IF CURSOR_STATUS('local','PatternMatchTestConfig')>=-1
+		BEGIN
+			CLOSE PatternMatchTestConfig
+			DEALLOCATE PatternMatchTestConfig
+		END
+
+		IF CURSOR_STATUS('local','IsNumericTestConfig')>=-1
+		BEGIN
+			CLOSE IsNumericTestConfig
+			DEALLOCATE IsNumericTestConfig
+		END
+
+		IF CURSOR_STATUS('local','IsWithinRangeTestConfig')>=-1
+		BEGIN
+			CLOSE IsWithinRangeTestConfig
+			DEALLOCATE IsWithinRangeTestConfig
+		END
+
 		INSERT INTO [HMRC].[Process_Log]
 				 (ProcessEventName, ProcessEventDescription, SourceFile_ID)
 		VALUES ('Unhandled Error', REPLICATE('-',2)
