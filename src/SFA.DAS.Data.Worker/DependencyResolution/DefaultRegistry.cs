@@ -25,6 +25,7 @@ using SFA.DAS.Events.Api.Types;
 using SFA.DAS.NLog.Logger;
 using SFA.DAS.Provider.Events.Api.Client;
 using SFA.DAS.Provider.Events.Api.Types;
+using SFA.Roatp.Api.Client;
 using StructureMap;
 using StructureMap.TypeRules;
 
@@ -72,6 +73,7 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             For<IEventHandler<GenericEvent<AgreementSignedEvent>>>().Use<AgreementSignedEventHandler>();
             For<IEventHandler<PeriodEnd>>().Use<PeriodEndEventHandler>();
             For<IEventHandler<GenericEvent<EmploymentCheckCompleteEvent>>>().Use<EmploymentCheckCompleteEventHandler>();
+            For<IEventHandler<AgreementEventView>>().Use<AgreementEventHandler>();
 
             //Legacy support
             For<IEventHandler<AccountEventView>>().Use<AccountEventHandler>();
@@ -89,6 +91,7 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             For<IEventsCollector<GenericEvent<AgreementSignedEvent>>>().Use<GenericEventCollector<AgreementSignedEvent>>();
             For<IEventsCollector<PeriodEnd>>().Use<PaymentEventsCollector>();
             For<IEventsCollector<GenericEvent<EmploymentCheckCompleteEvent>>>().Use<GenericEventCollector<EmploymentCheckCompleteEvent>>();
+            For<IEventsCollector<AgreementEventView>>().Use<AgreementEventCollector>();
 
             //Legacy support
             For<IEventsCollector<AccountEventView>>().Use<AccountEventCollector>();
@@ -106,6 +109,7 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             For<IEventsProcessor>().Use<EventsProcessor<GenericEvent<AgreementSignedEvent>>>();
             For<IEventsProcessor>().Use<EventsProcessor<PeriodEnd>>();
             For<IEventsProcessor>().Use<EventsProcessor<GenericEvent<EmploymentCheckCompleteEvent>>>();
+            For<IEventsProcessor>().Use<EventsProcessor<AgreementEventView>>();
 
             //Legacy support
             For<IEventsProcessor>().Use<EventsProcessor<AccountEventView>>();
@@ -116,6 +120,7 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             For<IEventsApi>().Use(new EventsApi(config.EventsApi));
             For<IPaymentsEventsApiClient>().Use(new PaymentsEventsApiClient(config.PaymentsEvents));
             For<IAccountApiClient>().Use<AccountApiClient>().Ctor<IAccountApiConfiguration>().Is(config.AccountsApi);
+            For<IRoatpClient>().Use(new RoatpApiClient(config.AgreementsApiUrl));
         }
 
         private void RegisterRepositories(string connectionString)
@@ -129,6 +134,7 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             For<ILevyDeclarationRepository>().Use<LevyDeclarationRepository>().Ctor<string>().Is(connectionString);
             For<IEmployerAgreementRepository>().Use<EmployerAgreementRepository>().Ctor<string>().Is(connectionString);
             For<IEmploymentCheckRepository>().Use<EmploymentCheckRepository>().Ctor<string>().Is(connectionString);
+            For<IProviderRepository>().Use<ProviderRepository>().Ctor<string>().Is(connectionString);
         }
 
         private void AddMediatrRegistrations()

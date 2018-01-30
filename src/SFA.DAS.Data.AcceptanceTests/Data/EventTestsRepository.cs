@@ -87,6 +87,13 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
             });
         }
 
+        public async Task DeleteProviders()
+        {
+            await WithConnection(async c => await c.ExecuteAsync(
+                sql: "TRUNCATE TABLE [Data_Load].[Provider]",
+                commandType: CommandType.Text));
+        }
+
         public Task StoreLastProcessedEventId<T>(string eventFeed, T id)
         {
             return _eventRepository.StoreLastProcessedEventId(eventFeed, id);
@@ -187,6 +194,15 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
                     sql: "TRUNCATE TABLE [Data_Load].[DAS_Employer_LegalEntities]",
                     commandType: CommandType.Text);
             });
+        }
+        
+        public async Task<int> GetNumberOfProviders()
+        {
+            return await WithConnection(async c =>
+                await c.QuerySingleAsync<int>(
+                    sql: "SELECT COUNT(*) FROM [Data_Load].[Provider]",
+                    commandType: CommandType.Text)
+            );
         }
     }
 }
