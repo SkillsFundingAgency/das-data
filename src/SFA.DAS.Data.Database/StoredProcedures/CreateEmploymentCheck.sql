@@ -3,7 +3,7 @@
 	@uln BIGINT,
 	@employerAccountId BIGINT,
 	@ukprn BIGINT,
-	@checkDate DATE,
+	@checkDate DATETIME,
 	@checkPassed BIT
 AS
 

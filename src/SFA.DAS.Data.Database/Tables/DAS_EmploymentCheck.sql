@@ -5,7 +5,7 @@
 	[Uln] BIGINT NOT NULL,
 	[EmployerAccountId] BIGINT NOT NULL,
 	[Ukprn] BIGINT NOT NULL,
-	[CheckDate] DATE NOT NULL,
+	[CheckDate] DATETIME NOT NULL,
 	[CheckPassed] BIT NOT NULL,
 	[IsLatest] BIT NOT NULL DEFAULT 0
 )
