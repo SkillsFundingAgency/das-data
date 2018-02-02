@@ -21,7 +21,7 @@ namespace SFA.DAS.Data.Infrastructure.Data
                 parameters.Add("@uln", @event.Uln, DbType.Int64);
                 parameters.Add("@employerAccountId", @event.EmployerAccountId, DbType.Int64);
                 parameters.Add("@ukprn", @event.Ukprn, DbType.Int64);
-                parameters.Add("@checkDate", @event.CheckDate, DbType.Date);
+                parameters.Add("@checkDate", @event.CheckDate, DbType.DateTime);
                 parameters.Add("@checkPassed", @event.CheckPassed, DbType.Boolean);
 
                 return await c.ExecuteAsync(
