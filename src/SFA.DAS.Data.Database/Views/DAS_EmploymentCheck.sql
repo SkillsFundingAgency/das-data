@@ -10,7 +10,7 @@ SELECT
 	[CheckPassed],
 	[IsLatest] AS Flag_Latest,
 	CASE 
-		WHEN CheckPassed = 0 AND EmployerAccountId = 0 THEN 'Submitted UKPRN does not match Commitment' 
+		WHEN CheckPassed = 0 AND EmployerAccountId = 0 THEN 'UKPRN mismatch' 
 		WHEN CheckPassed = 0 AND EmployerAccountId	<> 0 THEN 'HMRC did not return successful check' 
 		ELSE NULL 
 	END AS CheckFailureReason
