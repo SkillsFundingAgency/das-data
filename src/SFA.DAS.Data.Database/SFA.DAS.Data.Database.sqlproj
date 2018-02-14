@@ -135,6 +135,7 @@
     <Build Include="Tables\DAS_Provider.sql" />
     <Build Include="StoredProcedures\SaveProvider.sql" />
     <Build Include="Tables\DAS_Relationships.sql" />
+    <Build Include="StoredProcedures\SaveRelationship.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SFA.DAS.Data.Database.refactorlog" />

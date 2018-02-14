@@ -8,7 +8,7 @@
 	[LegalEntityName] NVARCHAR(100) NOT NULL,
 	[LegalEntityAddress] NVARCHAR(256) NOT NULL,
 	[LegalEntityOrganisationTypeId] TINYINT NOT NULL,
-	[LegalEntityOrganisationTypeDescription] TINYINT NOT NULL,
+	[LegalEntityOrganisationTypeDescription] NVARCHAR(MAX) NOT NULL,
 	[Verified] BIT NULL,
 	[IsLatest] BIT NOT NULL
 	CONSTRAINT UQ_Relationship UNIQUE (EmployerAccountId,ProviderId,LegalEntityId)
