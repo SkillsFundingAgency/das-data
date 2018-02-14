@@ -22,6 +22,7 @@ using SFA.DAS.EAS.Account.Api.Types.Events.PayeScheme;
 using SFA.DAS.EmploymentCheck.Events;
 using SFA.DAS.Events.Api.Client;
 using SFA.DAS.Events.Api.Types;
+using SFA.DAS.Messaging.Interfaces;
 using SFA.DAS.NLog.Logger;
 using SFA.DAS.Provider.Events.Api.Client;
 using SFA.DAS.Provider.Events.Api.Types;
@@ -42,6 +43,7 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             {
                 scan.AssembliesFromApplicationBaseDirectory(a => a.GetName().Name.StartsWith("SFA.DAS."));
                 scan.RegisterConcreteTypesAgainstTheFirstInterface();
+                scan.AddAllTypesOf<IMessageProcessor>();
             });
 
             var config = GetConfiguration();

@@ -49,6 +49,12 @@
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\packages\NLog.4.3.7\lib\net45\NLog.dll</HintPath>
     </Reference>
+    <Reference Include="SFA.DAS.Commitments.Api.Types, Version=2.0.0.58102, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Commitments.Api.Types.2.0.0.58102\lib\net45\SFA.DAS.Commitments.Api.Types.dll</HintPath>
+    </Reference>
+    <Reference Include="SFA.DAS.Common.Domain, Version=1.3.0.44308, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Common.Domain.1.3.0.44308\lib\net45\SFA.DAS.Common.Domain.dll</HintPath>
+    </Reference>
     <Reference Include="SFA.DAS.EAS.Account.Api.Client, Version=1.0.0.32968, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.Account.Api.Client.1.0.0.32968\lib\net45\SFA.DAS.EAS.Account.Api.Client.dll</HintPath>
       <Private>True</Private>
@@ -95,6 +101,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\ServiceBusConnectionStringAttribute.cs" />
     <Compile Include="Data\EmploymentCheckRepository.cs" />
     <Compile Include="Data\EmployerAgreementRepository.cs" />
     <Compile Include="Data\LevyDeclarationRepository.cs" />
@@ -106,6 +113,7 @@
     <Compile Include="Data\PaymentRepository.cs" />
     <Compile Include="Data\PerformancePlatformRepository.cs" />
     <Compile Include="Data\ProviderRepository.cs" />
+    <Compile Include="Data\RelationshipRepository.cs" />
     <Compile Include="HttpClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Data\AccountRepository.cs" />

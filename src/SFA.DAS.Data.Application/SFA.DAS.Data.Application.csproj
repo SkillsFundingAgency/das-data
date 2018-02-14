@@ -54,6 +54,12 @@
       <HintPath>..\packages\NLog.4.3.7\lib\net45\NLog.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SFA.DAS.Commitments.Api.Types, Version=2.0.0.58102, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Commitments.Api.Types.2.0.0.58102\lib\net45\SFA.DAS.Commitments.Api.Types.dll</HintPath>
+    </Reference>
+    <Reference Include="SFA.DAS.Common.Domain, Version=1.3.0.44308, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Common.Domain.1.3.0.44308\lib\net45\SFA.DAS.Common.Domain.dll</HintPath>
+    </Reference>
     <Reference Include="SFA.DAS.EAS.Account.Api.Client, Version=1.0.0.32968, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.Account.Api.Client.1.0.0.32968\lib\net45\SFA.DAS.EAS.Account.Api.Client.dll</HintPath>
       <Private>True</Private>
@@ -116,6 +122,8 @@
     <Compile Include="Commands\CreateLevyDeclarations\CreateLevyDeclarationsCommandHandler.cs" />
     <Compile Include="Commands\CreatePaymentsForPeriodEnd\CreatePaymentsForPeriodEndCommandHandler.cs" />
     <Compile Include="Commands\CreatePaymentsForPeriodEnd\CreatePaymentsForPeriodEndCommand.cs" />
+    <Compile Include="Commands\CreateRelationship\CreateRelationshipCommand.cs" />
+    <Compile Include="Commands\CreateRelationship\CreateRelationshipCommandHandler.cs" />
     <Compile Include="Commands\CreateRoatpProvider\CreateProviderCommand.cs" />
     <Compile Include="Commands\CreateRoatpProvider\CreateProviderCommandHandler.cs" />
     <Compile Include="Commands\ExportPerformancePlatformStatistics\ExportPerformancePlatformStatisticsCommand.cs" />
@@ -130,6 +138,9 @@
     <Compile Include="Commands\CreatePayeScheme\CreatePayeSchemeCommand.cs" />
     <Compile Include="Commands\CreateAccount\CreateAccountCommand.cs" />
     <Compile Include="Commands\CreateAccount\CreateAccountCommandHandler.cs" />
+    <Compile Include="Commands\VerifyRelationship\VerifyRelationshipCommand.cs" />
+    <Compile Include="Commands\VerifyRelationship\VerifyRelationshipCommandHandler.cs" />
+    <Compile Include="Configuration\IServiceBusConfiguration.cs" />
     <Compile Include="Configuration\PerformancePlatformConfiguration.cs" />
     <Compile Include="Configuration\DataConfiguration.cs" />
     <Compile Include="Configuration\EventsApiClientConfiguration.cs" />
@@ -159,6 +170,7 @@
     <Compile Include="Interfaces\Repositories\IPaymentRepository.cs" />
     <Compile Include="Interfaces\Repositories\IPerformancePlatformRepository.cs" />
     <Compile Include="Interfaces\Repositories\IProviderRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IRelationshipRepository.cs" />
     <Compile Include="PerformancePlatformData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
