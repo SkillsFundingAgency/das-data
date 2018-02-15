@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using SFA.DAS.Configuration;
 
 namespace SFA.DAS.Data.Application.Configuration
 {
-    public interface IServiceBusConfiguration
+    public interface IServiceBusConfiguration : IConfiguration
     {
+        Dictionary<string, string> MessageServiceBusConnectionStringLookup { get; set; }
     }
 }

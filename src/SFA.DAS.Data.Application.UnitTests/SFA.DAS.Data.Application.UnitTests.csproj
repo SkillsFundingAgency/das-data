@@ -69,6 +69,13 @@
     <Reference Include="nunit.framework, Version=3.7.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.3.7.1\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="SFA.DAS.Commitments.Api.Types, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\das-commitments\src\SFA.DAS.Commitments.Events\bin\Debug\SFA.DAS.Commitments.Api.Types.dll</HintPath>
+    </Reference>
+    <Reference Include="SFA.DAS.Common.Domain, Version=1.3.0.44308, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Common.Domain.1.3.0.44308\lib\net45\SFA.DAS.Common.Domain.dll</HintPath>
+    </Reference>
     <Reference Include="SFA.DAS.EAS.Account.Api.Client, Version=1.0.0.32968, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.Account.Api.Client.1.0.0.32968\lib\net45\SFA.DAS.EAS.Account.Api.Client.dll</HintPath>
       <Private>True</Private>
@@ -118,6 +125,7 @@
     <Compile Include="Commands\CreateEmployerAgreementTests\WhenICreateAnEmployerAgreement.cs" />
     <Compile Include="Commands\CreateLevyDeclarationsTests\WhenICreateLevyDeclarations.cs" />
     <Compile Include="Commands\CreatePaymentsForPeriodEndCommandTests\WhenAPeriodEndIsProcessed.cs" />
+    <Compile Include="Commands\CreateRelationshipTests\WhenICreateARelationship.cs" />
     <Compile Include="Commands\CreateRoatpProviderTests\WhenICreateAProvider.cs" />
     <Compile Include="Commands\ExportPerformancePlatformStatisticsTests\WhenPerformancePlatformStatisticsAreExported.cs" />
     <Compile Include="Commands\RemovePayeSchemeTests\WhenIRemoveAPayeScheme.cs" />
@@ -125,6 +133,7 @@
     <Compile Include="Commands\CreateAccountTests\WhenICreateAnAccount.cs" />
     <Compile Include="Commands\CreatePayeSchemeTests\WhenICreateAPayeScheme.cs" />
     <Compile Include="Commands\CreateLegalEntityTests\WhenICreateALegalEntity.cs" />
+    <Compile Include="Commands\VerifiyRelationshipTests\WhenIVerifyARelationship.cs" />
     <Compile Include="DataExtractors\OrganisationsDataExtractorTests\WhenIExtractOrganisationData.cs" />
     <Compile Include="DataExtractors\ApprovedApprenticeshipsDataExtractorTests\WhenIExtractApprovedApprenticeshipData.cs" />
     <Compile Include="DataExtractors\PayeSchemesDataExtractorTests\WhenIExtractPayeSchemesData.cs" />
