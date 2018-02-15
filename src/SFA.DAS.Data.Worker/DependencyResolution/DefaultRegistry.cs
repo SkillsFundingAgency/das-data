@@ -120,7 +120,7 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             For<IEventsApi>().Use(new EventsApi(config.EventsApi));
             For<IPaymentsEventsApiClient>().Use(new PaymentsEventsApiClient(config.PaymentsEvents));
             For<IAccountApiClient>().Use<AccountApiClient>().Ctor<IAccountApiConfiguration>().Is(config.AccountsApi);
-            For<IRoatpClient>().Use(new RoatpApiClient());
+            For<IRoatpClient>().Use(new RoatpApiClient(config.AgreementsApiUrl));
         }
 
         private void RegisterRepositories(string connectionString)
