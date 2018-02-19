@@ -70,7 +70,7 @@ namespace SFA.DAS.Data.Worker
 
             //Trace.TraceInformation("SFA.DAS.Data.Worker has stopped");
         }
-
+ 
         private async Task RunAsync(CancellationToken cancellationToken)
         {
             while (!cancellationToken.IsCancellationRequested)
@@ -84,8 +84,8 @@ namespace SFA.DAS.Data.Worker
         {
             var container = new Container(c =>
             {
-                //c.Policies.Add(new ConfigurationPolicy<ServiceBusConfiguration>("SFA.DAS.Data"));
-                //c.Policies.Add(new MessageSubscriberPolicy<ServiceBusConfiguration>("SFA.DAS.Data"));
+                c.Policies.Add(new ConfigurationPolicy<ServiceBusConfiguration>("SFA.DAS.Data"));
+                c.Policies.Add(new MessageSubscriberPolicy<ServiceBusConfiguration>("SFA.DAS.Data"));
                 c.AddRegistry<DefaultRegistry>();
             });
             return container;
