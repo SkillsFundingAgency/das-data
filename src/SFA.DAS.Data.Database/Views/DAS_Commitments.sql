@@ -101,7 +101,7 @@ SELECT [C].[ID]
 		 LEFT JOIN [Data_Load].[DAS_Employer_Accounts] EAA ON EAA.AccountId = [C].[EmployerAccountID] AND EAA.IsLatest = 1
 
 		 ---- Join Legal Entity to get Legal_Entity_ID
-		 LEFT JOIN (SELECT 
+		 OUTER APPLY (SELECT 
                     DISTINCT TOP 1
                       ELE.DasAccountId
                     , ELE.COde AS [LegalEntityNumber]
@@ -112,11 +112,12 @@ SELECT [C].[ID]
                FROM
                     Data_Load.DAS_Employer_LegalEntities AS ELE
                WHERE
-                   IsLatest = 1
-               ) AS ELE ON C.LegalEntityOrganisationType = ELE.[LegalEntitySource]
-                          AND  C.[LegalEntityCode] = ELE.[LegalEntityNumber]
-                          AND C.[LegalEntityName] = ELE.LegalEntityName
+                   IsLatest = 1 AND
+				   C.LegalEntityOrganisationType = ELE.Source
+                          AND  C.[LegalEntityCode] = ELE.Code
+                          AND C.[LegalEntityName] = ELE.Name
                           AND EAA.DasAccountId = ELE.DasAccountId
+               ) AS ELE 
 
 		  LEFT JOIN (SELECT P.ApprenticeshipId AS CommitmentId
 					  , SUM(P.Amount) AS TotalAmount
