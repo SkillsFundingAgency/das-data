@@ -113,7 +113,7 @@ namespace SFA.DAS.Data.Worker
             }
             catch (Exception ex)
             {
-                logger.Fatal(ex, "Task Worker has had an unhandled excdeption and is exiting");
+                logger.Fatal(ex, "Data Worker has had an unhandled exception and is exiting");
                 throw;
             }
             finally

@@ -1,6 +1,9 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Threading.Tasks;
 using Dapper;
+using SFA.DAS.Commitments.Api.Types;
+using SFA.DAS.Commitments.Events;
 using SFA.DAS.Data.Infrastructure.Data;
 
 namespace SFA.DAS.Data.AcceptanceTests.Data
@@ -203,6 +206,61 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
                     sql: "SELECT COUNT(*) FROM [Data_Load].[Provider]",
                     commandType: CommandType.Text)
             );
+        }
+
+        public async Task DeleteRelationships()
+        {
+            await WithConnection(async c => await c.ExecuteAsync(sql: "TRUNCATE TABLE [Data_Load].[DAS_Relationship]",
+                commandType: CommandType.Text));
+        }
+
+        public async Task<int> GetNumberOfRelationships()
+        {
+            return await WithConnection(async c =>
+                await c.QuerySingleAsync<int>(sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_Relationship]",
+                    commandType: CommandType.Text));
+        }
+
+        public async Task InsertRelationship(Relationship relationship)
+        {
+            string verified;
+
+            if (relationship.Verified.HasValue)
+            {
+                verified = relationship.Verified == true ? "1" : "0";
+            }
+            else
+            {
+                verified = "NULL";
+            }
+
+            var sql =
+                $"INSERT INTO [Data_Load].[Das_Relationship] " +
+                $"VALUES ( {relationship.ProviderId}, " +
+                $"'{relationship.ProviderName}', " +
+                $"{relationship.EmployerAccountId}, " +
+                $"'{relationship.LegalEntityId}', " +
+                $"'{relationship.LegalEntityName}', " +
+                $"'{relationship.LegalEntityAddress}', " +
+                $"{Convert.ToByte(relationship.LegalEntityOrganisationType)}, " +
+                $"'{relationship.LegalEntityOrganisationType.ToString()}', " +
+                $"{verified}, 1)";
+
+            await WithConnection(async c => await c.ExecuteAsync(sql: sql, commandType: CommandType.Text));
+
+        }
+
+        public async Task<int> GetNumberOfVerifiedRelationships(RelationshipVerified relationshipVerified)
+        {
+            var sql = $"SELECT COUNT(*) FROM [Data_Load].[DAS_Relationship] " +
+                         $"WHERE ProviderId={relationshipVerified.ProviderId} AND " +
+                         $"EmployerAccountId={relationshipVerified.EmployerAccountId} AND " +
+                         $"LegalEntityId='{relationshipVerified.LegalEntityId}' AND " +
+                         $"Verified={relationshipVerified.Verified} ";
+
+            return await WithConnection(async c =>
+                await c.QuerySingleAsync<int>(sql: sql, commandType: CommandType.Text));
+
         }
     }
 }
