@@ -1,8 +1,8 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using SFA.DAS.Data.Worker.Events.EventHandlers;
+﻿using SFA.DAS.Data.Worker.Events.EventHandlers;
 using SFA.DAS.Data.Worker.Events.EventsCollectors;
 using SFA.DAS.NLog.Logger;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace SFA.DAS.Data.Worker.Events
 {
