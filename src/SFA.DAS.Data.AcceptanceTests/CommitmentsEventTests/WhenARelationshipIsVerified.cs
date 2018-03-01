@@ -4,12 +4,15 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using SFA.DAS.Commitments.Api.Types;
 using SFA.DAS.Commitments.Events;
+using SFA.DAS.Data.AcceptanceTests.Data;
+using SFA.DAS.Data.AcceptanceTests.DependencyResolution;
 using SFA.DAS.Data.Tests.Builders;
+using StructureMap;
 
 namespace SFA.DAS.Data.AcceptanceTests.CommitmentsEventTests
 {
     [TestFixture]
-    public class WhenARelationshipIsVerified : CommitmentsEventTestBase
+    public class WhenARelationshipIsVerified :  MessageTestBase
     {
         private static readonly RelationshipVerifiedBuilder RelationshipBuilder = new RelationshipVerifiedBuilder();
         private readonly RelationshipVerified _relationshipVerified = RelationshipBuilder.Build();
@@ -28,7 +31,7 @@ namespace SFA.DAS.Data.AcceptanceTests.CommitmentsEventTests
         [Test]
         public void ThenTheRelationshipIsVerified()
         {
-            InsertRowToUpdate();
+            //InsertRowToUpdate();
             AzureTopicMessageBus.PublishAsync(_relationshipVerified);
 
             var cancellationTokenSource = new CancellationTokenSource();
@@ -39,11 +42,6 @@ namespace SFA.DAS.Data.AcceptanceTests.CommitmentsEventTests
 
             cancellationTokenSource.Cancel();
             Assert.IsTrue(databaseAsExpected);
-        }
-
-        private void InsertRowToUpdate()
-        {
-            EventTestsRepository.InsertRelationship(Relationship).Wait();
         }
 
         private async Task<bool> IsDatabaseInExpectedState()
@@ -57,6 +55,20 @@ namespace SFA.DAS.Data.AcceptanceTests.CommitmentsEventTests
             }
 
             return true;
+        }
+
+        protected override void SetupDatabase()
+        {
+            EventTestsRepository = new EventTestsRepository(DataAcceptanceTests.Config.DatabaseConnectionString);
+            EventTestsRepository.DeleteRelationships().Wait();
+            EventTestsRepository.InsertRelationship(Relationship).Wait();
+        }
+
+        protected override void SetupContainer()
+        {
+            Container = new Container(c => c.AddRegistry<TestRegistry>());
+
+            AzureTopicMessageBus = Container.GetInstance<IAzureTopicMessageBus>();
         }
     }
 }

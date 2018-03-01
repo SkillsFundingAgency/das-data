@@ -31,7 +31,11 @@ namespace SFA.DAS.Data.AcceptanceTests
 
         private void StartWorkerRole()
         {
-            WorkerRole = new WorkerRole();
+            WorkerRole = new WorkerRole
+            {
+                UseEventsApi = true,
+                UseMessageProcessors = false
+            };
             WorkerRole.OnStart();
         }
 

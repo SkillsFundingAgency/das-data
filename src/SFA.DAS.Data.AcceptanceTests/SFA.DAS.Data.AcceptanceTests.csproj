@@ -235,6 +235,7 @@
     <Compile Include="HmrcDataLoadTests\WhenDataLoadIsExecutedWithNoPendingImports.cs" />
     <Compile Include="HmrcDataLoadTests\WhenDataLoadIsExecutedWithNoValidationTests.cs" />
     <Compile Include="HmrcDataLoadTests\WhenDataLoadIsExecutedWithNullCessationDates.cs" />
+    <Compile Include="MessageTestBase.cs" />
     <Compile Include="PaymentEventTests\PaymentEventTestsBase.cs" />
     <Compile Include="PaymentEventTests\WhenAPeriodEndEventIsCreated.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
