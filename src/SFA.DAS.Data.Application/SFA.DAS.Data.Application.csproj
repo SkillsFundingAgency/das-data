@@ -141,6 +141,7 @@
     <Compile Include="Gateways\AccountGateway.cs" />
     <Compile Include="Gateways\PerformancePlatformGateway.cs" />
     <Compile Include="Gateways\RoatpGateway.cs" />
+    <Compile Include="Handlers\EasStatisticsHandler.cs" />
     <Compile Include="Interfaces\Gateways\IAccountGateway.cs" />
     <Compile Include="Interfaces\Gateways\IPerformancePlatformGateway.cs" />
     <Compile Include="Interfaces\Gateways\IRoatpGateway.cs" />
@@ -159,6 +160,7 @@
     <Compile Include="Interfaces\Repositories\IPaymentRepository.cs" />
     <Compile Include="Interfaces\Repositories\IPerformancePlatformRepository.cs" />
     <Compile Include="Interfaces\Repositories\IProviderRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IStatisticsRepository.cs" />
     <Compile Include="PerformancePlatformData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
