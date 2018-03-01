@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Threading;
@@ -11,7 +10,6 @@ using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.Azure;
 using SFA.DAS.Data.Application.Configuration;
 using SFA.DAS.Data.Infrastructure.DependencyResolution;
-using SFA.DAS.Data.Infrastructure.DependencyResolution.Policies;
 using SFA.DAS.Data.Worker.Events;
 using SFA.DAS.Messaging.Interfaces;
 using SFA.DAS.NLog.Logger;
@@ -26,17 +24,26 @@ namespace SFA.DAS.Data.Worker
         private IContainer _container;
         private IEventsWatcher _eventsWatcher;
 
+        public bool UseMessageProcessors = true;
+        public bool UseEventsApi = true;
+
         public override void Run()
         {
             //Trace.TraceInformation("SFA.DAS.Data.Worker is running");
 
             try
             {
-                ThreadStart job = RunMessageProcessors;
-                var thread = new Thread(job);
-                thread.Start();
+                if (UseMessageProcessors)
+                {
+                    ThreadStart job = RunMessageProcessors;
+                    var thread = new Thread(job);
+                    thread.Start();
+                }
 
-                this.RunAsync(this._cancellationTokenSource.Token).Wait();
+                if (UseEventsApi)
+                {
+                    this.RunAsync(this._cancellationTokenSource.Token).Wait();
+                }
             }
             finally
             {
@@ -84,7 +91,6 @@ namespace SFA.DAS.Data.Worker
         {
             var container = new Container(c =>
             {
-                c.Policies.Add(new ConfigurationPolicy<ServiceBusConfiguration>("SFA.DAS.Data"));
                 c.Policies.Add(new MessageSubscriberPolicy<ServiceBusConfiguration>("SFA.DAS.Data"));
                 c.AddRegistry<DefaultRegistry>();
             });
@@ -109,6 +115,7 @@ namespace SFA.DAS.Data.Worker
                 }
 
                 var tasks = messageProcessors.Select(x => x.RunAsync(_cancellationTokenSourceMessageProcessor)).ToArray();
+                
                 Task.WaitAll(tasks);
             }
             catch (Exception ex)

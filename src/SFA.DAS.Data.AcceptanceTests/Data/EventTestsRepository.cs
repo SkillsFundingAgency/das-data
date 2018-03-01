@@ -214,10 +214,10 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
                 commandType: CommandType.Text));
         }
 
-        public async Task<int> GetNumberOfRelationships()
+        public async Task<int> CheckRelationshipCreated(RelationshipCreated relationshipCreated)
         {
             return await WithConnection(async c =>
-                await c.QuerySingleAsync<int>(sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_Relationship]",
+                await c.QuerySingleAsync<int>(sql: $"SELECT COUNT(*) FROM [Data_Load].[DAS_Relationship] WHERE ProviderId={relationshipCreated.Relationship.ProviderId} AND EmployerAccountId={relationshipCreated.Relationship.EmployerAccountId} AND LegalEntityId='{relationshipCreated.Relationship.LegalEntityId}'",
                     commandType: CommandType.Text));
         }
 
@@ -252,11 +252,22 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
 
         public async Task<int> GetNumberOfVerifiedRelationships(RelationshipVerified relationshipVerified)
         {
+            string verified;
+
+            if (relationshipVerified.Verified.HasValue)
+            {
+                verified = relationshipVerified.Verified == true ? "1" : "0";
+            }
+            else
+            {
+                verified = "NULL";
+            }
+
             var sql = $"SELECT COUNT(*) FROM [Data_Load].[DAS_Relationship] " +
-                         $"WHERE ProviderId={relationshipVerified.ProviderId} AND " +
-                         $"EmployerAccountId={relationshipVerified.EmployerAccountId} AND " +
-                         $"LegalEntityId='{relationshipVerified.LegalEntityId}' AND " +
-                         $"Verified={relationshipVerified.Verified} ";
+                      $"WHERE ProviderId={relationshipVerified.ProviderId} AND " +
+                      $"EmployerAccountId={relationshipVerified.EmployerAccountId} AND " +
+                      $"LegalEntityId='{relationshipVerified.LegalEntityId}' AND " +
+                      $"Verified={verified} ";
 
             return await WithConnection(async c =>
                 await c.QuerySingleAsync<int>(sql: sql, commandType: CommandType.Text));

@@ -13,31 +13,6 @@ namespace SFA.DAS.Data.AcceptanceTests.DependencyResolution
             _commitmentsServiceBusConnectionString = commitmentsServiceBus;
         }
 
-        //public async Task<BrokeredMessage> PeekAsync(object message)
-        //{
-        //    var messageGroupName = MessageGroupHelper.GetMessageGroupName(message);
-        //    //var connectionString = GetConnectionString(message);
-
-        //    TopicClient client = null;
-
-        //    try
-        //    {
-        //        client = TopicClient.CreateFromConnectionString(_commitmentsServiceBusConnectionString, messageGroupName);
-        //        return await client.PeekAsync();
-        //    }
-        //    catch (System.Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //    finally
-        //    {
-        //        if (client != null && !client.IsClosed)
-        //        {
-        //            await client.CloseAsync();
-        //        }
-        //    }
-        //}
-
         public async Task PublishAsync(object message)
         {
             var messageGroupName = MessageGroupHelper.GetMessageGroupName(message);
@@ -52,7 +27,7 @@ namespace SFA.DAS.Data.AcceptanceTests.DependencyResolution
             try
             {
                 client = TopicClient.CreateFromConnectionString(_commitmentsServiceBusConnectionString, messageGroupName);
-                //await client.SendAsync(new BrokeredMessage(message));  // TODO: uncomment this when ready to test
+                await client.SendAsync(new BrokeredMessage(message)); 
             }
             catch (System.Exception ex)
             {

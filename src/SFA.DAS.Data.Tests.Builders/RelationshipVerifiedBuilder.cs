@@ -2,15 +2,15 @@
 
 namespace SFA.DAS.Data.Tests.Builders
 {
-    public class RelationshipVerifiedBuilder
+    public class RelationshipVerifiedBuilder : RelationshipBuilderBase
     {
         public RelationshipVerified Build()
         {
             return new RelationshipVerified
             {
-                ProviderId = 1,
-                EmployerAccountId = 2,
-                LegalEntityId = "3",
+                ProviderId = Randomid,
+                EmployerAccountId = Randomid,
+                LegalEntityId = Randomid.ToString(),
                 Verified = true
             };
         }

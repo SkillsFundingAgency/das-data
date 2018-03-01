@@ -39,7 +39,7 @@ AS
 				@verified,
 				1
 		FROM [Data_Load].[DAS_Relationship] WITH (NOLOCK)
-		WHERE @id = Id
+		WHERE Id =@id
 	END
 	ELSE
 	BEGIN

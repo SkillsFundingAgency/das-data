@@ -55,7 +55,7 @@ namespace SFA.DAS.Data.Infrastructure.DependencyResolution
         protected static IConfigurationRepository GetConfigurationRepository()
         {
             IConfigurationRepository configurationRepository;
-            if (bool.Parse(ConfigurationManager.AppSettings["LocalConfig"]))
+            if (ConfigurationManager.AppSettings["LocalConfig"] != null && bool.Parse(ConfigurationManager.AppSettings["LocalConfig"]))
             {
                 configurationRepository = new FileStorageConfigurationRepository();
             }

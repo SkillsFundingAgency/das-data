@@ -95,6 +95,7 @@
     <Compile Include="PaymentBuilder.cs" />
     <Compile Include="ProviderBuilder.cs" />
     <Compile Include="RelationshipBuilder.cs" />
+    <Compile Include="RelationshipBuilderBase.cs" />
     <Compile Include="RelationshipCreatedBuilder.cs" />
     <Compile Include="RelationshipVerifiedBuilder.cs" />
     <Compile Include="ResourceViewModelBuilder.cs" />

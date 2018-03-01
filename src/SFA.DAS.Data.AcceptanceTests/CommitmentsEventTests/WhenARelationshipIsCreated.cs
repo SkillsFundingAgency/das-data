@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using NUnit.Framework;
+using SFA.DAS.Commitments.Events;
 using SFA.DAS.Data.Tests.Builders;
 
 namespace SFA.DAS.Data.AcceptanceTests.CommitmentsEventTests
@@ -9,10 +10,12 @@ namespace SFA.DAS.Data.AcceptanceTests.CommitmentsEventTests
     [TestFixture]
     public class WhenARelationshipIsCreated : CommitmentsEventTestBase
     {
+        private readonly RelationshipCreated _relationshipCreated = new RelationshipCreatedBuilder().Build();
+
         [Test]
         public void ThenTheRelationshipDetailsAreStored()
         {
-            AzureTopicMessageBus.PublishAsync(new RelationshipCreatedBuilder().Build());
+            AzureTopicMessageBus.PublishAsync(_relationshipCreated);
 
             var cancellationTokenSource = new CancellationTokenSource();
             var cancellationToken = cancellationTokenSource.Token;
@@ -26,13 +29,8 @@ namespace SFA.DAS.Data.AcceptanceTests.CommitmentsEventTests
 
         private async Task<bool> IsDatabaseInExpectedState()
         {
-            var numberOfProviders = await EventTestsRepository.GetNumberOfRelationships();
-            if (numberOfProviders != 1)
-            {
-                return false;
-            }
-
-            return true;
+            var numberOfRelationships = await EventTestsRepository.CheckRelationshipCreated(_relationshipCreated);
+            return numberOfRelationships == 1;
         }
     }
 }

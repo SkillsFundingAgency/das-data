@@ -5,6 +5,6 @@ namespace SFA.DAS.Data.Application.Commands.CreateRelationship
 {
     public class CreateRelationshipCommand : IAsyncNotification
     {
-        public Relationship Relationship;
+        public Relationship Relationship { get; set; }
     }
 }

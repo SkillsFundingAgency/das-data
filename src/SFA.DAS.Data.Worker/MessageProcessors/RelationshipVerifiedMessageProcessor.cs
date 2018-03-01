@@ -27,7 +27,7 @@ namespace SFA.DAS.Data.Worker.MessageProcessors
         {
             _logger.Debug($"Relationship verified.  Updating relationship with Verified={messageContent.Verified}, for ProviderId={messageContent.ProviderId}, EmployerAccountId={messageContent.EmployerAccountId}, LegalEntityId={messageContent.LegalEntityId}");
 
-            await _mediator.PublishAsync(new VerifyRelationshipCommand()
+            await _mediator.PublishAsync(new VerifyRelationshipCommand
             {
                 ProviderId = messageContent.ProviderId,
                 EmployerAccountId = messageContent.EmployerAccountId,

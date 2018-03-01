@@ -11,7 +11,6 @@
 	[LegalEntityOrganisationTypeDescription] NVARCHAR(MAX) NOT NULL,
 	[Verified] BIT NULL,
 	[IsLatest] BIT NOT NULL
-	CONSTRAINT UQ_Relationship UNIQUE (EmployerAccountId,ProviderId,LegalEntityId)
 )
 
 GO

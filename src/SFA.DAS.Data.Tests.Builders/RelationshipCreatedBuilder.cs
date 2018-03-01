@@ -4,21 +4,21 @@ using OrganisationType = SFA.DAS.Common.Domain.Types.OrganisationType;
 
 namespace SFA.DAS.Data.Tests.Builders
 {
-    public class RelationshipCreatedBuilder
+    public class RelationshipCreatedBuilder : RelationshipBuilderBase
     {
         public RelationshipCreated Build()
         {
-            return new RelationshipCreated(new Relationship()
+            return new RelationshipCreated(new Relationship
             {
-                EmployerAccountId = 1,
+                EmployerAccountId = Randomid ,
                 Id = 1,
-                LegalEntityAddress = "Legal Entity Address",
-                LegalEntityId = "2",
-                LegalEntityName = "Legal Entity Name",
+                LegalEntityAddress = LegalEntityAddress,
+                LegalEntityId = Randomid.ToString(),
+                LegalEntityName = LegalEntityName,
                 LegalEntityOrganisationType = OrganisationType.CompaniesHouse,
-                ProviderId = 3,
-                ProviderName = "Provider Name",
-                Verified = true
+                ProviderId = Randomid,
+                ProviderName = ProviderName,
+                Verified = false
             });
         }
     }
