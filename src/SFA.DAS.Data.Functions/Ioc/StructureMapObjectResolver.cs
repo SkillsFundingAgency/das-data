@@ -10,16 +10,20 @@ namespace SFA.DAS.Data.Functions.Ioc
     public class StructureMapObjectResolver : IObjectResolver
     {
         private static IContainer _container;
+        private static Object _lockObject;
 
         private static IContainer Container
         {
             get
             {
-                return _container ?? (_container = new Container(c =>
+                lock (_lockObject)
                 {
-                    c.For<ITestClass>().Use<TestClass>();
-                    //c.AddRegistry<FunctionsRegistry>();
-                }));
+                    return _container ?? (_container = new Container(c =>
+                    {
+                        c.For<ITestClass>().Use<TestClass>();
+                        //c.AddRegistry<FunctionsRegistry>();
+                    }));
+                }
             }
         }
 
