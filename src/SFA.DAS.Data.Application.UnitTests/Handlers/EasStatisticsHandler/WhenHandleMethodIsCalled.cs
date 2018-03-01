@@ -10,7 +10,7 @@ using SFA.DAS.Data.Domain.Interfaces;
 using SFA.DAS.Data.Domain.Models;
 using SFA.DAS.NLog.Logger;
 
-namespace SFA.DAS.Data.Functions.UnitTests.EasStatisticsHandler
+namespace SFA.DAS.Data.Application.UnitTests.Handlers.EasStatisticsHandler
 {
     [TestFixture]
     public class WhenHandleMethodIsCalled

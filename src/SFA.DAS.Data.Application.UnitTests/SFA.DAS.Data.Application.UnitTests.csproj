@@ -138,6 +138,8 @@
     <Compile Include="Gateways\PerformancePlatformGatewayTests\WhenISendPerformanceData.cs" />
     <Compile Include="Gateways\RoatpGatewayTests\RoatpGatewayTestsBase.cs" />
     <Compile Include="Gateways\RoatpGatewayTests\WhenIGetProvider.cs" />
+    <Compile Include="Handlers\EasStatisticsHandler\WhenHandleMethodIsCalled.cs" />
+    <Compile Include="Handlers\EasStatisticsHandler\WhenTheHandlerIsConstructed.cs" />
     <Compile Include="PerformancePlatformDataTests\WhenICreatePerformancePlatformData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -151,6 +153,10 @@
     <ProjectReference Include="..\SFA.DAS.Data.Application\SFA.DAS.Data.Application.csproj">
       <Project>{E2794B6D-456B-4FD2-8694-CCFB141F5A02}</Project>
       <Name>SFA.DAS.Data.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SFA.DAS.Data.Domain\SFA.DAS.Data.Domain.csproj">
+      <Project>{4AAD17AA-1127-471A-8D28-BA1C5DA7D18A}</Project>
+      <Name>SFA.DAS.Data.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\SFA.DAS.Data.Tests.Builders\SFA.DAS.Data.Tests.Builders.csproj">
       <Project>{D25D12F9-952C-484F-8E23-CA4F207FEC79}</Project>

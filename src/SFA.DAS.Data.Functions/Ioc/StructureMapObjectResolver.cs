@@ -20,7 +20,7 @@ namespace SFA.DAS.Data.Functions.Ioc
                 {
                     return _container ?? (_container = new Container(c =>
                     {
-                        c.For<ITestClass>().Use<TestClass>();
+                        //c.For<ITestClass>().Use<TestClass>();
                         //c.AddRegistry<FunctionsRegistry>();
                     }));
                 }

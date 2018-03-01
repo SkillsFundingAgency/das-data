@@ -173,8 +173,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EasStatisticsHandler\WhenHandleMethodIsCalled.cs" />
-    <Compile Include="EasStatisticsHandler\WhenTheHandlerIsConstructed.cs" />
     <Compile Include="WhenTheGetAccountStatisticsFunctionIsRun.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

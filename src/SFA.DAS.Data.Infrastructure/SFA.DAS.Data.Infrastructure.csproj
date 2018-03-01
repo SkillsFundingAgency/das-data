@@ -106,6 +106,8 @@
     <Compile Include="Data\PaymentRepository.cs" />
     <Compile Include="Data\PerformancePlatformRepository.cs" />
     <Compile Include="Data\ProviderRepository.cs" />
+    <Compile Include="Data\StatisticDataType.cs" />
+    <Compile Include="Data\StatisticsRepository.cs" />
     <Compile Include="HttpClient.cs" />
     <Compile Include="Http\HttpClientWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

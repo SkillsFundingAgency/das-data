@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
 using SFA.DAS.Data.Application.Configuration;
 using SFA.DAS.Data.Domain.Interfaces;
 using SFA.DAS.NLog.Logger;
 
-namespace SFA.DAS.Data.Functions.UnitTests.EasStatisticsHandler
+namespace SFA.DAS.Data.Application.UnitTests.Handlers.EasStatisticsHandler
 {
     [TestFixture]
     public class WhenTheHandlerIsConstructed
