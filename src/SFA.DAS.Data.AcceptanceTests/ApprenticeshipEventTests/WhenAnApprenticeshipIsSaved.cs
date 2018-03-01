@@ -10,6 +10,8 @@ namespace SFA.DAS.Data.AcceptanceTests.ApprenticeshipEventTests
     [TestFixture]
     public class WhenAnApprenticeshipIsSaved : ApprenticeshipEventTestsBase
     {
+        protected override string EventName => "";
+
         [Test]
         public void ThenTheApprenticeshipDetailsAreStored()
         {

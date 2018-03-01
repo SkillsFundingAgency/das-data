@@ -229,6 +229,7 @@
     <Compile Include="Data\EventTestsRepository.cs" />
     <Compile Include="DataAcceptanceTests.cs" />
     <Compile Include="Data\DTOs\DataHistoryRecord.cs" />
+    <Compile Include="EventTestBase.cs" />
     <Compile Include="HmrcDataLoadTests\HmrcDataLoadTestsBase.cs" />
     <Compile Include="HmrcDataLoadTests\WhenDataIsReloaded.cs" />
     <Compile Include="HmrcDataLoadTests\WhenDataLoadIsExecutedWithNoPendingImports.cs" />

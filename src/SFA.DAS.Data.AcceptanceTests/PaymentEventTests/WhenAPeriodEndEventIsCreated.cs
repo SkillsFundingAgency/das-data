@@ -11,6 +11,8 @@ namespace SFA.DAS.Data.AcceptanceTests.PaymentEventTests
     [TestFixture]
     public class WhenAPeriodEndEventIsCreated : PaymentEventTestsBase
     {
+        protected override string EventName => "";
+
         [Test]
         public void ThenThePaymentsAreStored()
         {

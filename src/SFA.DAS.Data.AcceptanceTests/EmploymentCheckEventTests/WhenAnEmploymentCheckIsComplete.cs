@@ -11,7 +11,7 @@ using SFA.DAS.Events.Api.Types;
 namespace SFA.DAS.Data.AcceptanceTests.EmploymentCheckEventTests
 {
     [TestFixture]
-    public class WhenAnEmploymentCheckIsComplete : EmploymentCheckEventTestsBase
+    public abstract class WhenAnEmploymentCheckIsComplete : EmploymentCheckEventTestsBase
     {
         [Test]
         public void ThenTheApprenticeshipDetailsAreStored()
