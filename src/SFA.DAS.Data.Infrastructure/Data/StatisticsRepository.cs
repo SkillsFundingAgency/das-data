@@ -16,7 +16,7 @@ namespace SFA.DAS.Data.Infrastructure.Data
         {
 
             var result = await WithConnection(async c => await c.QuerySingleOrDefaultAsync<RdsStatisticsForEasModel>(
-                sql: "[Data_Load].[GetLastProcessedEventId]",
+                sql: "[Data_Load].[GetEasStatistics]",
                 commandType: CommandType.StoredProcedure));
 
             return result;
@@ -39,19 +39,13 @@ namespace SFA.DAS.Data.Infrastructure.Data
         private static async Task SaveStatistic(IDbConnection c, string dataType, int easValue, int rdsValue)
         {
             var parameters = new DynamicParameters();
-            /*
-            Data Type
-            Checked Date Time
-            Source System Count
-            RDS Count 
-             */
             parameters.Add("@dataType", dataType, DbType.String);
             parameters.Add("@checkedDateTime", DateTime.UtcNow, DbType.DateTime);
             parameters.Add("@sourceSystemCount", easValue, DbType.Int32);
             parameters.Add("@rdsCount", rdsValue, DbType.Int32);
 
             await c.ExecuteAsync(
-                sql: "[Data_Load].[StoreLastProcessedEventId]",
+                sql: "[Data_Load].[DAS_ConsistencyCheck]",
                 param: parameters,
                 commandType: CommandType.StoredProcedure);
         }
