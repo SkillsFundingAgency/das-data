@@ -119,6 +119,7 @@
     <Compile Include="Commands\CreateLevyDeclarationsTests\WhenICreateLevyDeclarations.cs" />
     <Compile Include="Commands\CreatePaymentsForPeriodEndCommandTests\WhenAPeriodEndIsProcessed.cs" />
     <Compile Include="Commands\CreateRoatpProviderTests\WhenICreateAProvider.cs" />
+    <Compile Include="Commands\EasRdsStatisticsTests\WhenTheHandleMethodIsInvoked.cs" />
     <Compile Include="Commands\ExportPerformancePlatformStatisticsTests\WhenPerformancePlatformStatisticsAreExported.cs" />
     <Compile Include="Commands\RemovePayeSchemeTests\WhenIRemoveAPayeScheme.cs" />
     <Compile Include="Commands\RenameAccountTests\WhenIRenameAnAccount.cs" />

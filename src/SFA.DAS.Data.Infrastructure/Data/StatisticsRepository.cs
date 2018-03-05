@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Dapper;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
@@ -26,11 +23,29 @@ namespace SFA.DAS.Data.Infrastructure.Data
         {
             await WithConnection(async c =>
             {
-                await SaveStatistic(c, nameof(easStatisticsModel.TotalPayments), easStatisticsModel.TotalPayments, rdsStatisticsForEasModel.TotalPayments);
-                await SaveStatistic(c, nameof(easStatisticsModel.TotalAccounts), easStatisticsModel.TotalAccounts, rdsStatisticsForEasModel.TotalAccounts);
-                await SaveStatistic(c, nameof(easStatisticsModel.TotalAgreements), easStatisticsModel.TotalAgreements, rdsStatisticsForEasModel.TotalAgreements);
-                await SaveStatistic(c, nameof(easStatisticsModel.TotalLegalEntities), easStatisticsModel.TotalLegalEntities, rdsStatisticsForEasModel.TotalLegalEntities);
-                await SaveStatistic(c, nameof(easStatisticsModel.TotalPAYESchemes), easStatisticsModel.TotalPAYESchemes, rdsStatisticsForEasModel.TotalPAYESchemes);
+                using (var transaction = c.BeginTransaction())
+                {
+                    try
+                    {
+                        await SaveStatistic(c, nameof(easStatisticsModel.TotalPayments),
+                            easStatisticsModel.TotalPayments,
+                            rdsStatisticsForEasModel.TotalPayments);
+                        await SaveStatistic(c, nameof(easStatisticsModel.TotalAccounts),
+                            easStatisticsModel.TotalAccounts,
+                            rdsStatisticsForEasModel.TotalAccounts);
+                        await SaveStatistic(c, nameof(easStatisticsModel.TotalAgreements),
+                            easStatisticsModel.TotalAgreements, rdsStatisticsForEasModel.TotalAgreements);
+                        await SaveStatistic(c, nameof(easStatisticsModel.TotalLegalEntities),
+                            easStatisticsModel.TotalLegalEntities, rdsStatisticsForEasModel.TotalLegalEntities);
+                        await SaveStatistic(c, nameof(easStatisticsModel.TotalPAYESchemes),
+                            easStatisticsModel.TotalPAYESchemes, rdsStatisticsForEasModel.TotalPAYESchemes);
+                    }
+                    catch (Exception e)
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
 
                 return 0;
             });

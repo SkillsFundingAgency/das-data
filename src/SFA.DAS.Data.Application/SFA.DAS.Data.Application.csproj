@@ -118,6 +118,9 @@
     <Compile Include="Commands\CreatePaymentsForPeriodEnd\CreatePaymentsForPeriodEndCommand.cs" />
     <Compile Include="Commands\CreateRoatpProvider\CreateProviderCommand.cs" />
     <Compile Include="Commands\CreateRoatpProvider\CreateProviderCommandHandler.cs" />
+    <Compile Include="Commands\EasRdsStatistics\EasRdsStatisticsCommand.cs" />
+    <Compile Include="Commands\EasRdsStatistics\EasRdsStatisticsCommandHandler.cs" />
+    <Compile Include="Commands\EasRdsStatistics\EasRdsStatisticsCommandResponse.cs" />
     <Compile Include="Commands\ExportPerformancePlatformStatistics\ExportPerformancePlatformStatisticsCommand.cs" />
     <Compile Include="Commands\ExportPerformancePlatformStatistics\ExportPerformancePlatformStatisticsCommandHandler.cs" />
     <Compile Include="Commands\RemovePayeScheme\RemovePayeSchemeCommand.cs" />
@@ -176,6 +179,10 @@
     <ProjectReference Include="..\SFA.DAS.Data.Domain\SFA.DAS.Data.Domain.csproj">
       <Project>{4AAD17AA-1127-471A-8D28-BA1C5DA7D18A}</Project>
       <Name>SFA.DAS.Data.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SFA.DAS.Data.Functions\SFA.DAS.Data.Functions.csproj">
+      <Project>{5C652B98-87C1-45CD-AB44-6F475223EFD4}</Project>
+      <Name>SFA.DAS.Data.Functions</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
