@@ -63,7 +63,7 @@ namespace SFA.DAS.Data.Infrastructure.Services
 
         private async Task<bool> SaveTheStatisticsToRds(EasStatisticsModel statistics, RdsStatisticsForEasModel rdsStatistics)
         {
-            var response = await _mediator.SendAsync<EasRdsStatisticsCommandResponse>(new EasRdsStatisticsCommand()
+            var response = await _mediator.SendAsync<EasRdsStatisticsCommandResponse>(new EasRdsStatisticsCommand
             {
                 EasStatisticsModel = statistics,
                 RdsStatisticsForEasModel = rdsStatistics

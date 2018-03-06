@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Dapper;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
@@ -40,7 +41,7 @@ namespace SFA.DAS.Data.Infrastructure.Data
                         await SaveStatistic(c, nameof(easStatisticsModel.TotalPAYESchemes),
                             easStatisticsModel.TotalPAYESchemes, rdsStatisticsForEasModel.TotalPAYESchemes);
                     }
-                    catch (Exception e)
+                    catch (SqlException e)
                     {
                         transaction.Rollback();
                         throw;
