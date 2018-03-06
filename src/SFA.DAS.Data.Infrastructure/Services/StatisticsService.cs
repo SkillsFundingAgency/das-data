@@ -6,17 +6,22 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using MediatR;
+using Newtonsoft.Json;
 using SFA.DAS.Data.Application.Commands.EasRdsStatistics;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.Data.Domain.Interfaces;
 using SFA.DAS.Data.Domain.Models;
+using SFA.DAS.Data.Functions;
 using SFA.DAS.Data.Functions.Ioc;
+using SFA.DAS.Events.Api.Client;
+using SFA.DAS.Events.Api.Types;
 using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Infrastructure.Services
 {
     public class StatisticsService : IStatisticsService
     {
+        private readonly IEventsApi _eventsApi;
         private readonly IMediator _mediator;
         private readonly ILog _log;
         private readonly IEasStatisticsHandler _easStatisticsHandler;
@@ -25,8 +30,10 @@ namespace SFA.DAS.Data.Infrastructure.Services
         public StatisticsService([Inject] ILog log,
             [Inject] IEasStatisticsHandler easStatisticsHandler, 
             [Inject] IStatisticsRepository repository,
-            [Inject]IMediator mediator)
+            [Inject] IMediator mediator,
+            [Inject] IEventsApi eventsApi)
         {
+            _eventsApi = eventsApi ?? throw new ArgumentNullException(nameof(eventsApi));
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
             _log = log ?? throw new ArgumentNullException(nameof(log));
             _easStatisticsHandler = easStatisticsHandler ?? throw new ArgumentNullException(nameof(easStatisticsHandler));
@@ -56,9 +63,29 @@ namespace SFA.DAS.Data.Infrastructure.Services
             {
                 _log.Debug("Quitting operation as it failed to save the statistics");
             }
+            else
+            {
+                await AddMessageToQueueToNotifyThatAesDataGatheringIsComplete();
+            }
+        }
 
-            // message on queue
+        private async Task AddMessageToQueueToNotifyThatAesDataGatheringIsComplete()
+        {
             _log.Debug("Placing message on the queue");
+
+            var processingCompleted = new EasProcessingCompletedEvent
+            {
+                ProcessingCompletedAt = DateTime.UtcNow
+            };
+
+            var genericEvent = new GenericEvent
+            {
+                CreatedOn = DateTime.Now,
+                Payload = JsonConvert.SerializeObject(processingCompleted),
+                Type = processingCompleted.GetType().Name
+            };
+
+            await _eventsApi.CreateGenericEvent(genericEvent);
         }
 
         private async Task<bool> SaveTheStatisticsToRds(EasStatisticsModel statistics, RdsStatisticsForEasModel rdsStatistics)

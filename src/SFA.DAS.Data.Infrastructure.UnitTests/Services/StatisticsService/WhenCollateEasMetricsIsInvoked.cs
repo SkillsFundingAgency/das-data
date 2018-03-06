@@ -11,6 +11,8 @@ using SFA.DAS.Data.Application.Commands.EasRdsStatistics;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.Data.Domain.Interfaces;
 using SFA.DAS.Data.Domain.Models;
+using SFA.DAS.Events.Api.Client;
+using SFA.DAS.Events.Api.Types;
 using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Infrastructure.UnitTests.Services.StatisticsService
@@ -23,6 +25,7 @@ namespace SFA.DAS.Data.Infrastructure.UnitTests.Services.StatisticsService
         private Mock<IEasStatisticsHandler> _easStatsHandler;
         private Mock<IStatisticsRepository> _statisticsRepository;
         private Mock<IMediator> _mediator;
+        private Mock<IEventsApi> _eventsApi;
 
         [SetUp]
         public void Setup()
@@ -31,8 +34,14 @@ namespace SFA.DAS.Data.Infrastructure.UnitTests.Services.StatisticsService
             _easStatsHandler = new Mock<IEasStatisticsHandler>();
             _statisticsRepository = new Mock<IStatisticsRepository>();
             _mediator = new Mock<IMediator>();
+            _eventsApi = new Mock<IEventsApi>();
 
-            _statsService = new Infrastructure.Services.StatisticsService(_log.Object, _easStatsHandler.Object, _statisticsRepository.Object, _mediator.Object);
+            _statsService = new Infrastructure.Services.StatisticsService(
+                _log.Object, 
+                _easStatsHandler.Object, 
+                _statisticsRepository.Object, 
+                _mediator.Object,
+                _eventsApi.Object);
         }
 
         [Test]
@@ -100,6 +109,32 @@ namespace SFA.DAS.Data.Infrastructure.UnitTests.Services.StatisticsService
             await _statsService.CollateEasMetrics();
 
             _mediator.Verify(o => o.SendAsync<EasRdsStatisticsCommandResponse>(It.IsAny<EasRdsStatisticsCommand>()), Times.Once);
+        }
+
+        [Test]
+        public async Task ThenIfTheOperationIsSuccessfulAMessageIsAddedToTheEventsApi()
+        {
+            SetupTheHandlerToReturnTheModel();
+            SetupTheRepositoryToReturnTheRdsModel();
+
+            SetupMediatorToReturnResponseOf(true);
+
+            await _statsService.CollateEasMetrics();
+
+            _eventsApi.Verify(o => o.CreateGenericEvent(It.IsAny<GenericEvent>()), Times.Once);
+        }
+
+        [Test]
+        public async Task ThenIfTheOperationIsNotSuccessfulNoMessageIsAddedToTheEventsApi()
+        {
+            SetupTheHandlerToReturnTheModel();
+            SetupTheRepositoryToReturnTheRdsModel();
+
+            SetupMediatorToReturnResponseOf(false);
+
+            await _statsService.CollateEasMetrics();
+
+            _eventsApi.Verify(o => o.CreateGenericEvent(It.IsAny<GenericEvent>()), Times.Never);
         }
 
         private void SetupMediatorToReturnResponseOf(bool successful)

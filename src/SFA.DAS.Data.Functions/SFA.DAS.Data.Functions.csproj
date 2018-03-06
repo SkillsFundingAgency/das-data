@@ -142,6 +142,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EasProcessingCompletedEvent.cs" />
     <Compile Include="GetAccountStatisticsFunction.cs" />
     <Compile Include="Ioc\InjectAttribute.cs" />
     <Compile Include="Ioc\InjectAttributeBinding.cs" />
