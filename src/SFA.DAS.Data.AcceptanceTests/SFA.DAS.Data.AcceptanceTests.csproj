@@ -195,6 +195,7 @@
     <Compile Include="DataAcceptanceTests.cs" />
     <Compile Include="Data\DTOs\DataHistoryRecord.cs" />
     <Compile Include="Data\DTOs\DataQualityTestRecord.cs" />
+    <Compile Include="EventTestBase.cs" />
     <Compile Include="HmrcDataLoadTests\HmrcDataLoadTestsBase.cs" />
     <Compile Include="HmrcDataLoadTests\WhenDataIsReloaded.cs" />
     <Compile Include="HmrcDataLoadTests\WhenDataLoadIsExecutedWithANumericRangeTest.cs" />

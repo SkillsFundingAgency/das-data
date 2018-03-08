@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2008
+VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "SFA.DAS.Data", "SFA.DAS.Data\SFA.DAS.Data.ccproj", "{52E3443E-ABB9-4BBD-9C15-8EA6B900D272}"
 EndProject
@@ -40,6 +40,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Data.PerformancePlatform.WebJob", "SFA.DAS.Data.PerformancePlatform.WebJob\SFA.DAS.Data.PerformancePlatform.WebJob.csproj", "{86422A30-BBF3-45BE-84B5-B53C2351319D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Data.Host.WebJob", "SFA.DAS.Data.Host.WebJob\SFA.DAS.Data.Host.WebJob.csproj", "{D9B27E8F-E993-472A-8F2E-90BDD7626B5B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Data.Functions", "SFA.DAS.Data.Functions\SFA.DAS.Data.Functions.csproj", "{5C652B98-87C1-45CD-AB44-6F475223EFD4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -105,6 +107,10 @@ Global
 		{D9B27E8F-E993-472A-8F2E-90BDD7626B5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9B27E8F-E993-472A-8F2E-90BDD7626B5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9B27E8F-E993-472A-8F2E-90BDD7626B5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C652B98-87C1-45CD-AB44-6F475223EFD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C652B98-87C1-45CD-AB44-6F475223EFD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C652B98-87C1-45CD-AB44-6F475223EFD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C652B98-87C1-45CD-AB44-6F475223EFD4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
