@@ -7,9 +7,9 @@ using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
-using SFA.DAS.Data.Application.Commands.EasRdsStatistics;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.Data.Domain.Models;
+using SFA.DAS.Data.Functions.Commands.EasRdsStatistics;
 using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Application.UnitTests.Commands.EasRdsStatisticsTests

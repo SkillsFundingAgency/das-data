@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MediatR, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MediatR.2.1.0\lib\net45\MediatR.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Azure.KeyVault.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Azure.KeyVault.Core.2.0.4\lib\net45\Microsoft.Azure.KeyVault.Core.dll</HintPath>
     </Reference>
@@ -57,6 +60,9 @@
     <Reference Include="Microsoft.Win32.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Configuration, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.3.2.3\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.WindowsAzure.Storage, Version=7.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\WindowsAzure.Storage.7.2.1\lib\net40\Microsoft.WindowsAzure.Storage.dll</HintPath>
     </Reference>
@@ -68,6 +74,12 @@
     </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\packages\NLog.4.3.7\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="SFA.DAS.Configuration, Version=1.0.0.14492, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Configuration.1.0.0.14492\lib\net45\SFA.DAS.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="SFA.DAS.Configuration.AzureTableStorage, Version=1.0.0.14492, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Configuration.AzureTableStorage.1.0.0.14492\lib\net45\SFA.DAS.Configuration.AzureTableStorage.dll</HintPath>
     </Reference>
     <Reference Include="SFA.DAS.NLog.Logger, Version=1.0.0.23289, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.NLog.Logger.1.0.0.23289\lib\net45\SFA.DAS.NLog.Logger.dll</HintPath>
@@ -142,13 +154,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\EasRdsStatistics\EasRdsStatisticsCommand.cs" />
+    <Compile Include="Commands\EasRdsStatistics\EasRdsStatisticsCommandHandler.cs" />
+    <Compile Include="Commands\EasRdsStatistics\EasRdsStatisticsCommandResponse.cs" />
     <Compile Include="EasProcessingCompletedEvent.cs" />
     <Compile Include="GetAccountStatisticsFunction.cs" />
+    <Compile Include="Ioc\DefaultRegistry.cs" />
     <Compile Include="Ioc\InjectAttribute.cs" />
     <Compile Include="Ioc\InjectAttributeBinding.cs" />
     <Compile Include="Ioc\InjectAttributeBindingProvider.cs" />
     <Compile Include="Ioc\InjectAttributeExtensionConfigProvider.cs" />
     <Compile Include="Ioc\InjectAttributeValueProvider.cs" />
+    <Compile Include="Ioc\InjectJobHostConfigurationExtensions.cs" />
     <Compile Include="Ioc\IObjectResolver.cs" />
     <Compile Include="Ioc\StructureMapObjectResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -157,13 +174,19 @@
     <Content Include="host.json" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="local.settings.json" />
+    <Content Include="local.settings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SFA.DAS.Data.Application\SFA.DAS.Data.Application.csproj">
+      <Project>{E2794B6D-456B-4FD2-8694-CCFB141F5A02}</Project>
+      <Name>SFA.DAS.Data.Application</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SFA.DAS.Data.Domain\SFA.DAS.Data.Domain.csproj">
       <Project>{4aad17aa-1127-471a-8d28-ba1c5da7d18a}</Project>
       <Name>SFA.DAS.Data.Domain</Name>
