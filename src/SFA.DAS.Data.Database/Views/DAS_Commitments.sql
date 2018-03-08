@@ -1,6 +1,6 @@
 CREATE VIEW [Data_Pub].[DAS_Commitments]
 AS
-SELECT [C].[ID]
+SELECT top 1000 [C].[ID]
           , CAST([C].[CommitmentID] AS BIGINT) AS EventID
           , CAST([C].[PaymentStatus] AS VARCHAR(50)) AS PaymentStatus
           , CAST([C].[ApprenticeshipID]AS BIGINT) AS CommitmentID
@@ -43,9 +43,9 @@ SELECT [C].[ID]
           , CAST([C].[UpdateDateTime] AS DATE) AS [UpdateDate]
             -- Flag to say if latest record from subquery, Using Coalesce to set null value to 0
           , [C].[IsLatest] AS [Flag_Latest]
-          , CAST(C.[LegalEntityCode] AS VARCHAR(50)) AS LegalEntityCode
-          , CAST(C.[LegalEntityName] AS VARCHAR(100)) AS LegalEntityName
-          , CAST(C.[LegalEntityOrganisationType] AS VARCHAR(20)) AS LegalEntitySource
+        		  ,ELE.LegalEntityNumber AS LegalEntityCode
+		  ,ELE.LegalEntityName
+		  ,ELE.LegalEntitySource
           , CAST(COALESCE(ELE.[DasLegalEntityId],-1) AS BIGINT) AS [DasLegalEntityId]
           , CAST(C.DateOfBirth AS DATE) AS DateOfBirth
           , CASE
@@ -113,10 +113,7 @@ SELECT [C].[ID]
                     Data_Load.DAS_Employer_LegalEntities AS ELE
                WHERE
                    IsLatest = 1
-               ) AS ELE ON C.LegalEntityOrganisationType = ELE.[LegalEntitySource]
-                          AND  C.[LegalEntityCode] = ELE.[LegalEntityNumber]
-                          AND C.[LegalEntityName] = ELE.LegalEntityName
-                          AND EAA.DasAccountId = ELE.DasAccountId
+               ) AS ELE ON EAA.DasAccountId = ELE.DasAccountId
 
 		  LEFT JOIN (SELECT P.ApprenticeshipId AS CommitmentId
 					  , SUM(P.Amount) AS TotalAmount
