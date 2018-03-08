@@ -18,7 +18,7 @@ namespace SFA.DAS.Data.AcceptanceTests.HmrcDataLoadTests
 
             HmrcDataTestsRepository.ExecuteLoadData().Wait();
 
-            var logs = HmrcDataTestsRepository.GetProcessLog().Result;
+            var logs = HmrcDataTestsRepository.GetProcessLogs().Result;
 
             logs.Any(l => l.ProcessEventName == "History Table Records Deleted for SourceFile_ID - 1")
                 .Should().BeTrue();
@@ -31,7 +31,7 @@ namespace SFA.DAS.Data.AcceptanceTests.HmrcDataLoadTests
             
             HmrcDataTestsRepository.ExecuteLoadData().Wait();
 
-            var logs = HmrcDataTestsRepository.GetProcessLog().Result;
+            var logs = HmrcDataTestsRepository.GetProcessLogs().Result;
 
             logs.Any(l => l.ProcessEventName == "History Table Records Deleted for SourceFile_ID - 1")
                 .Should().BeFalse();

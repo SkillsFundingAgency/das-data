@@ -11,10 +11,10 @@
     , ColumnPatternMatching VARCHAR(255)
     , ColumnMinValue VARCHAR(255)
     , ColumnMaxValue VARCHAR(255)
-    , FlagStopLoadIfTestTextLenght BIT DEFAULT 0
-    , FlagStopLoadIfTestIsNumeric BIT DEFAULT 0
-    , FlagStopLoadIfTestPatternMatch BIT DEFAULT 0
-    , FlagStopLoadIfTestValueRange BIT DEFAULT 0
-    , FlagStopLoadIfTestDecimalPlaces BIT DEFAULT 0
+    , StopLoadIfTestTextLength BIT DEFAULT 0
+    , StopLoadIfTestIsNumeric BIT DEFAULT 0
+    , StopLoadIfTestPatternMatch BIT DEFAULT 0
+    , StopLoadIfTestValueRange BIT DEFAULT 0
+    , StopLoadIfTestDecimalPlaces BIT DEFAULT 0
 
     )

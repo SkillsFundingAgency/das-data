@@ -22,7 +22,7 @@ namespace SFA.DAS.Data.AcceptanceTests.HmrcDataLoadTests
             
             HmrcDataTestsRepository.ExecuteLoadData().Wait();
             
-            var processLogContents = HmrcDataTestsRepository.GetProcessLog().Result;
+            var processLogContents = HmrcDataTestsRepository.GetProcessLogs().Result;
 
             processLogContents.Count().Should().Be(1);
             processLogContents.First().ProcessEventName.Should().Be("No Source File ID to load");
