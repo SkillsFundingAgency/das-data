@@ -42,13 +42,23 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
             await ExecuteAsync("TRUNCATE TABLE [HMRC].[Process_Log]");
         }
 
+        public async Task DeleteQualityTests()
+        {
+            await ExecuteAsync("TRUNCATE TABLE [HMRC].[Configuration_Data_Quality_Tests]");
+        }
+
+        public async Task DeleteQualityLog()
+        {
+            await ExecuteAsync("TRUNCATE TABLE [HMRC].[Data_Quality_Tests_Log]");
+        }
+
         public async Task InsertIntoLoadControl(LoadControlRecord loadControlRecord)
         {
             await WithConnection(async ctx =>
                 await ctx.InsertAsync(loadControlRecord));
         }
 
-        public async Task<IEnumerable<ProcessLogRecord>> GetProcessLog()
+        public async Task<IEnumerable<ProcessLogRecord>> GetProcessLogs()
         {
             return await WithConnection(async c =>
                 await c.QueryAsync<ProcessLogRecord>("SELECT * FROM [HMRC].[Process_Log]", commandType: CommandType.Text));
@@ -86,5 +96,17 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
                     await c.InsertAsync(dataHistoryRecord)
             );
         }
+
+        public async Task InsertIntoDataQualityTests(DataQualityTestRecord dataQualityTestRecord)
+        {
+            await WithConnection(async c => await c.InsertAsync(dataQualityTestRecord));
+        }
+
+        public async Task<IEnumerable<QualityLog>> GetQualityLogs()
+        {
+            return await WithConnection(async c => await c.GetAllAsync<QualityLog>());
+        }
+
+     
     }
 }
