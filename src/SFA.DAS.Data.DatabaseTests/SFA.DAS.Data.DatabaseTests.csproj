@@ -128,6 +128,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Features\Views\Commitments.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Commitments.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\Views\LevyBalances.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -150,6 +155,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Features\Views\Commitments.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Commitments.feature.cs</LastGenOutput>
+    </None>
     <None Include="Features\Views\LevyBalances.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>LevyBalances.feature.cs</LastGenOutput>
@@ -167,6 +176,10 @@
     <ProjectReference Include="..\SFA.DAS.Data.Application\SFA.DAS.Data.Application.csproj">
       <Project>{E2794B6D-456B-4FD2-8694-CCFB141F5A02}</Project>
       <Name>SFA.DAS.Data.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SFA.DAS.Data.Domain\SFA.DAS.Data.Domain.csproj">
+      <Project>{4aad17aa-1127-471a-8d28-ba1c5da7d18a}</Project>
+      <Name>SFA.DAS.Data.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\SFA.DAS.Data.Infrastructure\SFA.DAS.Data.Infrastructure.csproj">
       <Project>{1634D299-63E6-45DC-B161-AD8BDBDB0C40}</Project>
