@@ -48,6 +48,31 @@ namespace SFA.DAS.Data.DatabaseTests.StepBindings
             Insertinto(values, dbHelper.InsertIntoPayments);
         }
 
+        [Given(@"The following DAS_Employer_Accounts")]
+        public void GivenTheFollowingDAS_Employer_Accounts(Table table)
+        {
+            IEnumerable<dynamic> values = table.CreateDynamicSet(true);
+
+            Insertinto(values, dbHelper.InsertIntoEmployerAccounts);
+        }
+
+        [Given(@"the following DAS_Commitments")]
+        public void GivenIHaveDAS_Commitments(Table table)
+        {
+            IEnumerable<dynamic> values = table.CreateDynamicSet(true);
+
+            Insertinto(values, dbHelper.InsertIntoCommitments);
+        }
+
+        [Given(@"The following DAS_Employer_LegalEntities")]
+        public void GivenTheFollowingDAS_Employer_LegalEntities(Table table)
+        {
+            IEnumerable<dynamic> values = table.CreateDynamicSet(true);
+
+            Insertinto(values, dbHelper.InsertIntoLegalEntity);
+        }
+
+
         private void Insertinto(IEnumerable<dynamic> values, Action<dynamic, ICollection<string>> action)
         {
             foreach (dynamic value in values)

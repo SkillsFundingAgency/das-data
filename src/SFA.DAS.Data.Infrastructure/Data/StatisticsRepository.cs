@@ -28,18 +28,20 @@ namespace SFA.DAS.Data.Infrastructure.Data
                 {
                     try
                     {
-                        await SaveStatistic(c, nameof(easStatisticsModel.TotalPayments),
+                        await SaveStatistic(c, transaction, nameof(easStatisticsModel.TotalPayments),
                             easStatisticsModel.TotalPayments,
                             rdsStatisticsForEasModel.TotalPayments);
-                        await SaveStatistic(c, nameof(easStatisticsModel.TotalAccounts),
+                        await SaveStatistic(c, transaction, nameof(easStatisticsModel.TotalAccounts),
                             easStatisticsModel.TotalAccounts,
                             rdsStatisticsForEasModel.TotalAccounts);
-                        await SaveStatistic(c, nameof(easStatisticsModel.TotalAgreements),
+                        await SaveStatistic(c, transaction, nameof(easStatisticsModel.TotalAgreements),
                             easStatisticsModel.TotalAgreements, rdsStatisticsForEasModel.TotalAgreements);
-                        await SaveStatistic(c, nameof(easStatisticsModel.TotalLegalEntities),
+                        await SaveStatistic(c, transaction, nameof(easStatisticsModel.TotalLegalEntities),
                             easStatisticsModel.TotalLegalEntities, rdsStatisticsForEasModel.TotalLegalEntities);
-                        await SaveStatistic(c, nameof(easStatisticsModel.TotalPAYESchemes),
+                        await SaveStatistic(c, transaction, nameof(easStatisticsModel.TotalPAYESchemes),
                             easStatisticsModel.TotalPAYESchemes, rdsStatisticsForEasModel.TotalPAYESchemes);
+
+                        transaction.Commit();
                     }
                     catch (SqlException e)
                     {
@@ -52,7 +54,7 @@ namespace SFA.DAS.Data.Infrastructure.Data
             });
         }
 
-        private static async Task SaveStatistic(IDbConnection c, string dataType, int easValue, int rdsValue)
+        private static async Task SaveStatistic(IDbConnection c, IDbTransaction transaction, string dataType, int easValue, int rdsValue)
         {
             var parameters = new DynamicParameters();
             parameters.Add("@dataType", dataType, DbType.String);
@@ -61,9 +63,10 @@ namespace SFA.DAS.Data.Infrastructure.Data
             parameters.Add("@rdsCount", rdsValue, DbType.Int32);
 
             await c.ExecuteAsync(
-                sql: "[Data_Load].[DAS_ConsistencyCheck]",
+                sql: "[Data_Load].[SaveConsistencyCheck]",
                 param: parameters,
-                commandType: CommandType.StoredProcedure);
+                commandType: CommandType.StoredProcedure,
+                transaction: transaction);
         }
 
         public StatisticsRepository(string connectionString) : base(connectionString)

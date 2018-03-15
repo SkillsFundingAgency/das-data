@@ -5,17 +5,21 @@ using System.Data.SqlClient;
 using System.Net.Http;
 using MediatR;
 using Microsoft.Azure;
+using Moq;
 using SFA.DAS.Configuration;
 using SFA.DAS.Configuration.AzureTableStorage;
 using SFA.DAS.Data.Application.Configuration;
 using SFA.DAS.Data.Application.Handlers;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.Data.Domain.Interfaces;
+using SFA.DAS.Data.Functions.AcceptanceTests.Stubs;
 using SFA.DAS.Data.Infrastructure.Data;
 using SFA.DAS.Data.Infrastructure.Http;
 using SFA.DAS.Data.Infrastructure.Services;
 using SFA.DAS.Events.Api.Client;
+using SFA.DAS.NLog.Logger;
 using StructureMap;
+using StructureMap.AutoMocking;
 
 namespace SFA.DAS.Data.Functions.AcceptanceTests.Infrastructure.Registrys
 {
@@ -44,17 +48,22 @@ namespace SFA.DAS.Data.Functions.AcceptanceTests.Infrastructure.Registrys
                 .Is(ConfigurationManager.ConnectionStrings["DatabaseConnectionString"].ConnectionString);
 
             AddMediatrRegistrations();
-
+            ConfigureLogging();
+            SetupStubs();
             //For<HttpMessageHandler>().Use<DelegatingHandler>();
-            For<IHttpClientWrapper>().Use<HttpClientWrapper>();//.Ctor<HttpMessageHandler>(null);
-            For<IEasStatisticsHandler>().Use<EasStatisticsHandler>();
-            For<IStatisticsRepository>().Use<StatisticsRepository>().Ctor<string>().Is(ConfigurationManager.ConnectionStrings["DatabaseConnectionString"].ConnectionString); ;
-            For<IEventsApi>().Use<EventsApi>();
+            For<IHttpClientWrapper>().Use<HttpClientWrapper>().SelectConstructor(() => new HttpClientWrapper());//.Ctor<HttpMessageHandler>(null);
+            //For<IEasStatisticsHandler>().Use<EasStatisticsHandler>();
             For<IStatisticsService>().Use<StatisticsService>();
 
             var config = GetConfiguration();
-
+            For<IStatisticsRepository>().Use<StatisticsRepository>().Ctor<string>().Is(config.DatabaseConnectionString);
+            For<IEventsApi>().Use(new EventsApi(config.EventsApi));
             For<IDataConfiguration>().Use(config);
+        }
+
+        private void SetupStubs()
+        {
+            For<IEasStatisticsHandler>().Use<StubEasStatisticsHandler>();
         }
 
         private DataConfiguration GetConfiguration()
@@ -78,6 +87,11 @@ namespace SFA.DAS.Data.Functions.AcceptanceTests.Infrastructure.Registrys
             For<MultiInstanceFactory>().Use<MultiInstanceFactory>(ctx => t => ctx.GetAllInstances(t));
 
             For<IMediator>().Use<Mediator>();
+        }
+
+        private void ConfigureLogging()
+        {
+            For<ILog>().Use(x => new NLogLogger(x.ParentType, null)).AlwaysUnique();
         }
     }
 }

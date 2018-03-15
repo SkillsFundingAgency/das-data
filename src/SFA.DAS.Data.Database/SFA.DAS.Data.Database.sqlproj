@@ -134,13 +134,10 @@
     <Build Include="StoredProcedures\LevySnapshot.sql" />
     <Build Include="Tables\DAS_Provider.sql" />
     <Build Include="StoredProcedures\SaveProvider.sql" />
-<<<<<<< HEAD
     <Build Include="Tables\DAS_ConsistencyCheck.sql" />
     <Build Include="StoredProcedures\SaveConsistencyCheck.sql" />
     <Build Include="StoredProcedures\GetEasStatistics.sql" />
-=======
     <Build Include="Views\DAS_EmploymentCheck.sql" />
->>>>>>> 6686f6ae281a22e9208cae9129411761744fc316
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SFA.DAS.Data.Database.refactorlog" />

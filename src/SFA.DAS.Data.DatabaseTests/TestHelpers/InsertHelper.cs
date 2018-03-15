@@ -4,6 +4,7 @@ using SFA.DAS.EAS.Account.Api.Client;
 using SFA.DAS.EAS.Account.Api.Types;
 using SFA.DAS.Provider.Events.Api.Types;
 using System.Collections.Generic;
+using SFA.DAS.Events.Api.Types;
 
 namespace SFA.DAS.Data.DatabaseTests.TestHelpers
 {
@@ -105,6 +106,60 @@ namespace SFA.DAS.Data.DatabaseTests.TestHelpers
 
             var payeschemerepo = new PaymentRepository(_connectionString);
             payeschemerepo.SavePayments(new List<Payment> { payment }).Wait();
+        }
+
+        public void InsertIntoCommitments(dynamic value, ICollection<string> columns)
+        {
+            var commitment = new SFA.DAS.Data.Domain.Models.ApprenticeshipEvent();
+            commitment.Id = columns.Contains("CommitmentID") ? ConvertToType<long>(value.CommitmentID) : null;
+            commitment.PaymentStatus = columns.Contains("PaymentStatus") ? value.PaymentStatus : null;
+            commitment.ApprenticeshipId = columns.Contains("ApprenticeshipID") ? ConvertToType<long>(value.ApprenticeshipID) : null;
+            commitment.AgreementStatus = columns.Contains("AgreementStatus") ? value.AgreementStatus : null;
+            commitment.ProviderId = columns.Contains("ProviderID") ? ConvertToType<string>(value.ProviderID) : null;
+            commitment.LearnerId = columns.Contains("LearnerID") ? ConvertToType<string>(value.LearnerID) : null;
+            commitment.EmployerAccountId = columns.Contains("EmployerAccountID") ? ConvertToType<string>(value.EmployerAccountID) : null;
+            commitment.TrainingType =
+                columns.Contains("TrainingTypeID") ? ConvertToType<string>(value.TrainingTypeID) : null;
+            commitment.TrainingId = columns.Contains("TrainingID") ? ConvertToType<string>(value.TrainingID) : null;
+            commitment.TrainingStartDate = columns.Contains("TrainingStartDate")
+                ? ConvertToType<DateTime>(value.TrainingStartDate)
+                : null;
+            commitment.TrainingEndDate = columns.Contains("TrainingEndDate")
+                ? ConvertToType<DateTime>(value.TrainingEndDate)
+                : null;
+            commitment.TrainingTotalCost = columns.Contains("TrainingTotalCost")
+                ? ConvertToType<decimal>(value.TrainingTotalCost)
+                : null;
+            commitment.LegalEntityCode = columns.Contains("LegalEntityCode") ? value.LegalEntityCode : null;
+            commitment.LegalEntityName = columns.Contains("LegalEntityName") ? value.LegalEntityName : null;
+            commitment.LegalEntityOrganisationType = columns.Contains("LegalEntityOrganisationType")
+                ? value.LegalEntityOrganisationType
+                : null;
+            commitment.DateOfBirth =
+                columns.Contains("DateOfBirth") ? ConvertToType<DateTime>(value.DateOfBirth) : null;
+
+
+            var repo = new ApprenticeshipRepository(_connectionString);
+            repo.Create(commitment).Wait();
+        }
+
+
+        public void InsertIntoLegalEntity(dynamic value, ICollection<string> columns)
+        {
+            var legalViewModel = new LegalEntityViewModel();
+            legalViewModel.DasAccountId = columns.Contains("DasAccountId") ? value.DasAccountId : null;
+            legalViewModel.LegalEntityId = columns.Contains("DasLegalEntityId")
+                ? ConvertToType<long>(value.DasLegalEntityId)
+                : null;
+            legalViewModel.Name = columns.Contains("Name") ? value.Name : null;
+            legalViewModel.Address = columns.Contains("Address") ? value.Address : null;
+            legalViewModel.Source = columns.Contains("Source") ? value.Source : null;
+            legalViewModel.Code = columns.Contains("Code") ? value.Code : null;
+            legalViewModel.Status = columns.Contains("Status") ? value.Status : null;
+
+            var repo = new LegalEntityRepository(_connectionString);
+
+            repo.SaveLegalEntity(legalViewModel).Wait();
         }
 
         private static T ConvertToType<T>(object obj)
