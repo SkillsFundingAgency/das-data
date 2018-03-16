@@ -1,8 +1,8 @@
 ﻿CREATE PROCEDURE [Data_Load].[SaveConsistencyCheck]
 	@dataType VARCHAR(50),
 	@checkedDateTime DATETIME,
-	@sourceSystemCount INT,
-	@rdsCount INT
+	@sourceSystemCount BIGINT,
+	@rdsCount BIGINT
 AS
 SET NOCOUNT ON;
 

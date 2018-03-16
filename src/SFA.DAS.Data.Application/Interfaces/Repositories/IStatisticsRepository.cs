@@ -11,6 +11,8 @@ namespace SFA.DAS.Data.Application.Interfaces.Repositories
     {
         Task<RdsStatisticsForEasModel> RetrieveEquivalentEasStatisticsFromRds();
 
+        Task<RdsStatisticsForCommitmentsModel> RetrieveEquivalentCommitmentsStatisticsFromRds();
+
         Task SaveEasStatistics(EasStatisticsModel easStatisticsModel,
             RdsStatisticsForEasModel rdsStatisticsForEasModel);
     }

@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace SFA.DAS.Data.Domain.Models
 {
-    public class RdsStatisticsForEasModel : EasStatisticsModel, IRdsModel
+    public class RdsStatisticsForCommitmentsModel : CommitmentsStatisticsModel, IRdsModel
     {
-       
     }
 }

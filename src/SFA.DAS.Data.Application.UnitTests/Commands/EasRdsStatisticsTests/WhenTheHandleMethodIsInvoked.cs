@@ -42,8 +42,8 @@ namespace SFA.DAS.Data.Application.UnitTests.Commands.EasRdsStatisticsTests
         {
             var response = await _handler.Handle(new EasRdsStatisticsCommand
             {
-                EasStatisticsModel = new EasStatisticsModel(),
-                RdsStatisticsForEasModel = new RdsStatisticsForEasModel()
+                ExternalStatisticsModel = new EasStatisticsModel(),
+                RdsStatisticsModel = new RdsStatisticsForEasModel()
             });
 
             return response;

@@ -18,5 +18,6 @@ namespace SFA.DAS.Data.Application.Configuration
         public PerformancePlatformConfiguration PerformancePlatform { get; set; }
         public string AgreementsApiUrl { get; set; }
         public string EasStatisticsEndPoint { get; set; }
+        public string CommitmentsStatisticsEndPoint { get; set; }
     }
 }

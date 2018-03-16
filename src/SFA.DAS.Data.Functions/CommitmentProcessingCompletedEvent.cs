@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SFA.DAS.Data.Functions
 {
-    public class EasProcessingCompletedEvent : IProcessingCompletedEvent
+    public class CommitmentProcessingCompletedEvent : IProcessingCompletedEvent
     {
         public DateTime ProcessingCompletedAt { get; set; }
     }

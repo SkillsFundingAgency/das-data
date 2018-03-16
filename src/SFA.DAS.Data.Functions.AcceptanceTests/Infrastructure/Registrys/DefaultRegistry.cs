@@ -50,9 +50,7 @@ namespace SFA.DAS.Data.Functions.AcceptanceTests.Infrastructure.Registrys
             AddMediatrRegistrations();
             ConfigureLogging();
             SetupStubs();
-            //For<HttpMessageHandler>().Use<DelegatingHandler>();
-            For<IHttpClientWrapper>().Use<HttpClientWrapper>().SelectConstructor(() => new HttpClientWrapper());//.Ctor<HttpMessageHandler>(null);
-            //For<IEasStatisticsHandler>().Use<EasStatisticsHandler>();
+            For<IHttpClientWrapper>().Use<HttpClientWrapper>().SelectConstructor(() => new HttpClientWrapper());
             For<IStatisticsService>().Use<StatisticsService>();
 
             var config = GetConfiguration();
@@ -64,6 +62,7 @@ namespace SFA.DAS.Data.Functions.AcceptanceTests.Infrastructure.Registrys
         private void SetupStubs()
         {
             For<IEasStatisticsHandler>().Use<StubEasStatisticsHandler>();
+            For<ICommitmentsStatisticsHandler>().Use<StubCommitmentsStatisticsHandler>();
         }
 
         private DataConfiguration GetConfiguration()

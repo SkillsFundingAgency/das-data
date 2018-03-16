@@ -13,5 +13,7 @@ namespace SFA.DAS.Data.Application.Configuration
         string AgreementsApiUrl { get; set; }
 
         string EasStatisticsEndPoint { get; set; }
+
+        string CommitmentsStatisticsEndPoint { get; set; }
     }
 }

@@ -158,6 +158,7 @@
     <Compile Include="Gateways\AccountGateway.cs" />
     <Compile Include="Gateways\PerformancePlatformGateway.cs" />
     <Compile Include="Gateways\RoatpGateway.cs" />
+    <Compile Include="Handlers\CommitmentsStatisticsHandler.cs" />
     <Compile Include="Handlers\EasStatisticsHandler.cs" />
     <Compile Include="Interfaces\Gateways\IAccountGateway.cs" />
     <Compile Include="Interfaces\Gateways\IPerformancePlatformGateway.cs" />

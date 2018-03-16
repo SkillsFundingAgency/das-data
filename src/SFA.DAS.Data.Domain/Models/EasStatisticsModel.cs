@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace SFA.DAS.Data.Domain.Models
 {
-    public class EasStatisticsModel
+    public class EasStatisticsModel : IExternalSystemModel
     {
-        public int TotalAccounts { get; set; }
-        public int TotalLegalEntities { get; set; }
-        public int TotalPAYESchemes { get; set; }
-        public int TotalAgreements { get; set; }
-        public int TotalPayments { get; set; }
+        public long TotalAccounts { get; set; }
+        public long TotalLegalEntities { get; set; }
+        public long TotalPAYESchemes { get; set; }
+        public long TotalAgreements { get; set; }
+        public long TotalPayments { get; set; }
     }
 }

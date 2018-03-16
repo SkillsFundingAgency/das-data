@@ -162,6 +162,7 @@
     <Compile Include="Commands\EasRdsStatistics\EasRdsStatisticsCommand.cs" />
     <Compile Include="Commands\EasRdsStatistics\EasRdsStatisticsCommandHandler.cs" />
     <Compile Include="Commands\EasRdsStatistics\EasRdsStatisticsCommandResponse.cs" />
+    <Compile Include="CommitmentProcessingCompletedEvent.cs" />
     <Compile Include="EasProcessingCompletedEvent.cs" />
     <Compile Include="GetAccountStatisticsFunction.cs" />
     <Compile Include="GetCommitmentStatisticsFunction.cs" />
@@ -174,6 +175,7 @@
     <Compile Include="Ioc\InjectJobHostConfigurationExtensions.cs" />
     <Compile Include="Ioc\IObjectResolver.cs" />
     <Compile Include="Ioc\StructureMapObjectResolver.cs" />
+    <Compile Include="IProcessingCompletedEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

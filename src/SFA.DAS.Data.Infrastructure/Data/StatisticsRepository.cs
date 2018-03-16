@@ -12,9 +12,17 @@ namespace SFA.DAS.Data.Infrastructure.Data
     {
         public async Task<RdsStatisticsForEasModel> RetrieveEquivalentEasStatisticsFromRds()
         {
-
             var result = await WithConnection(async c => await c.QuerySingleOrDefaultAsync<RdsStatisticsForEasModel>(
                 sql: "[Data_Load].[GetEasStatistics]",
+                commandType: CommandType.StoredProcedure));
+
+            return result;
+        }
+
+        public async Task<RdsStatisticsForCommitmentsModel> RetrieveEquivalentCommitmentsStatisticsFromRds()
+        {
+            var result = await WithConnection(async c => await c.QuerySingleOrDefaultAsync<RdsStatisticsForCommitmentsModel>(
+                sql: "[Data_Load].[GetCommitmentStatistics]",
                 commandType: CommandType.StoredProcedure));
 
             return result;
@@ -43,7 +51,7 @@ namespace SFA.DAS.Data.Infrastructure.Data
 
                         transaction.Commit();
                     }
-                    catch (SqlException e)
+                    catch (SqlException)
                     {
                         transaction.Rollback();
                         throw;
@@ -54,13 +62,13 @@ namespace SFA.DAS.Data.Infrastructure.Data
             });
         }
 
-        private static async Task SaveStatistic(IDbConnection c, IDbTransaction transaction, string dataType, int easValue, int rdsValue)
+        private static async Task SaveStatistic(IDbConnection c, IDbTransaction transaction, string dataType, long easValue, long rdsValue)
         {
             var parameters = new DynamicParameters();
             parameters.Add("@dataType", dataType, DbType.String);
             parameters.Add("@checkedDateTime", DateTime.UtcNow, DbType.DateTime);
-            parameters.Add("@sourceSystemCount", easValue, DbType.Int32);
-            parameters.Add("@rdsCount", rdsValue, DbType.Int32);
+            parameters.Add("@sourceSystemCount", easValue, DbType.Int64);
+            parameters.Add("@rdsCount", rdsValue, DbType.Int64);
 
             await c.ExecuteAsync(
                 sql: "[Data_Load].[SaveConsistencyCheck]",

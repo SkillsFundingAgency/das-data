@@ -202,7 +202,9 @@
     <Compile Include="Infrastructure\TestInjectAttributeExtensionConfigProvider.cs" />
     <Compile Include="Infrastructure\TestStructureMapObjectResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StatisticsTests\CommitmentStatisticsTests.cs" />
     <Compile Include="StatisticsTests\EasStatisticsTests.cs" />
+    <Compile Include="Stubs\StubCommitmentsStatisticsHandler.cs" />
     <Compile Include="Stubs\StubEasStatisticsHandler.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -27,7 +27,7 @@ namespace SFA.DAS.Data.Functions.Commands.EasRdsStatistics
 
             try
             {
-               await _repository.SaveEasStatistics(message.EasStatisticsModel, message.RdsStatisticsForEasModel);
+               await _repository.SaveEasStatistics(message.ExternalStatisticsModel, message.RdsStatisticsModel);
             }
             catch (SqlException e)
             {

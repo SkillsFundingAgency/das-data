@@ -156,6 +156,8 @@
     <Compile Include="Gateways\PerformancePlatformGatewayTests\WhenISendPerformanceData.cs" />
     <Compile Include="Gateways\RoatpGatewayTests\RoatpGatewayTestsBase.cs" />
     <Compile Include="Gateways\RoatpGatewayTests\WhenIGetProvider.cs" />
+    <Compile Include="Handlers\CommitmentsStatisticsHandler\WhenTheHandleMethodIsCalled.cs" />
+    <Compile Include="Handlers\CommitmentsStatisticsHandler\WhenTheHandlerIsConstructed.cs" />
     <Compile Include="Handlers\EasStatisticsHandler\WhenHandleMethodIsCalled.cs" />
     <Compile Include="Handlers\EasStatisticsHandler\WhenTheHandlerIsConstructed.cs" />
     <Compile Include="PerformancePlatformDataTests\WhenICreatePerformancePlatformData.cs" />

@@ -68,7 +68,7 @@ namespace SFA.DAS.Data.Infrastructure.Services
             }
             else
             {
-                await AddMessageToQueueToNotifyThatAesDataGatheringIsComplete();
+                await AddMessageToQueueToNotifyThatAesDataGatheringIsComplete<EasProcessingCompletedEvent>();
             }
         }
 
@@ -98,15 +98,16 @@ namespace SFA.DAS.Data.Infrastructure.Services
             }
             else
             {
-                await AddMessageToQueueToNotifyThatAesDataGatheringIsComplete();
+                await AddMessageToQueueToNotifyThatAesDataGatheringIsComplete<CommitmentProcessingCompletedEvent>();
             }
         }
 
-        private async Task AddMessageToQueueToNotifyThatAesDataGatheringIsComplete()
+        private async Task AddMessageToQueueToNotifyThatAesDataGatheringIsComplete<TEvent>()
+            where TEvent : IProcessingCompletedEvent, new()
         {
             _log.Debug("Placing message on the queue");
 
-            var processingCompleted = new EasProcessingCompletedEvent
+            var processingCompleted = new TEvent
             {
                 ProcessingCompletedAt = DateTime.UtcNow
             };
