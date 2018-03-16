@@ -9,5 +9,7 @@ namespace SFA.DAS.Data.Domain.Interfaces
     public interface IStatisticsService
     {
         Task CollateEasMetrics();
+
+        Task CollateCommitmentStatisticsMetrics();
     }
 }

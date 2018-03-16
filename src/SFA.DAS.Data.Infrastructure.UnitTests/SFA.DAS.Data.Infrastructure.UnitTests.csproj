@@ -113,6 +113,8 @@
     <Compile Include="Services\ProviderEventsServiceTests\ProviderEventsServiceTestsBase.cs" />
     <Compile Include="Services\ProviderEventsServiceTests\WhenIGetPaymentsForAPeriodEnd.cs" />
     <Compile Include="Services\ProviderEventsServiceTests\WhenIGetUnprocessedPeriodEnds.cs" />
+    <Compile Include="Services\StatisticsService\StatisticsTestsBase.cs" />
+    <Compile Include="Services\StatisticsService\WhenCollateCommitmentsStatisticsMetricsIsInvoked.cs" />
     <Compile Include="Services\StatisticsService\WhenCollateEasMetricsIsInvoked.cs" />
     <Compile Include="Services\StatisticsService\WhenInstantiatingTheClass.cs" />
   </ItemGroup>

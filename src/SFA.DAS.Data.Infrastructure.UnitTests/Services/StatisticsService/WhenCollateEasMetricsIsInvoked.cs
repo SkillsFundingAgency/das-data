@@ -1,55 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Data.Common;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
-using MediatR;
 using Moq;
 using NUnit.Framework;
-using SFA.DAS.Data.Application.Interfaces.Repositories;
-using SFA.DAS.Data.Domain.Interfaces;
 using SFA.DAS.Data.Domain.Models;
 using SFA.DAS.Data.Functions.Commands.EasRdsStatistics;
-using SFA.DAS.Events.Api.Client;
 using SFA.DAS.Events.Api.Types;
-using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Infrastructure.UnitTests.Services.StatisticsService
 {
     [TestFixture]
-    public class WhenCollateEasMetricsIsInvoked
+    public class WhenCollateEasMetricsIsInvoked : StatisticsTestsBase
     {
-        private IStatisticsService _statsService;
-        private Mock<ILog> _log;
-        private Mock<IEasStatisticsHandler> _easStatsHandler;
-        private Mock<IStatisticsRepository> _statisticsRepository;
-        private Mock<IMediator> _mediator;
-        private Mock<IEventsApi> _eventsApi;
-
-        [SetUp]
-        public void Setup()
-        {
-            _log = new Mock<ILog>();
-            _easStatsHandler = new Mock<IEasStatisticsHandler>();
-            _statisticsRepository = new Mock<IStatisticsRepository>();
-            _mediator = new Mock<IMediator>();
-            _eventsApi = new Mock<IEventsApi>();
-
-            _statsService = new Infrastructure.Services.StatisticsService(
-                _log.Object, 
-                _easStatsHandler.Object, 
-                _statisticsRepository.Object, 
-                _mediator.Object,
-                _eventsApi.Object);
-        }
-
         [Test]
         public async Task ThenTheHandleMethodOnTheEasStatisticsHandlerIsInvoked()
         {
-            await _statsService.CollateEasMetrics();
+            await base.StatsService.CollateEasMetrics();
 
-            _easStatsHandler.Verify(o => o.Handle(), Times.Once);
+            base.EasStatsHandler.Verify(o => o.Handle(), Times.Once);
         }
 
         [Test]
@@ -59,43 +27,62 @@ namespace SFA.DAS.Data.Infrastructure.UnitTests.Services.StatisticsService
             SetupTheRepositoryToReturnTheRdsModel();
             SetupMediatorToReturnResponseOf(true);
 
-            await _statsService.CollateEasMetrics();
+            await base.StatsService.CollateEasMetrics();
 
-            _statisticsRepository.Verify(o => o.RetrieveEquivalentEasStatisticsFromRds(), Times.Once);
+            base.StatisticsRepository.Verify(o => o.RetrieveEquivalentEasStatisticsFromRds(), Times.Once);
+        }
+
+        [Test]
+        public async Task ThenIfRetrieveEquivalentEasStatisticsFromRdsMethodIsNotSuccessfulItDoesntInvokeTheMediator()
+        {
+            SetupTheHandlerToReturnTheModel();
+            SetupMediatorToReturnResponseOf(true);
+            SetupTheRepositoryToThrowDbException();
+
+            try
+            {
+                await base.StatsService.CollateEasMetrics();
+            }
+            catch (DbException)
+            {
+
+            }
+
+            base.Mediator.Verify(o => o.SendAsync<EasRdsStatisticsCommandResponse>(It.IsAny<EasRdsStatisticsCommand>()), Times.Never);
         }
 
         [Test]
         public async Task ThenIfHandleMethodIsNotSuccessfulItDoesntCallRetrieveEquivalentEasStatisticsFromRdsOnTheRepository()
         {
             SetupTheHandlerToReturnHttpRequestException();
-            await _statsService.CollateEasMetrics();
+            await base.StatsService.CollateEasMetrics();
 
-            _statisticsRepository.Verify(o => o.RetrieveEquivalentEasStatisticsFromRds(), Times.Never);
+            base.StatisticsRepository.Verify(o => o.RetrieveEquivalentEasStatisticsFromRds(), Times.Never);
         }
 
         private void SetupTheRepositoryToReturnTheRdsModel()
         {
-            _statisticsRepository.Setup(o => o.RetrieveEquivalentEasStatisticsFromRds())
+            base.StatisticsRepository.Setup(o => o.RetrieveEquivalentEasStatisticsFromRds())
                 .ReturnsAsync(new RdsStatisticsForEasModel());
         }
 
         private void SetupTheHandlerToReturnHttpRequestException()
         {
-            _easStatsHandler.Setup(o => o.Handle()).Throws<HttpRequestException>();
+            base.EasStatsHandler.Setup(o => o.Handle()).Throws<HttpRequestException>();
         }
 
         private void SetupTheHandlerToReturnTheModel()
         {
-            _easStatsHandler.Setup(o => o.Handle()).ReturnsAsync(new EasStatisticsModel());
+            base.EasStatsHandler.Setup(o => o.Handle()).ReturnsAsync(new EasStatisticsModel());
         }
 
         [Test]
         public async Task ThenIfHandleMethodIsNotSuccessfulItDoesntInvokeTheMediator()
         {
             SetupTheHandlerToReturnHttpRequestException();
-            await _statsService.CollateEasMetrics();
+            await base.StatsService.CollateEasMetrics();
 
-            _mediator.Verify(o => o.SendAsync<EasRdsStatisticsCommandResponse>(It.IsAny<EasRdsStatisticsCommand>()), Times.Never);
+            base.Mediator.Verify(o => o.SendAsync<EasRdsStatisticsCommandResponse>(It.IsAny<EasRdsStatisticsCommand>()), Times.Never);
         }
 
         [Test]
@@ -106,9 +93,9 @@ namespace SFA.DAS.Data.Infrastructure.UnitTests.Services.StatisticsService
 
             SetupMediatorToReturnResponseOf(true);
 
-            await _statsService.CollateEasMetrics();
+            await base.StatsService.CollateEasMetrics();
 
-            _mediator.Verify(o => o.SendAsync<EasRdsStatisticsCommandResponse>(It.IsAny<EasRdsStatisticsCommand>()), Times.Once);
+            base.Mediator.Verify(o => o.SendAsync<EasRdsStatisticsCommandResponse>(It.IsAny<EasRdsStatisticsCommand>()), Times.Once);
         }
 
         [Test]
@@ -119,9 +106,9 @@ namespace SFA.DAS.Data.Infrastructure.UnitTests.Services.StatisticsService
 
             SetupMediatorToReturnResponseOf(true);
 
-            await _statsService.CollateEasMetrics();
+            await base.StatsService.CollateEasMetrics();
 
-            _eventsApi.Verify(o => o.CreateGenericEvent(It.IsAny<GenericEvent>()), Times.Once);
+            base.EventsApi.Verify(o => o.CreateGenericEvent(It.IsAny<GenericEvent>()), Times.Once);
         }
 
         [Test]
@@ -132,18 +119,24 @@ namespace SFA.DAS.Data.Infrastructure.UnitTests.Services.StatisticsService
 
             SetupMediatorToReturnResponseOf(false);
 
-            await _statsService.CollateEasMetrics();
+            await base.StatsService.CollateEasMetrics();
 
-            _eventsApi.Verify(o => o.CreateGenericEvent(It.IsAny<GenericEvent>()), Times.Never);
+            base.EventsApi.Verify(o => o.CreateGenericEvent(It.IsAny<GenericEvent>()), Times.Never);
         }
 
         private void SetupMediatorToReturnResponseOf(bool successful)
         {
-            _mediator.Setup(o => o.SendAsync<EasRdsStatisticsCommandResponse>(It.IsAny<EasRdsStatisticsCommand>()))
+            base.Mediator.Setup(o => o.SendAsync<EasRdsStatisticsCommandResponse>(It.IsAny<EasRdsStatisticsCommand>()))
                 .ReturnsAsync(new EasRdsStatisticsCommandResponse()
                 {
                     OperationSuccessful = successful
                 });
+        }
+
+        private void SetupTheRepositoryToThrowDbException()
+        {
+            base.StatisticsRepository.Setup(o => o.RetrieveEquivalentEasStatisticsFromRds())
+                .ThrowsAsync(new Mock<DbException>().Object);
         }
     }
 }

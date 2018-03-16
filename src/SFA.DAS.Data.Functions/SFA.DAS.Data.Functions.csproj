@@ -154,11 +154,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\CommitmentRdsStatistics\CommitmentRdsStatisticsCommand.cs" />
+    <Compile Include="Commands\CommitmentRdsStatistics\CommitmentRdsStatisticsCommandHandler.cs" />
+    <Compile Include="Commands\CommitmentRdsStatistics\CommitmentRdsStatisticsCommandResponse.cs" />
+    <Compile Include="Commands\ICommandResponse.cs" />
+    <Compile Include="Commands\IStatisticsCommand.cs" />
     <Compile Include="Commands\EasRdsStatistics\EasRdsStatisticsCommand.cs" />
     <Compile Include="Commands\EasRdsStatistics\EasRdsStatisticsCommandHandler.cs" />
     <Compile Include="Commands\EasRdsStatistics\EasRdsStatisticsCommandResponse.cs" />
     <Compile Include="EasProcessingCompletedEvent.cs" />
     <Compile Include="GetAccountStatisticsFunction.cs" />
+    <Compile Include="GetCommitmentStatisticsFunction.cs" />
     <Compile Include="Ioc\DefaultRegistry.cs" />
     <Compile Include="Ioc\InjectAttribute.cs" />
     <Compile Include="Ioc\InjectAttributeBinding.cs" />
