@@ -42,14 +42,14 @@ namespace SFA.DAS.Data.Infrastructure.Services
             _commitmentsStatisticsHandler = commitmentsStatisticsHandler ?? throw new ArgumentNullException(nameof(commitmentsStatisticsHandler));
         }
 
-        public async Task CollateEasMetrics()
+        public async Task<IProcessingCompletedMessage> CollateEasMetrics()
         {
             var statistics = await RetrieveAesStatisticsFromTheApi();
 
             if (statistics == null) 
             {
                 _log.Debug("Quitting operation as it failed to retrieve the Aes Statistics");
-                return;
+                return null;
             }
 
             var rdsStatistics = await RetrieveRelatedAesStatisticsFromRds();
@@ -57,7 +57,7 @@ namespace SFA.DAS.Data.Infrastructure.Services
             if (rdsStatistics == null)
             {
                 _log.Debug("Quitting operation as it failed to retrieve the related Aes statistics from Rds");
-                return;
+                return null;
             }
 
             var savedSuccessfully = await SaveTheStatisticsToRds<EasStatisticsModel, RdsStatisticsForEasModel, EasRdsStatisticsCommandResponse, EasRdsStatisticsCommand>(statistics, rdsStatistics);
@@ -65,21 +65,27 @@ namespace SFA.DAS.Data.Infrastructure.Services
             if (!savedSuccessfully)
             {
                 _log.Debug("Quitting operation as it failed to save the statistics");
+                return null;
             }
-            else
+            //else
+            //{
+            //    //await AddMessageToQueueToNotifyThatAesDataGatheringIsComplete<EasProcessingCompletedEvent>();
+
+            //}
+            return new EasProcessingCompletedMessage
             {
-                await AddMessageToQueueToNotifyThatAesDataGatheringIsComplete<EasProcessingCompletedEvent>();
-            }
+                ProcessingCompletedAt = DateTime.UtcNow
+            };
         }
 
-        public async Task CollateCommitmentStatisticsMetrics()
+        public async Task<IProcessingCompletedMessage> CollateCommitmentStatisticsMetrics()
         {
             var statistics = await RetrieveCommitmentsStatisticsFromTheApi();
 
             if (statistics == null)
             {
                 _log.Debug("Quitting operation as it failed to retrieve the Commitment Statistics");
-                return;
+                return null;
             }
 
             var rdsStatistics = await RetrieveRelatedCommitmentsStatisticsFromRds();
@@ -87,7 +93,7 @@ namespace SFA.DAS.Data.Infrastructure.Services
             if (rdsStatistics == null)
             {
                 _log.Debug("Quitting operation as it failed to retrieve the related Aes statistics from Rds");
-                return;
+                return null;
             }
 
             var savedSuccessfully = await SaveTheStatisticsToRds<CommitmentsStatisticsModel, RdsStatisticsForCommitmentsModel, CommitmentRdsStatisticsCommandResponse, CommitmentRdsStatisticsCommand>(statistics, rdsStatistics);
@@ -95,15 +101,19 @@ namespace SFA.DAS.Data.Infrastructure.Services
             if (!savedSuccessfully)
             {
                 _log.Debug("Quitting operation as it failed to save the statistics");
+                return null;
             }
-            else
-            {
-                await AddMessageToQueueToNotifyThatAesDataGatheringIsComplete<CommitmentProcessingCompletedEvent>();
-            }
+            //else
+            //{
+            //   // await AddMessageToQueueToNotifyThatAesDataGatheringIsComplete<CommitmentProcessingCompletedEvent>();
+            //    return null;
+            //}
+
+            return null;
         }
 
         private async Task AddMessageToQueueToNotifyThatAesDataGatheringIsComplete<TEvent>()
-            where TEvent : IProcessingCompletedEvent, new()
+            where TEvent : IProcessingCompletedMessage, new()
         {
             _log.Debug("Placing message on the queue");
 

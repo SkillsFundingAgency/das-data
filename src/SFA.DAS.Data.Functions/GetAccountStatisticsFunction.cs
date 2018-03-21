@@ -9,11 +9,15 @@ namespace SFA.DAS.Data.Functions
     public static class GetAccountStatisticsFunction
     {
         [FunctionName("GetAccountStatisticsFunction")]
-        public static async Task Run([TimerTrigger("%CronSchedule%")] TimerInfo myTimer, [Inject] ILog log,
+        [return: Queue(QueueNames.CommitmentsQueueName)]
+        public static async Task<EasProcessingCompletedMessage> Run([TimerTrigger("%CronSchedule%")] TimerInfo myTimer, [Inject] ILog log,
             [Inject] IStatisticsService statsService)
         {
             log.Debug("Gathering statistics for the EAS area of the system");
-            await statsService.CollateEasMetrics();
+            var message = await statsService.CollateEasMetrics();
+
+            return message as EasProcessingCompletedMessage;
         }
+
     }
 }

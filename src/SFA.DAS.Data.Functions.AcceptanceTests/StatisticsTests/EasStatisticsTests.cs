@@ -12,12 +12,16 @@ namespace SFA.DAS.Data.Functions.AcceptanceTests.StatisticsTests
     [TestFixture]
     public class EasStatisticsTests : FunctionEventTestBase
     {
+        private const string DataTypes = "TotalPayments, TotalAccounts, TotalAgreements, TotalLegalEntities, TotalPAYESchemes";
+
         [Test]
         public async Task WhenTheTimerFunctionIsRunThenTheStatisticsAreSavedToTheDatabase()
         {
             var actual = await WithConnection(async c => await c.ExecuteScalarAsync<int>(
                 sql:
-                $"SELECT count('Id') FROM [Data_Load].[DAS_ConsistencyCheck] WHERE CheckedDateTime >= '{TestOperationStartedAt.ToUniversalTime():yyyy-MM-ddTHH:mm:ss}';",
+                $"SELECT count('Id') FROM [Data_Load].[DAS_ConsistencyCheck] WHERE " +
+                $"CheckedDateTime >= '{TestOperationStartedAt.ToUniversalTime():yyyy-MM-ddTHH:mm:ss}'" +
+                $" AND DataType IN ('{DataTypes}');",
                 commandType: CommandType.Text));
             Console.WriteLine($"{TestOperationStartedAt.ToUniversalTime():yyyy-MM-ddTHH:mm:ss}");
             Assert.AreEqual(5, actual);

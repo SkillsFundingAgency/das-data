@@ -8,8 +8,8 @@ namespace SFA.DAS.Data.Domain.Interfaces
 {
     public interface IStatisticsService
     {
-        Task CollateEasMetrics();
+        Task<IProcessingCompletedMessage> CollateEasMetrics();
 
-        Task CollateCommitmentStatisticsMetrics();
+        Task<IProcessingCompletedMessage> CollateCommitmentStatisticsMetrics();
     }
 }

@@ -49,6 +49,7 @@
     <Compile Include="Interfaces\ICommitmentsStatisticsHandler.cs" />
     <Compile Include="Interfaces\IEasStatisticsHandler.cs" />
     <Compile Include="Interfaces\IHttpClientWrapper.cs" />
+    <Compile Include="Interfaces\IProcessingCompletedMessage.cs" />
     <Compile Include="Interfaces\IStatisticsService.cs" />
     <Compile Include="Models\ApprenticeshipEvent.cs" />
     <Compile Include="Models\CommitmentsStatisticsModel.cs" />
