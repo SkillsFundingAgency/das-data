@@ -1,15 +1,11 @@
-﻿using System;
-using System.Configuration;
+﻿using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Net.Http;
 using MediatR;
 using Microsoft.Azure;
-using Moq;
 using SFA.DAS.Configuration;
 using SFA.DAS.Configuration.AzureTableStorage;
 using SFA.DAS.Data.Application.Configuration;
-using SFA.DAS.Data.Application.Handlers;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.Data.Domain.Interfaces;
 using SFA.DAS.Data.Functions.AcceptanceTests.Stubs;
@@ -19,7 +15,6 @@ using SFA.DAS.Data.Infrastructure.Services;
 using SFA.DAS.Events.Api.Client;
 using SFA.DAS.NLog.Logger;
 using StructureMap;
-using StructureMap.AutoMocking;
 
 namespace SFA.DAS.Data.Functions.AcceptanceTests.Infrastructure.Registrys
 {
@@ -63,6 +58,7 @@ namespace SFA.DAS.Data.Functions.AcceptanceTests.Infrastructure.Registrys
         {
             For<IEasStatisticsHandler>().Use<StubEasStatisticsHandler>();
             For<ICommitmentsStatisticsHandler>().Use<StubCommitmentsStatisticsHandler>();
+            For<IPaymentStatisticsHandler>().Use<StubPaymentsStatisticsHandler>();
         }
 
         private DataConfiguration GetConfiguration()

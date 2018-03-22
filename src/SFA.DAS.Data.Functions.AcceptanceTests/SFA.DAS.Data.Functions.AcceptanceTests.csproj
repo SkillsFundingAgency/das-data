@@ -204,8 +204,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StatisticsTests\CommitmentStatisticsTests.cs" />
     <Compile Include="StatisticsTests\EasStatisticsTests.cs" />
+    <Compile Include="StatisticsTests\PaymentStatisticsTests.cs" />
     <Compile Include="Stubs\StubCommitmentsStatisticsHandler.cs" />
     <Compile Include="Stubs\StubEasStatisticsHandler.cs" />
+    <Compile Include="Stubs\StubPaymentsStatisticsHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

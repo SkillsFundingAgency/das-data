@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
 using SFA.DAS.Data.Domain.Models;
+using SFA.DAS.Data.Functions;
 using SFA.DAS.Data.Functions.Commands.EasRdsStatistics;
 using SFA.DAS.Events.Api.Types;
 
@@ -25,7 +26,7 @@ namespace SFA.DAS.Data.Infrastructure.UnitTests.Services.StatisticsService
         {
             SetupTheHandlerToReturnTheModel();
             SetupTheRepositoryToReturnTheRdsModel();
-            SetupMediatorToReturnResponseOf(true);
+            base.SetupMediatorToReturnResponseOf(o => o.SendAsync<EasRdsStatisticsCommandResponse>(It.IsAny<EasRdsStatisticsCommand>()), true);
 
             await base.StatsService.CollateEasMetrics();
 
@@ -36,8 +37,9 @@ namespace SFA.DAS.Data.Infrastructure.UnitTests.Services.StatisticsService
         public async Task ThenIfRetrieveEquivalentEasStatisticsFromRdsMethodIsNotSuccessfulItDoesntInvokeTheMediator()
         {
             SetupTheHandlerToReturnTheModel();
-            SetupMediatorToReturnResponseOf(true);
-            SetupTheRepositoryToThrowDbException();
+            base.SetupMediatorToReturnResponseOf(o => o.SendAsync<EasRdsStatisticsCommandResponse>(It.IsAny<EasRdsStatisticsCommand>()), true);
+
+            base.SetupTheRepositoryToThrowDbException(o => o.RetrieveEquivalentEasStatisticsFromRds());
 
             try
             {
@@ -91,7 +93,7 @@ namespace SFA.DAS.Data.Infrastructure.UnitTests.Services.StatisticsService
             SetupTheHandlerToReturnTheModel();
             SetupTheRepositoryToReturnTheRdsModel();
 
-            SetupMediatorToReturnResponseOf(true);
+            base.SetupMediatorToReturnResponseOf(o => o.SendAsync<EasRdsStatisticsCommandResponse>(It.IsAny<EasRdsStatisticsCommand>()), true);
 
             await base.StatsService.CollateEasMetrics();
 
@@ -99,44 +101,16 @@ namespace SFA.DAS.Data.Infrastructure.UnitTests.Services.StatisticsService
         }
 
         [Test]
-        public async Task ThenIfTheOperationIsSuccessfulAMessageIsAddedToTheEventsApi()
+        public async Task ThenIfTheOperationIsSuccessfulAMessageOfTypeEasProcessingCompletedMessageIsReturned()
         {
             SetupTheHandlerToReturnTheModel();
             SetupTheRepositoryToReturnTheRdsModel();
 
-            SetupMediatorToReturnResponseOf(true);
+            base.SetupMediatorToReturnResponseOf(o => o.SendAsync<EasRdsStatisticsCommandResponse>(It.IsAny<EasRdsStatisticsCommand>()), true);
 
-            await base.StatsService.CollateEasMetrics();
+            var actual = await base.StatsService.CollateEasMetrics();
 
-            base.EventsApi.Verify(o => o.CreateGenericEvent(It.IsAny<GenericEvent>()), Times.Once);
-        }
-
-        [Test]
-        public async Task ThenIfTheOperationIsNotSuccessfulNoMessageIsAddedToTheEventsApi()
-        {
-            SetupTheHandlerToReturnTheModel();
-            SetupTheRepositoryToReturnTheRdsModel();
-
-            SetupMediatorToReturnResponseOf(false);
-
-            await base.StatsService.CollateEasMetrics();
-
-            base.EventsApi.Verify(o => o.CreateGenericEvent(It.IsAny<GenericEvent>()), Times.Never);
-        }
-
-        private void SetupMediatorToReturnResponseOf(bool successful)
-        {
-            base.Mediator.Setup(o => o.SendAsync<EasRdsStatisticsCommandResponse>(It.IsAny<EasRdsStatisticsCommand>()))
-                .ReturnsAsync(new EasRdsStatisticsCommandResponse()
-                {
-                    OperationSuccessful = successful
-                });
-        }
-
-        private void SetupTheRepositoryToThrowDbException()
-        {
-            base.StatisticsRepository.Setup(o => o.RetrieveEquivalentEasStatisticsFromRds())
-                .ThrowsAsync(new Mock<DbException>().Object);
+            Assert.IsAssignableFrom<EasProcessingCompletedMessage>(actual);
         }
     }
 }

@@ -11,5 +11,7 @@ namespace SFA.DAS.Data.Domain.Interfaces
         Task<IProcessingCompletedMessage> CollateEasMetrics();
 
         Task<IProcessingCompletedMessage> CollateCommitmentStatisticsMetrics();
+
+        Task<IProcessingCompletedMessage> CollatePaymentStatisticsMetrics();
     }
 }

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
 using SFA.DAS.Data.Domain.Models;
+using SFA.DAS.Data.Functions;
 using SFA.DAS.Data.Functions.Commands.CommitmentRdsStatistics;
 using SFA.DAS.Events.Api.Types;
 
@@ -110,29 +111,16 @@ namespace SFA.DAS.Data.Infrastructure.UnitTests.Services.StatisticsService
         }
 
         [Test]
-        public async Task ThenIfTheOperationIsSuccessfulAMessageIsAddedToTheEventsApi()
+        public async Task ThenIfTheOperationIsSuccessfulAMessageOfTypeCommitmentProcessingCompletedMessageIsReturned()
         {
             SetupTheHandlerToReturnTheModel();
             SetupTheRepositoryToReturnTheRdsModel();
 
             SetupMediatorToReturnResponseOf(true);
 
-            await base.StatsService.CollateCommitmentStatisticsMetrics();
+            var actual = await base.StatsService.CollateCommitmentStatisticsMetrics();
 
-            base.EventsApi.Verify(o => o.CreateGenericEvent(It.IsAny<GenericEvent>()), Times.Once);
-        }
-
-        [Test]
-        public async Task ThenIfTheOperationIsNotSuccessfulNoMessageIsAddedToTheEventsApi()
-        {
-            SetupTheHandlerToReturnTheModel();
-            SetupTheRepositoryToReturnTheRdsModel();
-
-            SetupMediatorToReturnResponseOf(false);
-
-            await base.StatsService.CollateCommitmentStatisticsMetrics();
-
-            base.EventsApi.Verify(o => o.CreateGenericEvent(It.IsAny<GenericEvent>()), Times.Never);
+           Assert.IsAssignableFrom<CommitmentProcessingCompletedMessage>(actual);
         }
 
         private void SetupMediatorToReturnResponseOf(bool successful)

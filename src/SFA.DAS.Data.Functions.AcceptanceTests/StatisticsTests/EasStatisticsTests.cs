@@ -12,18 +12,18 @@ namespace SFA.DAS.Data.Functions.AcceptanceTests.StatisticsTests
     [TestFixture]
     public class EasStatisticsTests : FunctionEventTestBase
     {
-        private const string DataTypes = "TotalPayments, TotalAccounts, TotalAgreements, TotalLegalEntities, TotalPAYESchemes";
-
         [Test]
         public async Task WhenTheTimerFunctionIsRunThenTheStatisticsAreSavedToTheDatabase()
         {
+            // sleep for a few seconds to allow the function to kick in once it detects a queue message
+            Thread.Sleep(2000);
+
+            DataTypes = "'TotalPayments', 'TotalAccounts', 'TotalAgreements', 'TotalLegalEntities', 'TotalPAYESchemes'";
+
             var actual = await WithConnection(async c => await c.ExecuteScalarAsync<int>(
-                sql:
-                $"SELECT count('Id') FROM [Data_Load].[DAS_ConsistencyCheck] WHERE " +
-                $"CheckedDateTime >= '{TestOperationStartedAt.ToUniversalTime():yyyy-MM-ddTHH:mm:ss}'" +
-                $" AND DataType IN ('{DataTypes}');",
+                sql: SqlVerificationScript(),
                 commandType: CommandType.Text));
-            Console.WriteLine($"{TestOperationStartedAt.ToUniversalTime():yyyy-MM-ddTHH:mm:ss}");
+            
             Assert.AreEqual(5, actual);
         }
     }

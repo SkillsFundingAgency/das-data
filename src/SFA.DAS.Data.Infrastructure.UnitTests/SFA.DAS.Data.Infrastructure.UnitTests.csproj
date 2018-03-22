@@ -116,6 +116,7 @@
     <Compile Include="Services\StatisticsService\StatisticsTestsBase.cs" />
     <Compile Include="Services\StatisticsService\WhenCollateCommitmentsStatisticsMetricsIsInvoked.cs" />
     <Compile Include="Services\StatisticsService\WhenCollateEasMetricsIsInvoked.cs" />
+    <Compile Include="Services\StatisticsService\WhenCollatePaymentStatisticsMetricsIsInvoked.cs" />
     <Compile Include="Services\StatisticsService\WhenInstantiatingTheClass.cs" />
   </ItemGroup>
   <ItemGroup>

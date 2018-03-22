@@ -15,19 +15,19 @@ using NUnit.Framework;
 namespace SFA.DAS.Data.Functions.AcceptanceTests.StatisticsTests
 {
     [TestFixture]
-    public class CommitmentStatisticsTests : FunctionEventTestBase
+    public class PaymentStatisticsTests : FunctionEventTestBase
     {
         [SetUp]
         public async Task Setup()
         {
-            DataTypes = "'TotalCohorts', 'TotalApprenticeships', 'ActiveApprenticeships'";
+            DataTypes = "'ProviderTotalPayments'";
 
             var client = CloudStorageAccount.Parse(ConfigurationManager.ConnectionStrings["StorageConnectionString"].ConnectionString).CreateCloudQueueClient();
-            var queue = client.GetQueueReference(QueueNames.CommitmentsQueueName);
+            var queue = client.GetQueueReference(QueueNames.ProviderQueueName);
             await queue.CreateIfNotExistsAsync();
             await queue.ClearAsync();
 
-            var message = new EasProcessingCompletedMessage
+            var message = new CommitmentProcessingCompletedMessage
             {
                 ProcessingCompletedAt = DateTime.UtcNow
             };
@@ -44,8 +44,8 @@ namespace SFA.DAS.Data.Functions.AcceptanceTests.StatisticsTests
             var actual = await WithConnection(async c => await c.ExecuteScalarAsync<int>(
                 sql: SqlVerificationScript(),
                 commandType: CommandType.Text));
-            
-            Assert.AreEqual(3, actual);
+
+            Assert.AreEqual(1, actual);
         }
     }
 }

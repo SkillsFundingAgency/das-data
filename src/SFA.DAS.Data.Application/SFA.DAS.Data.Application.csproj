@@ -160,6 +160,7 @@
     <Compile Include="Gateways\RoatpGateway.cs" />
     <Compile Include="Handlers\CommitmentsStatisticsHandler.cs" />
     <Compile Include="Handlers\EasStatisticsHandler.cs" />
+    <Compile Include="Handlers\PaymentsStatisticsHandler.cs" />
     <Compile Include="Interfaces\Gateways\IAccountGateway.cs" />
     <Compile Include="Interfaces\Gateways\IPerformancePlatformGateway.cs" />
     <Compile Include="Interfaces\Gateways\IRoatpGateway.cs" />

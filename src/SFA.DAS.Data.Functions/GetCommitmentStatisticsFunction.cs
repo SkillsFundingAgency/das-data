@@ -17,7 +17,7 @@ namespace SFA.DAS.Data.Functions
             [Inject] ILog log,
             [Inject] IStatisticsService statsService)
         {
-            log.Info("Gathering statics for the commitments area of the system");
+            log.Info("Gathering statistics for the commitments area of the system");
 
             var returnMessage = await statsService.CollateCommitmentStatisticsMetrics();
 

@@ -19,5 +19,6 @@ namespace SFA.DAS.Data.Application.Configuration
         public string AgreementsApiUrl { get; set; }
         public string EasStatisticsEndPoint { get; set; }
         public string CommitmentsStatisticsEndPoint { get; set; }
+        public string PaymentsStatisticsEndPoint { get; set; }
     }
 }

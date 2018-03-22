@@ -13,67 +13,21 @@ using SFA.DAS.NLog.Logger;
 namespace SFA.DAS.Data.Application.UnitTests.Handlers.EasStatisticsHandler
 {
     [TestFixture]
-    public class WhenHandleMethodIsCalled
+    public class WhenHandleMethodIsCalled : StatisticsHandlerBase<EasStatisticsModel>
     {
         private Application.Handlers.EasStatisticsHandler _handler;
-        private Mock<IHttpClientWrapper> _httpClientWrapper;
-        private Mock<IDataConfiguration> _configuration;
-        private Mock<ILog> _logger;
-        private const string StatisticsEndPointUri = "https://stats.end/point";
         
         [SetUp]
         public void Setup()
         {
-            
-            _httpClientWrapper = new Mock<IHttpClientWrapper>();
-            _configuration = new Mock<IDataConfiguration>();
-            _logger = new Mock<ILog>();
-            _configuration.Setup(o => o.EasStatisticsEndPoint).Returns(StatisticsEndPointUri);
+            base.SetUp(o => o.EasStatisticsEndPoint);
 
-            _handler = new Application.Handlers.EasStatisticsHandler(_httpClientWrapper.Object, _configuration.Object, _logger.Object);
+            _handler = new Application.Handlers.EasStatisticsHandler(HttpClientWrapper.Object, Configuration.Object, Logger.Object);
         }
 
-        [Test]
-        public async Task TheStatisticsApiEndpointIsCalled()
+        protected override async Task<dynamic> CallHandleMethodOnHandler()
         {
-            SetupWrapperToReturnHttpResponseMessageWithStatusCodeSetTo(HttpStatusCode.Accepted);
-
-            await _handler.Handle();
-
-            _httpClientWrapper.Verify(o => o.GetAsync(StatisticsEndPointUri.ToUri(), It.IsAny<string>()), Times.Once);
-        }
-
-        private void SetupWrapperToReturnHttpResponseMessageWithStatusCodeSetTo(HttpStatusCode statusCode)
-        {
-            _httpClientWrapper.Setup(o => o.GetAsync(It.IsAny<Uri>(), It.IsAny<string>()))
-                .ReturnsAsync(new HttpResponseMessage(statusCode));
-
-            if (statusCode == HttpStatusCode.Accepted)
-            {
-                _httpClientWrapper.Setup(o => o.ReadResponse<EasStatisticsModel>(It.IsAny<HttpResponseMessage>()))
-                    .ReturnsAsync(
-                        new EasStatisticsModel());
-            }
-        }
-
-        [Test]
-        public async Task ReadsTheResponseFromTheApiCall()
-        {
-            SetupWrapperToReturnHttpResponseMessageWithStatusCodeSetTo(HttpStatusCode.Accepted);
-
-            await _handler.Handle();
-
-            _httpClientWrapper.Verify(o => o.ReadResponse<EasStatisticsModel>(It.IsAny<HttpResponseMessage>()), Times.Once());
-        }
-
-        [Test]
-        public async Task ThenReturnsTheModel()
-        {
-            SetupWrapperToReturnHttpResponseMessageWithStatusCodeSetTo(HttpStatusCode.Accepted);
-
-            var actual = await _handler.Handle();
-
-            Assert.IsNotNull(actual);
+            return await _handler.Handle();
         }
     }
 }

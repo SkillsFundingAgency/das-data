@@ -28,6 +28,15 @@ namespace SFA.DAS.Data.Infrastructure.Data
             return result;
         }
 
+        public async Task<RdsStatisticsForPaymentsModel> RetrieveEquivalentPaymentStatisticsFromRds()
+        {
+            var result = await WithConnection(async c => await c.QuerySingleOrDefaultAsync<RdsStatisticsForPaymentsModel>(
+                sql: "[Data_Load].[GetPaymentStatistics]",
+                commandType: CommandType.StoredProcedure));
+
+            return result;
+        }
+
         public async Task SaveEasStatistics(EasStatisticsModel easStatisticsModel, RdsStatisticsForEasModel rdsStatisticsForEasModel)
         {
             await WithConnection(async c =>
@@ -49,6 +58,64 @@ namespace SFA.DAS.Data.Infrastructure.Data
                         await SaveStatistic(c, transaction, nameof(easStatisticsModel.TotalPAYESchemes),
                             easStatisticsModel.TotalPAYESchemes, rdsStatisticsForEasModel.TotalPAYESchemes);
 
+                        transaction.Commit();
+                    }
+                    catch (SqlException)
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+
+                return 0;
+            });
+        }
+
+        public async Task SaveCommitmentStatistics(CommitmentsStatisticsModel statisticsModel, RdsStatisticsForCommitmentsModel rdsModel)
+        {
+            await WithConnection(async c =>
+            {
+                using (var transaction = c.BeginTransaction())
+                {
+                    try
+                    {
+                        await SaveStatistic(c, transaction, nameof(statisticsModel.ActiveApprenticeships),
+                            statisticsModel.ActiveApprenticeships,
+                            rdsModel.ActiveApprenticeships);
+
+                        await SaveStatistic(c, transaction, nameof(statisticsModel.TotalApprenticeships),
+                            statisticsModel.TotalApprenticeships,
+                            rdsModel.TotalApprenticeships);
+
+                        await SaveStatistic(c, transaction, nameof(statisticsModel.TotalCohorts),
+                            statisticsModel.TotalCohorts,
+                            rdsModel.TotalCohorts);
+
+                        transaction.Commit();
+                    }
+                    catch (SqlException)
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+
+                return 0;
+            });
+        }
+
+        public async Task SavePaymentStatistics(PaymentStatisticsModel statisticsModel, RdsStatisticsForPaymentsModel rdsModel)
+        {
+            await WithConnection(async c =>
+            {
+                using (var transaction = c.BeginTransaction())
+                {
+                    try
+                    {
+                        await SaveStatistic(c, transaction, nameof(statisticsModel.ProviderTotalPayments),
+                            statisticsModel.ProviderTotalPayments,
+                            rdsModel.ProviderTotalPayments);
+                        
                         transaction.Commit();
                     }
                     catch (SqlException)

@@ -8,6 +8,7 @@ using System.IO;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Castle.DynamicProxy.Generators.Emitters;
 using Microsoft.Azure.WebJobs;
 using NUnit.Framework;
 using SFA.DAS.Data.Functions.AcceptanceTests.Infrastructure;
@@ -20,10 +21,31 @@ namespace SFA.DAS.Data.Functions.AcceptanceTests
         protected JobHost JobHostInstance;
         protected CancellationToken TestCancellationToken;
         protected DateTime TestOperationStartedAt;
+        protected static List<Process> Processes = new List<Process>();
+        protected string DataTypes;
+
+        protected string SqlVerificationScript()
+        {
+            return "SELECT count('Id') FROM [Data_Load].[DAS_ConsistencyCheck] WHERE " +
+                $"CheckedDateTime >= '{TestOperationStartedAt.ToUniversalTime():yyyy-MM-ddTHH:mm:ss.fff}'" +
+                $" AND DataType IN ({DataTypes})";
+        }
 
         [OneTimeSetUp]
         public async Task ClassSetup()
         {
+            var process = new Process
+            {
+                StartInfo =
+                {
+                    FileName = @"C:\Program Files (x86)\Microsoft SDKs\Azure\Storage Emulator\AzureStorageEmulator.exe",
+                    Arguments = $"start"
+                }
+            };
+            process.Start();
+            Processes.Add(process);
+            //give the emulator time to spin up
+            Thread.Sleep(300);
             var config = new JobHostConfiguration();
             config.UseTimers();
             config.Tracing.ConsoleLevel = TraceLevel.Verbose;
@@ -39,6 +61,15 @@ namespace SFA.DAS.Data.Functions.AcceptanceTests
         public async Task TearDown()
         {
             await JobHostInstance.StopAsync();
+
+            Processes?.ForEach(process =>
+            {
+                if (!process.HasExited)
+                {
+                    process.Kill();
+                }
+            });
+            Processes?.Clear();
         }
 
         protected async Task<T> WithConnection<T>(Func<IDbConnection, Task<T>> getData)

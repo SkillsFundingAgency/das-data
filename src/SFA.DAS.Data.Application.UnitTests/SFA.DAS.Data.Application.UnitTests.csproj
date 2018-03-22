@@ -131,6 +131,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\CommitmentRdsStatistics\WhenTheHandleMethodIsInvoked.cs" />
     <Compile Include="Commands\CreateEmploymentCheckTests\WhenAnEmploymentCheckIsComplete.cs" />
     <Compile Include="Commands\CreateEmployerAgreementTests\WhenICreateAnEmployerAgreement.cs" />
     <Compile Include="Commands\CreateLevyDeclarationsTests\WhenICreateLevyDeclarations.cs" />
@@ -138,6 +139,8 @@
     <Compile Include="Commands\CreateRoatpProviderTests\WhenICreateAProvider.cs" />
     <Compile Include="Commands\EasRdsStatisticsTests\WhenTheHandleMethodIsInvoked.cs" />
     <Compile Include="Commands\ExportPerformancePlatformStatisticsTests\WhenPerformancePlatformStatisticsAreExported.cs" />
+    <Compile Include="Commands\FunctionsCommandHandlerBase.cs" />
+    <Compile Include="Commands\PaymentRdsStatistics\WhenTheHandleMethodIsInvoked.cs" />
     <Compile Include="Commands\RemovePayeSchemeTests\WhenIRemoveAPayeScheme.cs" />
     <Compile Include="Commands\RenameAccountTests\WhenIRenameAnAccount.cs" />
     <Compile Include="Commands\CreateAccountTests\WhenICreateAnAccount.cs" />
@@ -160,6 +163,9 @@
     <Compile Include="Handlers\CommitmentsStatisticsHandler\WhenTheHandlerIsConstructed.cs" />
     <Compile Include="Handlers\EasStatisticsHandler\WhenHandleMethodIsCalled.cs" />
     <Compile Include="Handlers\EasStatisticsHandler\WhenTheHandlerIsConstructed.cs" />
+    <Compile Include="Handlers\PaymentStatisticsHandler\WhenTheHandleMethodIsCalled.cs" />
+    <Compile Include="Handlers\PaymentStatisticsHandler\WhenTheHandlerIsConstructed.cs" />
+    <Compile Include="Handlers\StatisticsHandlerBase.cs" />
     <Compile Include="PerformancePlatformDataTests\WhenICreatePerformancePlatformData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

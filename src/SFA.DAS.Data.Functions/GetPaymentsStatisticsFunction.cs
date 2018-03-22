@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 using SFA.DAS.Data.Domain.Interfaces;
@@ -10,12 +11,14 @@ namespace SFA.DAS.Data.Functions
     public static class GetPaymentsStatisticsFunction
     {
         [FunctionName("GetPaymentsStatisticsFunction")]
-        public static void Run([QueueTrigger(
+        public static async Task Run([QueueTrigger(
             QueueNames.ProviderQueueName, Connection = "StorageConnectionString")] CommitmentProcessingCompletedMessage message, 
             [Inject] ILog log,
             [Inject] IStatisticsService statsService)
         {
-           
+            log.Info("Gathering statics for the payments area of the system");
+
+            await statsService.CollatePaymentStatisticsMetrics();
         }
     }
 }

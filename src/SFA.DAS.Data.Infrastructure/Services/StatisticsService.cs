@@ -11,6 +11,7 @@ using SFA.DAS.Data.Functions;
 using SFA.DAS.Data.Functions.Commands;
 using SFA.DAS.Data.Functions.Commands.CommitmentRdsStatistics;
 using SFA.DAS.Data.Functions.Commands.EasRdsStatistics;
+using SFA.DAS.Data.Functions.Commands.PaymentRdsStatistics;
 using SFA.DAS.Data.Functions.Ioc;
 using SFA.DAS.Events.Api.Client;
 using SFA.DAS.Events.Api.Types;
@@ -20,7 +21,7 @@ namespace SFA.DAS.Data.Infrastructure.Services
 {
     public class StatisticsService : IStatisticsService
     {
-        private readonly IEventsApi _eventsApi;
+        private readonly IPaymentStatisticsHandler _paymentStatisticsHandler;
         private readonly IMediator _mediator;
         private readonly ILog _log;
         private readonly IEasStatisticsHandler _easStatisticsHandler;
@@ -31,10 +32,10 @@ namespace SFA.DAS.Data.Infrastructure.Services
             [Inject] IEasStatisticsHandler easStatisticsHandler, 
             [Inject] IStatisticsRepository repository,
             [Inject] IMediator mediator,
-            [Inject] IEventsApi eventsApi,
-            [Inject] ICommitmentsStatisticsHandler commitmentsStatisticsHandler)
+            [Inject] ICommitmentsStatisticsHandler commitmentsStatisticsHandler,
+            [Inject] IPaymentStatisticsHandler paymentStatisticsHandler)
         {
-            _eventsApi = eventsApi ?? throw new ArgumentNullException(nameof(eventsApi));
+            _paymentStatisticsHandler = paymentStatisticsHandler ?? throw new ArgumentNullException(nameof(paymentStatisticsHandler));
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
             _log = log ?? throw new ArgumentNullException(nameof(log));
             _easStatisticsHandler = easStatisticsHandler ?? throw new ArgumentNullException(nameof(easStatisticsHandler));
@@ -67,11 +68,7 @@ namespace SFA.DAS.Data.Infrastructure.Services
                 _log.Debug("Quitting operation as it failed to save the statistics");
                 return null;
             }
-            //else
-            //{
-            //    //await AddMessageToQueueToNotifyThatAesDataGatheringIsComplete<EasProcessingCompletedEvent>();
-
-            //}
+         
             return new EasProcessingCompletedMessage
             {
                 ProcessingCompletedAt = DateTime.UtcNow
@@ -103,33 +100,37 @@ namespace SFA.DAS.Data.Infrastructure.Services
                 _log.Debug("Quitting operation as it failed to save the statistics");
                 return null;
             }
-            //else
-            //{
-            //   // await AddMessageToQueueToNotifyThatAesDataGatheringIsComplete<CommitmentProcessingCompletedEvent>();
-            //    return null;
-            //}
-
-            return null;
+           
+            return new CommitmentProcessingCompletedMessage();
         }
 
-        private async Task AddMessageToQueueToNotifyThatAesDataGatheringIsComplete<TEvent>()
-            where TEvent : IProcessingCompletedMessage, new()
+        public async Task<IProcessingCompletedMessage> CollatePaymentStatisticsMetrics()
         {
-            _log.Debug("Placing message on the queue");
+            var statistics = await RetrievePaymentsStatisticsFromTheApi();
 
-            var processingCompleted = new TEvent
+            if (statistics == null)
             {
-                ProcessingCompletedAt = DateTime.UtcNow
-            };
+                _log.Debug("Quitting operation as it failed to retrieve the payment Statistics");
+                return null;
+            }
 
-            var genericEvent = new GenericEvent
+            var rdsStatistics = await RetrieveRelatedPaymentsStatisticsFromRds();
+
+            if (rdsStatistics == null)
             {
-                CreatedOn = DateTime.Now,
-                Payload = JsonConvert.SerializeObject(processingCompleted),
-                Type = processingCompleted.GetType().Name
-            };
+                _log.Debug("Quitting operation as it failed to retrieve the related Aes statistics from Rds");
+                return null;
+            }
 
-            await _eventsApi.CreateGenericEvent(genericEvent);
+            var savedSuccessfully = await SaveTheStatisticsToRds<PaymentStatisticsModel, RdsStatisticsForPaymentsModel, PaymentRdsStatisticsCommandResponse, PaymentRdsStatisticsCommand>(statistics, rdsStatistics);
+
+            if (!savedSuccessfully)
+            {
+                _log.Debug("Quitting operation as it failed to save the statistics");
+                return null;
+            }
+
+            return new PaymentsProcessingCompletedMessage();
         }
 
         private async Task<bool> SaveTheStatisticsToRds<TModel, TRdsModel, TCommandResponse, TCommand>(TModel statistics, TRdsModel rdsStatistics)
@@ -182,6 +183,24 @@ namespace SFA.DAS.Data.Infrastructure.Services
             return rdsStatistics;
         }
 
+        private async Task<RdsStatisticsForPaymentsModel> RetrieveRelatedPaymentsStatisticsFromRds()
+        {
+            RdsStatisticsForPaymentsModel rdsStatistics = null;
+
+            _log.Debug("Gathering statistics for the equivalent payment stats in RDS");
+
+            try
+            {
+                rdsStatistics = await _repository.RetrieveEquivalentPaymentStatisticsFromRds();
+            }
+            catch (DbException exception)
+            {
+                _log.Error(exception, "Failed to retrieve the equivalent payment stats from the RDS Database");
+            }
+
+            return rdsStatistics;
+        }
+
         private async Task<EasStatisticsModel> RetrieveAesStatisticsFromTheApi()
         {
             _log.Debug("Gathering statistics for the EAS area of the system");
@@ -211,6 +230,23 @@ namespace SFA.DAS.Data.Infrastructure.Services
             catch (HttpRequestException httpRequestException)
             {
                 _log.Error(httpRequestException, "Failed to retrieve commitment stats from the API");
+            }
+
+            return statistics;
+        }
+
+        private async Task<PaymentStatisticsModel> RetrievePaymentsStatisticsFromTheApi()
+        {
+            _log.Debug("Gathering statistics for the payments area of the system");
+            PaymentStatisticsModel statistics = null;
+
+            try
+            {
+                statistics = await _paymentStatisticsHandler.Handle();
+            }
+            catch (HttpRequestException httpRequestException)
+            {
+                _log.Error(httpRequestException, "Failed to retrieve payment stats from the API");
             }
 
             return statistics;
