@@ -110,19 +110,6 @@ namespace SFA.DAS.Data.Infrastructure.UnitTests.Services.StatisticsService
         }
 
         [Test]
-        public async Task ThenIfTheOperationIsSuccessfulAMessageIsAddedToTheEventsApi()
-        {
-            SetupTheHandlerToReturnTheModel();
-            SetupTheRepositoryToReturnTheRdsModel();
-
-            SetupMediatorToReturnResponseOf(true);
-
-            await base.StatsService.CollateCommitmentStatisticsMetrics();
-
-            base.EventsApi.Verify(o => o.CreateGenericEvent(It.IsAny<GenericEvent>()), Times.Once);
-        }
-
-        [Test]
         public async Task ThenIfTheOperationIsNotSuccessfulNoMessageIsAddedToTheEventsApi()
         {
             SetupTheHandlerToReturnTheModel();
