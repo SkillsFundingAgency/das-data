@@ -17,35 +17,39 @@ namespace SFA.DAS.Data.Functions.AcceptanceTests.StatisticsTests
     [TestFixture]
     public class CommitmentStatisticsTests : FunctionEventTestBase
     {
+        private CloudQueue _queue;
+
         [SetUp]
         public async Task Setup()
         {
             DataTypes = "'TotalCohorts', 'TotalApprenticeships', 'ActiveApprenticeships'";
 
             var client = CloudStorageAccount.Parse(ConfigurationManager.ConnectionStrings["StorageConnectionString"].ConnectionString).CreateCloudQueueClient();
-            var queue = client.GetQueueReference(QueueNames.CommitmentsQueueName);
-            await queue.CreateIfNotExistsAsync();
-            await queue.ClearAsync();
+            _queue = client.GetQueueReference(QueueNames.CommitmentsQueueName);
+            await _queue.CreateIfNotExistsAsync();
+            await _queue.ClearAsync();
 
             var message = new EasProcessingCompletedMessage
             {
                 ProcessingCompletedAt = DateTime.UtcNow
             };
 
-            await queue.AddMessageAsync(new CloudQueueMessage(JsonConvert.SerializeObject(message)));
+            await _queue.AddMessageAsync(new CloudQueueMessage(JsonConvert.SerializeObject(message)));
         }
 
         [Test]
         public async Task WhenTheQueueFunctionIsRunThenTheStatisticsAreSavedToTheDatabase()
         {
             // sleep for a few seconds to allow the function to kick in once it detects a queue message
-            Thread.Sleep(2000);
+            Thread.Sleep(1000);
 
             var actual = await WithConnection(async c => await c.ExecuteScalarAsync<int>(
                 sql: SqlVerificationScript(),
                 commandType: CommandType.Text));
             
-            Assert.AreEqual(3, actual);
+            Console.WriteLine(SqlVerificationScript());
+
+            Assert.IsTrue(actual >= 3);
         }
     }
 }

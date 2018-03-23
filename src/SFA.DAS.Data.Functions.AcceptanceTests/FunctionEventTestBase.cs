@@ -10,6 +10,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Castle.DynamicProxy.Generators.Emitters;
 using Microsoft.Azure.WebJobs;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Queue;
 using NUnit.Framework;
 using SFA.DAS.Data.Functions.AcceptanceTests.Infrastructure;
 using StructureMap;
@@ -29,6 +31,17 @@ namespace SFA.DAS.Data.Functions.AcceptanceTests
             return "SELECT count('Id') FROM [Data_Load].[DAS_ConsistencyCheck] WHERE " +
                 $"CheckedDateTime >= '{TestOperationStartedAt.ToUniversalTime():yyyy-MM-ddTHH:mm:ss.fff}'" +
                 $" AND DataType IN ({DataTypes})";
+        }
+
+        protected static async Task<CloudQueue> CreateCloudQueueIfNotExists(string queueName)
+        {
+            var client = CloudStorageAccount
+                .Parse(ConfigurationManager.ConnectionStrings["StorageConnectionString"].ConnectionString)
+                .CreateCloudQueueClient();
+            var queue = client.GetQueueReference(queueName);
+            await queue.CreateIfNotExistsAsync();
+            await queue.ClearAsync();
+            return queue;
         }
 
         [OneTimeSetUp]
@@ -53,6 +66,8 @@ namespace SFA.DAS.Data.Functions.AcceptanceTests
             JobHostInstance = new JobHost(config);
             TestCancellationToken = new CancellationToken();
             TestOperationStartedAt = DateTime.UtcNow;
+
+            Console.WriteLine(TestOperationStartedAt);
 
             await JobHostInstance.StartAsync(TestCancellationToken);
         }

@@ -22,10 +22,7 @@ namespace SFA.DAS.Data.Functions.AcceptanceTests.StatisticsTests
         {
             DataTypes = "'ProviderTotalPayments'";
 
-            var client = CloudStorageAccount.Parse(ConfigurationManager.ConnectionStrings["StorageConnectionString"].ConnectionString).CreateCloudQueueClient();
-            var queue = client.GetQueueReference(QueueNames.ProviderQueueName);
-            await queue.CreateIfNotExistsAsync();
-            await queue.ClearAsync();
+            var queue = await CreateCloudQueueIfNotExists(QueueNames.ProviderQueueName);
 
             var message = new CommitmentProcessingCompletedMessage
             {
@@ -39,11 +36,13 @@ namespace SFA.DAS.Data.Functions.AcceptanceTests.StatisticsTests
         public async Task WhenTheQueueFunctionIsRunThenTheStatisticsAreSavedToTheDatabase()
         {
             // sleep for a few seconds to allow the function to kick in once it detects a queue message
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
 
             var actual = await WithConnection(async c => await c.ExecuteScalarAsync<int>(
                 sql: SqlVerificationScript(),
                 commandType: CommandType.Text));
+
+            Console.WriteLine(SqlVerificationScript());
 
             Assert.AreEqual(1, actual);
         }

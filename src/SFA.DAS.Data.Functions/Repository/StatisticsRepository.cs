@@ -6,7 +6,7 @@ using Dapper;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.Data.Domain.Models;
 
-namespace SFA.DAS.Data.Infrastructure.Data
+namespace SFA.DAS.Data.Functions.Repository
 {
     public class StatisticsRepository : BaseRepository, IStatisticsRepository
     {
