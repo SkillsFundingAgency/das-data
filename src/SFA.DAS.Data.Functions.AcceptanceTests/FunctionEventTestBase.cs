@@ -22,7 +22,7 @@ namespace SFA.DAS.Data.Functions.AcceptanceTests
     {
         protected JobHost JobHostInstance;
         protected CancellationToken TestCancellationToken;
-        protected DateTime TestOperationStartedAt;
+        protected static DateTime TestOperationStartedAt;
         protected static List<Process> Processes = new List<Process>();
         protected string DataTypes;
 
@@ -47,6 +47,13 @@ namespace SFA.DAS.Data.Functions.AcceptanceTests
         [OneTimeSetUp]
         public async Task ClassSetup()
         {
+            if (TestOperationStartedAt == DateTime.MinValue)
+            {
+                // this is because the host process spins up and then all the functions will 
+                // potentially kick in so we use the start time of the first instance of this been set
+                TestOperationStartedAt = DateTime.UtcNow;
+            }
+
             var process = new Process
             {
                 StartInfo =
@@ -65,10 +72,7 @@ namespace SFA.DAS.Data.Functions.AcceptanceTests
             config.UseDependencyInjection();
             JobHostInstance = new JobHost(config);
             TestCancellationToken = new CancellationToken();
-            TestOperationStartedAt = DateTime.UtcNow;
-
-            Console.WriteLine(TestOperationStartedAt);
-
+            
             await JobHostInstance.StartAsync(TestCancellationToken);
         }
 
