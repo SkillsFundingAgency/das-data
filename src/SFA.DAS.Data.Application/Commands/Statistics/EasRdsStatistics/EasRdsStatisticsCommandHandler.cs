@@ -5,7 +5,7 @@ using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.Data.Functions.Ioc;
 using SFA.DAS.NLog.Logger;
 
-namespace SFA.DAS.Data.Functions.Commands.EasRdsStatistics
+namespace SFA.DAS.Data.Application.Commands.Statistics.EasRdsStatistics
 {
     public class EasRdsStatisticsCommandHandler : IAsyncRequestHandler<EasRdsStatisticsCommand, EasRdsStatisticsCommandResponse>
     {

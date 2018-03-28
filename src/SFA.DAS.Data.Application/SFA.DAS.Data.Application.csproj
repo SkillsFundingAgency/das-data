@@ -147,6 +147,20 @@
     <Compile Include="Commands\CreatePayeScheme\CreatePayeSchemeCommand.cs" />
     <Compile Include="Commands\CreateAccount\CreateAccountCommand.cs" />
     <Compile Include="Commands\CreateAccount\CreateAccountCommandHandler.cs" />
+    <Compile Include="Commands\Statistics\CommitmentProcessingCompletedMessage.cs" />
+    <Compile Include="Commands\Statistics\CommitmentRdsStatistics\CommitmentRdsStatisticsCommand.cs" />
+    <Compile Include="Commands\Statistics\CommitmentRdsStatistics\CommitmentRdsStatisticsCommandHandler.cs" />
+    <Compile Include="Commands\Statistics\CommitmentRdsStatistics\CommitmentRdsStatisticsCommandResponse.cs" />
+    <Compile Include="Commands\Statistics\EasProcessingCompletedMessage.cs" />
+    <Compile Include="Commands\Statistics\EasRdsStatistics\EasRdsStatisticsCommand.cs" />
+    <Compile Include="Commands\Statistics\EasRdsStatistics\EasRdsStatisticsCommandHandler.cs" />
+    <Compile Include="Commands\Statistics\EasRdsStatistics\EasRdsStatisticsCommandResponse.cs" />
+    <Compile Include="Commands\Statistics\ICommandResponse.cs" />
+    <Compile Include="Commands\Statistics\IStatisticsCommand.cs" />
+    <Compile Include="Commands\Statistics\PaymentRdsStatistics\PaymentRdsStatisticsCommand.cs" />
+    <Compile Include="Commands\Statistics\PaymentRdsStatistics\PaymentRdsStatisticsCommandHandler.cs" />
+    <Compile Include="Commands\Statistics\PaymentRdsStatistics\PaymentRdsStatisticsCommandResponse.cs" />
+    <Compile Include="Commands\Statistics\PaymentsProcessingCompletedMessage.cs" />
     <Compile Include="Configuration\PerformancePlatformConfiguration.cs" />
     <Compile Include="Configuration\DataConfiguration.cs" />
     <Compile Include="Configuration\EventsApiClientConfiguration.cs" />
@@ -195,6 +209,10 @@
     <ProjectReference Include="..\SFA.DAS.Data.Domain\SFA.DAS.Data.Domain.csproj">
       <Project>{4AAD17AA-1127-471A-8D28-BA1C5DA7D18A}</Project>
       <Name>SFA.DAS.Data.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SFA.DAS.Data.Functions.Ioc\SFA.DAS.Data.Functions.Ioc.csproj">
+      <Project>{d011214b-c95f-4097-8373-7270a77204b4}</Project>
+      <Name>SFA.DAS.Data.Functions.Ioc</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

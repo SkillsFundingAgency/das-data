@@ -1,4 +1,4 @@
-﻿namespace SFA.DAS.Data.Functions.Commands.EasRdsStatistics
+﻿namespace SFA.DAS.Data.Application.Commands.Statistics.EasRdsStatistics
 {
     public class EasRdsStatisticsCommandResponse : ICommandResponse
     {

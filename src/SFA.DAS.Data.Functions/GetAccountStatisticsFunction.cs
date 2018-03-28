@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
+using SFA.DAS.Data.Application.Commands.Statistics;
 using SFA.DAS.Data.Domain.Interfaces;
 using SFA.DAS.Data.Functions.Ioc;
 using SFA.DAS.NLog.Logger;

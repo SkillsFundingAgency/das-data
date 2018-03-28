@@ -130,6 +130,7 @@
     <Compile Include="Data\PaymentRepository.cs" />
     <Compile Include="Data\PerformancePlatformRepository.cs" />
     <Compile Include="Data\ProviderRepository.cs" />
+    <Compile Include="Data\StatisticsRepository.cs" />
     <Compile Include="HttpClient.cs" />
     <Compile Include="Http\HttpClientWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -147,9 +148,9 @@
       <Project>{4AAD17AA-1127-471A-8D28-BA1C5DA7D18A}</Project>
       <Name>SFA.DAS.Data.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SFA.DAS.Data.Functions\SFA.DAS.Data.Functions.csproj">
-      <Project>{5C652B98-87C1-45CD-AB44-6F475223EFD4}</Project>
-      <Name>SFA.DAS.Data.Functions</Name>
+    <ProjectReference Include="..\SFA.DAS.Data.Functions.Ioc\SFA.DAS.Data.Functions.Ioc.csproj">
+      <Project>{D011214B-C95F-4097-8373-7270A77204B4}</Project>
+      <Name>SFA.DAS.Data.Functions.Ioc</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

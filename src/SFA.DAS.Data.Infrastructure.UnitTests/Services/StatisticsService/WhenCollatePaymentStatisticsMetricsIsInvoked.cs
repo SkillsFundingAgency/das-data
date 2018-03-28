@@ -7,10 +7,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
+using SFA.DAS.Data.Application.Commands.Statistics;
+using SFA.DAS.Data.Application.Commands.Statistics.PaymentRdsStatistics;
 using SFA.DAS.Data.Domain.Models;
 using SFA.DAS.Data.Functions;
-using SFA.DAS.Data.Functions.Commands.EasRdsStatistics;
-using SFA.DAS.Data.Functions.Commands.PaymentRdsStatistics;
 using SFA.DAS.Events.Api.Types;
 
 namespace SFA.DAS.Data.Infrastructure.UnitTests.Services.StatisticsService

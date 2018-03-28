@@ -1,5 +1,4 @@
-﻿using StructureMap;
-using MediatR;
+﻿using MediatR;
 using Microsoft.Azure;
 using SFA.DAS.Configuration;
 using SFA.DAS.Configuration.AzureTableStorage;
@@ -7,8 +6,9 @@ using SFA.DAS.Data.Application.Configuration;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.Data.Infrastructure.Data;
 using SFA.DAS.NLog.Logger;
+using StructureMap;
 
-namespace SFA.DAS.Data.Functions.Ioc
+namespace SFA.DAS.Data.Functions
 {
     public class DefaultRegistry : Registry
     {

@@ -5,7 +5,7 @@ using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.Data.Functions.Ioc;
 using SFA.DAS.NLog.Logger;
 
-namespace SFA.DAS.Data.Functions.Commands.CommitmentRdsStatistics
+namespace SFA.DAS.Data.Application.Commands.Statistics.CommitmentRdsStatistics
 {
     public class CommitmentRdsStatisticsCommandHandler : IAsyncRequestHandler<CommitmentRdsStatisticsCommand, CommitmentRdsStatisticsCommandResponse>
     {

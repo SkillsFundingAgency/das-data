@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SFA.DAS.Data.Domain.Interfaces;
 
-namespace SFA.DAS.Data.Functions
+namespace SFA.DAS.Data.Application.Commands.Statistics
 {
     public class PaymentsProcessingCompletedMessage : IProcessingCompletedMessage
     {

@@ -11,6 +11,7 @@ using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Queue;
 using Newtonsoft.Json;
 using NUnit.Framework;
+using SFA.DAS.Data.Application.Commands.Statistics;
 
 namespace SFA.DAS.Data.Functions.AcceptanceTests.StatisticsTests
 {

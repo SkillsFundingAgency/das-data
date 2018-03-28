@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SFA.DAS.Data.Functions.Ioc;
 using StructureMap;
 
-namespace SFA.DAS.Data.Functions.Ioc
+namespace SFA.DAS.Data.Functions
 {
     public class StructureMapObjectResolver : IObjectResolver
     {

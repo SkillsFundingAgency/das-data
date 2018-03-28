@@ -9,7 +9,6 @@ using SFA.DAS.Data.Application.Configuration;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.Data.Domain.Interfaces;
 using SFA.DAS.Data.Functions.AcceptanceTests.Stubs;
-using SFA.DAS.Data.Functions.Repository;
 using SFA.DAS.Data.Infrastructure.Data;
 using SFA.DAS.Data.Infrastructure.Http;
 using SFA.DAS.Data.Infrastructure.Services;

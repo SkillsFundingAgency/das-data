@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 using MediatR;
 using Moq;
 using NUnit.Framework;
+using SFA.DAS.Data.Application.Commands.Statistics;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.Data.Domain.Interfaces;
 using SFA.DAS.Data.Domain.Models;
-using SFA.DAS.Data.Functions.Commands;
 using SFA.DAS.Events.Api.Client;
 using SFA.DAS.NLog.Logger;
 

@@ -3,10 +3,10 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
+using SFA.DAS.Data.Application.Commands.Statistics;
+using SFA.DAS.Data.Application.Commands.Statistics.EasRdsStatistics;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.Data.Domain.Models;
-using SFA.DAS.Data.Functions.Commands;
-using SFA.DAS.Data.Functions.Commands.EasRdsStatistics;
 
 namespace SFA.DAS.Data.Application.UnitTests.Commands.EasRdsStatisticsTests
 {

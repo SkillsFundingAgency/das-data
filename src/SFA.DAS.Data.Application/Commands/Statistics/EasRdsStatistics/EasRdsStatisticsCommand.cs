@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using SFA.DAS.Data.Domain.Models;
 
-namespace SFA.DAS.Data.Functions.Commands.EasRdsStatistics
+namespace SFA.DAS.Data.Application.Commands.Statistics.EasRdsStatistics
 {
     public class EasRdsStatisticsCommand : IAsyncRequest<EasRdsStatisticsCommandResponse>, IAsyncRequest<EasRdsStatisticsCommandHandler>, 
         IStatisticsCommand<EasStatisticsModel, RdsStatisticsForEasModel>
