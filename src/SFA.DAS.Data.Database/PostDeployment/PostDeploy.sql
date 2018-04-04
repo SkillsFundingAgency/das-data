@@ -30,9 +30,12 @@ GRANT SELECT ON [Data_Load].[DAS_FailedEvents] TO Developer
 GRANT SELECT ON [Data_Load].[DAS_LevyDeclarations] TO Developer
 GRANT SELECT ON [Data_Load].[DAS_LoadedEvents] TO Developer
 GRANT SELECT ON [Data_Load].[DAS_Payments] TO Developer
+GRANT SELECT ON [PerformancePlatform].[PP_HistoricalStatistics] TO Developer
+GRANT SELECT ON [PerformancePlatform].[PP_LastRun] TO Developer
 GRANT SELECT ON [Data_Pub].[DAS_Employer_Accounts] TO Developer
 GRANT SELECT ON [Data_Pub].[DAS_Employer_LegalEntities] TO Developer
 GRANT SELECT ON [Data_Pub].[DAS_Employer_PayeSchemes] TO Developer
+GRANT SELECT ON [Data_Pub].[DAS_EmploymentCheck] TO Developer
 GRANT SELECT ON [Data_Pub].[DAS_Commitments] TO Developer
 GRANT SELECT ON [Data_Pub].[DAS_CalendarMonth] TO Developer
 GRANT SELECT ON [Data_Pub].[DAS_LevyDeclarations] TO Developer
