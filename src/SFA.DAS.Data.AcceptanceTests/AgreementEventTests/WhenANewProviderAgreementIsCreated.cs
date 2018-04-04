@@ -13,22 +13,21 @@ namespace SFA.DAS.Data.AcceptanceTests.AgreementEventTests
     {
         protected override string EventName => "AgreementEventView";
 
-        // Test commented out due to backing out of Roatp provider changes as not been tested
-        //[Test]
-        //public void ThenTheProviderDetailsAreStored()
-        //{
-        //    ConfigureEventsApi();
-        //    ConfigureAgreementsApi();
+        [Test]
+        public void ThenTheProviderDetailsAreStored()
+        {
+            ConfigureEventsApi();
+            ConfigureAgreementsApi();
 
-        //    var cancellationTokenSource = new CancellationTokenSource();
-        //    var cancellationToken = cancellationTokenSource.Token;
-        //    Task.Run(() => WorkerRole.Run(), cancellationToken);
+            var cancellationTokenSource = new CancellationTokenSource();
+            var cancellationToken = cancellationTokenSource.Token;
+            Task.Run(() => WorkerRole.Run(), cancellationToken);
 
-        //    var databaseAsExpected = TestHelper.ConditionMet(IsDatabaseInExpectedState, TimeSpan.FromSeconds(60));
+            var databaseAsExpected = TestHelper.ConditionMet(IsDatabaseInExpectedState, TimeSpan.FromSeconds(60));
 
-        //    cancellationTokenSource.Cancel();
-        //    Assert.IsTrue(databaseAsExpected);
-        //}
+            cancellationTokenSource.Cancel();
+            Assert.IsTrue(databaseAsExpected);
+        }
 
         private async Task<bool> IsDatabaseInExpectedState()
         {
