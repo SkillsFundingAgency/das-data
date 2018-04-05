@@ -91,8 +91,7 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             For<IEventsCollector<GenericEvent<AgreementSignedEvent>>>().Use<GenericEventCollector<AgreementSignedEvent>>();
             For<IEventsCollector<PeriodEnd>>().Use<PaymentEventsCollector>();
             For<IEventsCollector<GenericEvent<EmploymentCheckCompleteEvent>>>().Use<GenericEventCollector<EmploymentCheckCompleteEvent>>();
-            // Following code commented out so that Roatp changes do not go through to live as there are some questions around the tesing - Mahinder Suniara
-            // For<IEventsCollector<AgreementEventView>>().Use<AgreementEventCollector>();
+            For<IEventsCollector<AgreementEventView>>().Use<AgreementEventCollector>();
 
             //Legacy support
             For<IEventsCollector<AccountEventView>>().Use<AccountEventCollector>();
