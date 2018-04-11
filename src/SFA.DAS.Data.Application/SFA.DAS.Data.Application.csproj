@@ -152,6 +152,7 @@
     <Compile Include="Interfaces\Repositories\IApprenticeshipRepository.cs" />
     <Compile Include="Interfaces\Repositories\IEmployerAgreementRepository.cs" />
     <Compile Include="Interfaces\Repositories\ILevyDeclarationRepository.cs" />
+    <Compile Include="Interfaces\Repositories\ITransferRelationshipRepository.cs" />
     <Compile Include="Interfaces\Repositories\IPayeSchemeRepository.cs" />
     <Compile Include="Interfaces\Repositories\ILegalEntityRepository.cs" />
     <Compile Include="Interfaces\Repositories\IEventRepository.cs" />

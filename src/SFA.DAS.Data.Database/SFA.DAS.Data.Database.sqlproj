@@ -137,6 +137,7 @@
     <Build Include="Views\DAS_EmploymentCheck.sql" />
     <Build Include="Tables\DAS_Employer_Account_Transfers.sql" />
     <Build Include="Tables\DAS_Employer_Transfer_Relationships.sql" />
+    <Build Include="StoredProcedures\CreateTransfersRelationship.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SFA.DAS.Data.Database.refactorlog" />
