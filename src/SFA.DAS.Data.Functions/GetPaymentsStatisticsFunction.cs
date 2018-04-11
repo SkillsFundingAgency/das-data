@@ -12,6 +12,7 @@ namespace SFA.DAS.Data.Functions
     public static class GetPaymentsStatisticsFunction
     {
         [FunctionName("GetPaymentsStatisticsFunction")]
+        [Disable]
         public static async Task Run([QueueTrigger(
             QueueNames.ProviderQueueName, Connection = "StorageConnectionString")] CommitmentProcessingCompletedMessage message, 
             [Inject] ILog log,

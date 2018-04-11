@@ -13,6 +13,7 @@ namespace SFA.DAS.Data.Functions
     {
         [FunctionName("GetCommitmentStatisticsFunction")]
         [return: Queue(QueueNames.ProviderQueueName)]
+        [Disable]
         public static async Task<CommitmentProcessingCompletedMessage> Run(
             [QueueTrigger(QueueNames.CommitmentsQueueName, Connection = "StorageConnectionString")] EasProcessingCompletedMessage message, 
             [Inject] ILog log,

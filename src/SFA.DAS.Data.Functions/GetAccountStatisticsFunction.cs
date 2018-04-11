@@ -10,6 +10,7 @@ namespace SFA.DAS.Data.Functions
     public static class GetAccountStatisticsFunction
     {
         [FunctionName("GetAccountStatisticsFunction")]
+        [Disable]
         [return: Queue(QueueNames.CommitmentsQueueName)]
         public static async Task<EasProcessingCompletedMessage> Run([TimerTrigger("%CronSchedule%")] TimerInfo myTimer, [Inject] ILog log,
             [Inject] IStatisticsService statsService)
