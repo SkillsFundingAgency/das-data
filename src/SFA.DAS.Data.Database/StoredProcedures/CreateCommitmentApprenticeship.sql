@@ -17,7 +17,7 @@
 	@dateOfBirth DATETIME
 AS
 
-	UPDATE [Data_Load].[DAS_Commitments] SET IsLatest = 0 WHERE ApprenticeshipID = @apprenticeshipId
+	UPDATE [Data_Load].[Das_Commitments] SET IsLatest = 0 WHERE ApprenticeshipID = @apprenticeshipId
 
 	INSERT INTO [Data_Load].Das_Commitments 
 	(

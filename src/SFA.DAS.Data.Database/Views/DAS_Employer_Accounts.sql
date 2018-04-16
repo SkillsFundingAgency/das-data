@@ -24,7 +24,7 @@ FROM [Data_Load].[DAS_Employer_Accounts] AS EA
 			 EPS.[DasAccountId]
 			,COUNT(*) AS CountOfCurrentPAYESchemes
 		 FROM [Data_Pub].[DAS_Employer_PayeSchemes] AS EPS
-		 WHERE EPS.flag_Latest = 1
+		 WHERE EPS.Flag_Latest = 1
 		 --Checking if the PAYE Schemes are valid when the view runs using 31 DEC 2999 as default removed date if null
 			AND GETDATE() BETWEEN EPS.AddedDate AND COALESCE(EPS.RemovedDate,'31 DEC 2999')
 		 GROUP BY EPS.[DasAccountId]
@@ -37,7 +37,7 @@ FROM [Data_Load].[DAS_Employer_Accounts] AS EA
 			 ELE.[DasAccountId]
 			,COUNT(*) AS CountOfCurrentLegalEntities
 		 FROM [Data_Pub].[DAS_Employer_LegalEntities] AS ELE
-		 WHERE ELE.flag_Latest = 1
+		 WHERE ELE.Flag_Latest = 1
 		 GROUP BY ELE.[DasAccountId]
 		)
 		AS CLE ON CLE.DasAccountId = EA.DasAccountId

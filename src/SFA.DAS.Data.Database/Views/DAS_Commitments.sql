@@ -1,7 +1,7 @@
 CREATE VIEW [Data_Pub].[DAS_Commitments]
 AS
 
-SELECT [C].[ID]
+SELECT [C].[Id]
           , [C].[CommitmentID]  AS EventID
           , [C].[PaymentStatus] AS PaymentStatus
           , [C].[ApprenticeshipID] AS CommitmentID
@@ -38,6 +38,9 @@ SELECT [C].[ID]
             END AS [PwayCode]
           , CAST([C].[TrainingStartDate] AS DATE) AS TrainingStartDate
           , CAST([C].[TrainingEndDate] AS DATE) AS TrainingEndDate
+		  , [C].TransferSenderAccountId
+		  , [C].TransferApprovalStatus
+		  , [C].TransferApprovalDate
           , [C].[TrainingTotalCost]  AS TrainingTotalCost
           , [C].[UpdateDateTime] AS UpdateDateTime
             -- Additional Columns for UpdateDateTime represented as a Date
@@ -97,7 +100,7 @@ SELECT [C].[ID]
           , CASE WHEN C.AgreementStatus = 'BothAgreed' THEN 'Yes'
                  ELSE 'No' END AS FullyAgreedCommitment
           , ELE.LegalEntityRegisteredAddress
-	FROM Data_Load.DAS_Commitments AS C
+	FROM Data_Load.Das_Commitments AS C
 		 -- DAS Account
 		 LEFT JOIN [Data_Load].[DAS_Employer_Accounts] EAA ON EAA.AccountId = [C].[EmployerAccountID] AND EAA.IsLatest = 1
 
@@ -105,7 +108,7 @@ SELECT [C].[ID]
 		 LEFT JOIN (SELECT 
                     DISTINCT TOP 1
                       ELE.DasAccountId
-                    , ELE.COde AS [LegalEntityNumber]
+                    , ELE.Code AS [LegalEntityNumber]
                     , ELE.Name AS [LegalEntityName]
                     , REPLACE(ELE.Source,' ','') AS [LegalEntitySource]
                     , ELE.[DasLegalEntityId] 
@@ -122,7 +125,7 @@ SELECT [C].[ID]
 					 INNER JOIN
 				   --Looking to get the max Collection information for the delivery Period, Commitment ID and Employer Account ID
 						(
-						 SELECT [P].[EmployerAccountID]
+						 SELECT [P].[EmployerAccountId]
 						, P.ApprenticeshipId
 						, P.DeliveryMonth
 						, P.DeliveryYear
@@ -131,11 +134,11 @@ SELECT [C].[ID]
 						 FROM
 							[Data_Load].[DAS_Payments] AS P
 					  GROUP BY
-					   P.EmployerAccountID
+					   P.EmployerAccountId
 						, P.ApprenticeshipId
 						, P.DeliveryMonth
 						, P.DeliveryYear
-					 ) AS LP ON LP.EmployerAccountID = P.EmployerAccountID
+					 ) AS LP ON LP.EmployerAccountId = P.EmployerAccountId
 					   AND LP.ApprenticeshipId = P.ApprenticeshipId
 					   AND LP.DeliveryMonth = P.DeliveryMonth
 					   AND LP.DeliveryYear = P.DeliveryYear

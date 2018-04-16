@@ -20,13 +20,14 @@
 	[DateOfBirth] DATETIME NULL, 
     [IsLatest] BIT NOT NULL DEFAULT 0, 
     [TransferSenderAccountId] BIGINT NULL, 
-    [TransferApprovalStatus] NVARCHAR(10) NULL
+    [TransferApprovalStatus] NVARCHAR(10) NULL,
+    [TransferApprovalDate] DATETIME NULL
 )
 GO
-CREATE INDEX [IX_Commitment_Apprenticeship] ON [Data_Load].[DAS_Commitments] ([ApprenticeshipID], [IsLatest])
+CREATE INDEX [IX_Commitment_Apprenticeship] ON [Data_Load].[Das_Commitments] ([ApprenticeshipID], [IsLatest])
 GO
-CREATE INDEX [IX_Commitment_IsLatest_AgreementStatus_StartDate] ON [Data_Load].[DAS_Commitments] ([IsLatest], [AgreementStatus], [TrainingStartDate])
+CREATE INDEX [IX_Commitment_IsLatest_AgreementStatus_StartDate] ON [Data_Load].[Das_Commitments] ([IsLatest], [AgreementStatus], [TrainingStartDate])
 GO
-CREATE INDEX [IX_Commitment_IsLatest_PaymentStatus] ON [Data_Load].[DAS_Commitments] ([IsLatest], [PaymentStatus])
+CREATE INDEX [IX_Commitment_IsLatest_PaymentStatus] ON [Data_Load].[Das_Commitments] ([IsLatest], [PaymentStatus])
 GO
-CREATE INDEX [IX_Commitment_EmployerAccount_IsLatest] ON [Data_Load].[DAS_Commitments] ([EmployerAccountId], [IsLatest])
+CREATE INDEX [IX_Commitment_EmployerAccount_IsLatest] ON [Data_Load].[Das_Commitments] ([EmployerAccountID], [IsLatest])

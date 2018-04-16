@@ -20,7 +20,7 @@
        UNION ALL
      --- Payments 
           SELECT 
-                    [EA].[DASAccountID] AS DasAccountId
+                    [EA].[DasAccountId] AS DasAccountId
                ,    PS.UpdateDateTime AS CreatedDate
                ,    'OUT '+[TransactionType]  AS TransactionType
                ,    ROUND((PS.Amount*-1),2) AS Amount -- Made negative as Payment
