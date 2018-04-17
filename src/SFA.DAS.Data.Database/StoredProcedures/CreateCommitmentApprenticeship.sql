@@ -37,7 +37,6 @@ AS
 		LegalEntityName,
 		LegalEntityOrganisationType,
 		DateOfBirth,
-		UpdateDateTime,
 		IsLatest
 	)
 	VALUES
@@ -58,6 +57,5 @@ AS
 		@legalEntityName,
 		@legalEntityOrganisationType,
 		@dateOfBirth,
-		GETUTCDATE(),
 		1
 	)
