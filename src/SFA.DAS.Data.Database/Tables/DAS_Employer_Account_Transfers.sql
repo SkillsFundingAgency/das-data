@@ -8,6 +8,6 @@
 	[Amount]	DECIMAL(18, 5) NULL,
 	[Type] NVARCHAR(50) NOT NULL,
 	[TransferDate] DATE NOT NULL,
-    [ColectionPeriodName] NCHAR(10) NOT NULL
+    [ColectionPeriodName] NCHAR(10) NOT NULL 
 )
 GO
