@@ -33,6 +33,9 @@ namespace SFA.DAS.Data.Infrastructure.Data
                 parameters.Add("@legalEntityName", @event.LegalEntityName, DbType.String);
                 parameters.Add("@legalEntityOrganisationType", @event.LegalEntityOrganisationType, DbType.String);
                 parameters.Add("@dateOfBirth", @event.DateOfBirth, DbType.Date);
+                parameters.Add("@transferSenderAccountId", @event.TransferSenderAccountId, DbType.Int64);
+                parameters.Add("@transferApprovalStatus", @event.TransferApprovalStatus, DbType.String);
+                parameters.Add("@transferApprovalDate", @event.TransferApprovalDate, DbType.DateTime);
 
                 return await c.ExecuteAsync(
                     sql: "[Data_Load].[CreateCommitmentApprenticeship]",

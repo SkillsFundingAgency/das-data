@@ -1,4 +1,5 @@
 ﻿using System;
+using SFA.DAS.Events.Api.Types;
 
 namespace SFA.DAS.Data.Domain.Models
 {
@@ -39,5 +40,14 @@ namespace SFA.DAS.Data.Domain.Models
         public string LegalEntityOrganisationType { get; set; }
 
         public DateTime? DateOfBirth { get; set; }
+
+        public long? TransferSenderAccountId { get; set; }
+
+        public string TransferSenderName { get; set; }
+
+        public string TransferApprovalStatus { get; set; }
+
+        public DateTime? TransferApprovalDate { get; set; }
+
     }
 }

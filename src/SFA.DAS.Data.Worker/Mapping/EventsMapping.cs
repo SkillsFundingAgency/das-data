@@ -14,7 +14,11 @@ namespace SFA.DAS.Data.Worker.Mapping
                     config => config.MapFrom(source => Enum.GetName(typeof(PaymentStatus), source.PaymentStatus)))
                 .ForMember(target => target.AgreementStatus,
                     config => config.MapFrom(source => Enum.GetName(typeof(AgreementStatus), source.AgreementStatus)))
-                .ForMember(target => target.LegalEntityCode, config => config.MapFrom(source => source.LegalEntityId));
+                .ForMember(target => target.AgreementStatus,
+                    config => config.MapFrom(source => Enum.GetName(typeof(TransferApprovalStatus), source.TransferApprovalStatus)))
+                .ForMember(target => target.LegalEntityCode, config => config.MapFrom(source => source.LegalEntityId))
+                .ForMember(target => target.TransferSenderAccountId, config => config.MapFrom(source => source.TransferSenderId))
+                .ForMember(target => target.TransferApprovalDate, config => config.MapFrom(source => source.TransferApprovalActionedOn));
         }
     }
 }

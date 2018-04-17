@@ -20,7 +20,7 @@
 	[DateOfBirth] DATETIME NULL, 
     [IsLatest] BIT NOT NULL DEFAULT 0, 
     [TransferSenderAccountId] BIGINT NULL, 
-    [TransferApprovalStatus] TINYINT NULL,
+    [TransferApprovalStatus] NVARCHAR(50) NULL,
     [TransferApprovalDate] DATETIME NULL
 )
 GO
