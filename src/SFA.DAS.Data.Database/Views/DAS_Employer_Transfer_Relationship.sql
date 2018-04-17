@@ -9,3 +9,5 @@
 		[RejectorUserId]
 	FROM 
 		[Data_Load].[DAS_Employer_Transfer_Relationships]
+	WHERE
+		[Data_Load].[DAS_Employer_Transfer_Relationships].[IsLatest] = 1

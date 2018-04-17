@@ -43,7 +43,6 @@ AS
 		TransferSenderAccountId,
 		TransferApprovalStatus,
 		TransferApprovalDate,
-		UpdateDateTime,
 		IsLatest
 	)
 	VALUES
@@ -67,6 +66,5 @@ AS
 		@transferSenderAccountId,
 		@transferApprovalStatus,
 		@transferApprovalDate,
-		GETUTCDATE(),
 		1
 	)
