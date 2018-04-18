@@ -41,7 +41,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Data.PerformancePla
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Data.Host.WebJob", "SFA.DAS.Data.Host.WebJob\SFA.DAS.Data.Host.WebJob.csproj", "{D9B27E8F-E993-472A-8F2E-90BDD7626B5B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Data.Functions", "SFA.DAS.Data.Functions\SFA.DAS.Data.Functions.csproj", "{5C652B98-87C1-45CD-AB44-6F475223EFD4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SFA.DAS.Data.Functions", "SFA.DAS.Data.Functions\SFA.DAS.Data.Functions.csproj", "{5C652B98-87C1-45CD-AB44-6F475223EFD4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -108,7 +108,9 @@ Global
 		{D9B27E8F-E993-472A-8F2E-90BDD7626B5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9B27E8F-E993-472A-8F2E-90BDD7626B5B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5C652B98-87C1-45CD-AB44-6F475223EFD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C652B98-87C1-45CD-AB44-6F475223EFD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C652B98-87C1-45CD-AB44-6F475223EFD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C652B98-87C1-45CD-AB44-6F475223EFD4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
