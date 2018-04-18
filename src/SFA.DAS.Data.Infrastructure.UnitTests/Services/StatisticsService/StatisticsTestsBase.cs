@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Common;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 using MediatR;
 using Moq;
 using NUnit.Framework;
-using SFA.DAS.Data.Application.Commands.Statistics;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.Data.Domain.Interfaces;
-using SFA.DAS.Data.Domain.Models;
+using SFA.DAS.Data.Functions.Statistics.Commands;
 using SFA.DAS.Events.Api.Client;
 using SFA.DAS.NLog.Logger;
 
@@ -38,7 +34,7 @@ namespace SFA.DAS.Data.Infrastructure.UnitTests.Services.StatisticsService
             CommitmentsStatsHandler = new Mock<ICommitmentsStatisticsHandler>();
             PaymentStatsHandler = new Mock<IPaymentStatisticsHandler>();
 
-            StatsService = new Infrastructure.Services.StatisticsService(
+            StatsService = new Functions.Statistics.Services.StatisticsService(
                 Log.Object,
                 EasStatsHandler.Object,
                 StatisticsRepository.Object,

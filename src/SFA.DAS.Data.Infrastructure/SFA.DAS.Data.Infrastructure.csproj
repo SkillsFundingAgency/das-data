@@ -148,10 +148,6 @@
       <Project>{4AAD17AA-1127-471A-8D28-BA1C5DA7D18A}</Project>
       <Name>SFA.DAS.Data.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SFA.DAS.Data.Functions.Ioc\SFA.DAS.Data.Functions.Ioc.csproj">
-      <Project>{D011214B-C95F-4097-8373-7270A77204B4}</Project>
-      <Name>SFA.DAS.Data.Functions.Ioc</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">

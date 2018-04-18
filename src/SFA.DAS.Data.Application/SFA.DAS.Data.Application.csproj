@@ -210,10 +210,6 @@
       <Project>{4AAD17AA-1127-471A-8D28-BA1C5DA7D18A}</Project>
       <Name>SFA.DAS.Data.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SFA.DAS.Data.Functions.Ioc\SFA.DAS.Data.Functions.Ioc.csproj">
-      <Project>{d011214b-c95f-4097-8373-7270a77204b4}</Project>
-      <Name>SFA.DAS.Data.Functions.Ioc</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

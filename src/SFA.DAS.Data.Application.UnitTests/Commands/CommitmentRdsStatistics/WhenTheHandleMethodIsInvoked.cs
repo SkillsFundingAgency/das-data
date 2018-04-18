@@ -3,10 +3,10 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
-using SFA.DAS.Data.Application.Commands.Statistics;
-using SFA.DAS.Data.Application.Commands.Statistics.CommitmentRdsStatistics;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.Data.Domain.Models;
+using SFA.DAS.Data.Functions.Statistics.Commands;
+using SFA.DAS.Data.Functions.Statistics.Commands.CommitmentRdsStatistics;
 
 namespace SFA.DAS.Data.Application.UnitTests.Commands.CommitmentRdsStatistics
 {

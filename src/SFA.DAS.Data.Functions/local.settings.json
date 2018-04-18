@@ -1,8 +1,40 @@
 {
-    "IsEncrypted": false,
+  "IsEncrypted": false,
   "Values": {
     "AzureWebJobsStorage": "UseDevelopmentStorage=true",
     "AzureWebJobsDashboard": "UseDevelopmentStorage=true",
     "CronSchedule": "0 */1 * * * *"
+  },
+  "StorageConnectionString": {
+    "DatabaseConnectionString": "Server=(localdb)\\ProjectsV13;Database=SFA.DAS.Data.Database;Integrated Security = true;Trusted_Connection=True;Pooling=False;Connect Timeout=30;MultipleActiveResultSets=True",
+    "FailureTolerance": 10,
+    "EventsApi": {
+      "BaseUrl": "http://localhost:8002/",
+      "ClientToken": ""
+    },
+    "AccountsApi": {
+      "ApiBaseUrl": "http://localhost:8003/",
+      "ClientId": "0a25a495-140e-4f9f-807b-11e2fa115375",
+      "ClientSecret": "JoqeXmxe1FhXgjKkNeUL0iJEYUjdJKxsR1bAr6AQY5A=",
+      "IdentifierUri": "https://citizenazuresfabisgov.onmicrosoft.com/eas-api",
+      "Tenant": "citizenazuresfabisgov.onmicrosoft.com"
+    },
+    "PaymentsEvents": {
+      "ApiBaseUrl": "http://localhost:8004/",
+      "ClientToken": ""
+    },
+    "AgreementsApiUrl": "http://localhost:8005/",
+    "PaymentsEnabled": true,
+    "CommitmentsApi": {
+      "BaseUrl": "http://localhost:8006/",
+      "ClientToken": ""
+    },
+    "MessageServiceBusConnectionString": " ",
+    "MessageServiceBusConnectionStringLookup": {
+      "Commitments": "Endpoint=sb://ms-das-dev-comt-ns.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=HMxpSnLM814Huso+IN01rGHM4WmUPYFyF1A05IoBH+o="
+    },
+    "EasStatisticsEndPoint": "http://localhost:8009/api/statistics",
+    "CommitmentsStatisticsEndPoint": "http://localhost:8010/api/statistics",
+    "PaymentsStatisticsEndPoint": "http://localhost:8011/api/statistics"
   }
 }

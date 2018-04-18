@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Linq;
+﻿using System.Data.Common;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
-using SFA.DAS.Data.Application.Commands.Statistics;
-using SFA.DAS.Data.Application.Commands.Statistics.PaymentRdsStatistics;
 using SFA.DAS.Data.Domain.Models;
-using SFA.DAS.Data.Functions;
-using SFA.DAS.Events.Api.Types;
+using SFA.DAS.Data.Functions.Statistics.Commands;
+using SFA.DAS.Data.Functions.Statistics.Commands.PaymentRdsStatistics;
 
 namespace SFA.DAS.Data.Infrastructure.UnitTests.Services.StatisticsService
 {

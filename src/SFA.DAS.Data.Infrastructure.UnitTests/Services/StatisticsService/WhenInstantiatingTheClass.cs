@@ -21,7 +21,7 @@ namespace SFA.DAS.Data.Infrastructure.UnitTests.Services.StatisticsService
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
-                new Infrastructure.Services.StatisticsService(null, new Mock<IEasStatisticsHandler>().Object,
+                new Functions.Statistics.Services.StatisticsService(null, new Mock<IEasStatisticsHandler>().Object,
                     new Mock<IStatisticsRepository>().Object, new Mock<IMediator>().Object,  new Mock<ICommitmentsStatisticsHandler>().Object, new Mock<IPaymentStatisticsHandler>().Object);
             });
         }
@@ -31,7 +31,7 @@ namespace SFA.DAS.Data.Infrastructure.UnitTests.Services.StatisticsService
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
-                new Infrastructure.Services.StatisticsService(new Mock<ILog>().Object, null,
+                new Functions.Statistics.Services.StatisticsService(new Mock<ILog>().Object, null,
                     new Mock<IStatisticsRepository>().Object, new Mock<IMediator>().Object,  new Mock<ICommitmentsStatisticsHandler>().Object, new Mock<IPaymentStatisticsHandler>().Object);
             });
         }
@@ -41,7 +41,7 @@ namespace SFA.DAS.Data.Infrastructure.UnitTests.Services.StatisticsService
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
-                new Infrastructure.Services.StatisticsService(new Mock<ILog>().Object, new Mock<IEasStatisticsHandler>().Object,
+                new Functions.Statistics.Services.StatisticsService(new Mock<ILog>().Object, new Mock<IEasStatisticsHandler>().Object,
                     null, new Mock<IMediator>().Object,  new Mock<ICommitmentsStatisticsHandler>().Object, new Mock<IPaymentStatisticsHandler>().Object);
             });
         }
@@ -51,7 +51,7 @@ namespace SFA.DAS.Data.Infrastructure.UnitTests.Services.StatisticsService
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
-                new Infrastructure.Services.StatisticsService(new Mock<ILog>().Object, new Mock<IEasStatisticsHandler>().Object,
+                new Functions.Statistics.Services.StatisticsService(new Mock<ILog>().Object, new Mock<IEasStatisticsHandler>().Object,
                     new Mock<IStatisticsRepository>().Object, null,  new Mock<ICommitmentsStatisticsHandler>().Object, new Mock<IPaymentStatisticsHandler>().Object);
             });
         }
@@ -61,7 +61,7 @@ namespace SFA.DAS.Data.Infrastructure.UnitTests.Services.StatisticsService
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
-                new Infrastructure.Services.StatisticsService(new Mock<ILog>().Object, new Mock<IEasStatisticsHandler>().Object,
+                new Functions.Statistics.Services.StatisticsService(new Mock<ILog>().Object, new Mock<IEasStatisticsHandler>().Object,
                     new Mock<IStatisticsRepository>().Object, new Mock<IMediator>().Object,  null, new Mock<IPaymentStatisticsHandler>().Object);
             });
         }
@@ -71,7 +71,7 @@ namespace SFA.DAS.Data.Infrastructure.UnitTests.Services.StatisticsService
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
-                new Infrastructure.Services.StatisticsService(new Mock<ILog>().Object, new Mock<IEasStatisticsHandler>().Object,
+                new Functions.Statistics.Services.StatisticsService(new Mock<ILog>().Object, new Mock<IEasStatisticsHandler>().Object,
                     new Mock<IStatisticsRepository>().Object, new Mock<IMediator>().Object,  new Mock<ICommitmentsStatisticsHandler>().Object, null);
             });
         }

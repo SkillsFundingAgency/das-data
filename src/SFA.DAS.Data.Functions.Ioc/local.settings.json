@@ -3,6 +3,9 @@
   "Values": {
     "AzureWebJobsStorage": "UseDevelopmentStorage=true",
     "AzureWebJobsDashboard": "UseDevelopmentStorage=true",
-    "CronSchedule": "0 */1 * * * *"
+    "CronSchedule": "0 */1 * * * *",
+    "ConfigurationStorageConnectionString": "UseDevelopmentStorage=true",
+    "EnvironmentName": "LOCAL",
+    "ServiceName":  "SFA.DAS.Data" 
   }
 }

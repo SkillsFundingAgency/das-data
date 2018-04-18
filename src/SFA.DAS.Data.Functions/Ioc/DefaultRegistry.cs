@@ -1,12 +1,17 @@
-﻿using StructureMap;
+﻿using System.Net.Http;
 using MediatR;
 using Microsoft.Azure;
 using SFA.DAS.Configuration;
 using SFA.DAS.Configuration.AzureTableStorage;
 using SFA.DAS.Data.Application.Configuration;
+using SFA.DAS.Data.Application.Handlers;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
+using SFA.DAS.Data.Domain.Interfaces;
+using SFA.DAS.Data.Functions.Statistics.Services;
 using SFA.DAS.Data.Infrastructure.Data;
+using SFA.DAS.Data.Infrastructure.Http;
 using SFA.DAS.NLog.Logger;
+using StructureMap;
 
 namespace SFA.DAS.Data.Functions.Ioc
 {
@@ -24,7 +29,7 @@ namespace SFA.DAS.Data.Functions.Ioc
             });
 
             var config = GetConfiguration();
-
+            
             For<IDataConfiguration>().Use(config);
             RegisterRepositories(config.DatabaseConnectionString);
             AddMediatrRegistrations();
@@ -32,10 +37,16 @@ namespace SFA.DAS.Data.Functions.Ioc
             ConfigureLogging();
         }
 
-        
+
         private void RegisterRepositories(string connectionString)
         {
             For<IStatisticsRepository>().Use<StatisticsRepository>().Ctor<string>().Is(connectionString);
+            For<IStatisticsService>().Use<StatisticsService>();
+            For<IEasStatisticsHandler>().Use<EasStatisticsHandler>();
+            HttpMessageHandler handler = new HttpClientHandler();
+            For<IHttpClientWrapper>().Use<HttpClientWrapper>().Ctor<HttpMessageHandler>().Is(handler);
+            For<ICommitmentsStatisticsHandler>().Use<CommitmentsStatisticsHandler>();
+            For<IPaymentStatisticsHandler>().Use<PaymentsStatisticsHandler>();
         }
 
         private void AddMediatrRegistrations()
@@ -45,7 +56,7 @@ namespace SFA.DAS.Data.Functions.Ioc
 
             For<IMediator>().Use<Mediator>();
         }
-        
+
         private DataConfiguration GetConfiguration()
         {
             var environment = CloudConfigurationManager.GetSetting("EnvironmentName");
