@@ -13,7 +13,7 @@
     [TrainingStartDate] DATE,
     [TrainingEndDate]   DATE,
     [TrainingTotalCost] DECIMAL,
-    [UpdateDateTime]    DATETIME NOT NULL, 
+    [UpdateDateTime]    DATETIME NOT NULL DEFAULT GETDATE(), 
     [LegalEntityCode] NVARCHAR(50) NULL, 
     [LegalEntityName] NVARCHAR(100) NULL, 
     [LegalEntityOrganisationType] NVARCHAR(20) NULL,
