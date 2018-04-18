@@ -73,7 +73,7 @@ namespace SFA.DAS.Data.AcceptanceTests.PaymentEventTests
                 payments.Add(new PaymentBuilder().WithId(periodEnd + i).WithPeriod(periodEnd).Build());
             }
             var paymentsResult = new PageOfResults<Payment> { Items = payments.ToArray(), PageNumber = 1, TotalNumberOfPages = 1 };
-            EventsApi.SetupGet($"api/payments?page=1&periodId={periodEnd}&employerAccountId={null}", paymentsResult);
+            EventsApi.SetupGet($"api/payments?page=1&periodId={periodEnd}&employerAccountId={null}&ukprn={null}", paymentsResult);
         }
     }
 }
