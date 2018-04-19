@@ -8,7 +8,7 @@ CREATE VIEW [Reporting].[PaymentsOverview]
        ,COUNT ((C.[CommitmentID])) AS Commitments
        
        
-       FROM [Data_pub].[Das_Commitments] AS C
+       FROM [Data_Pub].[DAS_Commitments] AS C
                     
        WHERE  C.Flag_Latest = 1
        GROUP BY
@@ -28,7 +28,7 @@ CREATE VIEW [Reporting].[PaymentsOverview]
        , COUNT ((C.[CommitmentID])) AS Commitments
        
        
-       FROM [Data_pub].[Das_Commitments] AS C
+       FROM [Data_Pub].[DAS_Commitments] AS C
                     
        WHERE C.StartDateInCurrentMonth = 'Yes' AND C.Flag_Latest = 1
        GROUP BY

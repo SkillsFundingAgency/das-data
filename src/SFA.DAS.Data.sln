@@ -31,8 +31,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Data.AcceptanceTest
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Data.Tests.Builders", "SFA.DAS.Data.Tests.Builders\SFA.DAS.Data.Tests.Builders.csproj", "{D25D12F9-952C-484F-8E23-CA4F207FEC79}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Data.Domain", "SFA.DAS.Data.Domain\SFA.DAS.Data.Domain.csproj", "{4AAD17AA-1127-471A-8D28-BA1C5DA7D18A}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Data.Infrastructure.UnitTests", "SFA.DAS.Data.Infrastructure.UnitTests\SFA.DAS.Data.Infrastructure.UnitTests.csproj", "{F8B3BF9E-E2EC-453B-8BCE-5425D3749D23}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Data.DatabaseTests", "SFA.DAS.Data.DatabaseTests\SFA.DAS.Data.DatabaseTests.csproj", "{9D8D68B1-BBBB-4290-9D8F-263B4EFA26FC}"
@@ -40,8 +38,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Data.PerformancePlatform.WebJob", "SFA.DAS.Data.PerformancePlatform.WebJob\SFA.DAS.Data.PerformancePlatform.WebJob.csproj", "{86422A30-BBF3-45BE-84B5-B53C2351319D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Data.Host.WebJob", "SFA.DAS.Data.Host.WebJob\SFA.DAS.Data.Host.WebJob.csproj", "{D9B27E8F-E993-472A-8F2E-90BDD7626B5B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Data.Functions", "SFA.DAS.Data.Functions\SFA.DAS.Data.Functions.csproj", "{5C652B98-87C1-45CD-AB44-6F475223EFD4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -87,10 +83,6 @@ Global
 		{D25D12F9-952C-484F-8E23-CA4F207FEC79}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D25D12F9-952C-484F-8E23-CA4F207FEC79}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D25D12F9-952C-484F-8E23-CA4F207FEC79}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4AAD17AA-1127-471A-8D28-BA1C5DA7D18A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4AAD17AA-1127-471A-8D28-BA1C5DA7D18A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4AAD17AA-1127-471A-8D28-BA1C5DA7D18A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4AAD17AA-1127-471A-8D28-BA1C5DA7D18A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F8B3BF9E-E2EC-453B-8BCE-5425D3749D23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F8B3BF9E-E2EC-453B-8BCE-5425D3749D23}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8B3BF9E-E2EC-453B-8BCE-5425D3749D23}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -107,10 +99,6 @@ Global
 		{D9B27E8F-E993-472A-8F2E-90BDD7626B5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9B27E8F-E993-472A-8F2E-90BDD7626B5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9B27E8F-E993-472A-8F2E-90BDD7626B5B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5C652B98-87C1-45CD-AB44-6F475223EFD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5C652B98-87C1-45CD-AB44-6F475223EFD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5C652B98-87C1-45CD-AB44-6F475223EFD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5C652B98-87C1-45CD-AB44-6F475223EFD4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
