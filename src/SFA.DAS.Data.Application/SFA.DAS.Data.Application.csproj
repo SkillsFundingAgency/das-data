@@ -169,12 +169,6 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SFA.DAS.Data.Domain\SFA.DAS.Data.Domain.csproj">
-      <Project>{4AAD17AA-1127-471A-8D28-BA1C5DA7D18A}</Project>
-      <Name>SFA.DAS.Data.Domain</Name>
-    </ProjectReference>
-  </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

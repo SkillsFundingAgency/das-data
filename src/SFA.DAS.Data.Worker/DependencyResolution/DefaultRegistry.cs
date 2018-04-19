@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using AutoMapper;
-using MediatR;
+﻿using MediatR;
 using Microsoft.Azure;
 using SFA.DAS.Configuration;
 using SFA.DAS.Configuration.AzureTableStorage;
@@ -27,7 +22,6 @@ using SFA.DAS.Provider.Events.Api.Client;
 using SFA.DAS.Provider.Events.Api.Types;
 using SFA.Roatp.Api.Client;
 using StructureMap;
-using StructureMap.TypeRules;
 
 namespace SFA.DAS.Data.Worker.DependencyResolution
 {
@@ -53,8 +47,6 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             RegisterEventCollectors();
             RegisterEventHandlers();
             RegisterEventProcessors();
-
-            RegisterMapper();
 
             AddMediatrRegistrations();
 
@@ -145,34 +137,6 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
 
             For<IMediator>().Use<Mediator>();
         }
-
-        private void RegisterMapper()
-        {
-            var assemblies = AppDomain.CurrentDomain.GetAssemblies().Where(a => a.FullName.StartsWith("SFA.DAS.Data"));
-
-            var mappingProfiles = new List<Profile>();
-
-            foreach (var assembly in assemblies)
-            {
-                var profiles = Assembly.Load(assembly.FullName).GetTypes()
-                                       .Where(t => typeof(Profile).IsAssignableFrom(t))
-                                       .Where(t => t.IsConcrete() && t.HasConstructors())
-                                       .Select(t => (Profile)Activator.CreateInstance(t));
-
-                mappingProfiles.AddRange(profiles);
-            }
-
-            var config = new MapperConfiguration(cfg =>
-            {
-                mappingProfiles.ForEach(cfg.AddProfile);
-            });
-
-            var mapper = config.CreateMapper();
-
-            For<IConfigurationProvider>().Use(config).Singleton();
-            For<IMapper>().Use(mapper).Singleton();
-        }
-
         private DataConfiguration GetConfiguration()
         {
             var environment = CloudConfigurationManager.GetSetting("EnvironmentName");
