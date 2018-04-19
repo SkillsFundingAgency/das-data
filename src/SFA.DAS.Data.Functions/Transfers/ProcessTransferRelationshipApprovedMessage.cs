@@ -16,8 +16,6 @@ namespace SFA.DAS.Data.Functions.Transfers
 {
     public class ProcessTransferRelationshipApprovedMessage
     {
-        private static string connectionString =
-            "Server=(localdb)\\ProjectsV13;Database=SFA.DAS.Data.Database;Integrated Security = true;Trusted_Connection=True;Pooling=False;Connect Timeout=30;MultipleActiveResultSets=True";
         [FunctionName("ProcessTransferRelationshipApprovedMessage")]
         public static void Run([ServiceBusTrigger("approved_transfer_connection_invitation", "RDS_ApprovedTransferConnectionInvitiationProcessor", AccessRights.Manage,Connection = "MessageBusConnectionString")] ApprovedTransferConnectionInvitationEvent message, ExecutionContext executionContext, TraceWriter log)
         {

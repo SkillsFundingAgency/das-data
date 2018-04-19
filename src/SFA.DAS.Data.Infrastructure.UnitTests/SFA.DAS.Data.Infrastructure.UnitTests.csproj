@@ -55,6 +55,7 @@
       <HintPath>..\packages\NUnit.3.6.1\lib\net45\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SFA.DAS.EmployerAccounts.Events, Version=1.2.0.62826, Culture=neutral, PublicKeyToken=null" />
     <Reference Include="SFA.DAS.Events.Api.Client, Version=1.23.0.28215, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.Events.Api.Client.1.23.0.28215\lib\net45\SFA.DAS.Events.Api.Client.dll</HintPath>
       <Private>True</Private>
@@ -86,6 +87,7 @@
     <Compile Include="Services\ProviderEventsServiceTests\ProviderEventsServiceTestsBase.cs" />
     <Compile Include="Services\ProviderEventsServiceTests\WhenIGetPaymentsForAPeriodEnd.cs" />
     <Compile Include="Services\ProviderEventsServiceTests\WhenIGetUnprocessedPeriodEnds.cs" />
+    <Compile Include="Services\TransferRelationshipMessageServiceTests\WhenIGetTransferRelationshipMessages.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -95,6 +97,10 @@
     <ProjectReference Include="..\SFA.DAS.Data.Application\SFA.DAS.Data.Application.csproj">
       <Project>{E2794B6D-456B-4FD2-8694-CCFB141F5A02}</Project>
       <Name>SFA.DAS.Data.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SFA.DAS.Data.Domain\SFA.DAS.Data.Domain.csproj">
+      <Project>{4AAD17AA-1127-471A-8D28-BA1C5DA7D18A}</Project>
+      <Name>SFA.DAS.Data.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\SFA.DAS.Data.Infrastructure\SFA.DAS.Data.Infrastructure.csproj">
       <Project>{1634D299-63E6-45DC-B161-AD8BDBDB0C40}</Project>
