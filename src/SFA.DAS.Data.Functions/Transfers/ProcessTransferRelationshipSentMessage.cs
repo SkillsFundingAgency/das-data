@@ -4,6 +4,7 @@ using System.Runtime.Serialization;
 using System.Xml;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
+using Microsoft.Extensions.Logging;
 using Microsoft.ServiceBus.Messaging;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.Data.Domain.Enum;
@@ -16,8 +17,6 @@ namespace SFA.DAS.Data.Functions.Transfers
 {
     public class ProcessTransferRelationshipSentMessage
     {
-        private static string connectionString =
-            "Server=(localdb)\\ProjectsV13;Database=SFA.DAS.Data.Database;Integrated Security = true;Trusted_Connection=True;Pooling=False;Connect Timeout=30;MultipleActiveResultSets=True";
         [FunctionName("ProcessTransferRelationshipSentMessage")]
         public static void Run([ServiceBusTrigger("sent_transfer_connection_invitation", "RDS_SentTransferConnectionInvitiationProcessor", AccessRights.Manage,Connection = "MessageBusConnectionString")] SentTransferConnectionInvitationEvent message, ExecutionContext executionContext, TraceWriter log)
         {
