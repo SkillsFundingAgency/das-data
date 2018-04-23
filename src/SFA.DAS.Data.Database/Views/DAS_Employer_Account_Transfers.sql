@@ -8,6 +8,7 @@
 		[Amount],
 		[Type],
 		[TransferDate],
-		[ColectionPeriodName]
+		[ColectionPeriodName],
+		[UpdateDateTime]
 	FROM 
 		[Data_Load].[DAS_Employer_Account_Transfers]

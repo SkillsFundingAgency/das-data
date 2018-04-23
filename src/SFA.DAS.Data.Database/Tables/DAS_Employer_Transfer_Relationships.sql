@@ -13,3 +13,7 @@
 GO
 
 CREATE INDEX [IX_DAS_Employer_Transfer_Relationships_Sender_Receiver] ON [Data_Load].[DAS_Employer_Transfer_Relationships] (SenderAccountId, ReceiverAccountId) INCLUDE (IsLatest)
+GO
+
+CREATE INDEX [IX_DAS_Employer_Transfer_Relationships_IsLatest] ON [Data_Load].[DAS_Employer_Transfer_Relationships] ([IsLatest])
+GO
