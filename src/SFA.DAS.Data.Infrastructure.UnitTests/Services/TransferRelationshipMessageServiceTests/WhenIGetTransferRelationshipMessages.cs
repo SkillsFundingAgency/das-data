@@ -25,6 +25,8 @@ namespace SFA.DAS.Data.Infrastructure.UnitTests.Services.TransferRelationshipMes
 
             _service = new TransferRelationshipMessageService(_transferRelationshipRepositoryMock.Object);
 
+            _transferRelationshipRepositoryMock.Setup(s => s.GetTransferRelationshipSenderUserId(It.IsAny<long>(), It.IsAny<long>())).ReturnsAsync(12345);
+
         }
 
         [Test]

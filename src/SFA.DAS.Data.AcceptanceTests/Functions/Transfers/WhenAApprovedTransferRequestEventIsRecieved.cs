@@ -19,6 +19,7 @@ namespace SFA.DAS.Data.AcceptanceTests.Functions.Transfers
         [Test]
       public async Task ThenProcessandStoreMessage()
         {
+            //Arrange
             await base.SetupDatabase();
 
             var message = new ApprovedTransferConnectionInvitationEvent()
@@ -31,11 +32,18 @@ namespace SFA.DAS.Data.AcceptanceTests.Functions.Transfers
 
             
             };
+
+            var sentMessage = new WhenAStartTransferRequestEventIsRecieved();
+
+            await sentMessage.ThenProcessandStoreMessage();
+
             var logger = new TraceWriterStub(TraceLevel.Verbose);
            
-
+            //Act
              DAS.Data.Functions.Transfers.ProcessTransferRelationshipApprovedMessage.Run(message,null, logger);
 
+
+            //Assert
             Assert.AreEqual(1, logger.Traces.Count);
 
             var databaseAsExpected = TestHelper.ConditionMet(IsDatabaseInExpectedState, TimeSpan.FromSeconds(60));
@@ -47,13 +55,26 @@ namespace SFA.DAS.Data.AcceptanceTests.Functions.Transfers
 
         private async Task<bool> IsDatabaseInExpectedState()
         {
-            var transferTransactionCount = await transferTestsRepository.GetNumberOfApprovedTransferRelationships();
-            if (transferTransactionCount != 1)
+            //var transferLatestApprovedTransactionCount = await transferTestsRepository.GetNumberOfLatestApprovedTransferRelationships();
+            //if (transferLatestApprovedTransactionCount != 1)
+            //{
+            //    return false;
+            //}
+
+            var transferSentTransactionCount = await transferTestsRepository.GetNumberOfSentTransferRelationships();
+            if (transferSentTransactionCount != 1)
+            {
+                return false;
+            }
+            var transferApprovedTransactionCount = await transferTestsRepository.GetNumberOfApprovedTransferRelationships();
+            if (transferApprovedTransactionCount != 1)
             {
                 return false;
             }
 
             return true;
+
+      
         }
 
     }

@@ -30,7 +30,7 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
         {
             return await WithConnection(async c =>
                 await c.QuerySingleAsync<int>(
-                    sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_Employer_Transfer_Relationships] where [SenderUserId] <> 0",
+                    sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_Employer_Transfer_Relationships] where RelationshipStatus = 0",
                     commandType: CommandType.Text)
             );
         }
@@ -39,7 +39,7 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
         {
             return await WithConnection(async c =>
                 await c.QuerySingleAsync<int>(
-                    sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_Employer_Transfer_Relationships] where [ApproverUserId] <> 0",
+                    sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_Employer_Transfer_Relationships] where RelationshipStatus = 1",
                     commandType: CommandType.Text)
             );
         }
@@ -47,7 +47,33 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
         {
             return await WithConnection(async c =>
                 await c.QuerySingleAsync<int>(
-                    sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_Employer_Transfer_Relationships] where [RejectorUserId] <> 0",
+                    sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_Employer_Transfer_Relationships] where RelationshipStatus = 2",
+                    commandType: CommandType.Text)
+            );
+        }
+
+        public async Task<int> GetNumberOfLatestSentTransferRelationships()
+        {
+            return await WithConnection(async c =>
+                await c.QuerySingleAsync<int>(
+                    sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_Employer_Transfer_Relationships] where RelationshipStatus = 0 and IsLatest = 1",
+                    commandType: CommandType.Text)
+            );
+        }
+
+        public async Task<int> GetNumberOfLatestApprovedTransferRelationships()
+        {
+            return await WithConnection(async c =>
+                await c.QuerySingleAsync<int>(
+                    sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_Employer_Transfer_Relationships] where RelationshipStatus = 1 and IsLatest = 1 and SenderUserId <> 0",
+                    commandType: CommandType.Text)
+            );
+        }
+        public async Task<int> GetNumberOfLatestRejectedTransferRelationships()
+        {
+            return await WithConnection(async c =>
+                await c.QuerySingleAsync<int>(
+                    sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_Employer_Transfer_Relationships] where RelationshipStatus = 2 and IsLatest = 1 and SenderUserId <> 0",
                     commandType: CommandType.Text)
             );
         }

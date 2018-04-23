@@ -13,6 +13,20 @@ namespace SFA.DAS.Data.Infrastructure.Data
         {
         }
 
+        public async Task<long> GetTransferRelationshipSenderUserId(long SenderAcountId, long ReceiverAccountId)
+        {
+            return await WithConnection(async c =>
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("@SenderAccountId", SenderAcountId, DbType.Int64);
+                parameters.Add("@ReceiverAccountId", ReceiverAccountId, DbType.Int64);
+
+                return await c.QuerySingleOrDefaultAsync<long>(
+                    sql: "[Data_Load].[GetSentTransferRelationship]",
+                    param: parameters,
+                    commandType: CommandType.StoredProcedure);
+            });
+        }
 
         public async Task SaveTransferRelationship(TransferRelationship transferRelationship)
         {

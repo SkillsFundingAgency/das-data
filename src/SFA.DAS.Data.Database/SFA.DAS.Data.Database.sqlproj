@@ -83,7 +83,7 @@
     <Build Include="Views\DAS_Employer_PayeSchemes.sql" />
     <Build Include="Views\DAS_Employer_LegalEntities.sql" />
     <Build Include="StoredProcedures\GetLastProcessedEventId.sql" />
-    <Build Include="StoredProcedures\GetEventFailureCount.sql" />
+    <Build Include="StoredProcedures\GetSentTransferRelationship.sql" />
     <Build Include="StoredProcedures\StoreLastProcessedEventId.sql" />
     <Build Include="StoredProcedures\SetEventFailureCount.sql" />
     <Build Include="Tables\DAS_Commitments.sql" />
@@ -138,6 +138,7 @@
     <Build Include="Tables\DAS_Employer_Account_Transfers.sql" />
     <Build Include="Tables\DAS_Employer_Transfer_Relationships.sql" />
     <Build Include="StoredProcedures\CreateTransfersRelationship.sql" />
+    <Build Include="StoredProcedures\GetEventFailureCount.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SFA.DAS.Data.Database.refactorlog" />

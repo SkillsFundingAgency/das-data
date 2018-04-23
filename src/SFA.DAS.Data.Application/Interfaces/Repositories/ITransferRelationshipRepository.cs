@@ -7,6 +7,7 @@ namespace SFA.DAS.Data.Application.Interfaces.Repositories
     public interface ITransferRelationshipRepository
     {
         Task SaveTransferRelationship(TransferRelationship transferRelationship);
+        Task<long> GetTransferRelationshipSenderUserId(long SenderAcountId, long ReceiverAccountId);
        
     }
 }

@@ -30,11 +30,13 @@ namespace SFA.DAS.Data.Infrastructure.Services
 
         public void SaveApprovedMessage(ApprovedTransferConnectionInvitationEvent message)
         {
+            var senderUserId = GetSenderUserId(message.SenderAccountId, message.ReceiverAccountId);
 
             var transferRelationship = new TransferRelationship()
             {
                 SenderAccountId = message.SenderAccountId,
                 ReceiverAccountId = message.ReceiverAccountId,
+                SenderUserId = senderUserId,
                 RelationshipStatus = TransferRelationshipStatus.Approved,
                 ApproverUserId = message.ApprovedByUserId
             };
@@ -45,10 +47,12 @@ namespace SFA.DAS.Data.Infrastructure.Services
 
         public void SaveRejectedMessage(RejectedTransferConnectionInvitationEvent message)
         {
+            var senderUserId = GetSenderUserId(message.SenderAccountId, message.ReceiverAccountId);
             var transferRelationship = new TransferRelationship()
             {
                 SenderAccountId = message.SenderAccountId,
                 ReceiverAccountId = message.ReceiverAccountId,
+                SenderUserId = senderUserId,
                 RelationshipStatus = TransferRelationshipStatus.Rejected,
                 RejectorUserId = message.RejectorUserId
             };
@@ -68,6 +72,11 @@ namespace SFA.DAS.Data.Infrastructure.Services
             };
 
             _transferRelationshipRepository.SaveTransferRelationship(transferRelationship);
+        }
+
+        private long GetSenderUserId(long SenderAccountId, long ReceiverAccountId)
+        {
+            return _transferRelationshipRepository.GetTransferRelationshipSenderUserId(SenderAccountId, ReceiverAccountId).Result;
         }
     }
 }
