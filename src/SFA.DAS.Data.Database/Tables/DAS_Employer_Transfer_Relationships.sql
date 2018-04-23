@@ -6,6 +6,8 @@
     [RelationshipStatus] INT NOT NULL, 
     [SenderUserId] BIGINT NULL, 
     [ApproverUserId] BIGINT NULL, 
-    [RejectorUserId] BIGINT NULL  
+    [RejectorUserId] BIGINT NULL, 
+    [UpdatedDateTime] DATETIME NULL DEFAULT (GetDate()), 
+    [IsLatest] BIT NULL DEFAULT 0  
 )
 GO
