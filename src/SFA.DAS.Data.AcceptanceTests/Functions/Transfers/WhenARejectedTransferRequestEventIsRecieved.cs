@@ -13,15 +13,14 @@ using Microsoft.Azure.WebJobs.Extensions;
 namespace SFA.DAS.Data.AcceptanceTests.Functions.Transfers
 {
     [TestFixture]
-    public class WhenARejectedTransferRequestEventIsRecieved
+    public class WhenARejectedTransferRequestEventIsRecieved : TransferTestBase
     {
 
         [Test]
-
-        public void ThenProcessandStoreMessage()
+        public async Task ThenProcessandStoreMessage()
         {
 
-
+            await base.SetupDatabase();
 
             var message = new RejectedTransferConnectionInvitationEvent()
             {
@@ -40,7 +39,22 @@ namespace SFA.DAS.Data.AcceptanceTests.Functions.Transfers
 
             Assert.AreEqual(1, logger.Traces.Count);
 
+            var databaseAsExpected = TestHelper.ConditionMet(IsDatabaseInExpectedState, TimeSpan.FromSeconds(60));
 
+            Assert.IsTrue(databaseAsExpected);
+
+
+        }
+
+        private async Task<bool> IsDatabaseInExpectedState()
+        {
+            var transferTransactionCount = await transferTestsRepository.GetNumberOfRejectedTransferRelationships();
+            if (transferTransactionCount != 1)
+            {
+                return false;
+            }
+
+            return true;
         }
 
     }
