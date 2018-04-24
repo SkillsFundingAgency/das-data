@@ -1,5 +1,4 @@
-﻿using MediatR;
-using Microsoft.Azure;
+﻿using Microsoft.Azure;
 using SFA.DAS.Configuration;
 using SFA.DAS.Configuration.AzureTableStorage;
 using SFA.DAS.Data.Application.Configuration;
