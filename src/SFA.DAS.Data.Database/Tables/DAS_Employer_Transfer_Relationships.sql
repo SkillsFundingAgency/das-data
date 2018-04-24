@@ -5,6 +5,6 @@
     [Relationship Status] NVARCHAR(10) NOT NULL, 
     [Sender User Id] BIGINT NOT NULL, 
     [Approver User Id] BIGINT NOT NULL, 
-    [Rejector User Id] BIGINT NOT NULL  
+    [Rejector User Id] BIGINT NOT NULL DEFAULT (GETDATE()) 
 )
 GO

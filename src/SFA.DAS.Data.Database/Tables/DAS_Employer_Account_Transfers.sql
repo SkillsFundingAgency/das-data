@@ -5,7 +5,7 @@
     [RelationshipStatus] NVARCHAR(10) NOT NULL, 
     [SenderUserId] BIGINT NOT NULL, 
     [ApproverUserId] BIGINT NOT NULL, 
-    [RejectorUserId] BIGINT NOT NULL , 
+    [RejectorUserId] BIGINT NOT NULL DEFAULT (GETDATE()), 
     [Required Payment ID] UNIQUEIDENTIFIER NOT NULL, 
     [ColectionPeriodName] NCHAR(10) NOT NULL
 )
