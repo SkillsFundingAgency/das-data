@@ -18,9 +18,7 @@
     [LegalEntityName] NVARCHAR(100) NULL, 
     [LegalEntityOrganisationType] NVARCHAR(20) NULL,
 	[DateOfBirth] DATETIME NULL, 
-    [IsLatest] BIT NOT NULL DEFAULT 0, 
-    [TransferSenderAccountId] BIGINT NULL, 
-    [TransferApprovalStatus] NVARCHAR(10) NULL
+    [IsLatest] BIT NOT NULL DEFAULT 0
 )
 GO
 CREATE INDEX [IX_Commitment_Apprenticeship] ON [Data_Load].[DAS_Commitments] ([ApprenticeshipID], [IsLatest])
