@@ -1,7 +1,7 @@
 ﻿CREATE PROCEDURE [Data_Load].[CreateTransferRelationship]
 	@SenderAccountId BIGINT,
 	@ReceiverAccountId BIGINT,
-	@RelationshipStatus INT,
+	@RelationshipStatus NVARCHAR(50),
 	@SenderUserId BIGINT,
 	@ApproverUserId BIGINT,
 	@RejectorUserId BIGINT

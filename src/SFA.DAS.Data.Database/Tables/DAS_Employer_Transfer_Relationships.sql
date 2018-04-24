@@ -3,7 +3,7 @@
 	Id BIGINT NOT NULL PRIMARY KEY IDENTITY, 
 	[SenderAccountId] BIGINT NOT NULL,
     [ReceiverAccountId] BIGINT NOT NULL, 
-    [RelationshipStatus] INT NOT NULL, 
+    [RelationshipStatus] NVARCHAR(50) NOT NULL, 
     [SenderUserId] BIGINT NULL, 
     [ApproverUserId] BIGINT NULL, 
     [RejectorUserId] BIGINT NULL, 

@@ -30,7 +30,7 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
         {
             return await WithConnection(async c =>
                 await c.QuerySingleAsync<int>(
-                    sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_Employer_Transfer_Relationships] where RelationshipStatus = 0",
+                    sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_Employer_Transfer_Relationships] where RelationshipStatus = 'Pending'",
                     commandType: CommandType.Text)
             );
         }
@@ -39,7 +39,7 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
         {
             return await WithConnection(async c =>
                 await c.QuerySingleAsync<int>(
-                    sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_Employer_Transfer_Relationships] where RelationshipStatus = 1",
+                    sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_Employer_Transfer_Relationships] where RelationshipStatus = 'Approved'",
                     commandType: CommandType.Text)
             );
         }
@@ -47,7 +47,7 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
         {
             return await WithConnection(async c =>
                 await c.QuerySingleAsync<int>(
-                    sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_Employer_Transfer_Relationships] where RelationshipStatus = 2",
+                    sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_Employer_Transfer_Relationships] where RelationshipStatus = 'Rejected'",
                     commandType: CommandType.Text)
             );
         }
@@ -56,7 +56,7 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
         {
             return await WithConnection(async c =>
                 await c.QuerySingleAsync<int>(
-                    sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_Employer_Transfer_Relationships] where RelationshipStatus = 0 and IsLatest = 1",
+                    sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_Employer_Transfer_Relationships] where RelationshipStatus = 'Pending' and IsLatest = 1",
                     commandType: CommandType.Text)
             );
         }
@@ -65,7 +65,7 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
         {
             return await WithConnection(async c =>
                 await c.QuerySingleAsync<int>(
-                    sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_Employer_Transfer_Relationships] where RelationshipStatus = 1 and IsLatest = 1 and SenderUserId <> 0",
+                    sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_Employer_Transfer_Relationships] where RelationshipStatus = 'Approved' and IsLatest = 1 and SenderUserId <> 0",
                     commandType: CommandType.Text)
             );
         }
@@ -73,7 +73,7 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
         {
             return await WithConnection(async c =>
                 await c.QuerySingleAsync<int>(
-                    sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_Employer_Transfer_Relationships] where RelationshipStatus = 2 and IsLatest = 1 and SenderUserId <> 0",
+                    sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_Employer_Transfer_Relationships] where RelationshipStatus = 'Rejected' and IsLatest = 1 and SenderUserId <> 0",
                     commandType: CommandType.Text)
             );
         }

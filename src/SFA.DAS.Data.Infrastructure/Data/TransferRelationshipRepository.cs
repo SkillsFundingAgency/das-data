@@ -35,7 +35,7 @@ namespace SFA.DAS.Data.Infrastructure.Data
                 var parameters = new DynamicParameters();
                 parameters.Add("@SenderAccountId", transferRelationship.SenderAccountId, DbType.Int64);
                 parameters.Add("@ReceiverAccountId", transferRelationship.ReceiverAccountId, DbType.Int64);
-                parameters.Add("@RelationshipStatus", transferRelationship.RelationshipStatus, DbType.Int16);
+                parameters.Add("@RelationshipStatus", transferRelationship.RelationshipStatus.ToString(), DbType.String);
                 parameters.Add("@SenderUserId", transferRelationship.SenderUserId, DbType.Int64);
                 parameters.Add("@ApproverUserId", transferRelationship.ApproverUserId, DbType.Int64);
                 parameters.Add("@RejectorUserId", transferRelationship.RejectorUserId, DbType.Int64);
