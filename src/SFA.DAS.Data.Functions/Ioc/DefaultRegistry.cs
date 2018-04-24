@@ -25,7 +25,6 @@ namespace SFA.DAS.Data.Functions.Ioc
 
             For<IDataConfiguration>().Use(config);
             RegisterRepositories(config.DatabaseConnectionString);
-            AddMediatrRegistrations();
 
             ConfigureLogging();
         }
@@ -34,14 +33,6 @@ namespace SFA.DAS.Data.Functions.Ioc
         private void RegisterRepositories(string connectionString)
         {
             // Add registrations here
-        }
-
-        private void AddMediatrRegistrations()
-        {
-            For<SingleInstanceFactory>().Use<SingleInstanceFactory>(ctx => t => ctx.GetInstance(t));
-            For<MultiInstanceFactory>().Use<MultiInstanceFactory>(ctx => t => ctx.GetAllInstances(t));
-
-            For<IMediator>().Use<Mediator>();
         }
 
         private DataConfiguration GetConfiguration()
