@@ -6,6 +6,8 @@
 		[RelationshipStatus], 
 		[SenderUserId], 
 		[ApproverUserId], 
-		[RejectorUserId]
+		[RejectorUserId],
+		[UpdateDateTime],
+		[IsLatest]
 	FROM 
 		[Data_Load].[DAS_Employer_Transfer_Relationships]
