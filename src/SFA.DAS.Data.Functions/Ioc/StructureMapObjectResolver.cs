@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Reflection;
 using StructureMap;
+using StructureMap.TypeRules;
 
 namespace SFA.DAS.Data.Functions.Ioc
 {
@@ -7,6 +9,13 @@ namespace SFA.DAS.Data.Functions.Ioc
     {
         private static IContainer _container;
         private static readonly object LockObject = new object();
+
+        public Registry DefaultRegistryType { get; set; }
+
+        public StructureMapObjectResolver(Registry T)
+        {
+            DefaultRegistryType = T;
+        }
 
         protected IContainer Container
         {
@@ -17,10 +26,13 @@ namespace SFA.DAS.Data.Functions.Ioc
                     return _container ?? (_container = new Container(c =>
                     {
                         c.AddRegistry<DefaultRegistry>();
+                        c.AddRegistry(DefaultRegistryType);
                     }));
                 }
             }
         }
+
+       
 
         public object Resolve(Type type)
         {

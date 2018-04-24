@@ -7,12 +7,18 @@ using EasProcessingCompletedMessage = SFA.DAS.Data.Functions.Statistics.Commands
 
 namespace SFA.DAS.Data.Functions.Statistics
 {
-    public static class GetAccountStatisticsFunction
+    public class GetAccountStatisticsFunction
     {
+        public GetAccountStatisticsFunction()
+        {
+            
+        }
+
         [FunctionName("GetAccountStatisticsFunction")]
         [return: Queue(QueueNames.CommitmentsQueueName)]
-        public static async Task<EasProcessingCompletedMessage> Run([TimerTrigger("*/15 * * * * *")] TimerInfo myTimer , [Inject] ILog log,
-            [Inject] IStatisticsService statsService)
+        //[DefaultRegistryAttribute]
+        public static async Task<EasProcessingCompletedMessage> Run([TimerTrigger("*/60 * * * * *")] TimerInfo myTimer , [Inject] ILog log,
+            [Inject("SFA.DAS.Data.Functions.Ioc.DefaultRegistry")] IStatisticsService statsService)
         {
             log.Debug("Gathering statistics for the EAS area of the system");
             var message = await statsService.CollateEasMetrics();

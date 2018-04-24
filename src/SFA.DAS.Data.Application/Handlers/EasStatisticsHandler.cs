@@ -28,13 +28,21 @@ namespace SFA.DAS.Data.Application.Handlers
 
         public async Task<EasStatisticsModel> Handle()
         {
-            _logger.Debug("Contacting the EasStats End point");
-            var response = await _httpClientWrapper.GetAsync(_configuration.EasStatisticsEndPoint.ToUri(), Constants.ContentTypeValue);
+            try
+            {
+                _logger.Debug("Contacting the EasStats End point");
+                var response = await _httpClientWrapper.GetAsync(_configuration.EasStatisticsEndPoint.ToUri(), Constants.ContentTypeValue);
 
-            _logger.Debug($"The API returned a response with status code {response.StatusCode}");
-            var model = await _httpClientWrapper.ReadResponse<EasStatisticsModel>(response);
-            
-            return model;
+                _logger.Debug($"The API returned a response with status code {response.StatusCode}");
+                var model = await _httpClientWrapper.ReadResponse<EasStatisticsModel>(response);
+
+                return model;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
     }
 }
