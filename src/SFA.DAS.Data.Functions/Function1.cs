@@ -2,14 +2,14 @@ using System;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 
-namespace SFA.DAS.Data.Functions
+namespace FunctionApp1
 {
     public static class Function1
     {
         [FunctionName("Function1")]
-        public static void Run([TimerTrigger("0 */5 * * * *")]TimerInfo myTimer, TraceWriter log)
+        public static void Run([QueueTrigger("myqueue-items", Connection = "bbbbb")]string myQueueItem, TraceWriter log)
         {
-            log.Info($"C# Timer trigger function executed at: {DateTime.Now}");
+            log.Info($"C# Queue trigger function processed: {myQueueItem}");
         }
     }
 }
