@@ -10,6 +10,6 @@ namespace SFA.DAS.Data.Domain.Interfaces
 {
     public interface IPaymentStatisticsHandler
     {
-        Task<PaymentStatisticsModel> Handle();
+        Task<PaymentExternalModel> Handle();
     }
 }

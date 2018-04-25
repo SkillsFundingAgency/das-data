@@ -6,20 +6,20 @@ using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Application.Commands.CommitmentRdsStatistics
 {
-    public class CommitmentRdsStatisticsCommandHandler : IAsyncRequestHandler<CommitmentRdsStatisticsCommand, CommitmentRdsStatisticsCommandResponse>
+    public class CreateCommitmentStatisticsCommandHandler : IAsyncRequestHandler<CreateCommitmentStatisticsCommand, CreateCommitmentStatisticsCommandResponse>
     {
         private readonly IStatisticsRepository _repository;
         private readonly ILog _log;
 
-        public CommitmentRdsStatisticsCommandHandler( IStatisticsRepository repository, ILog log)
+        public CreateCommitmentStatisticsCommandHandler( IStatisticsRepository repository, ILog log)
         {
             _repository = repository;
             _log = log;
         }
 
-        public async Task<CommitmentRdsStatisticsCommandResponse> Handle(CommitmentRdsStatisticsCommand message)
+        public async Task<CreateCommitmentStatisticsCommandResponse> Handle(CreateCommitmentStatisticsCommand message)
         {
-            var response = new CommitmentRdsStatisticsCommandResponse
+            var response = new CreateCommitmentStatisticsCommandResponse
             {
                 OperationSuccessful = true
             };

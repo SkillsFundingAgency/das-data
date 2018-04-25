@@ -2,7 +2,7 @@
 
 namespace SFA.DAS.Data.Application.Commands.EasRdsStatistics
 {
-    public class CreateStatisticsEasCommandResponse : ICommandResponse
+    public class CreateEasStatisticsCommandResponse : ICommandResponse
     {
         public bool OperationSuccessful { get; set; }
     }

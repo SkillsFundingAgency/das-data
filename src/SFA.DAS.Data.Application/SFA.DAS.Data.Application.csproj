@@ -106,9 +106,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Messages\CommitmentProcessingCompletedMessage.cs" />
-    <Compile Include="Commands\CommitmentRdsStatistics\CommitmentRdsStatisticsCommand.cs" />
-    <Compile Include="Commands\CommitmentRdsStatistics\CommitmentRdsStatisticsCommandHandler.cs" />
-    <Compile Include="Commands\CommitmentRdsStatistics\CommitmentRdsStatisticsCommandResponse.cs" />
+    <Compile Include="Commands\CreateCommitmentStatistics\CreateCommitmentStatisticsCommand.cs" />
+    <Compile Include="Commands\CreateCommitmentStatistics\CreateCommitmentStatisticsCommandHandler.cs" />
+    <Compile Include="Commands\CreateCommitmentStatistics\CreateCommitmentStatisticsCommandResponse.cs" />
     <Compile Include="Commands\CreateEmploymentCheck\CreateEmploymentCheckCommand.cs" />
     <Compile Include="Commands\CreateEmploymentCheck\CreateEmploymentCheckCommandHandler.cs" />
     <Compile Include="Commands\CreateCommitmentApprenticeshipEntry\CreateCommitmentApprenticeshipEntryCommand.cs" />
@@ -123,16 +123,16 @@
     <Compile Include="Commands\CreateRoatpProvider\CreateProviderCommand.cs" />
     <Compile Include="Commands\CreateRoatpProvider\CreateProviderCommandHandler.cs" />
     <Compile Include="Messages\EasProcessingCompletedMessage.cs" />
-    <Compile Include="Commands\CreateStatisticsEas\CreateStatisticsEasCommand.cs" />
-    <Compile Include="Commands\CreateStatisticsEas\CreateStatisticsEasCommandHandler.cs" />
-    <Compile Include="Commands\CreateStatisticsEas\CreateStatisticsEasCommandResponse.cs" />
+    <Compile Include="Commands\CreateStatisticsEas\CreateCommitmentStatisticsCommand.cs" />
+    <Compile Include="Commands\CreateStatisticsEas\CreateCommitmentStatisticsCommandHandler.cs" />
+    <Compile Include="Commands\CreateStatisticsEas\CreateCommitmentStatisticsCommandResponse.cs" />
     <Compile Include="Commands\ExportPerformancePlatformStatistics\ExportPerformancePlatformStatisticsCommand.cs" />
     <Compile Include="Commands\ExportPerformancePlatformStatistics\ExportPerformancePlatformStatisticsCommandHandler.cs" />
     <Compile Include="Interfaces\ICommandResponse.cs" />
     <Compile Include="Interfaces\IStatisticsCommand.cs" />
-    <Compile Include="Commands\PaymentRdsStatistics\PaymentRdsStatisticsCommand.cs" />
-    <Compile Include="Commands\PaymentRdsStatistics\PaymentRdsStatisticsCommandHandler.cs" />
-    <Compile Include="Commands\PaymentRdsStatistics\PaymentRdsStatisticsCommandResponse.cs" />
+    <Compile Include="Commands\CreatePaymentsStatistics\CreatePaymentsStatisticsCommand.cs" />
+    <Compile Include="Commands\CreatePaymentsStatistics\CreatePaymentsStatisticsCommandHandler.cs" />
+    <Compile Include="Commands\CreatePaymentsStatistics\CreatePaymentsStatisticsCommandResponse.cs" />
     <Compile Include="Messages\PaymentsProcessingCompletedMessage.cs" />
     <Compile Include="Commands\RemovePayeScheme\RemovePayeSchemeCommand.cs" />
     <Compile Include="Commands\RemovePayeScheme\RemovePayeSchemeCommandHandler.cs" />

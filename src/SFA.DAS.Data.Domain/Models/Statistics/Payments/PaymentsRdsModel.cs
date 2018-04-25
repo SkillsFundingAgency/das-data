@@ -2,7 +2,7 @@
 
 namespace SFA.DAS.Data.Domain.Models.Statistics.Payments
 {
-    public class RdsStatisticsForPaymentsModel : PaymentStatisticsModel, IRdsModel
+    public class PaymentsRdsModel : PaymentExternalModel, IRdsModel
     {
     }
 }

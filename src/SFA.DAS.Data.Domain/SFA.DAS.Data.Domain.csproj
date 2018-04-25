@@ -56,10 +56,10 @@
     <Compile Include="Models\Statistics\Commitments\CommitmentsExternalModel.cs" />
     <Compile Include="Interfaces\IExternalSystemModel.cs" />
     <Compile Include="Interfaces\IRdsModel.cs" />
-    <Compile Include="Models\Statistics\Payments\PaymentStatisticsModel.cs" />
+    <Compile Include="Models\Statistics\Payments\PaymentExternalModel.cs" />
     <Compile Include="Models\Statistics\Commitments\CommitmentsRdsModel.cs" />
     <Compile Include="Models\Statistics\Eas\EasRdsModel.cs" />
-    <Compile Include="Models\Statistics\Payments\RdsStatisticsForPaymentsModel.cs" />
+    <Compile Include="Models\Statistics\Payments\PaymentsRdsModel.cs" />
     <Compile Include="Models\Statistics\Eas\EasExternalModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StringExtensions.cs" />

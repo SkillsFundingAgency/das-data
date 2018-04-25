@@ -16,7 +16,7 @@ namespace SFA.DAS.Data.Application.Interfaces.Repositories
 
         Task<CommitmentsRdsModel> RetrieveEquivalentCommitmentsStatisticsFromRds();
 
-        Task<RdsStatisticsForPaymentsModel> RetrieveEquivalentPaymentStatisticsFromRds();
+        Task<PaymentsRdsModel> RetrieveEquivalentPaymentStatisticsFromRds();
 
         Task SaveEasStatistics(EasExternalModel easStatisticsModel,
             EasRdsModel rdsStatisticsForEasModel);
@@ -24,6 +24,6 @@ namespace SFA.DAS.Data.Application.Interfaces.Repositories
         Task SaveCommitmentStatistics(CommitmentsExternalModel statisticsModel,
             CommitmentsRdsModel rdsModel);
 
-        Task SavePaymentStatistics(PaymentStatisticsModel statisticsModel, RdsStatisticsForPaymentsModel rdsModel);
+        Task SavePaymentStatistics(PaymentExternalModel statisticsModel, PaymentsRdsModel rdsModel);
     }
 }

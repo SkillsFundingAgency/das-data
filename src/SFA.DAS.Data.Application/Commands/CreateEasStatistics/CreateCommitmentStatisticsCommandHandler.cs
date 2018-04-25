@@ -6,20 +6,20 @@ using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Application.Commands.EasRdsStatistics
 {
-    public class CreateStatisticsEasCommandHandler : IAsyncRequestHandler<CreateStatisticsEasCommand, CreateStatisticsEasCommandResponse>
+    public class CreateEasStatisticsCommandHandler : IAsyncRequestHandler<CreateEasStatisticsCommand, CreateEasStatisticsCommandResponse>
     {
         private readonly IStatisticsRepository _repository;
         private readonly ILog _log;
 
-        public CreateStatisticsEasCommandHandler( IStatisticsRepository repository, ILog log)
+        public CreateEasStatisticsCommandHandler( IStatisticsRepository repository, ILog log)
         {
             _repository = repository;
             _log = log;
         }
 
-        public async Task<CreateStatisticsEasCommandResponse> Handle(CreateStatisticsEasCommand message)
+        public async Task<CreateEasStatisticsCommandResponse> Handle(CreateEasStatisticsCommand message)
         {
-            var response = new CreateStatisticsEasCommandResponse
+            var response = new CreateEasStatisticsCommandResponse
             {
                 OperationSuccessful = true
             };

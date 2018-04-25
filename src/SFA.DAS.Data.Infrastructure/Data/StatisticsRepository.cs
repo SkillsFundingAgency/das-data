@@ -31,9 +31,9 @@ namespace SFA.DAS.Data.Infrastructure.Data
             return result;
         }
 
-        public async Task<RdsStatisticsForPaymentsModel> RetrieveEquivalentPaymentStatisticsFromRds()
+        public async Task<PaymentsRdsModel> RetrieveEquivalentPaymentStatisticsFromRds()
         {
-            var result = await WithConnection(async c => await c.QuerySingleOrDefaultAsync<RdsStatisticsForPaymentsModel>(
+            var result = await WithConnection(async c => await c.QuerySingleOrDefaultAsync<PaymentsRdsModel>(
                 sql: "[Data_Load].[GetPaymentStatistics]",
                 commandType: CommandType.StoredProcedure));
 
@@ -107,7 +107,7 @@ namespace SFA.DAS.Data.Infrastructure.Data
             });
         }
 
-        public async Task SavePaymentStatistics(PaymentStatisticsModel statisticsModel, RdsStatisticsForPaymentsModel rdsModel)
+        public async Task SavePaymentStatistics(PaymentExternalModel statisticsModel, PaymentsRdsModel rdsModel)
         {
             await WithConnection(async c =>
             {

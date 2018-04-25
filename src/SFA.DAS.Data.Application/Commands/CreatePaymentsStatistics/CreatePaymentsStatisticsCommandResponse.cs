@@ -2,7 +2,7 @@
 
 namespace SFA.DAS.Data.Application.Commands.PaymentRdsStatistics
 {
-    public class PaymentRdsStatisticsCommandResponse : ICommandResponse
+    public class CreatePaymentsStatisticsCommandResponse : ICommandResponse
     {
         public bool OperationSuccessful { get; set; }
     }

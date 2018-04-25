@@ -60,7 +60,7 @@ namespace SFA.DAS.Data.Functions.Statistics.Services
                 return null;
             }
 
-            var savedSuccessfully = await SaveTheStatisticsToRds<EasExternalModel, EasRdsModel, CreateStatisticsEasCommandResponse, CreateStatisticsEasCommand>(statistics, rdsStatistics);
+            var savedSuccessfully = await SaveTheStatisticsToRds<EasExternalModel, EasRdsModel, CreateEasStatisticsCommandResponse, CreateEasStatisticsCommand>(statistics, rdsStatistics);
 
             if (!savedSuccessfully)
             {
@@ -92,7 +92,7 @@ namespace SFA.DAS.Data.Functions.Statistics.Services
                 return null;
             }
 
-            var savedSuccessfully = await SaveTheStatisticsToRds<CommitmentsExternalModel, CommitmentsRdsModel, CommitmentRdsStatisticsCommandResponse, CommitmentRdsStatisticsCommand>(statistics, rdsStatistics);
+            var savedSuccessfully = await SaveTheStatisticsToRds<CommitmentsExternalModel, CommitmentsRdsModel, CreateCommitmentStatisticsCommandResponse, CreateCommitmentStatisticsCommand>(statistics, rdsStatistics);
 
             if (!savedSuccessfully)
             {
@@ -121,7 +121,7 @@ namespace SFA.DAS.Data.Functions.Statistics.Services
                 return null;
             }
 
-            var savedSuccessfully = await SaveTheStatisticsToRds<PaymentStatisticsModel, RdsStatisticsForPaymentsModel, PaymentRdsStatisticsCommandResponse, PaymentRdsStatisticsCommand>(statistics, rdsStatistics);
+            var savedSuccessfully = await SaveTheStatisticsToRds<PaymentExternalModel, PaymentsRdsModel, CreatePaymentsStatisticsCommandResponse, CreatePaymentsStatisticsCommand>(statistics, rdsStatistics);
 
             if (!savedSuccessfully)
             {
@@ -182,9 +182,9 @@ namespace SFA.DAS.Data.Functions.Statistics.Services
             return rdsStatistics;
         }
 
-        private async Task<RdsStatisticsForPaymentsModel> RetrieveRelatedPaymentsStatisticsFromRds()
+        private async Task<PaymentsRdsModel> RetrieveRelatedPaymentsStatisticsFromRds()
         {
-            RdsStatisticsForPaymentsModel rdsStatistics = null;
+            PaymentsRdsModel rdsStatistics = null;
 
             _log.Debug("Gathering statistics for the equivalent payment stats in RDS");
 
@@ -234,10 +234,10 @@ namespace SFA.DAS.Data.Functions.Statistics.Services
             return statistics;
         }
 
-        private async Task<PaymentStatisticsModel> RetrievePaymentsStatisticsFromTheApi()
+        private async Task<PaymentExternalModel> RetrievePaymentsStatisticsFromTheApi()
         {
             _log.Debug("Gathering statistics for the payments area of the system");
-            PaymentStatisticsModel statistics = null;
+            PaymentExternalModel statistics = null;
 
             try
             {

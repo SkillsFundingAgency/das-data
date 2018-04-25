@@ -2,7 +2,7 @@
 
 namespace SFA.DAS.Data.Application.Commands.CommitmentRdsStatistics
 {
-    public class CommitmentRdsStatisticsCommandResponse : ICommandResponse
+    public class CreateCommitmentStatisticsCommandResponse : ICommandResponse
     {
         public bool OperationSuccessful { get; set; }
     }
