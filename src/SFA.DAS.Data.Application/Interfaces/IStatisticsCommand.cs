@@ -1,4 +1,5 @@
-﻿using SFA.DAS.Data.Domain.Models;
+﻿using SFA.DAS.Data.Domain.Interfaces;
+using SFA.DAS.Data.Domain.Models;
 
 namespace SFA.DAS.Data.Application.Interfaces
 {

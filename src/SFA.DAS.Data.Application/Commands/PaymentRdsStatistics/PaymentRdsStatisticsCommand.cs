@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using SFA.DAS.Data.Application.Interfaces;
 using SFA.DAS.Data.Domain.Models;
+using SFA.DAS.Data.Domain.Models.Statistics.Payments;
 
 namespace SFA.DAS.Data.Application.Commands.PaymentRdsStatistics
 {

@@ -5,23 +5,26 @@ using System.Threading.Tasks;
 using Dapper;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.Data.Domain.Models;
+using SFA.DAS.Data.Domain.Models.Statistics.Commitments;
+using SFA.DAS.Data.Domain.Models.Statistics.Eas;
+using SFA.DAS.Data.Domain.Models.Statistics.Payments;
 
 namespace SFA.DAS.Data.Infrastructure.Data
 {
     public class StatisticsRepository : BaseRepository, IStatisticsRepository
     {
-        public async Task<RdsStatisticsForEasModel> RetrieveEquivalentEasStatisticsFromRds()
+        public async Task<EasRdsModel> RetrieveEquivalentEasStatisticsFromRds()
         {
-            var result = await WithConnection(async c => await c.QuerySingleOrDefaultAsync<RdsStatisticsForEasModel>(
+            var result = await WithConnection(async c => await c.QuerySingleOrDefaultAsync<EasRdsModel>(
                 sql: "[Data_Load].[GetEasStatistics]",
                 commandType: CommandType.StoredProcedure));
 
             return result;
         }
 
-        public async Task<RdsStatisticsForCommitmentsModel> RetrieveEquivalentCommitmentsStatisticsFromRds()
+        public async Task<CommitmentsRdsModel> RetrieveEquivalentCommitmentsStatisticsFromRds()
         {
-            var result = await WithConnection(async c => await c.QuerySingleOrDefaultAsync<RdsStatisticsForCommitmentsModel>(
+            var result = await WithConnection(async c => await c.QuerySingleOrDefaultAsync<CommitmentsRdsModel>(
                 sql: "[Data_Load].[GetCommitmentStatistics]",
                 commandType: CommandType.StoredProcedure));
 
@@ -37,7 +40,7 @@ namespace SFA.DAS.Data.Infrastructure.Data
             return result;
         }
 
-        public async Task SaveEasStatistics(EasStatisticsModel easStatisticsModel, RdsStatisticsForEasModel rdsStatisticsForEasModel)
+        public async Task SaveEasStatistics(EasExternalModel easStatisticsModel, EasRdsModel rdsStatisticsForEasModel)
         {
             await WithConnection(async c =>
             {
@@ -71,7 +74,7 @@ namespace SFA.DAS.Data.Infrastructure.Data
             });
         }
 
-        public async Task SaveCommitmentStatistics(CommitmentsStatisticsModel statisticsModel, RdsStatisticsForCommitmentsModel rdsModel)
+        public async Task SaveCommitmentStatistics(CommitmentsExternalModel statisticsModel, CommitmentsRdsModel rdsModel)
         {
             await WithConnection(async c =>
             {

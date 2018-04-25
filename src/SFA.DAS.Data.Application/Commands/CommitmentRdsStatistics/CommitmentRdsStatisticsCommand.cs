@@ -1,12 +1,13 @@
 ﻿using MediatR;
 using SFA.DAS.Data.Application.Interfaces;
 using SFA.DAS.Data.Domain.Models;
+using SFA.DAS.Data.Domain.Models.Statistics.Commitments;
 
 namespace SFA.DAS.Data.Application.Commands.CommitmentRdsStatistics
 {
-    public class CommitmentRdsStatisticsCommand : IAsyncRequest<CommitmentRdsStatisticsCommandResponse>, IAsyncRequest<CommitmentRdsStatisticsCommandHandler>, IStatisticsCommand<CommitmentsStatisticsModel, RdsStatisticsForCommitmentsModel>
+    public class CommitmentRdsStatisticsCommand : IAsyncRequest<CommitmentRdsStatisticsCommandResponse>, IAsyncRequest<CommitmentRdsStatisticsCommandHandler>, IStatisticsCommand<CommitmentsExternalModel, CommitmentsRdsModel>
     {
-        public CommitmentsStatisticsModel ExternalStatisticsModel { get; set; }
-        public RdsStatisticsForCommitmentsModel RdsStatisticsModel { get; set; }
+        public CommitmentsExternalModel ExternalStatisticsModel { get; set; }
+        public CommitmentsRdsModel RdsStatisticsModel { get; set; }
     }
 }

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SFA.DAS.Data.Domain.Interfaces;
 
-namespace SFA.DAS.Data.Domain.Models
+namespace SFA.DAS.Data.Domain.Models.Statistics.Eas
 {
-    public class EasStatisticsModel : IExternalSystemModel
+    public class EasExternalModel : IExternalSystemModel
     {
         public long TotalAccounts { get; set; }
         public long TotalLegalEntities { get; set; }

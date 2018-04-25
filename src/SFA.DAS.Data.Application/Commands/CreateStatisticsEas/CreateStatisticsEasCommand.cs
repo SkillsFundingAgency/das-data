@@ -1,13 +1,14 @@
 ﻿using MediatR;
 using SFA.DAS.Data.Application.Interfaces;
 using SFA.DAS.Data.Domain.Models;
+using SFA.DAS.Data.Domain.Models.Statistics.Eas;
 
 namespace SFA.DAS.Data.Application.Commands.EasRdsStatistics
 {
     public class CreateStatisticsEasCommand : IAsyncRequest<CreateStatisticsEasCommandResponse>, IAsyncRequest<CreateStatisticsEasCommandHandler>,
-        IStatisticsCommand<EasStatisticsModel, RdsStatisticsForEasModel>
+        IStatisticsCommand<EasExternalModel, EasRdsModel>
     {
-        public EasStatisticsModel ExternalStatisticsModel { get; set; }
-        public RdsStatisticsForEasModel RdsStatisticsModel { get; set; }
+        public EasExternalModel ExternalStatisticsModel { get; set; }
+        public EasRdsModel RdsStatisticsModel { get; set; }
     }
 }

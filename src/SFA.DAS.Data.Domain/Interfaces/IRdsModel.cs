@@ -1,4 +1,4 @@
-﻿namespace SFA.DAS.Data.Domain.Models
+﻿namespace SFA.DAS.Data.Domain.Interfaces
 {
     public interface IRdsModel
     {

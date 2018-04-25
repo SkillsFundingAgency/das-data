@@ -7,6 +7,7 @@ using SFA.DAS.Data.Application.Configuration;
 using SFA.DAS.Data.Domain;
 using SFA.DAS.Data.Domain.Interfaces;
 using SFA.DAS.Data.Domain.Models;
+using SFA.DAS.Data.Domain.Models.Statistics.Commitments;
 using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Application.Handlers
@@ -24,13 +25,13 @@ namespace SFA.DAS.Data.Application.Handlers
             _httpClientWrapper = httpClientWrapper ?? throw new ArgumentNullException(nameof(httpClientWrapper));
         }
 
-        public async Task<CommitmentsStatisticsModel> Handle()
+        public async Task<CommitmentsExternalModel> Handle()
         {
             _logger.Debug("Contacting the commitments statistics End point");
             var response = await _httpClientWrapper.GetAsync(_configuration.CommitmentsStatisticsEndPoint.ToUri(), Constants.ContentTypeValue);
 
             _logger.Debug($"The API returned a response with status code {response.StatusCode}");
-            var model = await _httpClientWrapper.ReadResponse<CommitmentsStatisticsModel>(response);
+            var model = await _httpClientWrapper.ReadResponse<CommitmentsExternalModel>(response);
 
             return model;
         }

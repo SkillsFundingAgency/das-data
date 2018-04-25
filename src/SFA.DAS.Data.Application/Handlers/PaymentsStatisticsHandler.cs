@@ -7,6 +7,7 @@ using SFA.DAS.Data.Application.Configuration;
 using SFA.DAS.Data.Domain;
 using SFA.DAS.Data.Domain.Interfaces;
 using SFA.DAS.Data.Domain.Models;
+using SFA.DAS.Data.Domain.Models.Statistics.Payments;
 using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Application.Handlers
