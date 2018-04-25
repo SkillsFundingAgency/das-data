@@ -1,7 +1,12 @@
-﻿using Microsoft.Azure;
+﻿using System.Linq;
+using Microsoft.Azure;
 using SFA.DAS.Configuration;
 using SFA.DAS.Configuration.AzureTableStorage;
 using SFA.DAS.Data.Application.Configuration;
+using SFA.DAS.Data.Application.Interfaces.Repositories;
+using SFA.DAS.Data.Domain.Interfaces;
+using SFA.DAS.Data.Functions.Statistics.Services;
+using SFA.DAS.Data.Infrastructure.Data;
 using SFA.DAS.NLog.Logger;
 using StructureMap;
 
@@ -16,7 +21,14 @@ namespace SFA.DAS.Data.Functions.Ioc
         {
             Scan(scan =>
             {
-                scan.AssembliesFromApplicationBaseDirectory(a => a.GetName().Name.StartsWith("SFA.DAS."));
+                var assemblyNames = (typeof(DefaultRegistry).Assembly.GetReferencedAssemblies()).ToList().Where(w => w.FullName.StartsWith("SFA.DAS.")).Select(a => a.FullName);
+
+                foreach (var assemblyName in assemblyNames)
+                {
+                    scan.Assembly(assemblyName);
+                }
+
+                //scan.AssembliesFromApplicationBaseDirectory(a => a.GetName().Name.StartsWith("SFA.DAS."));
                 scan.RegisterConcreteTypesAgainstTheFirstInterface();
             });
 
@@ -32,6 +44,8 @@ namespace SFA.DAS.Data.Functions.Ioc
         private void RegisterRepositories(string connectionString)
         {
             // Add registrations here
+            For<IStatisticsRepository>().Use<StatisticsRepository>().Ctor<string>().Is(connectionString);
+            For<IStatisticsService>().Use<StatisticsService>();
         }
 
         private DataConfiguration GetConfiguration()

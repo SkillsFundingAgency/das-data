@@ -159,6 +159,7 @@
     <Compile Include="Interfaces\Repositories\IPaymentRepository.cs" />
     <Compile Include="Interfaces\Repositories\IPerformancePlatformRepository.cs" />
     <Compile Include="Interfaces\Repositories\IProviderRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IStatisticsRepository.cs" />
     <Compile Include="PerformancePlatformData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

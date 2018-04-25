@@ -45,8 +45,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants.cs" />
+    <Compile Include="Interfaces\ICommitmentsStatisticsHandler.cs" />
+    <Compile Include="Interfaces\IEasStatisticsHandler.cs" />
+    <Compile Include="Interfaces\IHttpClientWrapper.cs" />
+    <Compile Include="Interfaces\IPaymentStatisticsHandler.cs" />
+    <Compile Include="Interfaces\IProcessingCompletedMessage.cs" />
+    <Compile Include="Interfaces\IStatisticsService.cs" />
     <Compile Include="Models\ApprenticeshipEvent.cs" />
+    <Compile Include="Models\CommitmentsStatisticsModel.cs" />
+    <Compile Include="Models\EasStatisticsModel.cs" />
+    <Compile Include="Models\IExternalSystemModel.cs" />
+    <Compile Include="Models\IRdsModel.cs" />
+    <Compile Include="Models\PaymentStatisticsModel.cs" />
+    <Compile Include="Models\RdsStatisticsForCommitmentsModel.cs" />
+    <Compile Include="Models\RdsStatisticsForEasModel.cs" />
+    <Compile Include="Models\RdsStatisticsForPaymentsModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StringExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
