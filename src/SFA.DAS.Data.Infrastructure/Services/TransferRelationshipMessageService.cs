@@ -15,13 +15,9 @@ namespace SFA.DAS.Data.Infrastructure.Services
     {
         private readonly IEventsApi _eventsApi;
         private readonly ITransferRelationshipRepository _transferRelationshipRepository;
-        private static string connectionString =
-          "Server=(localdb)\\ProjectsV13;Database=SFA.DAS.Data.Database;Integrated Security = true;Trusted_Connection=True;Pooling=False;Connect Timeout=30;MultipleActiveResultSets=True";
+       
 
-        public TransferRelationshipMessageService()
-        {
-            _transferRelationshipRepository = new TransferRelationshipRepository(connectionString);
-        }
+
 
         public TransferRelationshipMessageService(ITransferRelationshipRepository transferRelationshipRepository)
         {
