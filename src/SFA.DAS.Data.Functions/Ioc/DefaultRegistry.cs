@@ -1,12 +1,16 @@
 ﻿using System.Linq;
+using System.Net.Http;
+using MediatR;
 using Microsoft.Azure;
 using SFA.DAS.Configuration;
 using SFA.DAS.Configuration.AzureTableStorage;
 using SFA.DAS.Data.Application.Configuration;
+using SFA.DAS.Data.Application.Handlers;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.Data.Domain.Interfaces;
 using SFA.DAS.Data.Functions.Statistics.Services;
 using SFA.DAS.Data.Infrastructure.Data;
+using SFA.DAS.Data.Infrastructure.Http;
 using SFA.DAS.NLog.Logger;
 using StructureMap;
 
@@ -36,6 +40,7 @@ namespace SFA.DAS.Data.Functions.Ioc
 
             For<IDataConfiguration>().Use(config);
             RegisterRepositories(config.DatabaseConnectionString);
+            AddMediatrRegistrations();
 
             ConfigureLogging();
         }
@@ -46,6 +51,11 @@ namespace SFA.DAS.Data.Functions.Ioc
             // Add registrations here
             For<IStatisticsRepository>().Use<StatisticsRepository>().Ctor<string>().Is(connectionString);
             For<IStatisticsService>().Use<StatisticsService>();
+            For<IEasStatisticsHandler>().Use<EasStatisticsHandler>();
+            HttpMessageHandler handler = new HttpClientHandler();
+            For<IHttpClientWrapper>().Use<HttpClientWrapper>().Ctor<HttpMessageHandler>().Is(handler);
+            For<ICommitmentsStatisticsHandler>().Use<CommitmentsStatisticsHandler>();
+            For<IPaymentStatisticsHandler>().Use<PaymentsStatisticsHandler>();
         }
 
         private DataConfiguration GetConfiguration()
@@ -66,6 +76,14 @@ namespace SFA.DAS.Data.Functions.Ioc
         private void ConfigureLogging()
         {
             For<ILog>().Use(x => new NLogLogger(x.ParentType, null)).AlwaysUnique();
+        }
+
+        private void AddMediatrRegistrations()
+        {
+            For<SingleInstanceFactory>().Use<SingleInstanceFactory>(ctx => t => ctx.GetInstance(t));
+            For<MultiInstanceFactory>().Use<MultiInstanceFactory>(ctx => t => ctx.GetAllInstances(t));
+
+            For<IMediator>().Use<Mediator>();
         }
     }
 

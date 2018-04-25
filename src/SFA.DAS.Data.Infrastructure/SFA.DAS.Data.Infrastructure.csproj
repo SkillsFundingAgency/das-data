@@ -97,6 +97,7 @@
   <ItemGroup>
     <Compile Include="Data\EmploymentCheckRepository.cs" />
     <Compile Include="Data\EmployerAgreementRepository.cs" />
+    <Compile Include="Http\HttpClientWrapper.cs" />
     <Compile Include="Data\LevyDeclarationRepository.cs" />
     <Compile Include="Data\ApprenticeshipRepository.cs" />
     <Compile Include="Data\PayeSchemeRepository.cs" />
