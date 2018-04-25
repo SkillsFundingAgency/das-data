@@ -1,7 +1,7 @@
 ﻿using System;
 using SFA.DAS.Data.Domain.Interfaces;
 
-namespace SFA.DAS.Data.Functions.Statistics.Commands
+namespace SFA.DAS.Data.Application.Messages
 {
     public class CommitmentProcessingCompletedMessage : IProcessingCompletedMessage
     {

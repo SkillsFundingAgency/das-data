@@ -105,6 +105,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Messages\CommitmentProcessingCompletedMessage.cs" />
+    <Compile Include="Commands\CommitmentRdsStatistics\CommitmentRdsStatisticsCommand.cs" />
+    <Compile Include="Commands\CommitmentRdsStatistics\CommitmentRdsStatisticsCommandHandler.cs" />
+    <Compile Include="Commands\CommitmentRdsStatistics\CommitmentRdsStatisticsCommandResponse.cs" />
     <Compile Include="Commands\CreateEmploymentCheck\CreateEmploymentCheckCommand.cs" />
     <Compile Include="Commands\CreateEmploymentCheck\CreateEmploymentCheckCommandHandler.cs" />
     <Compile Include="Commands\CreateCommitmentApprenticeshipEntry\CreateCommitmentApprenticeshipEntryCommand.cs" />
@@ -118,8 +122,18 @@
     <Compile Include="Commands\CreatePaymentsForPeriodEnd\CreatePaymentsForPeriodEndCommand.cs" />
     <Compile Include="Commands\CreateRoatpProvider\CreateProviderCommand.cs" />
     <Compile Include="Commands\CreateRoatpProvider\CreateProviderCommandHandler.cs" />
+    <Compile Include="Messages\EasProcessingCompletedMessage.cs" />
+    <Compile Include="Commands\CreateStatisticsEas\CreateStatisticsEasCommand.cs" />
+    <Compile Include="Commands\CreateStatisticsEas\CreateStatisticsEasCommandHandler.cs" />
+    <Compile Include="Commands\CreateStatisticsEas\CreateStatisticsEasCommandResponse.cs" />
     <Compile Include="Commands\ExportPerformancePlatformStatistics\ExportPerformancePlatformStatisticsCommand.cs" />
     <Compile Include="Commands\ExportPerformancePlatformStatistics\ExportPerformancePlatformStatisticsCommandHandler.cs" />
+    <Compile Include="Interfaces\ICommandResponse.cs" />
+    <Compile Include="Interfaces\IStatisticsCommand.cs" />
+    <Compile Include="Commands\PaymentRdsStatistics\PaymentRdsStatisticsCommand.cs" />
+    <Compile Include="Commands\PaymentRdsStatistics\PaymentRdsStatisticsCommandHandler.cs" />
+    <Compile Include="Commands\PaymentRdsStatistics\PaymentRdsStatisticsCommandResponse.cs" />
+    <Compile Include="Messages\PaymentsProcessingCompletedMessage.cs" />
     <Compile Include="Commands\RemovePayeScheme\RemovePayeSchemeCommand.cs" />
     <Compile Include="Commands\RemovePayeScheme\RemovePayeSchemeCommandHandler.cs" />
     <Compile Include="Commands\RenameAccount\RenameAccountCommand.cs" />

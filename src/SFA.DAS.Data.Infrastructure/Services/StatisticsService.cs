@@ -3,14 +3,14 @@ using System.Data.Common;
 using System.Net.Http;
 using System.Threading.Tasks;
 using MediatR;
+using SFA.DAS.Data.Application.Commands.CommitmentRdsStatistics;
+using SFA.DAS.Data.Application.Commands.EasRdsStatistics;
+using SFA.DAS.Data.Application.Commands.PaymentRdsStatistics;
+using SFA.DAS.Data.Application.Interfaces;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
+using SFA.DAS.Data.Application.Messages;
 using SFA.DAS.Data.Domain.Interfaces;
 using SFA.DAS.Data.Domain.Models;
-using SFA.DAS.Data.Functions.Ioc;
-using SFA.DAS.Data.Functions.Statistics.Commands;
-using SFA.DAS.Data.Functions.Statistics.Commands.CommitmentRdsStatistics;
-using SFA.DAS.Data.Functions.Statistics.Commands.EasRdsStatistics;
-using SFA.DAS.Data.Functions.Statistics.Commands.PaymentRdsStatistics;
 using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Functions.Statistics.Services
@@ -24,12 +24,12 @@ namespace SFA.DAS.Data.Functions.Statistics.Services
         private readonly IStatisticsRepository _repository;
         private readonly ICommitmentsStatisticsHandler _commitmentsStatisticsHandler;
 
-        public StatisticsService([Inject] ILog log,
-            [Inject] IEasStatisticsHandler easStatisticsHandler,
-            [Inject] IStatisticsRepository repository,
-            [Inject] IMediator mediator,
-            [Inject] ICommitmentsStatisticsHandler commitmentsStatisticsHandler,
-            [Inject] IPaymentStatisticsHandler paymentStatisticsHandler)
+        public StatisticsService( ILog log,
+            IEasStatisticsHandler easStatisticsHandler,
+            IStatisticsRepository repository,
+            IMediator mediator,
+            ICommitmentsStatisticsHandler commitmentsStatisticsHandler,
+            IPaymentStatisticsHandler paymentStatisticsHandler)
         {
             _paymentStatisticsHandler = paymentStatisticsHandler ?? throw new ArgumentNullException(nameof(paymentStatisticsHandler));
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
@@ -57,7 +57,7 @@ namespace SFA.DAS.Data.Functions.Statistics.Services
                 return null;
             }
 
-            var savedSuccessfully = await SaveTheStatisticsToRds<EasStatisticsModel, RdsStatisticsForEasModel, EasRdsStatisticsCommandResponse, EasRdsStatisticsCommand>(statistics, rdsStatistics);
+            var savedSuccessfully = await SaveTheStatisticsToRds<EasStatisticsModel, RdsStatisticsForEasModel, CreateStatisticsEasCommandResponse, CreateStatisticsEasCommand>(statistics, rdsStatistics);
 
             if (!savedSuccessfully)
             {

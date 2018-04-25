@@ -2,19 +2,18 @@
 using System.Threading.Tasks;
 using MediatR;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
-using SFA.DAS.Data.Functions.Ioc;
 using SFA.DAS.NLog.Logger;
 
 //using SFA.DAS.Data.Application.Functions.Interfaces.Repositories;
 
-namespace SFA.DAS.Data.Functions.Statistics.Commands.PaymentRdsStatistics
+namespace SFA.DAS.Data.Application.Commands.PaymentRdsStatistics
 {
     public class PaymentRdsStatisticsCommandHandler : IAsyncRequestHandler<PaymentRdsStatisticsCommand, PaymentRdsStatisticsCommandResponse>
     {
         private readonly IStatisticsRepository _repository;
         private readonly ILog _log;
 
-        public PaymentRdsStatisticsCommandHandler([Inject] IStatisticsRepository repository, [Inject] ILog log)
+        public PaymentRdsStatisticsCommandHandler( IStatisticsRepository repository, ILog log)
         {
             _repository = repository;
             _log = log;

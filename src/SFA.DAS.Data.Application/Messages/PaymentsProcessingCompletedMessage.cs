@@ -1,9 +1,9 @@
 ﻿using System;
 using SFA.DAS.Data.Domain.Interfaces;
 
-namespace SFA.DAS.Data.Functions.Statistics.Commands
+namespace SFA.DAS.Data.Application.Messages
 {
-    public class EasProcessingCompletedMessage : IProcessingCompletedMessage
+    public class PaymentsProcessingCompletedMessage : IProcessingCompletedMessage
     {
         public DateTime ProcessingCompletedAt { get; set; }
     }

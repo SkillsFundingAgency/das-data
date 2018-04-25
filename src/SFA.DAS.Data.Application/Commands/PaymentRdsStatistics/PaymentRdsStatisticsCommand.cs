@@ -1,7 +1,8 @@
 ﻿using MediatR;
+using SFA.DAS.Data.Application.Interfaces;
 using SFA.DAS.Data.Domain.Models;
 
-namespace SFA.DAS.Data.Functions.Statistics.Commands.PaymentRdsStatistics
+namespace SFA.DAS.Data.Application.Commands.PaymentRdsStatistics
 {
     public class PaymentRdsStatisticsCommand : IAsyncRequest<PaymentRdsStatisticsCommandResponse>, IAsyncRequest<PaymentRdsStatisticsCommandHandler>, IStatisticsCommand<PaymentStatisticsModel, RdsStatisticsForPaymentsModel>
     {

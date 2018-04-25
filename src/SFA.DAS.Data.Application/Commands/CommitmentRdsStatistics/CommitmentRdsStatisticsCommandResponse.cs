@@ -1,4 +1,6 @@
-﻿namespace SFA.DAS.Data.Functions.Statistics.Commands.CommitmentRdsStatistics
+﻿using SFA.DAS.Data.Application.Interfaces;
+
+namespace SFA.DAS.Data.Application.Commands.CommitmentRdsStatistics
 {
     public class CommitmentRdsStatisticsCommandResponse : ICommandResponse
     {

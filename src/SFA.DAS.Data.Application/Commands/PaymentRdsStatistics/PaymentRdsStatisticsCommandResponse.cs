@@ -1,4 +1,6 @@
-﻿namespace SFA.DAS.Data.Functions.Statistics.Commands.PaymentRdsStatistics
+﻿using SFA.DAS.Data.Application.Interfaces;
+
+namespace SFA.DAS.Data.Application.Commands.PaymentRdsStatistics
 {
     public class PaymentRdsStatisticsCommandResponse : ICommandResponse
     {
