@@ -7,7 +7,10 @@
     [SenderUserId] BIGINT NULL, 
     [ApproverUserId] BIGINT NULL, 
     [RejectorUserId] BIGINT NULL, 
-    [UpdatedDateTime] DATETIME NULL DEFAULT (GetDate()), 
+    [UpdateDateTime] DATETIME NULL DEFAULT (GetDate()), 
     [IsLatest] BIT NULL DEFAULT 0  
 )
+GO
+
+CREATE INDEX [IX_DAS_Employer_Transfer_Relationships_Sender_Receiver] ON [Data_Load].[DAS_Employer_Transfer_Relationships] (SenderAccountId, ReceiverAccountId) INCLUDE (IsLatest)
 GO
