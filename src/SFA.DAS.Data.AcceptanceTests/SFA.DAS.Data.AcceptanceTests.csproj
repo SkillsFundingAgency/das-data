@@ -130,8 +130,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="SFA.DAS.EmployerAccounts.Events, Version=1.2.0.62826, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\SFA.DAS.Data.Infrastructure.UnitTests\bin\Debug\SFA.DAS.EmployerAccounts.Events.dll</HintPath>
+      <HintPath>..\packages\SFA.DAS.EmployerAccounts.Events.1.2.0.62826\lib\net45\SFA.DAS.EmployerAccounts.Events.dll</HintPath>
     </Reference>
     <Reference Include="SFA.DAS.EmploymentCheck.Events, Version=1.0.0.51324, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.EmploymentCheck.Events.1.0.0.51324\lib\net45\SFA.DAS.EmploymentCheck.Events.dll</HintPath>
