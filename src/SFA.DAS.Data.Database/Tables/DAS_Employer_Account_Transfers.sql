@@ -8,7 +8,7 @@
 	[Amount]	DECIMAL(18, 5) NULL,
 	[Type] NVARCHAR(50) NOT NULL,
 	[TransferDate] DATE NOT NULL,
-    [ColectionPeriodName] NCHAR(10) NOT NULL, 
+    [CollectionPeriodName] NVARCHAR(10) NOT NULL, 
     [UpdateDateTime] DATETIME NOT NULL DEFAULT (GETDATE()) 
 )
 GO

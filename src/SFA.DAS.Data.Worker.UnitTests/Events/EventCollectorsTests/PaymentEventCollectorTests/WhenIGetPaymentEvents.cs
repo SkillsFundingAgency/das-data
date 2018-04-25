@@ -16,7 +16,7 @@ namespace SFA.DAS.Data.Worker.UnitTests.Events.EventCollectorsTests.PaymentEvent
     {
         private Mock<IProviderEventService> _eventService;
         private Mock<ILog> _logger;
-        private PaymentEventsCollector _collector;
+        private PeriodEndEventsCollector _collector;
         private List<PeriodEnd> _expectedPeriodEnds;
 
         [SetUp]
@@ -29,7 +29,7 @@ namespace SFA.DAS.Data.Worker.UnitTests.Events.EventCollectorsTests.PaymentEvent
 
             _eventService.Setup(x => x.GetUnprocessedPeriodEnds()).ReturnsAsync(_expectedPeriodEnds);
 
-            _collector = new PaymentEventsCollector(_eventService.Object, _logger.Object, new DataConfiguration { PaymentsEnabled = true });
+            _collector = new PeriodEndEventsCollector(_eventService.Object, _logger.Object, new DataConfiguration { PaymentsEnabled = true });
         }
 
         [Test]
@@ -59,7 +59,7 @@ namespace SFA.DAS.Data.Worker.UnitTests.Events.EventCollectorsTests.PaymentEvent
         public async Task ThenShouldReturnEmptyCollectionIfPaymentsAreNotEnabled()
         {
             //Arrange
-            var collector = new PaymentEventsCollector(_eventService.Object, _logger.Object, new DataConfiguration { PaymentsEnabled = false });
+            var collector = new PeriodEndEventsCollector(_eventService.Object, _logger.Object, new DataConfiguration { PaymentsEnabled = false });
 
             //Act
             var result = await collector.GetEvents();

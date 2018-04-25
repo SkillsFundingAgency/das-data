@@ -19,10 +19,10 @@ namespace SFA.DAS.Data.Worker.Events.EventHandlers
 
         protected override async Task ProcessEvent(PeriodEnd @event)
         {
-            await _mediator.PublishAsync(new CreatePaymentsForPeriodEndCommand
-            {
-                PeriodEndId = @event.Id
-            });
+            Task.WaitAll(
+                _mediator.PublishAsync(new CreatePaymentsForPeriodEndCommand { PeriodEndId = @event.Id }),
+                _mediator.PublishAsync(new CreatePaymentsForPeriodEndCommand { PeriodEndId = @event.Id })
+            );
         }
 
         public override async Task Handle(PeriodEnd @event)

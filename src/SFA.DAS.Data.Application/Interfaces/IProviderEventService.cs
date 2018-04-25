@@ -9,5 +9,6 @@ namespace SFA.DAS.Data.Application.Interfaces
         Task<ICollection<PeriodEnd>> GetUnprocessedPeriodEnds();
 
         Task<PageOfResults<Payment>> GetPayments(string periodId, int pageNumber);
+        Task<PageOfResults<AccountTransfer>> GetTransfers(string periodId, int pageNumber);
     }
 }

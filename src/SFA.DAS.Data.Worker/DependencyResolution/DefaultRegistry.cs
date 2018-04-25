@@ -89,7 +89,7 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             For<IEventsCollector<GenericEvent<PayeSchemeRemovedEvent>>>().Use<GenericEventCollector<PayeSchemeRemovedEvent>>();
             For<IEventsCollector<GenericEvent<LevyDeclarationUpdatedEvent>>>().Use<GenericEventCollector<LevyDeclarationUpdatedEvent>>();
             For<IEventsCollector<GenericEvent<AgreementSignedEvent>>>().Use<GenericEventCollector<AgreementSignedEvent>>();
-            For<IEventsCollector<PeriodEnd>>().Use<PaymentEventsCollector>();
+            For<IEventsCollector<PeriodEnd>>().Use<PeriodEndEventsCollector>();
             For<IEventsCollector<GenericEvent<EmploymentCheckCompleteEvent>>>().Use<GenericEventCollector<EmploymentCheckCompleteEvent>>();
             // Following code commented out so that Roatp changes do not go through to live as there are some questions around the tesing - Mahinder Suniara
             // For<IEventsCollector<AgreementEventView>>().Use<AgreementEventCollector>();
@@ -132,6 +132,7 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             For<IPayeSchemeRepository>().Use<PayeSchemeRepository>().Ctor<string>().Is(connectionString);
             For<IApprenticeshipRepository>().Use<ApprenticeshipRepository>().Ctor<string>().Is(connectionString);
             For<IPaymentRepository>().Use<PaymentRepository>().Ctor<string>().Is(connectionString);
+            For<ITransferRepository>().Use<TransferRepository>().Ctor<string>().Is(connectionString);
             For<ILevyDeclarationRepository>().Use<LevyDeclarationRepository>().Ctor<string>().Is(connectionString);
             For<IEmployerAgreementRepository>().Use<EmployerAgreementRepository>().Ctor<string>().Is(connectionString);
             For<IEmploymentCheckRepository>().Use<EmploymentCheckRepository>().Ctor<string>().Is(connectionString);

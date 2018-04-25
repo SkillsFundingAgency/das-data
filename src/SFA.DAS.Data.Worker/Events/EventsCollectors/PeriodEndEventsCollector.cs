@@ -7,13 +7,13 @@ using SFA.DAS.Provider.Events.Api.Types;
 
 namespace SFA.DAS.Data.Worker.Events.EventsCollectors
 {
-    public class PaymentEventsCollector : IEventsCollector<PeriodEnd>
+    public class PeriodEndEventsCollector : IEventsCollector<PeriodEnd>
     {
         private readonly IProviderEventService _eventService;
         private readonly ILog _logger;
         private readonly IDataConfiguration _config;
 
-        public PaymentEventsCollector(IProviderEventService eventService, ILog logger, IDataConfiguration config)
+        public PeriodEndEventsCollector(IProviderEventService eventService, ILog logger, IDataConfiguration config)
         {
             _eventService = eventService;
             _logger = logger;
@@ -24,7 +24,7 @@ namespace SFA.DAS.Data.Worker.Events.EventsCollectors
         {
             _logger.Info("Getting unprocessed period ends");
 
-            if (!_config.PaymentsEnabled)
+            if (!_config.PaymentsEnabled && !_config.TransfersEnabled)
             {
                 return new List<PeriodEnd>();
             }

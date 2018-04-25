@@ -74,6 +74,7 @@ namespace SFA.DAS.Data.AcceptanceTests.PaymentEventTests
             }
             var paymentsResult = new PageOfResults<Payment> { Items = payments.ToArray(), PageNumber = 1, TotalNumberOfPages = 1 };
             EventsApi.SetupGet($"api/payments?page=1&periodId={periodEnd}&employerAccountId={null}&ukprn={null}", paymentsResult);
+            EventsApi.SetupGet($"api/transfers?page=1&periodId={periodEnd}", new PageOfResults<Payment> {PageNumber = 0, TotalNumberOfPages = 0});
         }
     }
 }
