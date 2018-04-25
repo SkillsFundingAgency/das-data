@@ -123,9 +123,9 @@
     <Compile Include="Commands\CreateRoatpProvider\CreateProviderCommand.cs" />
     <Compile Include="Commands\CreateRoatpProvider\CreateProviderCommandHandler.cs" />
     <Compile Include="Messages\EasProcessingCompletedMessage.cs" />
-    <Compile Include="Commands\CreateStatisticsEas\CreateCommitmentStatisticsCommand.cs" />
-    <Compile Include="Commands\CreateStatisticsEas\CreateCommitmentStatisticsCommandHandler.cs" />
-    <Compile Include="Commands\CreateStatisticsEas\CreateCommitmentStatisticsCommandResponse.cs" />
+    <Compile Include="Commands\CreateEasStatistics\CreateCommitmentStatisticsCommand.cs" />
+    <Compile Include="Commands\CreateEasStatistics\CreateCommitmentStatisticsCommandHandler.cs" />
+    <Compile Include="Commands\CreateEasStatistics\CreateCommitmentStatisticsCommandResponse.cs" />
     <Compile Include="Commands\ExportPerformancePlatformStatistics\ExportPerformancePlatformStatisticsCommand.cs" />
     <Compile Include="Commands\ExportPerformancePlatformStatistics\ExportPerformancePlatformStatisticsCommandHandler.cs" />
     <Compile Include="Interfaces\ICommandResponse.cs" />
