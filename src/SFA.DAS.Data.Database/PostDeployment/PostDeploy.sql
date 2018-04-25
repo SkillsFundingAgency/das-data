@@ -11,6 +11,8 @@ BEGIN
 	GRANT SELECT ON [Data_Pub].[DAS_Commitments] TO ViewSpecificReadOnly
 	GRANT SELECT ON [Data_Pub].[DAS_CalendarMonth] TO ViewSpecificReadOnly
 	GRANT SELECT ON [Data_Pub].[DAS_LevyDeclarations] TO ViewSpecificReadOnly
+	GRANT SELECT ON [Data_Pub].[DAS_Employer_Agreements] TO ViewSpecificReadOnly
+	GRANT SELECT ON [Data_Pub].[DAS_Employer_AccountTransactions] TO ViewSpecificReadOnly
 END
 
 --Developer - Read all tables / views excluding HMRC
