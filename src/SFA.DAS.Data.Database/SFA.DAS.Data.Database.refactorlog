@@ -98,4 +98,60 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="LegalEntityCode" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="b1722cd8-17d8-48ce-b2aa-ecc505a8a495" ChangeDateTime="04/11/2018 15:13:06">
+    <Property Name="ElementName" Value="[Data_Load].[DAS_Employer_Transfer_Relationships].[Sender Account Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[Data_Load].[DAS_Employer_Transfer_Relationships]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="SenderAccountId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="e618c65e-d10a-49d2-a2b4-e818ea4e43bd" ChangeDateTime="04/11/2018 15:13:12">
+    <Property Name="ElementName" Value="[Data_Load].[DAS_Employer_Transfer_Relationships].[Receiver Account Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[Data_Load].[DAS_Employer_Transfer_Relationships]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ReceiverAccount Id" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="07f1bc7e-3a75-4107-91df-4535ef4f9b73" ChangeDateTime="04/11/2018 15:13:16">
+    <Property Name="ElementName" Value="[Data_Load].[DAS_Employer_Transfer_Relationships].[ReceiverAccount Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[Data_Load].[DAS_Employer_Transfer_Relationships]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ReceiverAccountId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="6a349f24-73f3-4105-98db-4da868c58acf" ChangeDateTime="04/11/2018 15:13:20">
+    <Property Name="ElementName" Value="[Data_Load].[DAS_Employer_Transfer_Relationships].[Relationship Status]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[Data_Load].[DAS_Employer_Transfer_Relationships]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="RelationshipStatus" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="2adbb1b8-e9eb-4357-ad4f-bbc81a0f6802" ChangeDateTime="04/11/2018 15:13:26">
+    <Property Name="ElementName" Value="[Data_Load].[DAS_Employer_Transfer_Relationships].[Sender User Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[Data_Load].[DAS_Employer_Transfer_Relationships]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="SenderUser Id" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="6b0145da-e3b0-4743-8ed2-e4a69c569589" ChangeDateTime="04/11/2018 15:13:30">
+    <Property Name="ElementName" Value="[Data_Load].[DAS_Employer_Transfer_Relationships].[SenderUser Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[Data_Load].[DAS_Employer_Transfer_Relationships]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="SenderUserId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="41920518-0d05-40d4-8492-1b8a7c129d2a" ChangeDateTime="04/11/2018 15:13:36">
+    <Property Name="ElementName" Value="[Data_Load].[DAS_Employer_Transfer_Relationships].[Approver User Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[Data_Load].[DAS_Employer_Transfer_Relationships]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ApproverUserId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="92cea3c2-225d-4a46-84dc-ebf3d239bfdc" ChangeDateTime="04/11/2018 15:13:41">
+    <Property Name="ElementName" Value="[Data_Load].[DAS_Employer_Transfer_Relationships].[Rejector User Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[Data_Load].[DAS_Employer_Transfer_Relationships]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="RejectorUserId" />
+  </Operation>
 </Operations>
