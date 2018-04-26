@@ -1,4 +1,4 @@
-﻿namespace SFA.DAS.Data.Functions.Statistics.Commands
+﻿namespace SFA.DAS.Data.Application.Interfaces
 {
     public interface ICommandResponse
     {

@@ -4,23 +4,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SFA.DAS.Data.Domain.Models;
+using SFA.DAS.Data.Domain.Models.Statistics.Commitments;
+using SFA.DAS.Data.Domain.Models.Statistics.Eas;
+using SFA.DAS.Data.Domain.Models.Statistics.Payments;
 
 namespace SFA.DAS.Data.Application.Interfaces.Repositories
 {
     public interface IStatisticsRepository
     {
-        Task<RdsStatisticsForEasModel> RetrieveEquivalentEasStatisticsFromRds();
+        Task<EasRdsModel> RetrieveEquivalentEasStatisticsFromRds();
 
-        Task<RdsStatisticsForCommitmentsModel> RetrieveEquivalentCommitmentsStatisticsFromRds();
+        Task<CommitmentsRdsModel> RetrieveEquivalentCommitmentsStatisticsFromRds();
 
-        Task<RdsStatisticsForPaymentsModel> RetrieveEquivalentPaymentStatisticsFromRds();
+        Task<PaymentsRdsModel> RetrieveEquivalentPaymentStatisticsFromRds();
 
-        Task SaveEasStatistics(EasStatisticsModel easStatisticsModel,
-            RdsStatisticsForEasModel rdsStatisticsForEasModel);
+        Task SaveEasStatistics(EasExternalModel easStatisticsModel,
+            EasRdsModel rdsStatisticsForEasModel);
 
-        Task SaveCommitmentStatistics(CommitmentsStatisticsModel statisticsModel,
-            RdsStatisticsForCommitmentsModel rdsModel);
+        Task SaveCommitmentStatistics(CommitmentsExternalModel statisticsModel,
+            CommitmentsRdsModel rdsModel);
 
-        Task SavePaymentStatistics(PaymentStatisticsModel statisticsModel, RdsStatisticsForPaymentsModel rdsModel);
+        Task SavePaymentStatistics(PaymentExternalModel statisticsModel, PaymentsRdsModel rdsModel);
     }
 }

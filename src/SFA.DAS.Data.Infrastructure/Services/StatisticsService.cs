@@ -3,14 +3,17 @@ using System.Data.Common;
 using System.Net.Http;
 using System.Threading.Tasks;
 using MediatR;
+using SFA.DAS.Data.Application.Commands.CreateCommitmentStatistics;
+using SFA.DAS.Data.Application.Commands.CreateEasStatistics;
+using SFA.DAS.Data.Application.Commands.CreatePaymentsStatistics;
+using SFA.DAS.Data.Application.Interfaces;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
+using SFA.DAS.Data.Application.Messages;
 using SFA.DAS.Data.Domain.Interfaces;
 using SFA.DAS.Data.Domain.Models;
-using SFA.DAS.Data.Functions.Ioc;
-using SFA.DAS.Data.Functions.Statistics.Commands;
-using SFA.DAS.Data.Functions.Statistics.Commands.CommitmentRdsStatistics;
-using SFA.DAS.Data.Functions.Statistics.Commands.EasRdsStatistics;
-using SFA.DAS.Data.Functions.Statistics.Commands.PaymentRdsStatistics;
+using SFA.DAS.Data.Domain.Models.Statistics.Commitments;
+using SFA.DAS.Data.Domain.Models.Statistics.Eas;
+using SFA.DAS.Data.Domain.Models.Statistics.Payments;
 using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Functions.Statistics.Services
@@ -24,12 +27,12 @@ namespace SFA.DAS.Data.Functions.Statistics.Services
         private readonly IStatisticsRepository _repository;
         private readonly ICommitmentsStatisticsHandler _commitmentsStatisticsHandler;
 
-        public StatisticsService([Inject] ILog log,
-            [Inject] IEasStatisticsHandler easStatisticsHandler,
-            [Inject] IStatisticsRepository repository,
-            [Inject] IMediator mediator,
-            [Inject] ICommitmentsStatisticsHandler commitmentsStatisticsHandler,
-            [Inject] IPaymentStatisticsHandler paymentStatisticsHandler)
+        public StatisticsService( ILog log,
+            IEasStatisticsHandler easStatisticsHandler,
+            IStatisticsRepository repository,
+            IMediator mediator,
+            ICommitmentsStatisticsHandler commitmentsStatisticsHandler,
+            IPaymentStatisticsHandler paymentStatisticsHandler)
         {
             _paymentStatisticsHandler = paymentStatisticsHandler ?? throw new ArgumentNullException(nameof(paymentStatisticsHandler));
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
@@ -57,7 +60,7 @@ namespace SFA.DAS.Data.Functions.Statistics.Services
                 return null;
             }
 
-            var savedSuccessfully = await SaveTheStatisticsToRds<EasStatisticsModel, RdsStatisticsForEasModel, EasRdsStatisticsCommandResponse, EasRdsStatisticsCommand>(statistics, rdsStatistics);
+            var savedSuccessfully = await SaveTheStatisticsToRds<EasExternalModel, EasRdsModel, CreateEasStatisticsCommandResponse, CreateEasStatisticsCommand>(statistics, rdsStatistics);
 
             if (!savedSuccessfully)
             {
@@ -89,7 +92,7 @@ namespace SFA.DAS.Data.Functions.Statistics.Services
                 return null;
             }
 
-            var savedSuccessfully = await SaveTheStatisticsToRds<CommitmentsStatisticsModel, RdsStatisticsForCommitmentsModel, CommitmentRdsStatisticsCommandResponse, CommitmentRdsStatisticsCommand>(statistics, rdsStatistics);
+            var savedSuccessfully = await SaveTheStatisticsToRds<CommitmentsExternalModel, CommitmentsRdsModel, CreateCommitmentStatisticsCommandResponse, CreateCommitmentStatisticsCommand>(statistics, rdsStatistics);
 
             if (!savedSuccessfully)
             {
@@ -118,7 +121,7 @@ namespace SFA.DAS.Data.Functions.Statistics.Services
                 return null;
             }
 
-            var savedSuccessfully = await SaveTheStatisticsToRds<PaymentStatisticsModel, RdsStatisticsForPaymentsModel, PaymentRdsStatisticsCommandResponse, PaymentRdsStatisticsCommand>(statistics, rdsStatistics);
+            var savedSuccessfully = await SaveTheStatisticsToRds<PaymentExternalModel, PaymentsRdsModel, CreatePaymentsStatisticsCommandResponse, CreatePaymentsStatisticsCommand>(statistics, rdsStatistics);
 
             if (!savedSuccessfully)
             {
@@ -144,9 +147,9 @@ namespace SFA.DAS.Data.Functions.Statistics.Services
             return response.OperationSuccessful;
         }
 
-        private async Task<RdsStatisticsForEasModel> RetrieveRelatedAesStatisticsFromRds()
+        private async Task<EasRdsModel> RetrieveRelatedAesStatisticsFromRds()
         {
-            RdsStatisticsForEasModel rdsStatistics = null;
+            EasRdsModel rdsStatistics = null;
 
             _log.Debug("Gathering statistics for the equivalent EAS stats in RDS");
             try
@@ -161,9 +164,9 @@ namespace SFA.DAS.Data.Functions.Statistics.Services
             return rdsStatistics;
         }
 
-        private async Task<RdsStatisticsForCommitmentsModel> RetrieveRelatedCommitmentsStatisticsFromRds()
+        private async Task<CommitmentsRdsModel> RetrieveRelatedCommitmentsStatisticsFromRds()
         {
-            RdsStatisticsForCommitmentsModel rdsStatistics = null;
+            CommitmentsRdsModel rdsStatistics = null;
 
             _log.Debug("Gathering statistics for the equivalent commitment stats in RDS");
 
@@ -179,9 +182,9 @@ namespace SFA.DAS.Data.Functions.Statistics.Services
             return rdsStatistics;
         }
 
-        private async Task<RdsStatisticsForPaymentsModel> RetrieveRelatedPaymentsStatisticsFromRds()
+        private async Task<PaymentsRdsModel> RetrieveRelatedPaymentsStatisticsFromRds()
         {
-            RdsStatisticsForPaymentsModel rdsStatistics = null;
+            PaymentsRdsModel rdsStatistics = null;
 
             _log.Debug("Gathering statistics for the equivalent payment stats in RDS");
 
@@ -197,10 +200,10 @@ namespace SFA.DAS.Data.Functions.Statistics.Services
             return rdsStatistics;
         }
 
-        private async Task<EasStatisticsModel> RetrieveAesStatisticsFromTheApi()
+        private async Task<EasExternalModel> RetrieveAesStatisticsFromTheApi()
         {
             _log.Debug("Gathering statistics for the EAS area of the system");
-            EasStatisticsModel statistics = null;
+            EasExternalModel statistics = null;
 
             try
             {
@@ -214,10 +217,10 @@ namespace SFA.DAS.Data.Functions.Statistics.Services
             return statistics;
         }
 
-        private async Task<CommitmentsStatisticsModel> RetrieveCommitmentsStatisticsFromTheApi()
+        private async Task<CommitmentsExternalModel> RetrieveCommitmentsStatisticsFromTheApi()
         {
             _log.Debug("Gathering statistics for the Commitments area of the system");
-            CommitmentsStatisticsModel statistics = null;
+            CommitmentsExternalModel statistics = null;
 
             try
             {
@@ -231,10 +234,10 @@ namespace SFA.DAS.Data.Functions.Statistics.Services
             return statistics;
         }
 
-        private async Task<PaymentStatisticsModel> RetrievePaymentsStatisticsFromTheApi()
+        private async Task<PaymentExternalModel> RetrievePaymentsStatisticsFromTheApi()
         {
             _log.Debug("Gathering statistics for the payments area of the system");
-            PaymentStatisticsModel statistics = null;
+            PaymentExternalModel statistics = null;
 
             try
             {

@@ -2,25 +2,24 @@
 using System.Threading.Tasks;
 using MediatR;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
-using SFA.DAS.Data.Functions.Ioc;
 using SFA.DAS.NLog.Logger;
 
-namespace SFA.DAS.Data.Functions.Statistics.Commands.CommitmentRdsStatistics
+namespace SFA.DAS.Data.Application.Commands.CreateCommitmentStatistics
 {
-    public class CommitmentRdsStatisticsCommandHandler : IAsyncRequestHandler<CommitmentRdsStatisticsCommand, CommitmentRdsStatisticsCommandResponse>
+    public class CreateCommitmentStatisticsCommandHandler : IAsyncRequestHandler<CreateCommitmentStatisticsCommand, CreateCommitmentStatisticsCommandResponse>
     {
         private readonly IStatisticsRepository _repository;
         private readonly ILog _log;
 
-        public CommitmentRdsStatisticsCommandHandler([Inject] IStatisticsRepository repository, [Inject] ILog log)
+        public CreateCommitmentStatisticsCommandHandler( IStatisticsRepository repository, ILog log)
         {
             _repository = repository;
             _log = log;
         }
 
-        public async Task<CommitmentRdsStatisticsCommandResponse> Handle(CommitmentRdsStatisticsCommand message)
+        public async Task<CreateCommitmentStatisticsCommandResponse> Handle(CreateCommitmentStatisticsCommand message)
         {
-            var response = new CommitmentRdsStatisticsCommandResponse
+            var response = new CreateCommitmentStatisticsCommandResponse
             {
                 OperationSuccessful = true
             };

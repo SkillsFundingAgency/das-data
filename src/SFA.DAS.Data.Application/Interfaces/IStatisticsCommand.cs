@@ -1,6 +1,7 @@
-﻿using SFA.DAS.Data.Domain.Models;
+﻿using SFA.DAS.Data.Domain.Interfaces;
+using SFA.DAS.Data.Domain.Models;
 
-namespace SFA.DAS.Data.Functions.Statistics.Commands
+namespace SFA.DAS.Data.Application.Interfaces
 {
     public interface IStatisticsCommand<TExternalModel, TRdsModel> where TExternalModel : IExternalSystemModel
         where TRdsModel : IRdsModel

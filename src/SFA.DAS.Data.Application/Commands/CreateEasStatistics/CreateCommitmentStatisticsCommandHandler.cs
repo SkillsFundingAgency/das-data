@@ -2,25 +2,24 @@
 using System.Threading.Tasks;
 using MediatR;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
-using SFA.DAS.Data.Functions.Ioc;
 using SFA.DAS.NLog.Logger;
 
-namespace SFA.DAS.Data.Functions.Statistics.Commands.EasRdsStatistics
+namespace SFA.DAS.Data.Application.Commands.CreateEasStatistics
 {
-    public class EasRdsStatisticsCommandHandler : IAsyncRequestHandler<EasRdsStatisticsCommand, EasRdsStatisticsCommandResponse>
+    public class CreateEasStatisticsCommandHandler : IAsyncRequestHandler<CreateEasStatisticsCommand, CreateEasStatisticsCommandResponse>
     {
         private readonly IStatisticsRepository _repository;
         private readonly ILog _log;
 
-        public EasRdsStatisticsCommandHandler([Inject] IStatisticsRepository repository, [Inject] ILog log)
+        public CreateEasStatisticsCommandHandler( IStatisticsRepository repository, ILog log)
         {
             _repository = repository;
             _log = log;
         }
 
-        public async Task<EasRdsStatisticsCommandResponse> Handle(EasRdsStatisticsCommand message)
+        public async Task<CreateEasStatisticsCommandResponse> Handle(CreateEasStatisticsCommand message)
         {
-            var response = new EasRdsStatisticsCommandResponse
+            var response = new CreateEasStatisticsCommandResponse
             {
                 OperationSuccessful = true
             };

@@ -7,6 +7,7 @@ using SFA.DAS.Data.Application.Configuration;
 using SFA.DAS.Data.Domain;
 using SFA.DAS.Data.Domain.Interfaces;
 using SFA.DAS.Data.Domain.Models;
+using SFA.DAS.Data.Domain.Models.Statistics.Payments;
 using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Application.Handlers
@@ -25,13 +26,13 @@ namespace SFA.DAS.Data.Application.Handlers
 
         }
 
-        public async Task<PaymentStatisticsModel> Handle()
+        public async Task<PaymentExternalModel> Handle()
         {
             _logger.Debug("Contacting the payment statistics End point");
             var response = await _httpClientWrapper.GetAsync(_configuration.PaymentsStatisticsEndPoint.ToUri(), Constants.ContentTypeValue);
 
             _logger.Debug($"The API returned a response with status code {response.StatusCode}");
-            var model = await _httpClientWrapper.ReadResponse<PaymentStatisticsModel>(response);
+            var model = await _httpClientWrapper.ReadResponse<PaymentExternalModel>(response);
 
             return model;
         }
