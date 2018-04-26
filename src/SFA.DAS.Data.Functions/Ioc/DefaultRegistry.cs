@@ -50,12 +50,10 @@ namespace SFA.DAS.Data.Functions.Ioc
         {
             // Add registrations here
             For<IStatisticsRepository>().Use<StatisticsRepository>().Ctor<string>().Is(connectionString);
-            For<IStatisticsService>().Use<StatisticsService>();
-            For<IEasStatisticsHandler>().Use<EasStatisticsHandler>();
+
             HttpMessageHandler handler = new HttpClientHandler();
             For<IHttpClientWrapper>().Use<HttpClientWrapper>().Ctor<HttpMessageHandler>().Is(handler);
-            For<ICommitmentsStatisticsHandler>().Use<CommitmentsStatisticsHandler>();
-            For<IPaymentStatisticsHandler>().Use<PaymentsStatisticsHandler>();
+
         }
 
         private DataConfiguration GetConfiguration()
