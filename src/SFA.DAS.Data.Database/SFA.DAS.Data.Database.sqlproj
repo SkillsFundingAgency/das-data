@@ -65,6 +65,7 @@
     <Folder Include="PostDeployment" />
     <Folder Include="StoredProcedures" />
     <Folder Include="Functions" />
+    <Folder Include="Types" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Schemas\Data_Load.sql" />
@@ -139,6 +140,8 @@
     <Build Include="Tables\DAS_Employer_Transfer_Relationships.sql" />
     <Build Include="Views\DAS_Employer_Account_Transfers.sql" />
     <Build Include="Views\DAS_Employer_Transfer_Relationship.sql" />
+    <Build Include="StoredProcedures\SaveTransfer.sql" />
+    <Build Include="Types\TransferEntity.sql" />
     <Build Include="StoredProcedures\CreateTransfersRelationship.sql" />
     <Build Include="StoredProcedures\GetEventFailureCount.sql" />
   </ItemGroup>
