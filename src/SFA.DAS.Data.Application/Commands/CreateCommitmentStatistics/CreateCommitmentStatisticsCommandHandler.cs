@@ -4,7 +4,7 @@ using MediatR;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.NLog.Logger;
 
-namespace SFA.DAS.Data.Application.Commands.CommitmentRdsStatistics
+namespace SFA.DAS.Data.Application.Commands.CreateCommitmentStatistics
 {
     public class CreateCommitmentStatisticsCommandHandler : IAsyncRequestHandler<CreateCommitmentStatisticsCommand, CreateCommitmentStatisticsCommandResponse>
     {

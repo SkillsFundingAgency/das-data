@@ -1,6 +1,6 @@
 ﻿using SFA.DAS.Data.Application.Interfaces;
 
-namespace SFA.DAS.Data.Application.Commands.CommitmentRdsStatistics
+namespace SFA.DAS.Data.Application.Commands.CreateCommitmentStatistics
 {
     public class CreateCommitmentStatisticsCommandResponse : ICommandResponse
     {

@@ -4,7 +4,7 @@ using MediatR;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.NLog.Logger;
 
-namespace SFA.DAS.Data.Application.Commands.EasRdsStatistics
+namespace SFA.DAS.Data.Application.Commands.CreateEasStatistics
 {
     public class CreateEasStatisticsCommandHandler : IAsyncRequestHandler<CreateEasStatisticsCommand, CreateEasStatisticsCommandResponse>
     {

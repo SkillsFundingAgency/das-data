@@ -1,6 +1,6 @@
 ﻿using SFA.DAS.Data.Application.Interfaces;
 
-namespace SFA.DAS.Data.Application.Commands.PaymentRdsStatistics
+namespace SFA.DAS.Data.Application.Commands.CreatePaymentsStatistics
 {
     public class CreatePaymentsStatisticsCommandResponse : ICommandResponse
     {

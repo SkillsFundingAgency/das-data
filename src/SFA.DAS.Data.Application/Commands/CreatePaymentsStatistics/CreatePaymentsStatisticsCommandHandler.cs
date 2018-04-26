@@ -6,7 +6,7 @@ using SFA.DAS.NLog.Logger;
 
 //using SFA.DAS.Data.Application.Functions.Interfaces.Repositories;
 
-namespace SFA.DAS.Data.Application.Commands.PaymentRdsStatistics
+namespace SFA.DAS.Data.Application.Commands.CreatePaymentsStatistics
 {
     public class CreatePaymentsStatisticsCommandHandler : IAsyncRequestHandler<CreatePaymentsStatisticsCommand, CreatePaymentsStatisticsCommandResponse>
     {
