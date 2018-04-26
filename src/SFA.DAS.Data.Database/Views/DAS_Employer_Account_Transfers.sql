@@ -7,7 +7,6 @@
 		[CommitmentId],
 		[Amount],
 		[Type],
-		[TransferDate],
 		[CollectionPeriodName],
 		[UpdateDateTime]
 	FROM 

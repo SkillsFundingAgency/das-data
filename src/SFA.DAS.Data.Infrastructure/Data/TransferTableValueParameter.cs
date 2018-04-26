@@ -12,14 +12,12 @@ namespace SFA.DAS.Data.Infrastructure.Data
     {
         private readonly IEnumerable<AccountTransfer> _transfers;
 
-        private static readonly SqlMetaData _idMetaData = new SqlMetaData("Id", SqlDbType.UniqueIdentifier);
         private static readonly SqlMetaData _senderAccountIdMetaData = new SqlMetaData("SenderAccountId", SqlDbType.BigInt);
         private static readonly SqlMetaData _receiverAccountIdMetaData = new SqlMetaData("ReceiverAccountId", SqlDbType.BigInt);
         private static readonly SqlMetaData _requiredPaymentId = new SqlMetaData("RequiredPaymentId", SqlDbType.UniqueIdentifier);
         private static readonly SqlMetaData _commitmentId = new SqlMetaData("CommitmentId", SqlDbType.BigInt);
         private static readonly SqlMetaData _amount = new SqlMetaData("Amount", SqlDbType.Decimal, 18, 5);
         private static readonly SqlMetaData _type = new SqlMetaData("Type", SqlDbType.NVarChar, 50);
-        private static readonly SqlMetaData _transferDate = new SqlMetaData("TransferDate", SqlDbType.Date);
         private static readonly SqlMetaData _collectionPeriodName = new SqlMetaData("CollectionPeriodName", SqlDbType.NVarChar, 10);
 
         public TransferTableValueParameter(IEnumerable<AccountTransfer> transfers)
@@ -34,17 +32,15 @@ namespace SFA.DAS.Data.Infrastructure.Data
             var items = new List<SqlDataRecord>();
             foreach (var param in _transfers)
             {
-                var rec = new SqlDataRecord(_idMetaData, _senderAccountIdMetaData, _receiverAccountIdMetaData, _requiredPaymentId, _commitmentId, _amount, _type, _transferDate, _collectionPeriodName);
-                rec.SetGuid(0, param.Id);
-                rec.SetInt64(1, param.SenderAccountId);
-                rec.SetInt64(2, param.ReceiverAccountId);
-                rec.SetGuid(3, param.RequiredPaymentId);
-                rec.SetInt64(4, param.CommitmentId);
-                rec.SetDecimal(5, param.Amount);
+                var rec = new SqlDataRecord(_senderAccountIdMetaData, _receiverAccountIdMetaData, _requiredPaymentId, _commitmentId, _amount, _type, _collectionPeriodName);
+                rec.SetInt64(0, param.SenderAccountId);
+                rec.SetInt64(1, param.ReceiverAccountId);
+                rec.SetGuid(2, param.RequiredPaymentId);
+                rec.SetInt64(3, param.CommitmentId);
+                rec.SetDecimal(4, param.Amount);
                 if (param.Type != null)
-                    rec.SetString(6, param.Type);
-                rec.SetDateTime(7, param.TransferDate);
-                rec.SetString(8, param.CollectionPeriodName);
+                    rec.SetString(5, param.Type);
+                rec.SetString(6, param.CollectionPeriodName);
 
                 items.Add(rec);
             }

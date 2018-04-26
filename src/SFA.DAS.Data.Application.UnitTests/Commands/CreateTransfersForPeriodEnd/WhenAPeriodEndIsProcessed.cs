@@ -97,7 +97,7 @@ namespace SFA.DAS.Data.Application.UnitTests.Commands.CreateTransfersForPeriodEn
         public void AndSavingATransferFailsThenTheExceptionIsLogged()
         {
             var expectedException = new Exception();
-            var failingTransfer = new AccountTransfer { Id = Guid.Empty };
+            var failingTransfer = new AccountTransfer();
             var transfers = new PageOfResults<AccountTransfer>
             {
                 PageNumber = 1,
