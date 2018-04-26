@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
 using SFA.DAS.Data.Domain.Interfaces;
+using SFA.DAS.Data.Functions.Statistics;
 using SFA.DAS.NLog.Logger;
 
-namespace SFA.DAS.Data.Functions.UnitTests
+namespace SFA.DAS.Data.Functions.UnitTests.Statistics
 {
     [TestFixture]
-    public class WhenTheGetPaymentsStatisticsFunctionIsRun
+    public class WhenTheGetCommitmentStatisticsFunctionIsRun
     {
         private Mock<IStatisticsService> _statsService;
         private Mock<ILog> _logger;
@@ -24,16 +21,16 @@ namespace SFA.DAS.Data.Functions.UnitTests
         }
 
         [Test]
-        public async Task ThenTheStatisticsServiceCollatePaymentStatisticsMetricsMethodIsInvoked()
+        public async Task ThenTheStatisticsServiceCollateCommitmentStatisticsMetricsMethodIsInvoked()
         {
             await InvokeRunMethodOnFunction();
 
-            _statsService.Verify(o => o.CollatePaymentStatisticsMetrics(), Times.Once);
+            _statsService.Verify(o => o.CollateCommitmentStatisticsMetrics(), Times.Once);
         }
 
         private async Task InvokeRunMethodOnFunction()
         {
-            await GetPaymentsStatisticsFunction.Run(null, _logger.Object, _statsService.Object);
+            await GetCommitmentStatisticsFunction.Run(null, _logger.Object, _statsService.Object);
         }
     }
 }

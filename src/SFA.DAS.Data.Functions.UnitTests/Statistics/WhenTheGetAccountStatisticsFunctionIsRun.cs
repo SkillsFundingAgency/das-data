@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions.Timers;
+﻿using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
-using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.Data.Domain.Interfaces;
-using SFA.DAS.Data.Domain.Models;
+using SFA.DAS.Data.Functions.Statistics;
 using SFA.DAS.NLog.Logger;
 
-namespace SFA.DAS.Data.Functions.UnitTests
+namespace SFA.DAS.Data.Functions.UnitTests.Statistics
 {
     [TestFixture]
     public class WhenTheGetAccountStatisticsFunctionIsRun

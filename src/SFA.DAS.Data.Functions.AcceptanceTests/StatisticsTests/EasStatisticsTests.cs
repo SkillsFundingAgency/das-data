@@ -27,7 +27,7 @@ namespace SFA.DAS.Data.Functions.AcceptanceTests.StatisticsTests
         public async Task WhenTheTimerFunctionIsRunThenTheStatisticsAreSavedToTheDatabase()
         {
             // sleep for a few seconds to allow the timer function to kick in
-            Thread.Sleep(10000);
+            Thread.Sleep(5000);
 
             DataTypes = "'TotalPayments', 'TotalAccounts', 'TotalAgreements', 'TotalLegalEntities', 'TotalPAYESchemes'";
 
