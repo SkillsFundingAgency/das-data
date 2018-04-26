@@ -30,7 +30,7 @@ namespace SFA.DAS.Data.AcceptanceTests.PaymentEventTests
 
         private async Task<bool> IsDatabaseInExpectedState()
         {
-            var lastProcessedEventId = await EventTestsRepository.GetLastProcessedEventId<string>("PeriodEnd");
+            var lastProcessedEventId = await EventTestsRepository.GetLastProcessedEventId<string>("PeriodEnd-Payment");
             if (lastProcessedEventId != "PERIOD4")
             {
                 return false;

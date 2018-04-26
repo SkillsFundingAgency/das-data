@@ -71,10 +71,11 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             For<IEventHandler<GenericEvent<PayeSchemeRemovedEvent>>>().Use<PayeSchemeRemovedEventHandler>();
             For<IEventHandler<GenericEvent<LevyDeclarationUpdatedEvent>>>().Use<LevyDeclarationUpdatedEventHandler>();
             For<IEventHandler<GenericEvent<AgreementSignedEvent>>>().Use<AgreementSignedEventHandler>();
-            For<IEventHandler<PeriodEnd>>().Use<PeriodEndEventHandler>();
+            For<IEventHandler<PeriodEndEvent<Payment>>>().Use<PaymentEventHandler>();
+            For<IEventHandler<PeriodEndEvent<AccountTransfer>>>().Use<TransferEventHandler>();
             For<IEventHandler<GenericEvent<EmploymentCheckCompleteEvent>>>().Use<EmploymentCheckCompleteEventHandler>();
             For<IEventHandler<AgreementEventView>>().Use<AgreementEventHandler>();
-
+            
             //Legacy support
             For<IEventHandler<AccountEventView>>().Use<AccountEventHandler>();
         }
@@ -89,7 +90,8 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             For<IEventsCollector<GenericEvent<PayeSchemeRemovedEvent>>>().Use<GenericEventCollector<PayeSchemeRemovedEvent>>();
             For<IEventsCollector<GenericEvent<LevyDeclarationUpdatedEvent>>>().Use<GenericEventCollector<LevyDeclarationUpdatedEvent>>();
             For<IEventsCollector<GenericEvent<AgreementSignedEvent>>>().Use<GenericEventCollector<AgreementSignedEvent>>();
-            For<IEventsCollector<PeriodEnd>>().Use<PeriodEndEventsCollector>();
+            For<IEventsCollector<PeriodEndEvent<Payment>>>().Use<PaymentEventCollector>();
+            For<IEventsCollector<PeriodEndEvent<AccountTransfer>>>().Use<TransferEventCollector>();
             For<IEventsCollector<GenericEvent<EmploymentCheckCompleteEvent>>>().Use<GenericEventCollector<EmploymentCheckCompleteEvent>>();
             // Following code commented out so that Roatp changes do not go through to live as there are some questions around the tesing - Mahinder Suniara
             // For<IEventsCollector<AgreementEventView>>().Use<AgreementEventCollector>();
@@ -108,7 +110,8 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             For<IEventsProcessor>().Use<EventsProcessor<GenericEvent<PayeSchemeRemovedEvent>>>();
             For<IEventsProcessor>().Use<EventsProcessor<GenericEvent<LevyDeclarationUpdatedEvent>>>();
             For<IEventsProcessor>().Use<EventsProcessor<GenericEvent<AgreementSignedEvent>>>();
-            For<IEventsProcessor>().Use<EventsProcessor<PeriodEnd>>();
+            For<IEventsProcessor>().Use<EventsProcessor<PeriodEndEvent<Payment>>>();
+            For<IEventsProcessor>().Use<EventsProcessor<PeriodEndEvent<AccountTransfer>>>();
             For<IEventsProcessor>().Use<EventsProcessor<GenericEvent<EmploymentCheckCompleteEvent>>>();
             For<IEventsProcessor>().Use<EventsProcessor<AgreementEventView>>();
 

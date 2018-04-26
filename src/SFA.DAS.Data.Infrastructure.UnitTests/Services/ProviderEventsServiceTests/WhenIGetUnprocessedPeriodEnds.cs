@@ -11,6 +11,8 @@ namespace SFA.DAS.Data.Infrastructure.UnitTests.Services.ProviderEventsServiceTe
     [TestFixture]
     public class WhenIGetUnprocessedPeriodEnds : ProviderEventsServiceTestsBase
     {
+        private static readonly string _paymentEventFeedName = string.Concat(typeof(PeriodEnd).Name, "-", typeof(Payment).Name);
+
         [Test]
         public async Task AndThereAreUnprocessedPeriodsThenThePeriodsAreReturned()
         {
@@ -25,10 +27,10 @@ namespace SFA.DAS.Data.Infrastructure.UnitTests.Services.ProviderEventsServiceTe
 
             var expectedPeriods = returnedPeriods.SkipWhile(x => x.Id != lastEventId.ToString()).Skip(1);
 
-            EventsRepository.Setup(x => x.GetLastProcessedEventId<string>("PeriodEnd")).ReturnsAsync(lastEventId);
+            EventsRepository.Setup(x => x.GetLastProcessedEventId<string>(_paymentEventFeedName)).ReturnsAsync(lastEventId);
             EventsApi.Setup(x => x.GetPeriodEnds()).ReturnsAsync(returnedPeriods.ToArray());
 
-            var response = await Service.GetUnprocessedPeriodEnds();
+            var response = await Service.GetUnprocessedPeriodEnds<Payment>();
 
             response.ShouldBeEquivalentTo(expectedPeriods);
         }
@@ -40,13 +42,13 @@ namespace SFA.DAS.Data.Infrastructure.UnitTests.Services.ProviderEventsServiceTe
             var returnedPeriods = new List<PeriodEnd>
             {
                 new PeriodEnd { Id = "clbmcvb" },
-                new PeriodEnd { Id = lastEventId.ToString() }
+                new PeriodEnd { Id = lastEventId }
             };
 
-            EventsRepository.Setup(x => x.GetLastProcessedEventId<string>("PeriodEnd")).ReturnsAsync(lastEventId);
+            EventsRepository.Setup(x => x.GetLastProcessedEventId<string>(_paymentEventFeedName)).ReturnsAsync(lastEventId);
             EventsApi.Setup(x => x.GetPeriodEnds()).ReturnsAsync(returnedPeriods.ToArray());
 
-            var response = await Service.GetUnprocessedPeriodEnds();
+            var response = await Service.GetUnprocessedPeriodEnds<Payment>();
 
             response.Should().BeEmpty();
         }
@@ -61,10 +63,10 @@ namespace SFA.DAS.Data.Infrastructure.UnitTests.Services.ProviderEventsServiceTe
                 new PeriodEnd { Id = "!cvlkbjgnvb" }
             };
 
-            EventsRepository.Setup(x => x.GetLastProcessedEventId<string>("PeriodEnd")).ReturnsAsync(lastEventId);
+            EventsRepository.Setup(x => x.GetLastProcessedEventId<string>(_paymentEventFeedName)).ReturnsAsync(lastEventId);
             EventsApi.Setup(x => x.GetPeriodEnds()).ReturnsAsync(returnedPeriods.ToArray());
 
-            var response = await Service.GetUnprocessedPeriodEnds();
+            var response = await Service.GetUnprocessedPeriodEnds<Payment>();
 
             response.ShouldBeEquivalentTo(returnedPeriods);
         }

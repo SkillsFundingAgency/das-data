@@ -74,7 +74,7 @@ namespace SFA.DAS.Data.AcceptanceTests.TransferEventTests
 
         private async Task<bool> PeriodEndProcessed()
         {
-            return await EventTestsRepository.GetLastProcessedEventId<string>("PeriodEnd") == "PERIOD4";
+            return await EventTestsRepository.GetLastProcessedEventId<string>("PeriodEnd-AccountTransfer") == "PERIOD4";
         }
 
         private List<AccountTransfer> ConfigureEventsApi(int pages = 1, bool skipPayments = false)

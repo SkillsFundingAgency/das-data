@@ -19,17 +19,20 @@ namespace SFA.DAS.Data.Infrastructure.Services
             _eventRepository = eventRepository;
         }
 
-        public async Task<ICollection<PeriodEnd>> GetUnprocessedPeriodEnds()
+        public async Task<ICollection<PeriodEnd>> GetUnprocessedPeriodEnds<T>()
         {
-            var lastProcessedPeriodId = await _eventRepository.GetLastProcessedEventId<string>(typeof(PeriodEnd).Name);
+            var lastProcessedPeriodId = await _eventRepository.GetLastProcessedEventId<string>(GetFeedName<T>());
             var periodEnds = await _eventsApi.GetPeriodEnds();
 
             if (!HaveAnyPeriodsBeenProcessedPreviously(lastProcessedPeriodId))
-            {
                 return periodEnds;
-            }
 
             return GetUnprocessedPeriods(periodEnds, lastProcessedPeriodId);
+        }
+
+        private static string GetFeedName<T>()
+        {
+            return string.Concat(typeof(PeriodEnd).Name, "-", typeof(T).Name);
         }
 
         public async Task<PageOfResults<Payment>> GetPayments(string periodId, int pageNumber)

@@ -16,7 +16,8 @@ namespace SFA.DAS.Data.AcceptanceTests.PaymentEventTests
             EventTestsRepository = new EventTestsRepository(DataAcceptanceTests.Config.DatabaseConnectionString);
             EventTestsRepository.DeletePayments().Wait();
             EventTestsRepository.DeleteTransfers().Wait();
-            EventTestsRepository.StoreLastProcessedEventId("PeriodEnd", "PERIOD2").Wait();
+            EventTestsRepository.StoreLastProcessedEventId("PeriodEnd-Payment", "PERIOD2").Wait();
+            EventTestsRepository.StoreLastProcessedEventId("PeriodEnd-AccountTransfer", "PERIOD2").Wait();
         }
     }
 }

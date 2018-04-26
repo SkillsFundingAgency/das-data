@@ -196,6 +196,8 @@
     <Compile Include="Events\EventHandlers\AccountEventHandler.cs" />
     <Compile Include="Events\EventHandlers\LevyDeclarationUpdatedEventHandler.cs" />
     <Compile Include="Events\EventHandlers\AgreementSignedEventHandler.cs" />
+    <Compile Include="Events\EventHandlers\TransferEventHandler.cs" />
+    <Compile Include="Events\EventHandlers\PaymentEventHandler.cs" />
     <Compile Include="Events\EventHandlers\PeriodEndEventHandler.cs" />
     <Compile Include="Events\EventHandlers\ApprenticeshipEventHandler.cs" />
     <Compile Include="Events\EventHandlers\EventApiHandler.cs" />
@@ -206,8 +208,11 @@
     <Compile Include="Events\EventsCollectors\AccountEventCollector.cs" />
     <Compile Include="Events\EventsCollectors\GenericEventCollector.cs" />
     <Compile Include="Events\EventsCollectors\IEventsCollector.cs" />
+    <Compile Include="Events\EventsCollectors\TransferEventCollector.cs" />
+    <Compile Include="Events\EventsCollectors\PaymentEventCollector.cs" />
     <Compile Include="Events\EventsCollectors\PeriodEndEventsCollector.cs" />
     <Compile Include="Events\EventsProcessor.cs" />
+    <Compile Include="Events\PeriodEndEvent.cs" />
     <Compile Include="Events\GenericEvent.cs" />
     <Compile Include="Factories\JsonEventModelFactory.cs" />
     <Compile Include="Factories\IEventModelFactory.cs" />

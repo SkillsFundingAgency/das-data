@@ -1,39 +1,40 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using SFA.DAS.Data.Application.Configuration;
 using SFA.DAS.Data.Application.Interfaces;
 using SFA.DAS.NLog.Logger;
-using SFA.DAS.Provider.Events.Api.Types;
 
 namespace SFA.DAS.Data.Worker.Events.EventsCollectors
 {
-    public class PeriodEndEventsCollector : IEventsCollector<PeriodEnd>
+    public abstract class PeriodEndEventsCollector<T> : IEventsCollector<PeriodEndEvent<T>>
     {
-        private readonly IProviderEventService _eventService;
-        private readonly ILog _logger;
-        private readonly IDataConfiguration _config;
+        protected IProviderEventService EventService { get; }
+        protected ILog Logger {get;}
 
-        public PeriodEndEventsCollector(IProviderEventService eventService, ILog logger, IDataConfiguration config)
+        public PeriodEndEventsCollector(IProviderEventService eventService, ILog logger)
         {
-            _eventService = eventService;
-            _logger = logger;
-            _config = config;
+            EventService = eventService;
+            Logger = logger;
         }
 
-        public async Task<ICollection<PeriodEnd>> GetEvents()
+        public async Task<ICollection<PeriodEndEvent<T>>> GetEvents()
         {
-            _logger.Info("Getting unprocessed period ends");
+            Logger.Info("Getting unprocessed period ends");
 
-            if (!_config.PaymentsEnabled && !_config.TransfersEnabled)
-            {
-                return new List<PeriodEnd>();
-            }
+            //if (!_config.PaymentsEnabled && !_config.TransfersEnabled)
+            if (!IsEnabled)
+                return new List<PeriodEndEvent<T>>();
 
-            var apiEvents = await _eventService.GetUnprocessedPeriodEnds();
+            var apiEvents = await EventService.GetUnprocessedPeriodEnds<T>();
 
-            _logger.Info($"{apiEvents?.Count} periods retrieved from provider events service");
+            if (apiEvents == null)
+                return new List<PeriodEndEvent<T>>();
 
-            return apiEvents;
+            Logger.Info($"{apiEvents?.Count} periods retrieved from provider events service");
+
+            return apiEvents.Select(p => new PeriodEndEvent<T> {PeriodEnd = p}).ToList();
         }
+
+        protected abstract bool IsEnabled {get;}
     }
 }
