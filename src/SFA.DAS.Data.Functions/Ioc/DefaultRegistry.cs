@@ -8,7 +8,6 @@ using SFA.DAS.Data.Application.Configuration;
 using SFA.DAS.Data.Application.Handlers;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.Data.Domain.Interfaces;
-using SFA.DAS.Data.Functions.Statistics.Services;
 using SFA.DAS.Data.Infrastructure.Data;
 using SFA.DAS.Data.Infrastructure.Http;
 using SFA.DAS.NLog.Logger;
