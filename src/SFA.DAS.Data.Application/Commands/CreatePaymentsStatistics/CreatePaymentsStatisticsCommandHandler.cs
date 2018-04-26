@@ -4,8 +4,6 @@ using MediatR;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.NLog.Logger;
 
-//using SFA.DAS.Data.Application.Functions.Interfaces.Repositories;
-
 namespace SFA.DAS.Data.Application.Commands.CreatePaymentsStatistics
 {
     public class CreatePaymentsStatisticsCommandHandler : IAsyncRequestHandler<CreatePaymentsStatisticsCommand, CreatePaymentsStatisticsCommandResponse>
