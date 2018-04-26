@@ -188,9 +188,9 @@ this.ScenarioSetup(scenarioInfo);
                         "2017-04-01",
                         "2020-06-01",
                         "15000",
-                        "",
-                        "",
-                        ""});
+                        "bd3ff85a-f2c8-48b8-95a9-64569c7208dd",
+                        "Test",
+                        "CompaniesHouse"});
 #line 20
  testRunner.And("the following DAS_Commitments", ((string)(null)), table4, "And ");
 #line 23

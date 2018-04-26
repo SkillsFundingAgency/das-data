@@ -18,8 +18,8 @@ Scenario: The legal entity information should be shown in the resultset
       | 123               | 11            | 2017         | 12345 | 456              | 15     | CoInvestedEmployer | 51      |
       | 123               | 11            | 2017         | 12345 | 456              | 20     | CoInvestedSfa      | 51      |
 	And the following DAS_Commitments
-	| CommitmentID | PaymentStatus | ApprenticeshipID | AgreementStatus | ProviderID | LearnerID  | EmployerAccountID | TrainingTypeID | TrainingID | TrainingStartDate | TrainingEndDate | TrainingTotalCost | LegalEntityCode | LegalEntityName | LegalEntityOrganisationType |
-	| 900          | Active        | 36               | BothAgreed      | 10000534   | 1360332713 | 123               | Framework      | 454-3-1    | 2017-04-01        | 2020-06-01      | 15000             |                 |                 |                             |
+	| CommitmentID | PaymentStatus | ApprenticeshipID | AgreementStatus | ProviderID | LearnerID  | EmployerAccountID | TrainingTypeID | TrainingID | TrainingStartDate | TrainingEndDate | TrainingTotalCost | LegalEntityCode                       | LegalEntityName | LegalEntityOrganisationType |
+	| 900          | Active        | 36               | BothAgreed      | 10000534   | 1360332713 | 123               | Framework      | 454-3-1    | 2017-04-01        | 2020-06-01      | 15000             | bd3ff85a-f2c8-48b8-95a9-64569c7208dd  | Test            | CompaniesHouse              |
 	When I execute View [Data_Pub].[DAS_Commitments]
 	Then the view contains 
 	| LegalEntityCode | LegalEntityName | LegalEntitySource | DasLegalEntityId |
