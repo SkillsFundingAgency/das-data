@@ -218,4 +218,4 @@ UNION ALL SELECT 'HistoricAdjustmentsTaxYear6EnglishFraction' AS ColumnName, 1 A
 UNION ALL SELECT 'HistoricAdjustmentsTaxYear6AnnualAllowanceAmount' AS ColumnName, 1 AS ColumnNullable , 'DECIMAL' AS ColumnType, '18' AS ColumnLength, '2' AS ColumnPrecision, '' AS ColumnDefault, 1 as RunColumnTests, '' AS ColumnPatternMatching, '' AS ColumnMinValue, '' AS ColumnMaxValue,0 AS StopLoadIfTestTextLength,0 AS StopLoadIfTestIsNumeric,0 AS StopLoadIfTestPatternMatch,0 AS StopLoadIfTestValueRange,0 AS StopLoadIfTestDecimalPlaces
 
 -- Feed name has changed, update old values
-update [Data_Load].DAS_LoadedEvents set EventFeed = 'PeriodEnd-Payment' where EventFeed = 'PeriodEnd'
+update [Data_Load].DAS_LoadedEvents set EventFeed = 'PeriodEnd-Payment' where EventFeed = 'PeriodEnd' and not exists(select 1 from [Data_Load].DAS_LoadedEvents where EventFeed = 'PeriodEnd-Payment')
