@@ -1,13 +1,17 @@
 ﻿CREATE VIEW [Data_Pub].[DAS_Employer_Transfer_Relationship]	AS
 	SELECT
-		[Id], 
+		T.[Id], 
 		[SenderAccountId],
 		[ReceiverAccountId], 
 		[RelationshipStatus], 
 		[SenderUserId], 
 		[ApproverUserId], 
-		[RejectorUserId]
+		[RejectorUserId],
+		T.[UpdateDateTime],
+		T.[IsLatest],
+		senderAcc.DasAccountId as [SenderDasAccountID],
+		recieverAcc.DasAccountId as [RecieverDasAccountID]
 	FROM 
-		[Data_Load].[DAS_Employer_Transfer_Relationships]
-	WHERE
-		[Data_Load].[DAS_Employer_Transfer_Relationships].[IsLatest] = 1
+		[Data_Load].[DAS_Employer_Transfer_Relationships] as T
+		left join [Data_Load].[DAS_Employer_Accounts] as senderAcc on senderAcc.AccountId = T.SenderAccountId
+		left join [Data_Load].[DAS_Employer_Accounts] as recieverAcc on recieverAcc.AccountId = T.ReceiverAccountId

@@ -16,7 +16,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SFA.DAS.Data.Application\SFA.DAS.Data.Application.csproj" />
-    <ProjectReference Include="..\SFA.DAS.Data.Domain\SFA.DAS.Data.Domain.csproj" />
     <ProjectReference Include="..\SFA.DAS.Data.Infrastructure\SFA.DAS.Data.Infrastructure.csproj" />
   </ItemGroup>
   <ItemGroup>

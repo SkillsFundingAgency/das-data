@@ -63,10 +63,11 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             For<IEventHandler<Events.GenericEvent<PayeSchemeRemovedEvent>>>().Use<PayeSchemeRemovedEventHandler>();
             For<IEventHandler<Events.GenericEvent<LevyDeclarationUpdatedEvent>>>().Use<LevyDeclarationUpdatedEventHandler>();
             For<IEventHandler<Events.GenericEvent<AgreementSignedEvent>>>().Use<AgreementSignedEventHandler>();
-            For<IEventHandler<PeriodEnd>>().Use<PeriodEndEventHandler>();
+            For<IEventHandler<PeriodEndEvent<Payment>>>().Use<PaymentEventHandler>();
+            For<IEventHandler<PeriodEndEvent<AccountTransfer>>>().Use<TransferEventHandler>();
             For<IEventHandler<Events.GenericEvent<EmploymentCheckCompleteEvent>>>().Use<EmploymentCheckCompleteEventHandler>();
             For<IEventHandler<AgreementEventView>>().Use<AgreementEventHandler>();
-
+            
             //Legacy support
             For<IEventHandler<AccountEventView>>().Use<AccountEventHandler>();
         }
@@ -81,7 +82,8 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             For<IEventsCollector<Events.GenericEvent<PayeSchemeRemovedEvent>>>().Use<GenericEventCollector<PayeSchemeRemovedEvent>>();
             For<IEventsCollector<Events.GenericEvent<LevyDeclarationUpdatedEvent>>>().Use<GenericEventCollector<LevyDeclarationUpdatedEvent>>();
             For<IEventsCollector<Events.GenericEvent<AgreementSignedEvent>>>().Use<GenericEventCollector<AgreementSignedEvent>>();
-            For<IEventsCollector<PeriodEnd>>().Use<PaymentEventsCollector>();
+            For<IEventsCollector<PeriodEndEvent<Payment>>>().Use<PaymentEventCollector>();
+            For<IEventsCollector<PeriodEndEvent<AccountTransfer>>>().Use<TransferEventCollector>();
             For<IEventsCollector<Events.GenericEvent<EmploymentCheckCompleteEvent>>>().Use<GenericEventCollector<EmploymentCheckCompleteEvent>>();
             // Following code commented out so that Roatp changes do not go through to live as there are some questions around the tesing - Mahinder Suniara
             // For<IEventsCollector<AgreementEventView>>().Use<AgreementEventCollector>();
@@ -100,7 +102,8 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             For<IEventsProcessor>().Use<EventsProcessor<Events.GenericEvent<PayeSchemeRemovedEvent>>>();
             For<IEventsProcessor>().Use<EventsProcessor<Events.GenericEvent<LevyDeclarationUpdatedEvent>>>();
             For<IEventsProcessor>().Use<EventsProcessor<Events.GenericEvent<AgreementSignedEvent>>>();
-            For<IEventsProcessor>().Use<EventsProcessor<PeriodEnd>>();
+            For<IEventsProcessor>().Use<EventsProcessor<PeriodEndEvent<Payment>>>();
+            For<IEventsProcessor>().Use<EventsProcessor<PeriodEndEvent<AccountTransfer>>>();
             For<IEventsProcessor>().Use<EventsProcessor<Events.GenericEvent<EmploymentCheckCompleteEvent>>>();
             For<IEventsProcessor>().Use<EventsProcessor<AgreementEventView>>();
 
@@ -124,6 +127,7 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             For<IPayeSchemeRepository>().Use<PayeSchemeRepository>().Ctor<string>().Is(connectionString);
             For<IApprenticeshipRepository>().Use<ApprenticeshipRepository>().Ctor<string>().Is(connectionString);
             For<IPaymentRepository>().Use<PaymentRepository>().Ctor<string>().Is(connectionString);
+            For<ITransferRepository>().Use<TransferRepository>().Ctor<string>().Is(connectionString);
             For<ILevyDeclarationRepository>().Use<LevyDeclarationRepository>().Ctor<string>().Is(connectionString);
             For<IEmployerAgreementRepository>().Use<EmployerAgreementRepository>().Ctor<string>().Is(connectionString);
             For<IEmploymentCheckRepository>().Use<EmploymentCheckRepository>().Ctor<string>().Is(connectionString);
