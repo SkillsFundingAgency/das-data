@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [Data_Load].[DAS_Employer_Account_Transfers]
 (
-	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY DEFAULT NEWSEQUENTIALID(),
+	[TransferId] BIGINT NOT NULL PRIMARY KEY,
 	[SenderAccountId] BIGINT NOT NULL, 
     [ReceiverAccountId] BIGINT NOT NULL, 
     [RequiredPaymentId] UNIQUEIDENTIFIER NOT NULL, 

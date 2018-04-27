@@ -5,7 +5,7 @@ namespace SFA.DAS.Data.Tests.Builders
 {
     public class TransferBuilder
     {
-
+        private static Random _idGenerator = new Random(0);
         private long _senderAccountId = 111;
         private long _receiverAccountId = 222;
         private Guid _requiredPaymentId = Guid.NewGuid();
@@ -24,6 +24,7 @@ namespace SFA.DAS.Data.Tests.Builders
         {
             return new AccountTransfer
             {
+                TransferId = _idGenerator.Next(int.MaxValue),
                 Type = _type,
                 SenderAccountId = _senderAccountId,
                 ReceiverAccountId = _receiverAccountId,

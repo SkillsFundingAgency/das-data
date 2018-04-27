@@ -4,6 +4,7 @@ AS
 BEGIN
 	INSERT INTO [Data_Load].[DAS_Employer_Account_Transfers]
 	(
+		[TransferId],
 		[SenderAccountId],
 		[ReceiverAccountId],
 		[RequiredPaymentId],
@@ -13,6 +14,7 @@ BEGIN
 		[CollectionPeriodName]
 	)
 	SELECT
+		[TransferId],
 		[SenderAccountId],
 		[ReceiverAccountId],
 		[RequiredPaymentId],
@@ -27,12 +29,6 @@ BEGIN
 		(
 			SELECT 1 
 			FROM [Data_Load].[DAS_Employer_Account_Transfers] t2 
-			WHERE t.[SenderAccountId] = t2.[SenderAccountId]
-				AND t.[ReceiverAccountId] = t2.[ReceiverAccountId]
-				AND t.[RequiredPaymentId] = t2.[RequiredPaymentId]
-				AND t.[CommitmentId] = t2.[CommitmentId]
-				AND t.[Amount] = t2.[Amount]
-				AND t.[Type] = t2.[Type]
-				AND t.[CollectionPeriodName] = t2.[CollectionPeriodName]
+			WHERE t.[TransferId] = t2.[TransferId]
 		)
 END

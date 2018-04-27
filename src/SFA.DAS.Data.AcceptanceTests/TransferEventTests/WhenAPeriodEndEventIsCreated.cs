@@ -19,7 +19,7 @@ namespace SFA.DAS.Data.AcceptanceTests.TransferEventTests
         public async Task ThenTheTransfersAreStored()
         {
             // arrange
-            var expectedTransfers = ConfigureEventsApi().OrderBy(t => t.RequiredPaymentId).ToList();
+            var expectedTransfers = ConfigureEventsApi().OrderBy(t => t.TransferId).ToList();
             var cancellationTokenSource = new CancellationTokenSource();
             var cancellationToken = cancellationTokenSource.Token;
 
@@ -31,12 +31,13 @@ namespace SFA.DAS.Data.AcceptanceTests.TransferEventTests
             // assert
             Assert.IsTrue(periodEndFinished);
 
-            var actualTransfers = (await EventTestsRepository.GetTransfers()).OrderBy(t => t.RequiredPaymentId).ToList();
+            var actualTransfers = (await EventTestsRepository.GetTransfers()).OrderBy(t => t.TransferId).ToList();
 
             Assert.AreEqual(expectedTransfers.Count, actualTransfers.Count);
 
             for (var i = 0; i < actualTransfers.Count; i++)
             {
+                Assert.AreEqual(expectedTransfers[i].TransferId, actualTransfers[i].TransferId);
                 Assert.AreEqual(expectedTransfers[i].Amount, actualTransfers[i].Amount);
                 Assert.AreEqual(expectedTransfers[i].SenderAccountId, actualTransfers[i].SenderAccountId);
                 Assert.AreEqual(expectedTransfers[i].ReceiverAccountId, actualTransfers[i].ReceiverAccountId);
@@ -54,7 +55,7 @@ namespace SFA.DAS.Data.AcceptanceTests.TransferEventTests
             // skipPayments will generate error on parallel processing of payments, this should not affect transfers processing
 
             // arrange
-            var expectedTransfers = ConfigureEventsApi(3, skipPayments).OrderBy(t => t.RequiredPaymentId).ToList();
+            var expectedTransfers = ConfigureEventsApi(3, skipPayments).OrderBy(t => t.TransferId).ToList();
             var cancellationTokenSource = new CancellationTokenSource();
             var cancellationToken = cancellationTokenSource.Token;
 

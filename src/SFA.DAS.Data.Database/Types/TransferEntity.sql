@@ -1,4 +1,5 @@
 ﻿CREATE TYPE [Data_Load].[TransferEntity] AS TABLE (
+	[TransferId] BIGINT NOT NULL, 
 	[SenderAccountId] BIGINT NOT NULL, 
     [ReceiverAccountId] BIGINT NOT NULL, 
     [RequiredPaymentId] UNIQUEIDENTIFIER NOT NULL, 

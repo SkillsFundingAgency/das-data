@@ -97,12 +97,12 @@ namespace SFA.DAS.Data.Application.UnitTests.Commands.CreateTransfersForPeriodEn
         public void AndSavingATransferFailsThenTheExceptionIsLogged()
         {
             var expectedException = new Exception();
-            var failingTransfer = new AccountTransfer();
+            var failingTransfer = new AccountTransfer {TransferId = 1};
             var transfers = new PageOfResults<AccountTransfer>
             {
                 PageNumber = 1,
                 TotalNumberOfPages = 1,
-                Items = new[] { new AccountTransfer(), failingTransfer, new AccountTransfer() }
+                Items = new[] {new AccountTransfer(), failingTransfer, new AccountTransfer()}
             };
             _providerEventService.Setup(x => x.GetTransfers(_command.PeriodEndId, 1)).ReturnsAsync(transfers);
             _transferRepository.Setup(x => x.SaveTransfers(transfers.Items)).Throws(expectedException);
