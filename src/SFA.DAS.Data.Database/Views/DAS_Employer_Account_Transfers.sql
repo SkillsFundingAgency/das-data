@@ -1,13 +1,12 @@
 ﻿CREATE VIEW [Data_Pub].[DAS_Employer_Account_Transfers]	AS 
 	SELECT
-		[Id],
+		[TransferId],
 		[SenderAccountId], 
 		[ReceiverAccountId], 
 		[RequiredPaymentId], 
 		[CommitmentId],
 		[Amount],
 		[Type],
-		[TransferDate],
 		[CollectionPeriodName],
 		[UpdateDateTime]
 	FROM 
