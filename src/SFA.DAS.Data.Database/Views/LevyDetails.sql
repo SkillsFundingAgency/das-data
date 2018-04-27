@@ -1,6 +1,6 @@
 CREATE VIEW Reporting.LevyDetails AS
 SELECT 
-	   Levy.DasAccountId
+	   Levy.DASAccountID
      , Accounts.DASAccountName
      , Accounts.DateRegistered
      , Levy.LevyDeclarationID
@@ -21,16 +21,16 @@ SELECT
      , Levy.EnglishFraction
      , Levy.TopupPercentage
      , Levy.TopupAmount
-     , Levy.updatedatetime
+     , Levy.UpdateDateTime
      , Levy.PayrollMonthShortNameYear
      , Levy.LevyDeclaredInMonth
      , Levy.LevyAvailableInMonth
      , Levy.LevyDeclaredInMonthWithEnglishFractionApplied
 FROM
    Data_Pub.DAS_LevyDeclarations Levy
-   INNER JOIN Data_pub.DAS_Employer_PayeSchemes PAYE ON PAYE.PAYEReference = Levy.PAYEReference
-                                                        AND PAYE.DasAccountID = Levy.DASAccountID
-   INNER JOIN Data_Pub.DAS_Employer_Accounts Accounts ON PAYE.DASAccountID = Accounts.DASAccountID
-WHERE Levy.flag_latest = 1
+   INNER JOIN Data_Pub.DAS_Employer_PayeSchemes PAYE ON PAYE.PAYEReference = Levy.PAYEReference
+                                                        AND PAYE.DasAccountId = Levy.DASAccountID
+   INNER JOIN Data_Pub.DAS_Employer_Accounts Accounts ON PAYE.DasAccountId = Accounts.DasAccountId
+WHERE Levy.Flag_Latest = 1
       AND PAYE.Flag_Latest = 1
-      AND Accounts.flag_latest = 1;
+      AND Accounts.Flag_Latest = 1;

@@ -68,7 +68,11 @@ namespace SFA.DAS.Data.AcceptanceTests.ApprenticeshipEventTests
                     Id = 4,
                     Event = "ApprenticeshipUpdated",
                     AgreementStatus = AgreementStatus.EmployerAgreed,
-                    PaymentStatus = PaymentStatus.Active
+                    PaymentStatus = PaymentStatus.Active,
+                    TransferApprovalActionedOn = DateTime.Today,
+                    TransferApprovalStatus = TransferApprovalStatus.Pending,
+                    TransferSenderName = "ignore me",
+                    TransferSenderId = 38
                 }
             };
 
