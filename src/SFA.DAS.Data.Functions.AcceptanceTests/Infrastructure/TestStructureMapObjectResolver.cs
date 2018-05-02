@@ -18,6 +18,10 @@ namespace SFA.DAS.Data.Functions.AcceptanceTests.Infrastructure
         {
             get
             {
+                if (_container != null)
+                {
+                    return _container;
+                }
                 lock (LockObject)
                 {
                     return _container ?? (_container = new Container(c =>
