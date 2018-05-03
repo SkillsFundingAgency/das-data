@@ -6,14 +6,18 @@
 AS
 SET NOCOUNT ON;
 
+UPDATE [Data_Load].[DAS_ConsistencyCheck] SET IsLatest = 0 WHERE IsLatest = 1
+
 	INSERT INTO [Data_Load].[DAS_ConsistencyCheck]
            ([DataType]
            ,[CheckedDateTime]
            ,[SourceSystemCount]
-           ,[RdsCount])
+           ,[RdsCount]
+		   ,[IsLatest])
      VALUES
            (@dataType
            ,@checkedDateTime
            ,@sourceSystemCount
-           ,@rdsCount)
+           ,@rdsCount,
+		   1)
 GO
