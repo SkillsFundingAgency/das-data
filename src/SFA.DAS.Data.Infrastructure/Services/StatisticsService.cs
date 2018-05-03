@@ -10,13 +10,12 @@ using SFA.DAS.Data.Application.Interfaces;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.Data.Application.Messages;
 using SFA.DAS.Data.Domain.Interfaces;
-using SFA.DAS.Data.Domain.Models;
 using SFA.DAS.Data.Domain.Models.Statistics.Commitments;
 using SFA.DAS.Data.Domain.Models.Statistics.Eas;
 using SFA.DAS.Data.Domain.Models.Statistics.Payments;
 using SFA.DAS.NLog.Logger;
 
-namespace SFA.DAS.Data.Functions.Statistics.Services
+namespace SFA.DAS.Data.Infrastructure.Services
 {
     public class StatisticsService : IStatisticsService
     {
