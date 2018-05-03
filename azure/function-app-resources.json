@@ -1,0 +1,82 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "functionAppName": {
+            "type": "string"
+        },
+        "sharedAppServicePlanName": {
+            "type": "string"
+        },
+        "sharedAppServicePlanResourceGroup": {
+            "type": "string"
+        },
+        "configurationStorageConnectionString": {
+            "type": "string"
+        },
+        "configEnvironmentName": {
+            "type": "string"
+        },
+        "storageConnectionString": {
+            "type": "string"
+        },
+        "messageBusConnectionString": {
+            "type": "string"
+        }
+    },
+    "variables": {
+        "sharedAppServicePlanId": "[resourceId(parameters('sharedAppServicePlanResourceGroup'), 'Microsoft.Web/serverfarms', parameters('sharedAppServicePlanName'))]"
+    },
+    "resources": [
+        {
+            "name": "[parameters('functionAppName')]",
+            "type": "Microsoft.Web/sites",
+            "apiVersion": "2016-08-01",
+            "location": "[resourceGroup().location]",
+            "kind": "functionapp",
+            "properties": {
+                "serverFarmId": "[variables('sharedAppServicePlanId')]",
+                "siteConfig": {
+                    "alwaysOn": true,
+                    "appSettings": [
+                        {
+                            "name": "AzureWebJobsStorage",
+                            "value": "[parameters('storageConnectionString')]"
+                        },
+                        {
+                            "name": "AzureWebJobsDashboard",
+                            "value": "[parameters('storageConnectionString')]"
+                        },
+                        {
+                            "name": "FUNCTIONS_EXTENSION_VERSION",
+                            "value": "~1"
+                        },
+                        {
+                            "name": "ConfigurationStorageConnectionString",
+                            "value": "[parameters('configurationStorageConnectionString')]"
+                        },
+                        {
+                            "name": "EnvironmentName",
+                            "value": "[toUpper(parameters('configEnvironmentName'))]"
+                        },
+                        {
+                            "name": "MSDEPLOY_RENAME_LOCKED_FILES",
+                            "value": "1"
+                        },
+                        {
+                            "name": "ServiceName",
+                            "value": "SFA.DAS.Data"
+                        },
+                        {
+                            "name": "MessageBusConnectionString",
+                            "value": "[parameters('messageBusConnectionString')]"
+                        }
+                    ],
+                    "connectionStrings": []
+                }
+            },
+            "dependsOn": []
+        }
+    ],
+    "outputs": {}
+}
