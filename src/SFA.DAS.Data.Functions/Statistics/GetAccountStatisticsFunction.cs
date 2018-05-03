@@ -9,13 +9,11 @@ namespace SFA.DAS.Data.Functions.Statistics
     public static class GetAccountStatisticsFunction
     {
         [FunctionName("GetAccountStatisticsFunction")]
-        public static async Task Run([TimerTrigger("*/15 * * * * *")] TimerInfo myTimer, [Inject] ILog log,
+        public static async Task Run([TimerTrigger("*/65 * * * * *")] TimerInfo myTimer, [Inject] ILog log,
             [Inject] IStatisticsService statsService)
         {
             log.Debug("Gathering statistics for the EAS area of the system");
             var message = await statsService.CollateEasMetrics();
-
-           
         }
     }
 }

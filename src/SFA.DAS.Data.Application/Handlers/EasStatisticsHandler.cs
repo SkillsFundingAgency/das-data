@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using SFA.DAS.Data.Application.Configuration;
-using SFA.DAS.Data.Domain;
+using SFA.DAS.Data.Application.Interfaces.Gateways;
 using SFA.DAS.Data.Domain.Interfaces;
-using SFA.DAS.Data.Domain.Models;
 using SFA.DAS.Data.Domain.Models.Statistics.Eas;
+using SFA.DAS.EAS.Account.Api.Types;
 using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Application.Handlers
@@ -17,25 +11,32 @@ namespace SFA.DAS.Data.Application.Handlers
     public class EasStatisticsHandler : IEasStatisticsHandler
     {
         private readonly ILog _logger;
-        private readonly IDataConfiguration _configuration;
-        private readonly IHttpClientWrapper _httpClientWrapper;
+        private readonly IAccountGateway _accountGateway;
 
-        public EasStatisticsHandler(IHttpClientWrapper httpClientWrapper, IDataConfiguration configuration, ILog logger)
+        public EasStatisticsHandler(ILog logger, IAccountGateway accountGateway)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
-            _httpClientWrapper = httpClientWrapper ?? throw new ArgumentNullException(nameof(httpClientWrapper));
+            _accountGateway = accountGateway;
         }
 
         public async Task<EasExternalModel> Handle()
         {
-            _logger.Debug("Contacting the EasStats End point");
-            var response = await _httpClientWrapper.GetAsync(_configuration.EasStatisticsEndPoint.ToUri(), Constants.ContentTypeValue);
+            var statistics = await _accountGateway.GetStatistics();
+            return Map(statistics);
+        }
 
-            _logger.Debug($"The API returned a response with status code {response.StatusCode}");
-            var model = await _httpClientWrapper.ReadResponse<EasExternalModel>(response);
+        private EasExternalModel Map(StatisticsViewModel model)
+        {
+            var externalModel = new EasExternalModel
+            {
+                TotalAccounts = model.TotalAccounts,
+                TotalAgreements = model.TotalSignedAgreements,
+                TotalLegalEntities = model.TotalActiveLegalEntities,
+                TotalPAYESchemes = model.TotalPAYESchemes,
+                TotalPayments = model.TotalPaymentsThisYear
+            };
 
-            return model;
+            return externalModel;
         }
     }
 }

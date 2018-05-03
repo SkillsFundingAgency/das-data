@@ -11,6 +11,7 @@ using SFA.DAS.Data.Domain.Interfaces;
 using SFA.DAS.Data.Functions.Statistics.Services;
 using SFA.DAS.Data.Infrastructure.Data;
 using SFA.DAS.Data.Infrastructure.Http;
+using SFA.DAS.EAS.Account.Api.Client;
 using SFA.DAS.NLog.Logger;
 using StructureMap;
 
@@ -37,23 +38,28 @@ namespace SFA.DAS.Data.Functions.Ioc
             });
 
             var config = GetConfiguration();
-
+            
             For<IDataConfiguration>().Use(config);
-            RegisterRepositories(config.DatabaseConnectionString);
+            RegisterRepositories(config);
+            RegisterApis(config);
             AddMediatrRegistrations();
 
             ConfigureLogging();
         }
 
 
-        private void RegisterRepositories(string connectionString)
+        private void RegisterRepositories(DataConfiguration config)
         {
             // Add registrations here
-            For<IStatisticsRepository>().Use<StatisticsRepository>().Ctor<string>().Is(connectionString);
+            For<IStatisticsRepository>().Use<StatisticsRepository>().Ctor<string>().Is(config.DatabaseConnectionString);
 
             HttpMessageHandler handler = new HttpClientHandler();
             For<IHttpClientWrapper>().Use<HttpClientWrapper>().Ctor<HttpMessageHandler>().Is(handler);
+        }
 
+        private void RegisterApis(DataConfiguration config)
+        {
+            For<IAccountApiClient>().Use<AccountApiClient>().Ctor<IAccountApiConfiguration>().Is(config.AccountsApi);
         }
 
         private DataConfiguration GetConfiguration()

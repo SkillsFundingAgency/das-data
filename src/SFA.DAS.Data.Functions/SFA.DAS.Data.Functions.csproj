@@ -11,6 +11,9 @@
     <PackageReference Include="Microsoft.Azure.WebJobs.ServiceBus" Version="2.2.0" />
     <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="1.0.13" />
     <PackageReference Include="Microsoft.WindowsAzure.ConfigurationManager" Version="3.2.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="SFA.DAS.Account.Api.Client" Version="1.0.0" />
+    <PackageReference Include="SFA.DAS.Account.Api.Types" Version="1.0.0" />
     <PackageReference Include="SFA.DAS.Configuration" Version="1.0.0.53229" />
     <PackageReference Include="SFA.DAS.Configuration.AzureTableStorage" Version="1.0.0.53229" />
     <PackageReference Include="SFA.DAS.NLog.Logger" Version="1.0.0.23289" />
@@ -29,6 +32,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.WindowsAzure.Configuration">
       <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.3.2.3\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="SFA.DAS.EAS.Account.Api.Client">
+      <HintPath>..\packages\SFA.DAS.Account.Api.Client.1.0.0.35115\lib\net45\SFA.DAS.EAS.Account.Api.Client.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

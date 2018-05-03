@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using SFA.DAS.Data.Application.Interfaces.Gateways;
 using SFA.DAS.EAS.Account.Api.Client;
@@ -38,6 +39,18 @@ namespace SFA.DAS.Data.Application.Gateways
         public async Task<EmployerAgreementView> GetEmployerAgreement(string agreementHref)
         {
             return await _accountApiClient.GetResource<EmployerAgreementView>(agreementHref);
+        }
+
+        public async Task<StatisticsViewModel> GetStatistics()
+        {
+            try
+            {
+                return await _accountApiClient.GetStatistics();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }
