@@ -19,6 +19,9 @@
         },
         "storageConnectionString": {
             "type": "string"
+        },
+        "messageBusConnectionString": {
+            "type": "string"
         }
     },
     "variables": {
@@ -63,6 +66,10 @@
                         {
                             "name": "ServiceName",
                             "value": "SFA.DAS.Data"
+                        },
+                        {
+                            "name": "MessageBusConnectionString",
+                            "value": "[parameters('messageBusConnectionString')]"
                         }
                     ],
                     "connectionStrings": []
