@@ -6,16 +6,16 @@ using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Functions.Statistics
 {
-    public static class GetAccountStatisticsFunction
+    public static class GetPaymentsStatisticsFunction
     {
-        [FunctionName("GetAccountStatisticsFunction")]
+        [FunctionName("GetPaymentsStatisticsFunction")]
+       // [Disable]
         public static async Task Run([TimerTrigger("%CronSchedule%")] TimerInfo myTimer, [Inject] ILog log,
-            [Inject] IStatisticsService statsService)
+        [Inject] IStatisticsService statsService)
         {
-            log.Debug("Gathering statistics for the EAS area of the system");
-            var message = await statsService.CollateEasMetrics();
+            log.Info("Gathering statics for the payments area of the system");
 
-           
+            await statsService.CollatePaymentStatisticsMetrics();
         }
     }
 }
