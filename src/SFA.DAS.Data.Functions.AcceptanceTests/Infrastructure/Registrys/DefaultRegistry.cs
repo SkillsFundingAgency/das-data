@@ -1,23 +1,26 @@
-﻿using System.Linq;
-using System.Net.Http;
+﻿using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using MediatR;
 using Microsoft.Azure;
 using SFA.DAS.Configuration;
 using SFA.DAS.Configuration.AzureTableStorage;
 using SFA.DAS.Data.Application.Configuration;
-using SFA.DAS.Data.Application.Handlers;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.Data.Domain.Interfaces;
+using SFA.DAS.Data.Functions.AcceptanceTests.Stubs;
 using SFA.DAS.Data.Infrastructure.Data;
 using SFA.DAS.Data.Infrastructure.Http;
-using SFA.DAS.EAS.Account.Api.Client;
+using SFA.DAS.Data.Infrastructure.Services;
+using SFA.DAS.Events.Api.Client;
 using SFA.DAS.NLog.Logger;
 using StructureMap;
 
-namespace SFA.DAS.Data.Functions.Ioc
+namespace SFA.DAS.Data.Functions.AcceptanceTests.Infrastructure.Registrys
 {
     public class DefaultRegistry : Registry
     {
+        private const string ServiceNamespace = "SFA.DAS";
         private string ServiceName = CloudConfigurationManager.GetSetting("ServiceName");
         private const string Version = "1.0";
 
@@ -25,40 +28,37 @@ namespace SFA.DAS.Data.Functions.Ioc
         {
             Scan(scan =>
             {
-                var assemblyNames = (typeof(DefaultRegistry).Assembly.GetReferencedAssemblies()).ToList().Where(w => w.FullName.StartsWith("SFA.DAS.")).Select(a => a.FullName);
-
-                foreach (var assemblyName in assemblyNames)
-                {
-                    scan.Assembly(assemblyName);
-                }
-
-                //scan.AssembliesFromApplicationBaseDirectory(a => a.GetName().Name.StartsWith("SFA.DAS."));
+                scan.AssembliesFromApplicationBaseDirectory(a => a.GetName().Name.StartsWith(ServiceNamespace));
                 scan.RegisterConcreteTypesAgainstTheFirstInterface();
             });
 
-            var config = GetConfiguration();
-            
-            For<IDataConfiguration>().Use(config);
-            RegisterRepositories(config);
-            RegisterApis(config);
+            ForSingletonOf<Config>().Use(new Config());
+           
+            For<IDbConnection>()
+                .Use<SqlConnection>()
+                .SelectConstructor(() =>
+                    new SqlConnection(ConfigurationManager.ConnectionStrings["DatabaseConnectionString"]
+                        .ConnectionString))
+                .Ctor<string>("connectionString")
+                .Is(ConfigurationManager.ConnectionStrings["DatabaseConnectionString"].ConnectionString);
+
             AddMediatrRegistrations();
-
             ConfigureLogging();
-        }
+            SetupStubs();
+            For<IHttpClientWrapper>().Use<HttpClientWrapper>().SelectConstructor(() => new HttpClientWrapper());
+            For<IStatisticsService>().Use<StatisticsService>();
 
-
-        private void RegisterRepositories(DataConfiguration config)
-        {
-            // Add registrations here
+            var config = GetConfiguration();
             For<IStatisticsRepository>().Use<StatisticsRepository>().Ctor<string>().Is(config.DatabaseConnectionString);
-
-            HttpMessageHandler handler = new HttpClientHandler();
-            For<IHttpClientWrapper>().Use<HttpClientWrapper>().Ctor<HttpMessageHandler>().Is(handler);
+            For<IEventsApi>().Use(new EventsApi(config.EventsApi));
+            For<IDataConfiguration>().Use(config);
         }
 
-        private void RegisterApis(DataConfiguration config)
+        private void SetupStubs()
         {
-            For<IAccountApiClient>().Use<AccountApiClient>().Ctor<IAccountApiConfiguration>().Is(config.AccountsApi);
+            For<IEasStatisticsHandler>().Use<StubEasStatisticsHandler>();
+            For<ICommitmentsStatisticsHandler>().Use<StubCommitmentsStatisticsHandler>();
+            For<IPaymentStatisticsHandler>().Use<StubPaymentsStatisticsHandler>();
         }
 
         private DataConfiguration GetConfiguration()
@@ -76,11 +76,6 @@ namespace SFA.DAS.Data.Functions.Ioc
             return new AzureTableStorageConfigurationRepository(CloudConfigurationManager.GetSetting("ConfigurationStorageConnectionString"));
         }
 
-        private void ConfigureLogging()
-        {
-            For<ILog>().Use(x => new NLogLogger(x.ParentType, null)).AlwaysUnique();
-        }
-
         private void AddMediatrRegistrations()
         {
             For<SingleInstanceFactory>().Use<SingleInstanceFactory>(ctx => t => ctx.GetInstance(t));
@@ -88,6 +83,10 @@ namespace SFA.DAS.Data.Functions.Ioc
 
             For<IMediator>().Use<Mediator>();
         }
-    }
 
+        private void ConfigureLogging()
+        {
+            For<ILog>().Use(x => new NLogLogger(x.ParentType, null)).AlwaysUnique();
+        }
+    }
 }
