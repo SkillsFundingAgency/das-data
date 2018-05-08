@@ -6,7 +6,7 @@ SELECT
       ,CAST([P].[UkPrn] AS BIGINT) AS UKPRN
       ,CAST([P].[Uln] AS BIGINT) AS ULN
       ,[P].[EmployerAccountId] AS EmployerAccountID
-	 ,[EA].[DASAccountID] AS DasAccountId
+	 ,[EA].[DasAccountId] AS DasAccountId
       ,[P].[ApprenticeshipId] AS CommitmentID
       ,[P].[DeliveryMonth]
       ,[P].[DeliveryYear]
@@ -16,6 +16,7 @@ SELECT
       ,[P].[EmployerAccountVersion]
       ,[P].[ApprenticeshipVersion]
       ,[P].[FundingSource]
+	  ,[P].[FundingAccountId]
       ,[P].[TransactionType]
       ,[P].[Amount]
       ,CAST(COALESCE([P].[StandardCode],-1) AS INT) AS [StdCode]
@@ -45,14 +46,14 @@ SELECT
 FROM [Data_Load].[DAS_Payments] AS P
 	--First Payment
 	LEFT JOIN 
-		(SELECT [P].[EmployerAccountID]
+		(SELECT [P].[EmployerAccountId]
 			   ,P.ApprenticeshipId
 			   ,MIN(CAST(P.DeliveryYear AS VARCHAR(255)) + '-'+CAST(P.DeliveryMonth AS VARCHAR(255))+'-'+CONVERT(NVARCHAR(MAX), [P].[UpdateDateTime], 121)+'-'+P.PaymentId) AS [Min_FirstPayment]
 			   ,1 AS [Flag_FirstPayment]
 		 FROM [Data_Load].[DAS_Payments] AS P
-		 GROUP BY P.EmployerAccountID, P.ApprenticeshipId	
+		 GROUP BY P.EmployerAccountId, P.ApprenticeshipId	
 		 ) 
-		 AS FP ON FP.EmployerAccountID = P.EmployerAccountID
+		 AS FP ON FP.EmployerAccountId = P.EmployerAccountId
 			AND FP.ApprenticeshipId = P.ApprenticeshipId
 			AND FP.Min_FirstPayment = (CAST(P.DeliveryYear AS VARCHAR(255)) + '-'+CAST(P.DeliveryMonth AS VARCHAR(255))+'-'+CONVERT(NVARCHAR(MAX), [P].[UpdateDateTime], 121)+'-'+P.PaymentId)
 	--Payment Age

@@ -12,7 +12,7 @@ CREATE VIEW Reporting.LevyBalance
               JOIN [Data_Pub].DAS_CalendarMonth Cal
               ON Cal.TaxMonthNumber = Dec.PayrollMonth
               AND Cal.TaxYear = Dec.PayrollYear
-        WHERE Flag_latest = 1
+        WHERE Flag_Latest = 1
      GROUP BY
               [PayrollMonthShortNameYear]
             , CalendarMonthNumber
@@ -31,7 +31,7 @@ UNION ALL
               JOIN [Data_Pub].DAS_CalendarMonth Cal
               ON Cal.TaxMonthNumber = Dec.PayrollMonth
               AND Cal.TaxYear = Dec.PayrollYear
-        WHERE Flag_latest = 1
+        WHERE Flag_Latest = 1
      GROUP BY
               [PayrollMonthShortNameYear]
             , CalendarMonthNumber
@@ -47,7 +47,7 @@ UNION ALL
             , SUM([Amount]) AS Value
             , ValueTypeSort = 3
          FROM [Data_Pub].[DAS_Payments]
-        WHERE Flag_latest = 1
+        WHERE Flag_Latest = 1
           AND FundingSource = 'Levy'
      GROUP BY
               [DeliveryMonthShortNameYear]
