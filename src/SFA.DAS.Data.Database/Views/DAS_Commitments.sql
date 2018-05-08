@@ -2,52 +2,52 @@ CREATE VIEW [Data_Pub].[DAS_Commitments]
 AS
 
 SELECT [C].[ID]
-          , [C].[CommitmentID]  AS EventID
-          , [C].[PaymentStatus] AS PaymentStatus
-          , [C].[ApprenticeshipID] AS CommitmentID
-          , [c].[AgreementStatus]  AS AgreementStatus
+           , CAST([C].[CommitmentID] AS BIGINT) AS EventID
+          , CAST([C].[PaymentStatus] AS VARCHAR(50)) AS PaymentStatus
+          , CAST([C].[ApprenticeshipID]AS BIGINT) AS CommitmentID
+          , CAST([c].[AgreementStatus] AS VARCHAR(50)) AS AgreementStatus
           , CASE WHEN ISNUMERIC([C].[ProviderID])=1 then CAST([C].[ProviderID] AS BIGINT) ELSE -2 END AS [UKPRN]
           , CASE WHEN ISNUMERIC([C].[LearnerID])=1 then CAST([C].[LearnerID] AS BIGINT) ELSE -2 END AS [ULN]
-          , [C].[ProviderID]  AS ProviderID
-          , [C].[LearnerID] AS LearnerID
-          , [C].[EmployerAccountID] AS EmployerAccountID
-          , EAA.[DasAccountId] AS DasAccountId
-          , [C].[TrainingTypeID]  AS TrainingTypeID
-          , [C].[TrainingID] AS TrainingID
+          , CAST([C].[ProviderID] AS VARCHAR(255)) AS ProviderID
+          , CAST([C].[LearnerID] AS VARCHAR(255)) AS LearnerID
+          , CAST([C].[EmployerAccountID] AS VARCHAR(255)) AS EmployerAccountID
+          , CAST(EAA.[DasAccountId] AS VARCHAR(100)) AS DasAccountId
+          , CAST([C].[TrainingTypeID] AS VARCHAR(255)) AS TrainingTypeID
+          , CAST([C].[TrainingID] AS VARCHAR(255)) AS TrainingID
           , CASE
                 WHEN [C].[TrainingTypeID] = 'Standard' AND ISNUMERIC([C].[TrainingID]) = 1
-                THEN [C].[TrainingID] 
+                THEN CAST([C].[TrainingID] AS INT)
                 ELSE '-1'
             END AS [StdCode]
           , CASE
                 WHEN [C].[TrainingTypeID] = 'Framework' 
                     AND CHARINDEX('-', [C].[TrainingID]) <> 0 -- This to fix the issues when standard codes are being recorded as Frameworks
-                THEN SUBSTRING([C].[TrainingID], 1, CHARINDEX('-', [C].[TrainingID])-1)
+                THEN CAST(SUBSTRING([C].[TrainingID], 1, CHARINDEX('-', [C].[TrainingID])-1) AS INT)
                 ELSE '-1'
             END AS [FworkCode]
           , CASE
                 WHEN [C].[TrainingTypeID] = 'Framework'
                     AND CHARINDEX('-', [C].[TrainingID]) <> 0 -- This to fix the issues when standard codes are being recorded as Frameworks
-                THEN SUBSTRING(SUBSTRING([C].[TrainingID], CHARINDEX('-', [C].[TrainingID])+1, LEN([C].[TrainingID])), 1, CHARINDEX('-', SUBSTRING([C].[TrainingID], CHARINDEX('-', [C].[TrainingID])+1, LEN([C].[TrainingID])))-1)
+                THEN CAST(SUBSTRING(SUBSTRING([C].[TrainingID], CHARINDEX('-', [C].[TrainingID])+1, LEN([C].[TrainingID])), 1, CHARINDEX('-', SUBSTRING([C].[TrainingID], CHARINDEX('-', [C].[TrainingID])+1, LEN([C].[TrainingID])))-1) AS INT)
                 ELSE '-1'
             END AS [ProgType]
           , CASE
                 WHEN [C].[TrainingTypeID] = 'Framework'
-                THEN SUBSTRING(SUBSTRING([C].[TrainingID], CHARINDEX('-', [C].[TrainingID])+1, LEN([C].[TrainingID])), CHARINDEX('-', SUBSTRING([C].[TrainingID], CHARINDEX('-', [C].[TrainingID])+1, LEN([C].[TrainingID])))+1, LEN(SUBSTRING([C].[TrainingID], CHARINDEX('-', [C].[TrainingID])+1, LEN([C].[TrainingID])))) 
+                THEN CAST(SUBSTRING(SUBSTRING([C].[TrainingID], CHARINDEX('-', [C].[TrainingID])+1, LEN([C].[TrainingID])), CHARINDEX('-', SUBSTRING([C].[TrainingID], CHARINDEX('-', [C].[TrainingID])+1, LEN([C].[TrainingID])))+1, LEN(SUBSTRING([C].[TrainingID], CHARINDEX('-', [C].[TrainingID])+1, LEN([C].[TrainingID])))) AS INT)
                 ELSE '-1'
             END AS [PwayCode]
           , CAST([C].[TrainingStartDate] AS DATE) AS TrainingStartDate
           , CAST([C].[TrainingEndDate] AS DATE) AS TrainingEndDate
-          , [C].[TrainingTotalCost]  AS TrainingTotalCost
-          , [C].[UpdateDateTime] AS UpdateDateTime
+          , CAST([C].[TrainingTotalCost] AS DECIMAL(18,0)) AS TrainingTotalCost
+          , CAST([C].[UpdateDateTime] AS DATETIME) AS UpdateDateTime
             -- Additional Columns for UpdateDateTime represented as a Date
           , CAST([C].[UpdateDateTime] AS DATE) AS [UpdateDate]
             -- Flag to say if latest record from subquery, Using Coalesce to set null value to 0
           , [C].[IsLatest] AS [Flag_Latest]
-		  ,ELE.LegalEntityNumber AS LegalEntityCode
-          ,ELE.LegalEntityName
-          ,ELE.LegalEntitySource
-          , COALESCE(ELE.[DasLegalEntityId],-1)  AS [DasLegalEntityId]
+        		  ,ELE.LegalEntityNumber AS LegalEntityCode
+		  ,ELE.LegalEntityName
+		  ,ELE.LegalEntitySource
+          , CAST(COALESCE(ELE.[DasLegalEntityId],-1) AS BIGINT) AS [DasLegalEntityId]
           , CAST(C.DateOfBirth AS DATE) AS DateOfBirth
           , CASE
                 WHEN [C].[DateOfBirth] IS NULL
