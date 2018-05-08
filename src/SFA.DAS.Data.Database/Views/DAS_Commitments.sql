@@ -1,6 +1,9 @@
 CREATE VIEW [Data_Pub].[DAS_Commitments]
 AS
 
+-- CASTs are required in this view for snapshot routines to run, re-adding these is a temporary fix which needs to be investigated and rectified. 
+--please see Jira: MPD-1453 (https://skillsfundingagency.atlassian.net/browse/MPD-1453)
+
 SELECT [C].[ID]
            , CAST([C].[CommitmentID] AS BIGINT) AS EventID
           , CAST([C].[PaymentStatus] AS VARCHAR(50)) AS PaymentStatus
