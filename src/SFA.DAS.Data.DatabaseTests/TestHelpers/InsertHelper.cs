@@ -1,6 +1,5 @@
 ﻿using System;
 using SFA.DAS.Data.Infrastructure.Data;
-using SFA.DAS.EAS.Account.Api.Client;
 using SFA.DAS.EAS.Account.Api.Types;
 using SFA.DAS.Provider.Events.Api.Types;
 using System.Collections.Generic;
@@ -110,16 +109,15 @@ namespace SFA.DAS.Data.DatabaseTests.TestHelpers
 
         public void InsertIntoCommitments(dynamic value, ICollection<string> columns)
         {
-            var commitment = new SFA.DAS.Data.Domain.Models.ApprenticeshipEvent();
+            var commitment = new ApprenticeshipEventView();
             commitment.Id = columns.Contains("CommitmentID") ? ConvertToType<long>(value.CommitmentID) : null;
-            commitment.PaymentStatus = columns.Contains("PaymentStatus") ? value.PaymentStatus : null;
+            commitment.PaymentStatus = columns.Contains("PaymentStatus") ? Enum.Parse(typeof(PaymentStatus), value.PaymentStatus) : null;
             commitment.ApprenticeshipId = columns.Contains("ApprenticeshipID") ? ConvertToType<long>(value.ApprenticeshipID) : null;
-            commitment.AgreementStatus = columns.Contains("AgreementStatus") ? value.AgreementStatus : null;
+            commitment.AgreementStatus = columns.Contains("AgreementStatus") ? Enum.Parse(typeof(AgreementStatus), value.AgreementStatus) : null;
             commitment.ProviderId = columns.Contains("ProviderID") ? ConvertToType<string>(value.ProviderID) : null;
             commitment.LearnerId = columns.Contains("LearnerID") ? ConvertToType<string>(value.LearnerID) : null;
             commitment.EmployerAccountId = columns.Contains("EmployerAccountID") ? ConvertToType<string>(value.EmployerAccountID) : null;
-            commitment.TrainingType =
-                columns.Contains("TrainingTypeID") ? ConvertToType<string>(value.TrainingTypeID) : null;
+            commitment.TrainingType = Enum.Parse(typeof(TrainingTypes), value.TrainingTypeID);
             commitment.TrainingId = columns.Contains("TrainingID") ? ConvertToType<string>(value.TrainingID) : null;
             commitment.TrainingStartDate = columns.Contains("TrainingStartDate")
                 ? ConvertToType<DateTime>(value.TrainingStartDate)
@@ -130,7 +128,7 @@ namespace SFA.DAS.Data.DatabaseTests.TestHelpers
             commitment.TrainingTotalCost = columns.Contains("TrainingTotalCost")
                 ? ConvertToType<decimal>(value.TrainingTotalCost)
                 : null;
-            commitment.LegalEntityCode = columns.Contains("LegalEntityCode") ? value.LegalEntityCode : null;
+            commitment.LegalEntityId = columns.Contains("LegalEntityCode") ? value.LegalEntityCode : null;
             commitment.LegalEntityName = columns.Contains("LegalEntityName") ? value.LegalEntityName : null;
             commitment.LegalEntityOrganisationType = columns.Contains("LegalEntityOrganisationType")
                 ? value.LegalEntityOrganisationType

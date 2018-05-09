@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using AutoMapper;
 using MediatR;
 using SFA.DAS.Data.Application.Commands.CreateRoatpProvider;
 using SFA.DAS.Data.Application.Configuration;

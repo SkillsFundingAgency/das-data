@@ -13,6 +13,10 @@
     <PackageReference Include="SFA.DAS.NLog.Logger" Version="1.0.0.23289" />
     <PackageReference Include="StructureMap" Version="4.5.0" />
     <PackageReference Include="WindowsAzure.Storage" Version="8.7.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="SFA.DAS.EmployerAccounts.Events" Version="1.2.0.62826" />
+    <PackageReference Include="SFA.DAS.Messaging" Version="3.0.0.63765" />
+
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SFA.DAS.Data.Application\SFA.DAS.Data.Application.csproj" />
