@@ -62,6 +62,9 @@
       <HintPath>..\packages\SFA.DAS.Account.Api.Types.1.0.0.32968\lib\net45\SFA.DAS.EAS.Account.Api.Types.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SFA.DAS.EmployerAccounts.Events, Version=1.2.0.62826, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.EmployerAccounts.Events.1.2.0.62826\lib\net45\SFA.DAS.EmployerAccounts.Events.dll</HintPath>
+    </Reference>
     <Reference Include="SFA.DAS.EmploymentCheck.Events, Version=1.0.0.51324, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.EmploymentCheck.Events.1.0.0.51324\lib\net45\SFA.DAS.EmploymentCheck.Events.dll</HintPath>
     </Reference>
@@ -73,8 +76,8 @@
       <HintPath>..\packages\SFA.DAS.Events.Api.Types.1.23.0.28215\lib\net45\SFA.DAS.Events.Api.Types.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SFA.DAS.Messaging, Version=3.0.0.49552, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.Messaging.3.0.0.49552\lib\net45\SFA.DAS.Messaging.dll</HintPath>
+    <Reference Include="SFA.DAS.Messaging, Version=3.0.0.63765, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Messaging.3.0.0.63765\lib\net45\SFA.DAS.Messaging.dll</HintPath>
     </Reference>
     <Reference Include="SFA.DAS.NLog.Logger, Version=1.0.0.23289, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.NLog.Logger.1.0.0.23289\lib\net45\SFA.DAS.NLog.Logger.dll</HintPath>
@@ -144,6 +147,7 @@
     <Compile Include="Interfaces\Gateways\IAccountGateway.cs" />
     <Compile Include="Interfaces\Gateways\IPerformancePlatformGateway.cs" />
     <Compile Include="Interfaces\Gateways\IRoatpGateway.cs" />
+    <Compile Include="Interfaces\ITransferRelationshipService.cs" />
     <Compile Include="Interfaces\IHttpClient.cs" />
     <Compile Include="Interfaces\IPerformancePlatformDataExtractor.cs" />
     <Compile Include="Interfaces\IProviderEventService.cs" />
@@ -152,6 +156,7 @@
     <Compile Include="Interfaces\Repositories\IApprenticeshipRepository.cs" />
     <Compile Include="Interfaces\Repositories\IEmployerAgreementRepository.cs" />
     <Compile Include="Interfaces\Repositories\ILevyDeclarationRepository.cs" />
+    <Compile Include="Interfaces\Repositories\ITransferRelationshipRepository.cs" />
     <Compile Include="Interfaces\Repositories\IPayeSchemeRepository.cs" />
     <Compile Include="Interfaces\Repositories\ILegalEntityRepository.cs" />
     <Compile Include="Interfaces\Repositories\IEventRepository.cs" />
