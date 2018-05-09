@@ -47,9 +47,9 @@ SELECT [C].[ID]
           , CAST([C].[UpdateDateTime] AS DATE) AS [UpdateDate]
             -- Flag to say if latest record from subquery, Using Coalesce to set null value to 0
           , [C].[IsLatest] AS [Flag_Latest]
-        		  ,ELE.LegalEntityNumber AS LegalEntityCode
-		  ,ELE.LegalEntityName
-		  ,ELE.LegalEntitySource
+		  ,CAST(ELE.LegalEntityNumber AS varchar(50)) AS LegalEntityCode
+		  ,CAST(ELE.LegalEntityName AS varchar(100)) AS LegalEntityName
+		  ,CAST(ELE.LegalEntitySource AS varchar(20)) AS LegalEntitySource
           , CAST(COALESCE(ELE.[DasLegalEntityId],-1) AS BIGINT) AS [DasLegalEntityId]
           , CAST(C.DateOfBirth AS DATE) AS DateOfBirth
           , CASE
