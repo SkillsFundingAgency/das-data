@@ -1,10 +1,10 @@
 ﻿using MediatR;
-using SFA.DAS.Data.Domain.Models;
+using SFA.DAS.Events.Api.Types;
 
 namespace SFA.DAS.Data.Application.Commands.CreateCommitmentApprenticeshipEntry
 {
     public class CreateCommitmentApprenticeshipEntryCommand : IAsyncRequest<CreateCommitmentApprenticeshipEntryResponse>
     {
-        public ApprenticeshipEvent Event { get; set; }
+        public ApprenticeshipEventView Event { get; set; }
     }
 }

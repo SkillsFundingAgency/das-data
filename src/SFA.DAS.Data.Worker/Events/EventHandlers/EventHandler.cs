@@ -8,9 +8,10 @@ namespace SFA.DAS.Data.Worker.Events.EventHandlers
 {
     public abstract class EventHandler<TEventType> : IEventHandler<TEventType>
     {
-        protected readonly IEventRepository EventRepository;
         private readonly int _failureRetryLimit;
         private readonly ILog _logger;
+
+        protected IEventRepository EventRepository { get; }
 
         protected EventHandler(IEventRepository eventRepository, IDataConfiguration configuration, ILog logger)
         {

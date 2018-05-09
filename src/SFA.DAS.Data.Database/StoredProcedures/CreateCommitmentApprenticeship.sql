@@ -14,10 +14,13 @@
 	@legalEntityCode NVARCHAR(50), 
     @legalEntityName NVARCHAR(100), 
     @legalEntityOrganisationType NVARCHAR(20),
-	@dateOfBirth DATETIME
+	@dateOfBirth date,
+    @transferSenderAccountId bigint,
+    @transferApprovalStatus nvarchar(50),
+    @transferApprovalDate datetime
 AS
 
-	UPDATE [Data_Load].[DAS_Commitments] SET IsLatest = 0 WHERE ApprenticeshipID = @apprenticeshipId
+	UPDATE [Data_Load].[Das_Commitments] SET IsLatest = 0 WHERE ApprenticeshipID = @apprenticeshipId
 
 	INSERT INTO [Data_Load].Das_Commitments 
 	(
@@ -37,7 +40,9 @@ AS
 		LegalEntityName,
 		LegalEntityOrganisationType,
 		DateOfBirth,
-		UpdateDateTime,
+		TransferSenderAccountId,
+		TransferApprovalStatus,
+		TransferApprovalDate,
 		IsLatest
 	)
 	VALUES
@@ -58,6 +63,8 @@ AS
 		@legalEntityName,
 		@legalEntityOrganisationType,
 		@dateOfBirth,
-		GETUTCDATE(),
+		@transferSenderAccountId,
+		@transferApprovalStatus,
+		@transferApprovalDate,
 		1
 	)

@@ -33,10 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper, Version=5.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoMapper.5.1.1\lib\net45\AutoMapper.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="MediatR, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MediatR.2.1.0\lib\net45\MediatR.dll</HintPath>
       <Private>True</Private>
@@ -89,13 +85,11 @@
       <HintPath>..\packages\Microsoft.Data.Services.Client.5.6.4\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory, Version=2.28.3.860, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.2.28.3\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory, Version=3.13.8.999, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.3.13.8\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory.WindowsForms, Version=2.28.3.860, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.2.28.3\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.WindowsForms.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory.Platform, Version=3.13.8.999, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.3.13.8\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.WindowsAzure.Configuration, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.3.2.3\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
@@ -137,16 +131,17 @@
     <Reference Include="SFA.DAS.EmploymentCheck.Events, Version=1.0.0.51324, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.EmploymentCheck.Events.1.0.0.51324\lib\net45\SFA.DAS.EmploymentCheck.Events.dll</HintPath>
     </Reference>
-    <Reference Include="SFA.DAS.Events.Api.Client, Version=1.23.0.28215, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.Events.Api.Client.1.23.0.28215\lib\net45\SFA.DAS.Events.Api.Client.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="SFA.DAS.Events.Api.Client, Version=2.0.0.35796, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Events.Api.Client.2.0.0.35796\lib\net45\SFA.DAS.Events.Api.Client.dll</HintPath>
     </Reference>
-    <Reference Include="SFA.DAS.Events.Api.Types, Version=1.23.0.28215, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.Events.Api.Types.1.23.0.28215\lib\net45\SFA.DAS.Events.Api.Types.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="SFA.DAS.Events.Api.Types, Version=2.1.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Events.Api.Types.2.1.10\lib\net45\SFA.DAS.Events.Api.Types.dll</HintPath>
     </Reference>
-    <Reference Include="SFA.DAS.Messaging, Version=3.0.0.49552, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.Messaging.3.0.0.49552\lib\net45\SFA.DAS.Messaging.dll</HintPath>
+    <Reference Include="SFA.DAS.Http, Version=1.0.0.35471, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Http.1.0.0.35471\lib\net45\SFA.DAS.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="SFA.DAS.Messaging, Version=3.0.0.63765, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Messaging.3.0.0.63765\lib\net45\SFA.DAS.Messaging.dll</HintPath>
     </Reference>
     <Reference Include="SFA.DAS.NLog.Logger, Version=1.0.0.23289, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.NLog.Logger.1.0.0.23289\lib\net45\SFA.DAS.NLog.Logger.dll</HintPath>
@@ -156,13 +151,11 @@
       <HintPath>..\packages\SFA.DAS.NLog.Targets.Redis.1.0.0.23289\lib\net45\SFA.DAS.NLog.Targets.Redis.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SFA.DAS.Provider.Events.Api.Client, Version=2.0.0.27426, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.Provider.Events.Api.Client.2.0.0.27426\lib\net45\SFA.DAS.Provider.Events.Api.Client.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="SFA.DAS.Provider.Events.Api.Client, Version=2.1.16.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Provider.Events.Api.Client.2.1.16\lib\net45\SFA.DAS.Provider.Events.Api.Client.dll</HintPath>
     </Reference>
-    <Reference Include="SFA.DAS.Provider.Events.Api.Types, Version=2.0.0.27426, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.Provider.Events.Api.Client.2.0.0.27426\lib\net45\SFA.DAS.Provider.Events.Api.Types.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="SFA.DAS.Provider.Events.Api.Types, Version=2.1.16.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Provider.Events.Api.Client.2.1.16\lib\net45\SFA.DAS.Provider.Events.Api.Types.dll</HintPath>
     </Reference>
     <Reference Include="SFA.Roatp.Api.Client, Version=0.1.119.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.Roatp.Api.Client.0.1.119\lib\net45\SFA.Roatp.Api.Client.dll</HintPath>
@@ -198,6 +191,8 @@
     <Compile Include="Events\EventHandlers\AccountEventHandler.cs" />
     <Compile Include="Events\EventHandlers\LevyDeclarationUpdatedEventHandler.cs" />
     <Compile Include="Events\EventHandlers\AgreementSignedEventHandler.cs" />
+    <Compile Include="Events\EventHandlers\TransferEventHandler.cs" />
+    <Compile Include="Events\EventHandlers\PaymentEventHandler.cs" />
     <Compile Include="Events\EventHandlers\PeriodEndEventHandler.cs" />
     <Compile Include="Events\EventHandlers\ApprenticeshipEventHandler.cs" />
     <Compile Include="Events\EventHandlers\EventApiHandler.cs" />
@@ -208,8 +203,11 @@
     <Compile Include="Events\EventsCollectors\AccountEventCollector.cs" />
     <Compile Include="Events\EventsCollectors\GenericEventCollector.cs" />
     <Compile Include="Events\EventsCollectors\IEventsCollector.cs" />
-    <Compile Include="Events\EventsCollectors\PaymentEventsCollector.cs" />
+    <Compile Include="Events\EventsCollectors\TransferEventCollector.cs" />
+    <Compile Include="Events\EventsCollectors\PaymentEventCollector.cs" />
+    <Compile Include="Events\EventsCollectors\PeriodEndEventsCollector.cs" />
     <Compile Include="Events\EventsProcessor.cs" />
+    <Compile Include="Events\PeriodEndEvent.cs" />
     <Compile Include="Events\GenericEvent.cs" />
     <Compile Include="Factories\JsonEventModelFactory.cs" />
     <Compile Include="Factories\IEventModelFactory.cs" />
@@ -221,7 +219,6 @@
     <Compile Include="Events\EventHandlers\AccountCreatedEventHandler.cs" />
     <Compile Include="Events\EventsWatcher.cs" />
     <Compile Include="Events\IEventsWatcher.cs" />
-    <Compile Include="Mapping\EventsMapping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WorkerRole.cs" />
   </ItemGroup>
@@ -248,10 +245,6 @@
     <ProjectReference Include="..\SFA.DAS.Data.Application\SFA.DAS.Data.Application.csproj">
       <Project>{E2794B6D-456B-4FD2-8694-CCFB141F5A02}</Project>
       <Name>SFA.DAS.Data.Application</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SFA.DAS.Data.Domain\SFA.DAS.Data.Domain.csproj">
-      <Project>{4AAD17AA-1127-471A-8D28-BA1C5DA7D18A}</Project>
-      <Name>SFA.DAS.Data.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\SFA.DAS.Data.Infrastructure\SFA.DAS.Data.Infrastructure.csproj">
       <Project>{1634D299-63E6-45DC-B161-AD8BDBDB0C40}</Project>

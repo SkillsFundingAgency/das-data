@@ -35,13 +35,11 @@
       <HintPath>..\packages\MediatR.2.1.0\lib\net45\MediatR.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory, Version=2.28.3.860, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.2.28.3\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory, Version=3.13.8.999, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.3.13.8\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory.WindowsForms, Version=2.28.3.860, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.2.28.3\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.WindowsForms.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory.Platform, Version=3.13.8.999, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.3.13.8\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.WindowsAzure.Configuration, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.3.2.3\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
@@ -62,31 +60,33 @@
       <HintPath>..\packages\SFA.DAS.Account.Api.Types.1.0.0.32968\lib\net45\SFA.DAS.EAS.Account.Api.Types.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SFA.DAS.EmployerAccounts.Events, Version=1.2.0.62826, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.EmployerAccounts.Events.1.2.0.62826\lib\net45\SFA.DAS.EmployerAccounts.Events.dll</HintPath>
+    </Reference>
     <Reference Include="SFA.DAS.EmploymentCheck.Events, Version=1.0.0.51324, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.EmploymentCheck.Events.1.0.0.51324\lib\net45\SFA.DAS.EmploymentCheck.Events.dll</HintPath>
     </Reference>
-    <Reference Include="SFA.DAS.Events.Api.Client, Version=1.23.0.28215, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.Events.Api.Client.1.23.0.28215\lib\net45\SFA.DAS.Events.Api.Client.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="SFA.DAS.Events.Api.Client, Version=2.0.0.35796, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Events.Api.Client.2.0.0.35796\lib\net45\SFA.DAS.Events.Api.Client.dll</HintPath>
     </Reference>
-    <Reference Include="SFA.DAS.Events.Api.Types, Version=1.23.0.28215, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.Events.Api.Types.1.23.0.28215\lib\net45\SFA.DAS.Events.Api.Types.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="SFA.DAS.Events.Api.Types, Version=2.1.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Events.Api.Types.2.1.10\lib\net45\SFA.DAS.Events.Api.Types.dll</HintPath>
     </Reference>
-    <Reference Include="SFA.DAS.Messaging, Version=3.0.0.49552, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.Messaging.3.0.0.49552\lib\net45\SFA.DAS.Messaging.dll</HintPath>
+    <Reference Include="SFA.DAS.Http, Version=1.0.0.35471, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Http.1.0.0.35471\lib\net45\SFA.DAS.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="SFA.DAS.Messaging, Version=3.0.0.63765, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Messaging.3.0.0.63765\lib\net45\SFA.DAS.Messaging.dll</HintPath>
     </Reference>
     <Reference Include="SFA.DAS.NLog.Logger, Version=1.0.0.23289, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.NLog.Logger.1.0.0.23289\lib\net45\SFA.DAS.NLog.Logger.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SFA.DAS.Provider.Events.Api.Client, Version=2.0.0.27426, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.Provider.Events.Api.Client.2.0.0.27426\lib\net45\SFA.DAS.Provider.Events.Api.Client.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="SFA.DAS.Provider.Events.Api.Client, Version=2.1.16.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Provider.Events.Api.Client.2.1.16\lib\net45\SFA.DAS.Provider.Events.Api.Client.dll</HintPath>
     </Reference>
-    <Reference Include="SFA.DAS.Provider.Events.Api.Types, Version=2.0.0.27426, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.Provider.Events.Api.Client.2.0.0.27426\lib\net45\SFA.DAS.Provider.Events.Api.Types.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="SFA.DAS.Provider.Events.Api.Types, Version=2.1.16.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Provider.Events.Api.Client.2.1.16\lib\net45\SFA.DAS.Provider.Events.Api.Types.dll</HintPath>
     </Reference>
     <Reference Include="SFA.Roatp.Api.Client, Version=0.1.119.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.Roatp.Api.Client.0.1.119\lib\net45\SFA.Roatp.Api.Client.dll</HintPath>
@@ -118,6 +118,8 @@
     <Compile Include="Commands\CreatePaymentsForPeriodEnd\CreatePaymentsForPeriodEndCommand.cs" />
     <Compile Include="Commands\CreateRoatpProvider\CreateProviderCommand.cs" />
     <Compile Include="Commands\CreateRoatpProvider\CreateProviderCommandHandler.cs" />
+    <Compile Include="Commands\CreateTransfersForPeriodEnd\CreateTransfersForPeriodEndCommand.cs" />
+    <Compile Include="Commands\CreateTransfersForPeriodEnd\CreateTransfersForPeriodEndCommandHandler.cs" />
     <Compile Include="Commands\ExportPerformancePlatformStatistics\ExportPerformancePlatformStatisticsCommand.cs" />
     <Compile Include="Commands\ExportPerformancePlatformStatistics\ExportPerformancePlatformStatisticsCommandHandler.cs" />
     <Compile Include="Commands\RemovePayeScheme\RemovePayeSchemeCommand.cs" />
@@ -144,6 +146,7 @@
     <Compile Include="Interfaces\Gateways\IAccountGateway.cs" />
     <Compile Include="Interfaces\Gateways\IPerformancePlatformGateway.cs" />
     <Compile Include="Interfaces\Gateways\IRoatpGateway.cs" />
+    <Compile Include="Interfaces\ITransferRelationshipService.cs" />
     <Compile Include="Interfaces\IHttpClient.cs" />
     <Compile Include="Interfaces\IPerformancePlatformDataExtractor.cs" />
     <Compile Include="Interfaces\IProviderEventService.cs" />
@@ -152,6 +155,7 @@
     <Compile Include="Interfaces\Repositories\IApprenticeshipRepository.cs" />
     <Compile Include="Interfaces\Repositories\IEmployerAgreementRepository.cs" />
     <Compile Include="Interfaces\Repositories\ILevyDeclarationRepository.cs" />
+    <Compile Include="Interfaces\Repositories\ITransferRelationshipRepository.cs" />
     <Compile Include="Interfaces\Repositories\IPayeSchemeRepository.cs" />
     <Compile Include="Interfaces\Repositories\ILegalEntityRepository.cs" />
     <Compile Include="Interfaces\Repositories\IEventRepository.cs" />
@@ -172,11 +176,10 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SFA.DAS.Data.Domain\SFA.DAS.Data.Domain.csproj">
-      <Project>{4AAD17AA-1127-471A-8D28-BA1C5DA7D18A}</Project>
+      <Project>{4aad17aa-1127-471a-8d28-ba1c5da7d18a}</Project>
       <Name>SFA.DAS.Data.Domain</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

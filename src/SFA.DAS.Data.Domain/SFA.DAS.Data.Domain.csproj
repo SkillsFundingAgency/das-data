@@ -31,9 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="SFA.DAS.Events.Api.Types, Version=1.23.0.28215, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.Events.Api.Types.1.23.0.28215\lib\net45\SFA.DAS.Events.Api.Types.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="SFA.DAS.Events.Api.Types, Version=2.1.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Events.Api.Types.2.1.10\lib\net45\SFA.DAS.Events.Api.Types.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -45,7 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\ApprenticeshipEvent.cs" />
+    <Compile Include="Enum\TransferRelationshipStatus.cs" />
+    <Compile Include="Models\TransferRelationship.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
