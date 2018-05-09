@@ -29,13 +29,20 @@ namespace SFA.DAS.Data.Application.Commands.CreatePaymentsForPeriodEnd
 
         private async Task ProcessPageOfPayments(string periodEndId, int pageNumber)
         {
-            var payments = await GetPayments(periodEndId, pageNumber);
-
-            await SavePayments(payments, periodEndId);
-
-            if (HasMorePagesToProcess(pageNumber, payments.TotalNumberOfPages))
+            while (true)
             {
-                await ProcessPageOfPayments(periodEndId, ++pageNumber);
+                var payments = await GetPayments(periodEndId, pageNumber);
+
+                if (payments.Items != null && payments.Items.Length > 0)
+                    await SavePayments(payments, periodEndId);
+
+                if (HasMorePagesToProcess(pageNumber, payments.TotalNumberOfPages))
+                {
+                    pageNumber = ++pageNumber;
+                    continue;
+                }
+
+                break;
             }
         }
 

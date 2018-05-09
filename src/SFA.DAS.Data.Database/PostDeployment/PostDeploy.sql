@@ -6,8 +6,10 @@ END
 IF DATABASE_PRINCIPAL_ID('ViewSpecificReadOnly') IS NOT NULL
 BEGIN
 	GRANT SELECT ON [Data_Pub].[DAS_Employer_Accounts] TO ViewSpecificReadOnly
+	GRANT SELECT ON [Data_Pub].[DAS_Employer_Account_Transfers] TO ViewSpecificReadOnly
 	GRANT SELECT ON [Data_Pub].[DAS_Employer_LegalEntities] TO ViewSpecificReadOnly
 	GRANT SELECT ON [Data_Pub].[DAS_Employer_PayeSchemes] TO ViewSpecificReadOnly
+	GRANT SELECT ON [Data_Pub].[DAS_Employer_Transfer_Relationship] TO ViewSpecificReadOnly
 	GRANT SELECT ON [Data_Pub].[DAS_Commitments] TO ViewSpecificReadOnly
 	GRANT SELECT ON [Data_Pub].[DAS_CalendarMonth] TO ViewSpecificReadOnly
 	GRANT SELECT ON [Data_Pub].[DAS_LevyDeclarations] TO ViewSpecificReadOnly
@@ -21,10 +23,12 @@ END
 
 GRANT SELECT ON [Data_Load].[DAS_CalendarMonth] TO Developer
 GRANT SELECT ON [Data_Load].[Das_Commitments] TO Developer
+GRANT SELECT ON [Data_Load].[DAS_Employer_Account_Transfers] TO Developer
 GRANT SELECT ON [Data_Load].[DAS_Employer_Accounts] TO Developer
 GRANT SELECT ON [Data_Load].[DAS_Employer_Agreements] TO Developer
 GRANT SELECT ON [Data_Load].[DAS_Employer_LegalEntities] TO Developer
 GRANT SELECT ON [Data_Load].[DAS_Employer_PayeSchemes] TO Developer
+GRANT SELECT ON [Data_Load].[DAS_Employer_Transfer_Relationships] TO Developer
 GRANT SELECT ON [Data_Load].[DAS_EmploymentCheck] TO Developer
 GRANT SELECT ON [Data_Load].[DAS_FailedEvents] TO Developer
 GRANT SELECT ON [Data_Load].[DAS_LevyDeclarations] TO Developer
@@ -50,8 +54,10 @@ BEGIN
 END
 
 GRANT SELECT ON [Data_Pub].[DAS_Employer_Accounts] TO DataAnalyst
+GRANT SELECT ON [Data_Pub].[DAS_Employer_Account_Transfers] TO DataAnalyst
 GRANT SELECT ON [Data_Pub].[DAS_Employer_LegalEntities] TO DataAnalyst
 GRANT SELECT ON [Data_Pub].[DAS_Employer_PayeSchemes] TO DataAnalyst
+GRANT SELECT ON [Data_Pub].[DAS_Employer_Transfer_Relationship] TO DataAnalyst
 GRANT SELECT ON [Data_Pub].[DAS_Commitments] TO DataAnalyst
 GRANT SELECT ON [Data_Pub].[DAS_CalendarMonth] TO DataAnalyst
 GRANT SELECT ON [Data_Pub].[DAS_LevyDeclarations] TO DataAnalyst
@@ -210,3 +216,6 @@ UNION ALL SELECT 'HistoricAdjustmentsTaxYear5AnnualAllowanceAmount' AS ColumnNam
 UNION ALL SELECT 'HistoricAdjustmentsTaxYear6LevyDueYearToDate' AS ColumnName, 1 AS ColumnNullable , 'DECIMAL' AS ColumnType, '18' AS ColumnLength, '2' AS ColumnPrecision, '' AS ColumnDefault, 1 as RunColumnTests, '' AS ColumnPatternMatching, '' AS ColumnMinValue, '' AS ColumnMaxValue,0 AS StopLoadIfTestTextLength,0 AS StopLoadIfTestIsNumeric,0 AS StopLoadIfTestPatternMatch,0 AS StopLoadIfTestValueRange,0 AS StopLoadIfTestDecimalPlaces
 UNION ALL SELECT 'HistoricAdjustmentsTaxYear6EnglishFraction' AS ColumnName, 1 AS ColumnNullable , 'DECIMAL' AS ColumnType, '18' AS ColumnLength, '5' AS ColumnPrecision, '' AS ColumnDefault, 1 as RunColumnTests, '' AS ColumnPatternMatching, '' AS ColumnMinValue, '' AS ColumnMaxValue,0 AS StopLoadIfTestTextLength,0 AS StopLoadIfTestIsNumeric,0 AS StopLoadIfTestPatternMatch,0 AS StopLoadIfTestValueRange,0 AS StopLoadIfTestDecimalPlaces
 UNION ALL SELECT 'HistoricAdjustmentsTaxYear6AnnualAllowanceAmount' AS ColumnName, 1 AS ColumnNullable , 'DECIMAL' AS ColumnType, '18' AS ColumnLength, '2' AS ColumnPrecision, '' AS ColumnDefault, 1 as RunColumnTests, '' AS ColumnPatternMatching, '' AS ColumnMinValue, '' AS ColumnMaxValue,0 AS StopLoadIfTestTextLength,0 AS StopLoadIfTestIsNumeric,0 AS StopLoadIfTestPatternMatch,0 AS StopLoadIfTestValueRange,0 AS StopLoadIfTestDecimalPlaces
+
+-- Feed name has changed, update old values
+update [Data_Load].DAS_LoadedEvents set EventFeed = 'PeriodEnd-Payment' where EventFeed = 'PeriodEnd'
