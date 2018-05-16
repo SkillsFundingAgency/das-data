@@ -11,6 +11,7 @@ using SFA.DAS.Data.Domain.Interfaces;
 using SFA.DAS.Data.Infrastructure.Data;
 using SFA.DAS.Data.Infrastructure.Http;
 using SFA.DAS.NLog.Logger;
+using SFA.DAS.Provider.Events.Api.Client;
 using StructureMap;
 
 namespace SFA.DAS.Data.Functions.Ioc
@@ -38,6 +39,7 @@ namespace SFA.DAS.Data.Functions.Ioc
             var config = GetConfiguration();
 
             For<IDataConfiguration>().Use(config);
+            RegisterApis(config);
             RegisterRepositories(config.DatabaseConnectionString);
             AddMediatrRegistrations();
 
@@ -63,6 +65,11 @@ namespace SFA.DAS.Data.Functions.Ioc
             var configurationService = new ConfigurationService(configurationRepository, new ConfigurationOptions(ServiceName, environment, Version));
 
             return configurationService.Get<DataConfiguration>();
+        }
+
+        private void RegisterApis(DataConfiguration config)
+        {
+            For<IPaymentsEventsApiClient>().Use(new PaymentsEventsApiClient(config.PaymentsEvents));
         }
 
         private static IConfigurationRepository GetConfigurationRepository()

@@ -5,5 +5,6 @@ namespace SFA.DAS.Data.Domain.Models.Statistics.Payments
     public class PaymentExternalModel : IExternalSystemModel
     {
         public long ProviderTotalPayments { get; set; }
+        public long ProviderTotalPaymentsWithRequestedPayment { get; set; }
     }
 }

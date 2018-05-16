@@ -9,6 +9,7 @@ using SFA.DAS.Data.Domain.Interfaces;
 using SFA.DAS.Data.Domain.Models;
 using SFA.DAS.Data.Domain.Models.Statistics.Payments;
 using SFA.DAS.NLog.Logger;
+using SFA.DAS.Provider.Events.Api.Client;
 
 namespace SFA.DAS.Data.Application.Handlers
 {
@@ -16,23 +17,29 @@ namespace SFA.DAS.Data.Application.Handlers
     {
         private readonly IHttpClientWrapper _httpClientWrapper;
         private readonly IDataConfiguration _configuration;
+        private readonly IPaymentsEventsApiClient _paymentsEventsApi;
         private readonly ILog _logger;
 
-        public PaymentsStatisticsHandler(IHttpClientWrapper httpClientWrapper, IDataConfiguration configuration, ILog logger)
+        public PaymentsStatisticsHandler(IHttpClientWrapper httpClientWrapper, IDataConfiguration configuration, ILog logger, IPaymentsEventsApiClient paymentsEventsApi)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _paymentsEventsApi = paymentsEventsApi;
             _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
             _httpClientWrapper = httpClientWrapper ?? throw new ArgumentNullException(nameof(httpClientWrapper));
 
         }
 
         public async Task<PaymentExternalModel> Handle()
+
         {
             _logger.Debug("Contacting the payment statistics End point");
-            var response = await _httpClientWrapper.GetAsync(_configuration.PaymentsStatisticsEndPoint.ToUri(), Constants.ContentTypeValue);
+            var response = await _paymentsEventsApi.GetPaymentStatistics();
 
-            _logger.Debug($"The API returned a response with status code {response.StatusCode}");
-            var model = await _httpClientWrapper.ReadResponse<PaymentExternalModel>(response);
+            var model = new PaymentExternalModel()
+            {
+                ProviderTotalPayments = response.TotalNumberOfPayments,
+                ProviderTotalPaymentsWithRequestedPayment = response.TotalNumberOfPaymentsWithRequiredPayment
+            };
 
             return model;
         }
