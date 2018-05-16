@@ -119,6 +119,9 @@ namespace SFA.DAS.Data.Infrastructure.Data
                             statisticsModel.ProviderTotalPayments,
                             rdsModel.ProviderTotalPayments);
 
+                        await SaveStatistic(c, transaction, nameof(statisticsModel.ProviderTotalPaymentsWithRequestedPayment),
+                            statisticsModel.ProviderTotalPaymentsWithRequestedPayment,
+                            rdsModel.ProviderTotalPayments);
                         transaction.Commit();
                     }
                     catch (SqlException)

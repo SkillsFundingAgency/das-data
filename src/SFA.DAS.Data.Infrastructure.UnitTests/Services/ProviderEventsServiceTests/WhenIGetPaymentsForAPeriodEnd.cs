@@ -17,7 +17,7 @@ namespace SFA.DAS.Data.Infrastructure.UnitTests.Services.ProviderEventsServiceTe
 
             var expectedResponse = new PageOfResults<Payment>();
 
-            EventsApi.Setup(x => x.GetPayments(period, null, pageNumber)).ReturnsAsync(expectedResponse);
+            EventsApi.Setup(x => x.GetPayments(period, null, pageNumber,null)).ReturnsAsync(expectedResponse);
 
             var response = await Service.GetPayments(period, pageNumber);
 
