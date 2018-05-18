@@ -14,7 +14,7 @@
     <PackageReference Include="SFA.DAS.Configuration" Version="1.0.0.53229" />
     <PackageReference Include="SFA.DAS.Configuration.AzureTableStorage" Version="1.0.0.53229" />
     <PackageReference Include="SFA.DAS.NLog.Logger" Version="1.0.0.23289" />
-    <PackageReference Include="SFA.DAS.Provider.Events.Api.Client" Version="2.1.25" />
+    <PackageReference Include="SFA.DAS.Provider.Events.Api.Client" Version="2.1.26" />
     <PackageReference Include="StructureMap" Version="4.5.0" />
     <PackageReference Include="WindowsAzure.Storage" Version="8.7.0" />
   </ItemGroup>

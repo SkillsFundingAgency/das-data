@@ -10,6 +10,7 @@ namespace SFA.DAS.Data.Functions.Statistics
     public static class GetCommitmentStatisticsFunction
     {
         [FunctionName("GetCommitmentStatisticsFunction")]
+        [Disable]
        // [Disable]
         public static async Task Run([TimerTrigger("*/15 * * * * *")] TimerInfo myTimer, [Inject] ILog log,
         [Inject] IStatisticsService statsService)

@@ -22,7 +22,7 @@ namespace SFA.DAS.Data.Functions.AcceptanceTests.StatisticsTests
         [SetUp]
         public async Task Setup()
         {
-            DataTypes = "'ProviderTotalPayments'";
+            DataTypes = "'ProviderTotalPayments','ProviderTotalPaymentsWithRequestedPayment'";
 
           
         }
@@ -31,7 +31,7 @@ namespace SFA.DAS.Data.Functions.AcceptanceTests.StatisticsTests
         public async Task WhenTheQueueFunctionIsRunThenTheStatisticsAreSavedToTheDatabase()
         {
             // sleep for a few seconds to allow the function to kick in once it detects a queue message
-            Thread.Sleep(5000);
+            Thread.Sleep(2500);
 
             var actual = await WithConnection(async c => await c.ExecuteScalarAsync<int>(
                 sql: SqlVerificationScript(),
@@ -39,7 +39,7 @@ namespace SFA.DAS.Data.Functions.AcceptanceTests.StatisticsTests
 
             Console.WriteLine(SqlVerificationScript());
 
-            Assert.AreEqual(1, actual);
+            Assert.AreEqual(2, actual);
         }
     }
 }

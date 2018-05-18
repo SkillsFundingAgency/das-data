@@ -2,6 +2,5 @@
 
 AS
 
-SELECT ISNULL(SUM(Amount), 0)
+SELECT count(*) as ProviderTotalPayments
 FROM [Data_Load].[DAS_Payments]
-WHERE DeliveryYear = YEAR(GETDATE())

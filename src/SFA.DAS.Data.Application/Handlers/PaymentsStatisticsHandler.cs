@@ -15,17 +15,13 @@ namespace SFA.DAS.Data.Application.Handlers
 {
     public class PaymentsStatisticsHandler : IPaymentStatisticsHandler
     {
-        private readonly IHttpClientWrapper _httpClientWrapper;
-        private readonly IDataConfiguration _configuration;
         private readonly IPaymentsEventsApiClient _paymentsEventsApi;
         private readonly ILog _logger;
 
-        public PaymentsStatisticsHandler(IHttpClientWrapper httpClientWrapper, IDataConfiguration configuration, ILog logger, IPaymentsEventsApiClient paymentsEventsApi)
+        public PaymentsStatisticsHandler(ILog logger, IPaymentsEventsApiClient paymentsEventsApi)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _paymentsEventsApi = paymentsEventsApi;
-            _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
-            _httpClientWrapper = httpClientWrapper ?? throw new ArgumentNullException(nameof(httpClientWrapper));
 
         }
 
@@ -35,12 +31,13 @@ namespace SFA.DAS.Data.Application.Handlers
             _logger.Debug("Contacting the payment statistics End point");
             var response = await _paymentsEventsApi.GetPaymentStatistics();
 
+            _logger.Debug("Result recieved, creating model");
             var model = new PaymentExternalModel()
             {
                 ProviderTotalPayments = response.TotalNumberOfPayments,
                 ProviderTotalPaymentsWithRequestedPayment = response.TotalNumberOfPaymentsWithRequiredPayment
             };
-
+            _logger.Debug("Model created, now returning model");
             return model;
         }
     }
