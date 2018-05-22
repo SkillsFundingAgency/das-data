@@ -39,8 +39,7 @@ namespace SFA.DAS.Data.Infrastructure.Data
                 rec.SetGuid(3, param.RequiredPaymentId);
                 rec.SetInt64(4, param.CommitmentId);
                 rec.SetDecimal(5, param.Amount);
-                if (param.Type != null)
-                    rec.SetString(6, param.Type);
+                rec.SetString(6, param.Type.ToString());
                 rec.SetString(7, param.CollectionPeriodName);
 
                 items.Add(rec);

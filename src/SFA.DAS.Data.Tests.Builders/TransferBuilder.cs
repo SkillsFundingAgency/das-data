@@ -10,7 +10,6 @@ namespace SFA.DAS.Data.Tests.Builders
         private long _receiverAccountId = 222;
         private Guid _requiredPaymentId = Guid.NewGuid();
         private decimal _amount = 123.45m;
-        private string _type = "Levy";
         private long _commitmentId = 333;
         private string _collectionPeriodName = "PERIOD";
 
@@ -25,7 +24,7 @@ namespace SFA.DAS.Data.Tests.Builders
             return new AccountTransfer
             {
                 TransferId = _idGenerator.Next(int.MaxValue),
-                Type = _type,
+                Type = TransferType.Levy,
                 SenderAccountId = _senderAccountId,
                 ReceiverAccountId = _receiverAccountId,
                 RequiredPaymentId = _requiredPaymentId,
