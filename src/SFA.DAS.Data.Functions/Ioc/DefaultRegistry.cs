@@ -15,6 +15,7 @@ using SFA.DAS.Provider.Events.Api.Client;
 using StructureMap;
 using System.Linq;
 using System.Reflection;
+using SFA.DAS.Data.Infrastructure.Services;
 
 namespace SFA.DAS.Data.Functions.Ioc
 {
@@ -44,6 +45,8 @@ namespace SFA.DAS.Data.Functions.Ioc
             RegisterRepositories(config.DatabaseConnectionString);
             AddMediatrRegistrations();
 
+
+
             ConfigureLogging();
         }
 
@@ -57,6 +60,8 @@ namespace SFA.DAS.Data.Functions.Ioc
 
             HttpMessageHandler handler = new HttpClientHandler();
             For<IHttpClientWrapper>().Use<HttpClientWrapper>().Ctor<HttpMessageHandler>().Is(handler);
+
+            For<IStatisticsService>().Use<StatisticsService>();
 
         }
 

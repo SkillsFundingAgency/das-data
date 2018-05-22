@@ -53,7 +53,6 @@
     <Compile Include="Interfaces\IPaymentStatisticsHandler.cs" />
     <Compile Include="Interfaces\IProcessingCompletedMessage.cs" />
     <Compile Include="Interfaces\IStatisticsService.cs" />
-    <Compile Include="Models\ApprenticeshipEvent.cs" />
     <Compile Include="Models\Statistics\Commitments\CommitmentsExternalModel.cs" />
     <Compile Include="Interfaces\IExternalSystemModel.cs" />
     <Compile Include="Interfaces\IRdsModel.cs" />
