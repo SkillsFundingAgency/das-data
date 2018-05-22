@@ -30,7 +30,7 @@ namespace SFA.DAS.Data.AcceptanceTests.PaymentEventTests
 
         private async Task<bool> IsDatabaseInExpectedState()
         {
-            var lastProcessedEventId = await EventTestsRepository.GetLastProcessedEventId<string>("PeriodEnd");
+            var lastProcessedEventId = await EventTestsRepository.GetLastProcessedEventId<string>("PeriodEnd-Payment");
             if (lastProcessedEventId != "PERIOD4")
             {
                 return false;
@@ -73,7 +73,8 @@ namespace SFA.DAS.Data.AcceptanceTests.PaymentEventTests
                 payments.Add(new PaymentBuilder().WithId(periodEnd + i).WithPeriod(periodEnd).Build());
             }
             var paymentsResult = new PageOfResults<Payment> { Items = payments.ToArray(), PageNumber = 1, TotalNumberOfPages = 1 };
-            EventsApi.SetupGet($"api/payments?page=1&periodId={periodEnd}&employerAccountId={null}", paymentsResult);
+            EventsApi.SetupGet($"api/payments?page=1&periodId={periodEnd}&employerAccountId={null}&ukprn={null}", paymentsResult);
+            EventsApi.SetupGet($"api/transfers?page=1&periodId={periodEnd}", new PageOfResults<Payment> {PageNumber = 0, TotalNumberOfPages = 0});
         }
     }
 }

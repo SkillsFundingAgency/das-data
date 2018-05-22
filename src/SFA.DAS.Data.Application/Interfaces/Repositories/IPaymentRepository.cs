@@ -8,4 +8,8 @@ namespace SFA.DAS.Data.Application.Interfaces.Repositories
     {
         Task SavePayments(IEnumerable<Payment> payment);
     }
+    public interface ITransferRepository
+    {
+        Task SaveTransfers(IEnumerable<AccountTransfer> transfers);
+    }
 }

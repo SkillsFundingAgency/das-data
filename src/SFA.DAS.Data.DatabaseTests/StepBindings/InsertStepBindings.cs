@@ -59,7 +59,7 @@ namespace SFA.DAS.Data.DatabaseTests.StepBindings
         [Given(@"the following DAS_Commitments")]
         public void GivenIHaveDAS_Commitments(Table table)
         {
-            IEnumerable<dynamic> values = table.CreateDynamicSet(true);
+            IEnumerable<dynamic> values = table.CreateDynamicSet(false);
 
             Insertinto(values, dbHelper.InsertIntoCommitments);
         }

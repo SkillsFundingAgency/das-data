@@ -13,6 +13,8 @@ using SFA.DAS.Data.Infrastructure.Http;
 using SFA.DAS.NLog.Logger;
 using SFA.DAS.Provider.Events.Api.Client;
 using StructureMap;
+using System.Linq;
+using System.Reflection;
 
 namespace SFA.DAS.Data.Functions.Ioc
 {
@@ -25,14 +27,13 @@ namespace SFA.DAS.Data.Functions.Ioc
         {
             Scan(scan =>
             {
-                var assemblyNames = (typeof(DefaultRegistry).Assembly.GetReferencedAssemblies()).ToList().Where(w => w.FullName.StartsWith("SFA.DAS.")).Select(a => a.FullName);
+                var assemblyNames = (typeof(DefaultRegistry).Assembly.GetReferencedAssemblies()).ToList().Where(w => w.FullName.StartsWith("SFA.DAS.")).Select( a => a.FullName);
 
                 foreach (var assemblyName in assemblyNames)
                 {
                     scan.Assembly(assemblyName);
                 }
-
-                //scan.AssembliesFromApplicationBaseDirectory(a => a.GetName().Name.StartsWith("SFA.DAS."));
+                
                 scan.RegisterConcreteTypesAgainstTheFirstInterface();
             });
 
@@ -50,6 +51,8 @@ namespace SFA.DAS.Data.Functions.Ioc
         private void RegisterRepositories(string connectionString)
         {
             // Add registrations here
+
+            For<ITransferRelationshipRepository>().Use<TransferRelationshipRepository>().Ctor<string>().Is(connectionString);
             For<IStatisticsRepository>().Use<StatisticsRepository>().Ctor<string>().Is(connectionString);
 
             HttpMessageHandler handler = new HttpClientHandler();

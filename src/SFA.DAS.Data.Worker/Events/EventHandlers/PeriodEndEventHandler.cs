@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using MediatR;
-using SFA.DAS.Data.Application.Commands.CreatePaymentsForPeriodEnd;
 using SFA.DAS.Data.Application.Configuration;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.NLog.Logger;
@@ -8,26 +7,20 @@ using SFA.DAS.Provider.Events.Api.Types;
 
 namespace SFA.DAS.Data.Worker.Events.EventHandlers
 {
-    public class PeriodEndEventHandler : EventHandler<PeriodEnd>
+    public abstract class PeriodEndEventHandler<T> : EventHandler<PeriodEndEvent<T>>
     {
-        private readonly IMediator _mediator;
-        
-        public PeriodEndEventHandler(IMediator mediator, IEventRepository eventRepository, IDataConfiguration configuration, ILog logger) : base(eventRepository, configuration, logger)
+        protected IMediator Mediator { get; }
+
+        protected PeriodEndEventHandler(IMediator mediator, IEventRepository eventRepository, IDataConfiguration configuration, ILog logger) : base(eventRepository, configuration, logger)
         {
-            _mediator = mediator;
+            Mediator = mediator;
         }
 
-        protected override async Task ProcessEvent(PeriodEnd @event)
+        public override async Task Handle(PeriodEndEvent<T> @event)
         {
-            await _mediator.PublishAsync(new CreatePaymentsForPeriodEndCommand
-            {
-                PeriodEndId = @event.Id
-            });
+            await Handle(@event, EventTypeName, @event.PeriodEnd.Id);
         }
 
-        public override async Task Handle(PeriodEnd @event)
-        {
-            await Handle(@event, typeof(PeriodEnd).Name, @event.Id);
-        }
+        public static string EventTypeName => string.Concat(typeof(PeriodEnd).Name, "-", typeof(T).Name);
     }
 }
