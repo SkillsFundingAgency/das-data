@@ -22,6 +22,9 @@
         },
         "messageBusConnectionString": {
             "type": "string"
+        },
+        "cronSchedule": {
+            "type": "string"
         }
     },
     "variables": {
@@ -70,6 +73,10 @@
                         {
                             "name": "MessageBusConnectionString",
                             "value": "[parameters('messageBusConnectionString')]"
+                        },
+                        {
+                            "name": "CronSchedule",
+                            "value": "[parameters('cronSchedule')]"
                         }
                     ],
                     "connectionStrings": []
