@@ -6,7 +6,7 @@
 AS
 SET NOCOUNT ON;
 
-UPDATE [Data_Load].[DAS_ConsistencyCheck] SET IsLatest = 0 WHERE IsLatest = 1
+UPDATE [Data_Load].[DAS_ConsistencyCheck] SET IsLatest = 0 WHERE IsLatest = 1 AND DataType = @dataType
 
 	INSERT INTO [Data_Load].[DAS_ConsistencyCheck]
            ([DataType]
