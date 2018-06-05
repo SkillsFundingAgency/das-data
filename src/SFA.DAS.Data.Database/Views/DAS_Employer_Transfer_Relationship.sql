@@ -13,5 +13,5 @@
 		recieverAcc.DasAccountId as [RecieverDasAccountID]
 	FROM 
 		[Data_Load].[DAS_Employer_Transfer_Relationships] as T
-		left join [Data_Load].[DAS_Employer_Accounts] as senderAcc on senderAcc.AccountId = T.SenderAccountId
-		left join [Data_Load].[DAS_Employer_Accounts] as recieverAcc on recieverAcc.AccountId = T.ReceiverAccountId
+		left join [Data_Load].[DAS_Employer_Accounts] as senderAcc on senderAcc.AccountId = T.SenderAccountId and senderAcc.isLatest = 1
+		left join [Data_Load].[DAS_Employer_Accounts] as recieverAcc on recieverAcc.AccountId = T.ReceiverAccountId  and recieverAcc.isLatest = 1
