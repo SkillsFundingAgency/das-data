@@ -63,6 +63,14 @@
       <HintPath>..\packages\NUnit.3.6.1\lib\net45\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SFA.DAS.Commitments.Api.Types, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\das-commitments\src\SFA.DAS.Commitments.Events\bin\Debug\SFA.DAS.Commitments.Api.Types.dll</HintPath>
+    </Reference>
+    <Reference Include="SFA.DAS.Commitments.Events, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\das-commitments\src\SFA.DAS.Commitments.Events\bin\Debug\SFA.DAS.Commitments.Events.dll</HintPath>
+    </Reference>
     <Reference Include="SFA.DAS.EmployerAccounts.Events, Version=1.2.0.62826, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.EmployerAccounts.Events.1.2.0.62826\lib\net45\SFA.DAS.EmployerAccounts.Events.dll</HintPath>
     </Reference>
@@ -98,6 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CommitmentsRelationshipServiceTests\WhenIGetCommitmentsRelationshipMessages.cs" />
     <Compile Include="Services\EventsApiServiceTests\WhenIGetUnprocessedGenericEvents.cs" />
     <Compile Include="Services\ProviderEventsServiceTests\ProviderEventsServiceTestsBase.cs" />
     <Compile Include="Services\ProviderEventsServiceTests\WhenIGetPaymentsForAPeriodEnd.cs" />

@@ -31,6 +31,9 @@
     <Reference Include="Microsoft.WindowsAzure.Configuration">
       <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.3.2.3\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
     </Reference>
+    <Reference Include="SFA.DAS.Commitments.Events">
+      <HintPath>..\..\..\..\das-commitments\src\SFA.DAS.Commitments.Events\bin\Debug\SFA.DAS.Commitments.Events.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Update="host.json">

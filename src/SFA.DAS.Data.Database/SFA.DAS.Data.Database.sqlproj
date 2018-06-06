@@ -144,6 +144,9 @@
     <Build Include="Types\TransferEntity.sql" />
     <Build Include="StoredProcedures\CreateTransfersRelationship.sql" />
     <Build Include="StoredProcedures\GetEventFailureCount.sql" />
+    <Build Include="Tables\DAS_Commitments_Relationships.sql" />
+    <Build Include="StoredProcedures\SaveCommitmentsRelationship.sql" />
+    <Build Include="Views\DAS_Commitments_Relationships.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SFA.DAS.Data.Database.refactorlog" />
