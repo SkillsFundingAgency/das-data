@@ -52,6 +52,15 @@
       <HintPath>..\packages\NLog.4.3.7\lib\net45\NLog.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SFA.DAS.Commitments.Api.Client, Version=2.1.355.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Commitments.Api.Client.2.1.355\lib\net45\SFA.DAS.Commitments.Api.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="SFA.DAS.Commitments.Api.Types, Version=2.1.355.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Commitments.Api.Types.2.1.355\lib\net45\SFA.DAS.Commitments.Api.Types.dll</HintPath>
+    </Reference>
+    <Reference Include="SFA.DAS.Common.Domain, Version=1.3.0.44308, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Common.Domain.1.3.0.44308\lib\net45\SFA.DAS.Common.Domain.dll</HintPath>
+    </Reference>
     <Reference Include="SFA.DAS.EAS.Account.Api.Client, Version=1.0.0.32968, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.Account.Api.Client.1.0.0.32968\lib\net45\SFA.DAS.EAS.Account.Api.Client.dll</HintPath>
       <Private>True</Private>
@@ -105,6 +114,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\CommitmentsApiClientConfiguration.cs" />
+    <Compile Include="Gateways\CommitmentsGateway.cs" />
+    <Compile Include="Interfaces\Gateways\ICommitmentsGateway.cs" />
     <Compile Include="Messages\CommitmentProcessingCompletedMessage.cs" />
     <Compile Include="Commands\CreateCommitmentStatistics\CreateCommitmentStatisticsCommand.cs" />
     <Compile Include="Commands\CreateCommitmentStatistics\CreateCommitmentStatisticsCommandHandler.cs" />

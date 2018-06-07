@@ -5,7 +5,6 @@ using Microsoft.Azure;
 using SFA.DAS.Configuration;
 using SFA.DAS.Configuration.AzureTableStorage;
 using SFA.DAS.Data.Application.Configuration;
-using SFA.DAS.Data.Application.Handlers;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.Data.Domain.Interfaces;
 using SFA.DAS.Data.Infrastructure.Data;
@@ -13,8 +12,9 @@ using SFA.DAS.Data.Infrastructure.Http;
 using SFA.DAS.NLog.Logger;
 using SFA.DAS.Provider.Events.Api.Client;
 using StructureMap;
-using System.Linq;
-using System.Reflection;
+using SFA.DAS.Commitments.Api.Client;
+using SFA.DAS.Commitments.Api.Client.Configuration;
+using SFA.DAS.Commitments.Api.Client.Interfaces;
 using SFA.DAS.Data.Infrastructure.Services;
 
 namespace SFA.DAS.Data.Functions.Ioc
@@ -78,6 +78,7 @@ namespace SFA.DAS.Data.Functions.Ioc
         private void RegisterApis(DataConfiguration config)
         {
             For<IPaymentsEventsApiClient>().Use(new PaymentsEventsApiClient(config.PaymentsEvents));
+            For<IStatisticsApi>().Use<StatisticsApi>().Ctor<ICommitmentsApiClientConfiguration>().Is(config.CommitmentsApi);
         }
 
         private static IConfigurationRepository GetConfigurationRepository()
