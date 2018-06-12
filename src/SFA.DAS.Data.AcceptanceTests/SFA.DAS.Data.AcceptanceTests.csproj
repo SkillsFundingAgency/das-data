@@ -121,6 +121,9 @@
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SFA.DAS.Commitments.Api.Client, Version=2.1.355.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Commitments.Api.Client.2.1.355\lib\net45\SFA.DAS.Commitments.Api.Client.dll</HintPath>
+    </Reference>
     <Reference Include="SFA.DAS.Commitments.Api.Types, Version=2.1.355.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.Commitments.Api.Types.2.1.355\lib\net45\SFA.DAS.Commitments.Api.Types.dll</HintPath>
     </Reference>
