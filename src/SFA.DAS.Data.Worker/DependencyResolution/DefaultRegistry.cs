@@ -158,7 +158,7 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
 
         private void ConfigureLogging()
         {
-            For<ILog>().Use(x => new NLogLogger(x.ParentType, null)).AlwaysUnique();
+            For<ILog>().Use(x => new NLogLogger(x.ParentType, null,null)).AlwaysUnique();
         }
     }
 }

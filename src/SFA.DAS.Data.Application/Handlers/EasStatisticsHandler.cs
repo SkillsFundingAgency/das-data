@@ -11,6 +11,7 @@ using SFA.DAS.Data.Domain.Interfaces;
 using SFA.DAS.Data.Domain.Models;
 using SFA.DAS.Data.Domain.Models.Statistics.Eas;
 using SFA.DAS.NLog.Logger;
+using Constants = SFA.DAS.Data.Domain.Constants;
 
 namespace SFA.DAS.Data.Application.Handlers
 {
@@ -30,7 +31,7 @@ namespace SFA.DAS.Data.Application.Handlers
         public async Task<EasExternalModel> Handle()
         {
             _logger.Debug("Contacting the EasStats End point");
-            var response = await _httpClientWrapper.GetAsync(_configuration.EasStatisticsEndPoint.ToUri(), Constants.ContentTypeValue);
+            var response = await _httpClientWrapper.GetAsync(_configuration.EasStatisticsEndPoint.ToUri(),  Constants.ContentTypeValue);
 
             _logger.Debug($"The API returned a response with status code {response.StatusCode}");
             var model = await _httpClientWrapper.ReadResponse<EasExternalModel>(response);

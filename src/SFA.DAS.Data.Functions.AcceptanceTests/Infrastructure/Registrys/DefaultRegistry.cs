@@ -86,7 +86,7 @@ namespace SFA.DAS.Data.Functions.AcceptanceTests.Infrastructure.Registrys
 
         private void ConfigureLogging()
         {
-            For<ILog>().Use(x => new NLogLogger(x.ParentType, null)).AlwaysUnique();
+            For<ILog>().Use(x => new NLogLogger(x.ParentType, null,null)).AlwaysUnique();
         }
     }
 }
