@@ -16,6 +16,9 @@ using SFA.DAS.Commitments.Api.Client;
 using SFA.DAS.Commitments.Api.Client.Configuration;
 using SFA.DAS.Commitments.Api.Client.Interfaces;
 using SFA.DAS.Data.Infrastructure.Services;
+using SFA.DAS.NLog.Logger.Web.MessageHandlers;
+using SFA.DAS.Http;
+using SFA.DAS.Http.TokenGenerators;
 
 namespace SFA.DAS.Data.Functions.Ioc
 {
@@ -78,7 +81,24 @@ namespace SFA.DAS.Data.Functions.Ioc
         private void RegisterApis(DataConfiguration config)
         {
             For<IPaymentsEventsApiClient>().Use(new PaymentsEventsApiClient(config.PaymentsEvents));
-            For<IStatisticsApi>().Use<StatisticsApi>().Ctor<ICommitmentsApiClientConfiguration>().Is(config.CommitmentsApi);
+            
+            IJwtClientConfiguration clientConfig = config.CommitmentsApi;
+
+            
+          
+            var bearerToken = (IGenerateBearerToken)new JwtBearerTokenGenerator(clientConfig);
+
+            var httpClient = new HttpClientBuilder()
+                .WithBearerAuthorisationHeader(bearerToken)
+                .WithHandler(new RequestIdMessageRequestHandler())
+                .WithHandler(new SessionIdMessageRequestHandler())
+                .WithDefaultHeaders()
+                .Build();
+
+            For<IEmployerCommitmentApi>().Use<EmployerCommitmentApi>()
+                .Ctor<HttpClient>().Is(httpClient)
+                .Ctor<ICommitmentsApiClientConfiguration>().Is(config.CommitmentsApi);
+            For<IStatisticsApi>().Use<StatisticsApi>().Ctor<HttpClient>().Is(httpClient).Ctor<ICommitmentsApiClientConfiguration>().Is(config.CommitmentsApi);
         }
 
         private static IConfigurationRepository GetConfigurationRepository()
@@ -88,7 +108,7 @@ namespace SFA.DAS.Data.Functions.Ioc
 
         private void ConfigureLogging()
         {
-            For<ILog>().Use(x => new NLogLogger(x.ParentType, null)).AlwaysUnique();
+            For<ILog>().Use(x => new NLogLogger(x.ParentType, null,null)).AlwaysUnique();
         }
 
         private void AddMediatrRegistrations()
