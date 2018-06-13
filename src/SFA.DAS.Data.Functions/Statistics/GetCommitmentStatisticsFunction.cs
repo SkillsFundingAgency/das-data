@@ -9,7 +9,7 @@ namespace SFA.DAS.Data.Functions.Statistics
     public static class GetCommitmentStatisticsFunction
     {
         [FunctionName("GetCommitmentStatisticsFunction")]
-        public static async Task Run([TimerTrigger("*/15 * * * * *")] TimerInfo myTimer, [Inject] ILog log,
+        public static async Task Run([TimerTrigger("%CronSchedule%")] TimerInfo myTimer, [Inject] ILog log,
         [Inject] IStatisticsService statsService)
         {
             log.Info("Gathering statistics for the commitments area of the system");
