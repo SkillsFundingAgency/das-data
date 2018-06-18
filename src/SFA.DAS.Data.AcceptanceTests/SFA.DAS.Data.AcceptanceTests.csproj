@@ -294,6 +294,7 @@
     <Compile Include="ApiSubstitute\WebApiSubstitute.cs" />
     <Compile Include="Data\DTOs\CommitmentsRecord.cs" />
     <Compile Include="Data\DTOs\DataStagingRecord.cs" />
+    <Compile Include="Data\DTOs\PaymentsRecord.cs" />
     <Compile Include="Data\DTOs\QualityLog.cs" />
     <Compile Include="Data\EventTestsRepository.cs" />
     <Compile Include="Data\HmrcDataTestsRepository.cs" />
@@ -313,6 +314,8 @@
     <Compile Include="Functions\DefaultRegistry.cs" />
     <Compile Include="Functions\Statistics\Commitments\CommitmentsTestBase.cs" />
     <Compile Include="Functions\Statistics\Commitments\WhenIGetCommitmentsStatistics.cs" />
+    <Compile Include="Functions\Statistics\Payments\PaymentsTestBase.cs" />
+    <Compile Include="Functions\Statistics\Payments\WhenIGetPaymentsStatistics.cs" />
     <Compile Include="Functions\Transfers\TransferTestBase.cs" />
     <Compile Include="Functions\Transfers\WhenARejectedTransferRequestEventIsRecieved.cs" />
     <Compile Include="Functions\Transfers\WhenAApprovedTransferRequestEventIsRecieved.cs" />
