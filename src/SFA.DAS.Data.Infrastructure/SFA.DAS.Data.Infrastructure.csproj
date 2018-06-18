@@ -35,6 +35,9 @@
       <HintPath>..\packages\Dapper.1.50.2\lib\net451\Dapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MediatR, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MediatR.2.1.0\lib\net45\MediatR.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory, Version=3.13.8.999, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.3.13.8\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.dll</HintPath>
     </Reference>
@@ -98,6 +101,7 @@
     <Compile Include="Data\EmploymentCheckRepository.cs" />
     <Compile Include="Data\EmployerAgreementRepository.cs" />
     <Compile Include="Data\TransferRelationshipRepository.cs" />
+    <Compile Include="Http\HttpClientWrapper.cs" />
     <Compile Include="Data\LevyDeclarationRepository.cs" />
     <Compile Include="Data\ApprenticeshipRepository.cs" />
     <Compile Include="Data\PayeSchemeRepository.cs" />
@@ -109,12 +113,14 @@
     <Compile Include="Data\PerformancePlatformRepository.cs" />
     <Compile Include="Data\ProviderRepository.cs" />
     <Compile Include="Data\TransferTableValueParameter.cs" />
+    <Compile Include="Data\StatisticsRepository.cs" />
     <Compile Include="HttpClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Data\AccountRepository.cs" />
     <Compile Include="Services\TransferRelationshipMessageService.cs" />
     <Compile Include="Services\ProviderEventsService.cs" />
     <Compile Include="Services\EventsApiService.cs" />
+    <Compile Include="Services\StatisticsService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SFA.DAS.Data.Application\SFA.DAS.Data.Application.csproj">
