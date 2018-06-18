@@ -285,6 +285,11 @@ BEGIN
 			 -------------------
 
 
+			  -- Conversion of string 'null' to NULL value
+
+
+			 -------------------
+			 -------------------
 			IF ISNULL((SELECT SUM(FlagStopLoad) 
 				  FROM HMRC.Data_Quality_Tests_Log
 				  WHERE SourceFile_ID = @BISourceFile_ID),0) = 0 
@@ -385,7 +390,7 @@ BEGIN
 					   ,[UniqueTaxReference]
 					   ,[LevyDueYearToDate]
 					   ,[AnnualAllowanceAmount]
-					   ,[EnglishFraction]
+					   , CASE WHEN [EnglishFraction] = 'NULL' THEN REPLACE([EnglishFraction],'NULL',NULL) ELSE [EnglishFraction]  END as [EnglishFraction]
 					   ,[RegisteredName]
 					   ,[RegisteredAddressLine1]
 					   ,[RegisteredAddressLine2]
