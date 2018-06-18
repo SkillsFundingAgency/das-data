@@ -281,12 +281,6 @@ BEGIN
 			CLOSE IsWithinRangeTestConfig
 			DEALLOCATE IsWithinRangeTestConfig
 			   
-			 -------------------
-			 -------------------
-
-
-			  -- Conversion of string 'null' to NULL value
-
 
 			 -------------------
 			 -------------------
