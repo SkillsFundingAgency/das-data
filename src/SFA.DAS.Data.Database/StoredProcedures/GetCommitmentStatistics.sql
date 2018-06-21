@@ -17,7 +17,7 @@ SELECT (
 (
 	SELECT COUNT(CommitmentId)
 	FROM TA_CTE
-	WHERE PaymentStatus = 'Active'
+	WHERE PaymentStatus = 'Active' OR PaymentStatus = 'Paused'
 ) AS ActiveApprenticeships,
 (
 	SELECT DISTINCT COUNT(CommitmentId)
