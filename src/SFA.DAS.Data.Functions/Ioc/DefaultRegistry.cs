@@ -5,6 +5,7 @@ using Microsoft.Azure;
 using SFA.DAS.Configuration;
 using SFA.DAS.Configuration.AzureTableStorage;
 using SFA.DAS.Data.Application.Configuration;
+using SFA.DAS.Data.Application.Handlers;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.Data.Domain.Interfaces;
 using SFA.DAS.Data.Infrastructure.Data;
@@ -12,6 +13,9 @@ using SFA.DAS.Data.Infrastructure.Http;
 using SFA.DAS.NLog.Logger;
 using SFA.DAS.Provider.Events.Api.Client;
 using StructureMap;
+using System.Linq;
+using System.Reflection;
+using SFA.DAS.Data.Infrastructure.Services;
 using SFA.DAS.Commitments.Api.Client;
 using SFA.DAS.Commitments.Api.Client.Configuration;
 using SFA.DAS.Commitments.Api.Client.Interfaces;
@@ -47,6 +51,8 @@ namespace SFA.DAS.Data.Functions.Ioc
             RegisterApis(config);
             RegisterRepositories(config.DatabaseConnectionString);
             AddMediatrRegistrations();
+
+
 
 
 
@@ -109,6 +115,14 @@ namespace SFA.DAS.Data.Functions.Ioc
         private void ConfigureLogging()
         {
             For<ILog>().Use(x => new NLogLogger(x.ParentType, null,null)).AlwaysUnique();
+        }
+
+        private void AddMediatrRegistrations()
+        {
+            For<SingleInstanceFactory>().Use<SingleInstanceFactory>(ctx => t => ctx.GetInstance(t));
+            For<MultiInstanceFactory>().Use<MultiInstanceFactory>(ctx => t => ctx.GetAllInstances(t));
+
+            For<IMediator>().Use<Mediator>();
         }
 
         private void AddMediatrRegistrations()

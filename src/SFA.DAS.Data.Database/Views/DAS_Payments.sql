@@ -16,7 +16,10 @@ SELECT
       ,[P].[EmployerAccountVersion]
       ,[P].[ApprenticeshipVersion]
       ,[P].[FundingSource]
-	  ,[P].[FundingAccountId]
+	  ,CASE WHEN [P].[FundingSource] = 'LevyTransfer'
+			THEN [EAT].[SenderAccountId]
+			ELSE NULL
+		END AS[FundingAccountId]
       ,[P].[TransactionType]
       ,[P].[Amount]
       ,CAST(COALESCE([P].[StandardCode],-1) AS INT) AS [StdCode]
@@ -62,4 +65,7 @@ FROM [Data_Load].[DAS_Payments] AS P
 	INNER JOIN Data_Load.DAS_CalendarMonth  AS CM ON CM.CalendarMonthNumber = P.DeliveryMonth AND CM.CalendarYear = P.DeliveryYear
     ---- DAS Account Name
 	LEFT JOIN [Data_Load].[DAS_Employer_Accounts] EA ON EA.AccountId = [P].[EmployerAccountId] AND EA.IsLatest = 1
+	---- Levy Transfer - Funding account
+	left join Data_Load.DAS_Employer_Account_Transfers EAT on EAT.CommitmentId = [P].ApprenticeshipId and EAT.ReceiverAccountId = P.EmployerAccountId
+
 GO

@@ -3,6 +3,8 @@ using SFA.DAS.Data.Infrastructure.Data;
 using SFA.DAS.EAS.Account.Api.Types;
 using SFA.DAS.Provider.Events.Api.Types;
 using System.Collections.Generic;
+using SFA.DAS.Data.Domain.Enum;
+using SFA.DAS.Data.Domain.Models;
 using SFA.DAS.Events.Api.Types;
 
 namespace SFA.DAS.Data.DatabaseTests.TestHelpers
@@ -56,6 +58,21 @@ namespace SFA.DAS.Data.DatabaseTests.TestHelpers
             
             var employeraccoutsrepo = new AccountRepository(_connectionString);
             employeraccoutsrepo.SaveAccount(empAccounts).Wait();
+        }
+        public void InsertIntoEmployerTransferRelationships(dynamic value, ICollection<string> columns)
+        {
+            var trnasferRelationship = new TransferRelationship();
+
+            trnasferRelationship.SenderAccountId = columns.Contains("SenderAccountId") ? value.SenderAccountId : null;
+            trnasferRelationship.ReceiverAccountId = columns.Contains("ReceiverAccountId") ? value.ReceiverAccountId : null;
+            trnasferRelationship.RelationshipStatus = columns.Contains("RelationshipStatus") ? Enum.Parse(typeof(TransferRelationshipStatus),value.RelationshipStatus) : null;
+            trnasferRelationship.SenderUserId = columns.Contains("SenderUserId") ? value.SenderUserId : null;
+            trnasferRelationship.ApproverUserId = columns.Contains("ApproverUserId") ? value.ApproverUserId : null;
+            trnasferRelationship.RejectorUserId = columns.Contains("RejectorUserId") ? value.RejectorUserId : DateTime.Now.AddDays(-100);
+
+
+            var employeraccoutsrepo = new TransferRelationshipRepository(_connectionString);
+            employeraccoutsrepo.SaveTransferRelationship(trnasferRelationship).Wait();
         }
 
         public void InsertIntoEmployerPayeSchemes(dynamic value, ICollection<string> columns)

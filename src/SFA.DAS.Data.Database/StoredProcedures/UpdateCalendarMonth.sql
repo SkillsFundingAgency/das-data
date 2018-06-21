@@ -65,12 +65,12 @@ WHILE @i <= @IntNumberofMonths
 			 , CASE WHEN MONTH(@LoopDate) >= 4 THEN MONTH(@LoopDate) - 3
 				  ELSE MONTH(@LoopDate) + 9 END TaxMonthNumber
 			 , CASE WHEN MONTH(@LoopDate) >= 4 THEN CAST(RIGHT(YEAR(@LoopDate),2) AS VARCHAR(10)) + '-' + CAST(RIGHT(YEAR(@LoopDate)+1,2) AS VARCHAR(10)) 
-				ELSE CAST(RIGHT(YEAR(@LoopDate),2) AS VARCHAR(10)) + '-' + CAST(RIGHT(YEAR(@LoopDate)+1,2) AS VARCHAR(10)) END  AS TaxYear --16-17
+				ELSE CAST(RIGHT(YEAR(@LoopDate)-1,2) AS VARCHAR(10)) + '-' + CAST(RIGHT(YEAR(@LoopDate),2) AS VARCHAR(10)) END  AS TaxYear --16-17
 			 -- Academic Year
 			 , CASE WHEN MONTH(@LoopDate) >= 8 THEN MONTH(@LoopDate) - 7
 				  ELSE MONTH(@LoopDate) + 5 END AS AcademicMonthNumber 
-			 , CASE WHEN YEAR(@LoopDate) >= 8 THEN CAST(YEAR(@LoopDate) AS VARCHAR(10)) + '/' + CAST(RIGHT(YEAR(@LoopDate)+1,2) AS VARCHAR(10)) 
-				ELSE CAST(YEAR(@LoopDate)+1 AS VARCHAR(10)) + '/' + CAST(RIGHT(YEAR(@LoopDate),2) AS VARCHAR(10)) END AS AcademicYear 
+			 , CASE WHEN MONTH(@LoopDate) >= 8 THEN CAST(YEAR(@LoopDate) AS VARCHAR(10)) + '/' + CAST(RIGHT(YEAR(@LoopDate)+1,2) AS VARCHAR(10)) 
+				ELSE CAST(YEAR(@LoopDate)-1 AS VARCHAR(10)) + '/' + CAST(RIGHT(YEAR(@LoopDate),2) AS VARCHAR(10)) END AS AcademicYear 
                 , CAST(YEAR(@LoopDate) AS VARCHAR(255)) +  CASE WHEN MONTH(@LoopDate) < 10 THEN '0' +  CAST(MONTH(@LoopDate) AS VARCHAR(255))  ELSE  CAST(MONTH(@LoopDate) AS VARCHAR(255)) END AS CalendarYearMonth_SortOrder
 
             SET @i = @i + 1
