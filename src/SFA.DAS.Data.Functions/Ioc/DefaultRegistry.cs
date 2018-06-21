@@ -124,14 +124,6 @@ namespace SFA.DAS.Data.Functions.Ioc
 
             For<IMediator>().Use<Mediator>();
         }
-
-        private void AddMediatrRegistrations()
-        {
-            For<SingleInstanceFactory>().Use<SingleInstanceFactory>(ctx => t => ctx.GetInstance(t));
-            For<MultiInstanceFactory>().Use<MultiInstanceFactory>(ctx => t => ctx.GetAllInstances(t));
-
-            For<IMediator>().Use<Mediator>();
-        }
     }
 
 }
