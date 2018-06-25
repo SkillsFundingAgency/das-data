@@ -293,7 +293,11 @@
     <Compile Include="ApiSubstitute\ApiSubstituteMessageHandler.cs" />
     <Compile Include="ApiSubstitute\WebApiSubstitute.cs" />
     <Compile Include="Data\DTOs\CommitmentsRecord.cs" />
+    <Compile Include="Data\DTOs\EmployerAccountsRecord.cs" />
     <Compile Include="Data\DTOs\DataStagingRecord.cs" />
+    <Compile Include="Data\DTOs\EmployerAgreementsRecord.cs" />
+    <Compile Include="Data\DTOs\EmployerLegalEntities.cs" />
+    <Compile Include="Data\DTOs\EmployerPayeSchemesRecord.cs" />
     <Compile Include="Data\DTOs\PaymentsRecord.cs" />
     <Compile Include="Data\DTOs\QualityLog.cs" />
     <Compile Include="Data\EventTestsRepository.cs" />
@@ -312,6 +316,8 @@
     <Compile Include="Data\DTOs\DataQualityTestRecord.cs" />
     <Compile Include="EventTestBase.cs" />
     <Compile Include="Functions\DefaultRegistry.cs" />
+    <Compile Include="Functions\Statistics\Accounts\AccountsTestBase.cs" />
+    <Compile Include="Functions\Statistics\Accounts\WhenIGetAccountsStatistics.cs" />
     <Compile Include="Functions\Statistics\Commitments\CommitmentsTestBase.cs" />
     <Compile Include="Functions\Statistics\Commitments\WhenIGetCommitmentsStatistics.cs" />
     <Compile Include="Functions\Statistics\Payments\PaymentsTestBase.cs" />

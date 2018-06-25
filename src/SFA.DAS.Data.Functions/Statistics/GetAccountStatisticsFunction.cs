@@ -9,7 +9,6 @@ namespace SFA.DAS.Data.Functions.Statistics
     public static class GetAccountStatisticsFunction
     {
         [FunctionName("GetAccountStatisticsFunction")]
-        [Disable]
         public static async Task Run([TimerTrigger("%CronSchedule%")] TimerInfo myTimer, [Inject] ILog log,
             [Inject] IStatisticsService statsService)
         {

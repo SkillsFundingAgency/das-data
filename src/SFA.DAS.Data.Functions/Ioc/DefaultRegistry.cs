@@ -5,7 +5,6 @@ using Microsoft.Azure;
 using SFA.DAS.Configuration;
 using SFA.DAS.Configuration.AzureTableStorage;
 using SFA.DAS.Data.Application.Configuration;
-using SFA.DAS.Data.Application.Handlers;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.Data.Domain.Interfaces;
 using SFA.DAS.Data.Infrastructure.Data;
@@ -13,13 +12,11 @@ using SFA.DAS.Data.Infrastructure.Http;
 using SFA.DAS.NLog.Logger;
 using SFA.DAS.Provider.Events.Api.Client;
 using StructureMap;
-using System.Linq;
-using System.Reflection;
 using SFA.DAS.Data.Infrastructure.Services;
 using SFA.DAS.Commitments.Api.Client;
 using SFA.DAS.Commitments.Api.Client.Configuration;
 using SFA.DAS.Commitments.Api.Client.Interfaces;
-using SFA.DAS.Data.Infrastructure.Services;
+using SFA.DAS.EAS.Account.Api.Client;
 using SFA.DAS.NLog.Logger.Web.MessageHandlers;
 using SFA.DAS.Http;
 using SFA.DAS.Http.TokenGenerators;
@@ -52,10 +49,6 @@ namespace SFA.DAS.Data.Functions.Ioc
             RegisterRepositories(config.DatabaseConnectionString);
             AddMediatrRegistrations();
 
-
-
-
-
             ConfigureLogging();
         }
 
@@ -87,10 +80,9 @@ namespace SFA.DAS.Data.Functions.Ioc
         private void RegisterApis(DataConfiguration config)
         {
             For<IPaymentsEventsApiClient>().Use(new PaymentsEventsApiClient(config.PaymentsEvents));
-            
-            IJwtClientConfiguration clientConfig = config.CommitmentsApi;
+            For<IAccountApiClient>().Use<AccountApiClient>().Ctor<IAccountApiConfiguration>().Is(config.AccountsApi);
 
-            
+            IJwtClientConfiguration clientConfig = config.CommitmentsApi;
           
             var bearerToken = (IGenerateBearerToken)new JwtBearerTokenGenerator(clientConfig);
 
