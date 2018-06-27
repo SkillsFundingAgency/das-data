@@ -55,8 +55,8 @@
     <Reference Include="SFA.DAS.Commitments.Api.Types, Version=2.1.213.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.Commitments.Api.Types.2.1.213\lib\net45\SFA.DAS.Commitments.Api.Types.dll</HintPath>
     </Reference>
-    <Reference Include="SFA.DAS.Commitments.Events">
-      <HintPath>..\..\..\..\das-commitments\src\SFA.DAS.Commitments.Events\bin\Debug\SFA.DAS.Commitments.Events.dll</HintPath>
+    <Reference Include="SFA.DAS.Commitments.Events, Version=2.1.404.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Commitments.Events.2.1.404\lib\net45\SFA.DAS.Commitments.Events.dll</HintPath>
     </Reference>
     <Reference Include="SFA.DAS.Common.Domain, Version=1.3.0.44308, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.Common.Domain.1.3.0.44308\lib\net45\SFA.DAS.Common.Domain.dll</HintPath>
