@@ -567,8 +567,8 @@ BEGIN
                             ,[SchemePAYERef]
                             ,[AccountsOfficeRef]
                             ,[UniqueTaxReference]
-                            ,ROUND(ROUND([LevyDueYearToDate],7),6) AS [LevyDueYearToDate] --Added Rounding
-                            ,[AnnualAllowanceAmount]
+                            , CASE WHEN [LevyDueYearToDate] = 'NULL' THEN ROUND(ROUND(REPLACE([LevyDueYearToDate],'NULL',NULL),7),6) ELSE ROUND(ROUND([LevyDueYearToDate],7),6)   END AS [LevyDueYearToDate]
+							, CASE WHEN [AnnualAllowanceAmount] = 'NULL' THEN ROUND(ROUND(REPLACE([AnnualAllowanceAmount],'NULL',NULL),7),6) ELSE ROUND(ROUND([AnnualAllowanceAmount],7),6)   END AS [AnnualAllowanceAmount]     
                             , CASE WHEN [EnglishFraction] = 'NULL' THEN ROUND(ROUND(REPLACE([EnglishFraction],'NULL',NULL),7),6) ELSE ROUND(ROUND([EnglishFraction],7),6)  END as [EnglishFraction] --Added Rounding
                             ,[RegisteredName]
                             ,[RegisteredAddressLine1]
