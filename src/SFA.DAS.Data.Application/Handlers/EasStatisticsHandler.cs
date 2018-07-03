@@ -30,7 +30,7 @@ namespace SFA.DAS.Data.Application.Handlers
         {
             var externalModel = new EasExternalModel()
             {
-                TotalAccounts = model.TotalAccounts,TotalAgreements = model.TotalSignedAgreements, TotalLegalEntities = model.TotalActiveLegalEntities, TotalPAYESchemes = model.TotalPayeSchemes, TotalPayments = model.TotalPaymentsThisYear
+                TotalAccounts = model.TotalAccounts,TotalAgreements = model.TotalAgreements, TotalLegalEntities = model.TotalLegalEntities, TotalPAYESchemes = model.TotalPayeSchemes, TotalPayments = model.TotalPayments
             };
 
             return externalModel;
