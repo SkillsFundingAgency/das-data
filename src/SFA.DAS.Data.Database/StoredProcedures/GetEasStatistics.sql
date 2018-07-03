@@ -13,6 +13,7 @@ SELECT (
 (
 	SELECT COUNT(Id)
 	FROM [Data_Load].[DAS_Employer_LegalEntities]
+	WHERE IsLatest = 1
 ) AS TotalLegalEntities,
 (
 	SELECT COUNT(Id) 
