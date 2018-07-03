@@ -18,7 +18,7 @@ SELECT (
 (
 	SELECT COUNT(Id) 
 	FROM [Data_Load].[DAS_Employer_Agreements]
-	WHERE IsLatest = 1
+	WHERE IsLatest = 1 AND [Status] = 'signed'
 ) AS TotalAgreements,
 (
 	SELECT COUNT(Id) 
