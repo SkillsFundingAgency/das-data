@@ -118,6 +118,8 @@
   <ItemGroup>
     <Compile Include="Data\EmploymentCheckRepository.cs" />
     <Compile Include="Data\EmployerAgreementRepository.cs" />
+    <Compile Include="Data\PsrsExternalRepository.cs" />
+    <Compile Include="Data\PsrsRepository.cs" />
     <Compile Include="Data\TransferRelationshipRepository.cs" />
     <Compile Include="Http\HttpClientWrapper.cs" />
     <Compile Include="Data\LevyDeclarationRepository.cs" />

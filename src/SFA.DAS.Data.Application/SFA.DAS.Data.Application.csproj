@@ -134,6 +134,8 @@
     <Compile Include="Configuration\CommitmentsApiClientConfiguration.cs" />
     <Compile Include="Gateways\CommitmentsGateway.cs" />
     <Compile Include="Interfaces\Gateways\ICommitmentsGateway.cs" />
+    <Compile Include="Interfaces\Repositories\IPsrsRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IPsrsExternalepository.cs" />
     <Compile Include="Messages\CommitmentProcessingCompletedMessage.cs" />
     <Compile Include="Commands\CreateCommitmentStatistics\CreateCommitmentStatisticsCommand.cs" />
     <Compile Include="Commands\CreateCommitmentStatistics\CreateCommitmentStatisticsCommandHandler.cs" />

@@ -45,6 +45,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enum\TransferRelationshipStatus.cs" />
+    <Compile Include="Models\PSRS\ReportSubmissionsSummary.cs" />
+    <Compile Include="Models\PSRS\ReportSubmitted.cs" />
     <Compile Include="Models\TransferRelationship.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Interfaces\ICommitmentsStatisticsHandler.cs" />
