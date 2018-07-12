@@ -4,7 +4,8 @@
 	[SubmittedTotals] INT NOT NULL,
 	[InProcessTotals] INT NOT NULL,
 	[ViewedTotals] INT NOT NULL,
-	[ReportingPeriod] INT NOT NULL,
+	[ReportingPeriod] NVARCHAR(4) NOT NULL,
 	[CreatedDate] DATETIME NOT NULL DEFAULT (GETDATE()),
-	[IsLatest] BIT NOT NULL
+	[IsLatest] BIT NOT NULL, 
+    [Total] INT NOT NULL
 )

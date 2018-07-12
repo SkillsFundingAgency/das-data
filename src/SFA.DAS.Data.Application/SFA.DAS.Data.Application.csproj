@@ -134,6 +134,7 @@
     <Compile Include="Configuration\CommitmentsApiClientConfiguration.cs" />
     <Compile Include="Gateways\CommitmentsGateway.cs" />
     <Compile Include="Interfaces\Gateways\ICommitmentsGateway.cs" />
+    <Compile Include="Interfaces\IPsrsReportsService.cs" />
     <Compile Include="Interfaces\Repositories\IPsrsRepository.cs" />
     <Compile Include="Interfaces\Repositories\IPsrsExternalepository.cs" />
     <Compile Include="Messages\CommitmentProcessingCompletedMessage.cs" />
@@ -229,6 +230,7 @@
       <Name>SFA.DAS.Data.Domain</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

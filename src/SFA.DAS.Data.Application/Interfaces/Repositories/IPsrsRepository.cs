@@ -6,7 +6,7 @@ namespace SFA.DAS.Data.Application.Interfaces.Repositories
 {
     public interface IPsrsRepository
     {
-        Task SaveSubmittedReport(ICollection<ReportSubmitted> reports);
+        Task SaveSubmittedReport(IEnumerable<ReportSubmitted> reports);
         Task SaveSubmissionsSummary(ReportSubmissionsSummary summary);
     }
 }

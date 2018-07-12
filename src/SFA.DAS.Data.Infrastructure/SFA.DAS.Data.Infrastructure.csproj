@@ -138,6 +138,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Data\AccountRepository.cs" />
     <Compile Include="Services\TransferRelationshipMessageService.cs" />
+    <Compile Include="Services\PsrsReportsService.cs" />
     <Compile Include="Services\ProviderEventsService.cs" />
     <Compile Include="Services\EventsApiService.cs" />
     <Compile Include="Services\StatisticsService.cs" />

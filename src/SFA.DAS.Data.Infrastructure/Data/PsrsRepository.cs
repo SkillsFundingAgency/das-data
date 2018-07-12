@@ -13,7 +13,7 @@ namespace SFA.DAS.Data.Infrastructure.Data
         public PsrsRepository(string connectionString) : base(connectionString)
         {
         }
-        public async Task SaveSubmittedReport(ICollection<ReportSubmitted> reports)
+        public async Task SaveSubmittedReport(IEnumerable<ReportSubmitted> reports)
         {
             await WithConnection(async c =>
             {
@@ -58,9 +58,10 @@ namespace SFA.DAS.Data.Infrastructure.Data
             {
                 var parameters = new DynamicParameters();
                 parameters.Add("@submittedTotals", summary.SubmittedTotals, DbType.Int32);
-                parameters.Add("@viewedTotals", summary.InProcessTotals, DbType.Int32);
+                parameters.Add("@viewedTotals", summary.ViewedTotals, DbType.Int32);
                 parameters.Add("@inProcessTotals", summary.InProcessTotals, DbType.Int32);
-                parameters.Add("@reportingPeriod", summary.InProcessTotals, DbType.Int32);
+                parameters.Add("@total", summary.InProcessTotals, DbType.Int32);
+                parameters.Add("@reportingPeriod", summary.ReportingPeriod, DbType.String);
 
                 return await c.ExecuteAsync(
                     sql: "[Data_Load].[SaveSubmissionsSummary]",

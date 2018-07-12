@@ -2,7 +2,8 @@
 	@submittedTotals int,
 	@inProcessTotals  int,
 	@viewedTotals int,
-	@reportingPeriod int
+	@total int,
+	@reportingPeriod nvarchar(4)
 AS
 	SET NOCOUNT ON;
 	SET ANSI_NULLS OFF
@@ -14,6 +15,7 @@ AS
 		[SubmittedTotals],
 		[InProcessTotals],
 		[ViewedTotals],
+		[Total],
 		[ReportingPeriod],
 		[IsLatest]
 	)
@@ -22,6 +24,7 @@ AS
 		@submittedTotals,
 		@inProcessTotals,
 		@viewedTotals,
+		@total,
 		@reportingPeriod,
 		1
 	)

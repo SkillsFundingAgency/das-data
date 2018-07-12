@@ -45,7 +45,7 @@ namespace SFA.DAS.Data.Infrastructure.Data
             JSON_VALUE([ReportingData], '$.Questions[1].SubSections[3].Questions[0].Id') AS Question7_1,
             JSON_VALUE([ReportingData], '$.Questions[1].SubSections[3].Title') AS QuestionText7_1,
             JSON_VALUE([ReportingData], '$.Questions[1].SubSections[3].Questions[0].Answer') AS Answer7_1,
-            CONVERT(datetime, JSON_VALUE([ReportingData], '$.Submitted.SubmittedAt')) AS SubmittedAt,
+            CONVERT(datetime2, JSON_VALUE([ReportingData], '$.Submitted.SubmittedAt')) AS SubmittedAt,
             JSON_VALUE([ReportingData], '$.Submitted.SubmittedName') AS SubmittedName,
             JSON_VALUE([ReportingData], '$.Submitted.SubmittedEmail') AS SubmittedEmail,
                    Submitted
@@ -57,13 +57,13 @@ namespace SFA.DAS.Data.Infrastructure.Data
             a.Reporting_Period,
             a.FigureA,
             a.FigureB,
-            FORMAT(ROUND(((a.FigureB)/ CONVERT(decimal, nullif(a.FigureA,0))),4),'######0.00%') AS FigureE,
+            FORMAT(ROUND(((a.FigureB)/ CONVERT(decimal, nullif(a.FigureA,0))),4),'######0.00') AS FigureE,
             a.FigureC,
             a.FigureD,
-            FORMAT(ROUND(((a.FigureD)/ CONVERT(decimal, nullif(a.FigureC,0))),4),'######0.00%') AS FigureF,
+            FORMAT(ROUND(((a.FigureD)/ CONVERT(decimal, nullif(a.FigureC,0))),4),'######0.00') AS FigureF,
             a.FigureG,
             a.FigureH,
-            FORMAT(ROUND(((a.FigureB)/ CONVERT(decimal, nullif(a.FigureH,0))),4),'######0.00%') AS FigureI,
+            FORMAT(ROUND(((a.FigureB)/ CONVERT(decimal, nullif(a.FigureH,0))),4),'######0.00') AS FigureI,
             a.Answer4_1 OutlineActions,
             LEN(REPLACE(REPLACE(a.Answer4_1, '   ', ' '), '  ', ' ')) - LEN(REPLACE(a.Answer4_1,' ', '')) + 1 OutlineActions_wordcount,
             a.Answer5_1 Challenges,
@@ -87,17 +87,17 @@ namespace SFA.DAS.Data.Infrastructure.Data
             base.*
             FROM base
             ) as a
-            WHERE a.Submitted = 1 and a.SubmittedAt > " + lastRun.ToString("yyyy-MM-dd HH:mm:ss.fff") + @"
+            WHERE a.Submitted = 1 and a.SubmittedAt > '" + lastRun.ToString("yyyy-MM-dd HH:mm:ss.fff") + @"'
             ORDER BY a.SubmittedAt,a.Employerid,a.ReportingPeriod
             "));
         }
 
         public async Task<ReportSubmissionsSummary> GetSubmissionsSummary()
         {
-            return await WithConnection(async ctx => await ctx.QuerySingleAsync< ReportSubmissionsSummary>(@"SELECT CONVERT (CHAR(12), CURRENT_TIMESTAMP, 106) ToDate,
-            SUM(CASE WHEN Submitted = 1 THEN 1 ELSE 0 END) Submitted,
-            SUM(CASE WHEN Submitted = 0 AND JSON_VALUE([ReportingData], '$.OrganisationName') IS NOT NULL THEN 1 ELSE 0 END) InProgress,
-            SUM(CASE WHEN Submitted = 0 AND JSON_VALUE([ReportingData], '$.OrganisationName') IS NULL THEN 1 ELSE 0 END) Viewed,
+            return await WithConnection(async ctx => await ctx.QuerySingleAsync<ReportSubmissionsSummary>(@"SELECT CONVERT (CHAR(12), CURRENT_TIMESTAMP, 106) ToDate,
+            SUM(CASE WHEN Submitted = 1 THEN 1 ELSE 0 END) SubmittedTotals,
+            SUM(CASE WHEN Submitted = 0 AND JSON_VALUE([ReportingData], '$.OrganisationName') IS NOT NULL THEN 1 ELSE 0 END) InProcessTotals,
+            SUM(CASE WHEN Submitted = 0 AND JSON_VALUE([ReportingData], '$.OrganisationName') IS NULL THEN 1 ELSE 0 END) ViewedTotals,
             COUNT(*) Total,
             '1718' ReportingPeriod
             FROM[dbo].[Report]  "));

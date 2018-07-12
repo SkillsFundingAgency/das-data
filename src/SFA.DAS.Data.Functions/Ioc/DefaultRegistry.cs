@@ -16,6 +16,7 @@ using SFA.DAS.Data.Infrastructure.Services;
 using SFA.DAS.Commitments.Api.Client;
 using SFA.DAS.Commitments.Api.Client.Configuration;
 using SFA.DAS.Commitments.Api.Client.Interfaces;
+using SFA.DAS.Data.Application.Interfaces;
 using SFA.DAS.EAS.Account.Api.Client;
 using SFA.DAS.NLog.Logger.Web.MessageHandlers;
 using SFA.DAS.Http;
@@ -46,17 +47,18 @@ namespace SFA.DAS.Data.Functions.Ioc
 
             For<IDataConfiguration>().Use(config);
             RegisterApis(config);
-            RegisterRepositories(config.DatabaseConnectionString);
+            RegisterRepositories(config.DatabaseConnectionString, config.PsrsDatabaseConnectionString);
             AddMediatrRegistrations();
 
             ConfigureLogging();
         }
 
 
-        private void RegisterRepositories(string connectionString)
+        private void RegisterRepositories(string connectionString, string psrsConnectionString)
         {
             // Add registrations here
-
+            For<IPsrsExternalRepository>().Use<PsrsExternalRepository>().Ctor<string>().Is(psrsConnectionString);
+            For<IPsrsRepository>().Use<PsrsRepository>().Ctor<string>().Is(connectionString);
             For<ITransferRelationshipRepository>().Use<TransferRelationshipRepository>().Ctor<string>().Is(connectionString);
             For<IStatisticsRepository>().Use<StatisticsRepository>().Ctor<string>().Is(connectionString);
 
@@ -64,6 +66,7 @@ namespace SFA.DAS.Data.Functions.Ioc
             For<IHttpClientWrapper>().Use<HttpClientWrapper>().Ctor<HttpMessageHandler>().Is(handler);
 
             For<IStatisticsService>().Use<StatisticsService>();
+            For<IPsrsReportsService>().Use<PsrsReportsService>();
 
         }
 
