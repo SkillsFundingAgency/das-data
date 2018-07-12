@@ -45,13 +45,12 @@ namespace SFA.DAS.Data.Infrastructure.Data
             JSON_VALUE([ReportingData], '$.Questions[1].SubSections[3].Questions[0].Id') AS Question7_1,
             JSON_VALUE([ReportingData], '$.Questions[1].SubSections[3].Title') AS QuestionText7_1,
             JSON_VALUE([ReportingData], '$.Questions[1].SubSections[3].Questions[0].Answer') AS Answer7_1,
-            CONVERT(char(24), JSON_VALUE([ReportingData], '$.Submitted.SubmittedAt')) AS SubmittedAt,
+            CONVERT(datetime, JSON_VALUE([ReportingData], '$.Submitted.SubmittedAt')) AS SubmittedAt,
             JSON_VALUE([ReportingData], '$.Submitted.SubmittedName') AS SubmittedName,
             JSON_VALUE([ReportingData], '$.Submitted.SubmittedEmail') AS SubmittedEmail,
                    Submitted
             From [dbo].[Report]
             WHERE JSON_VALUE([ReportingData], '$.OrganisationName') IS NOT NULL
-            --and [employerid] = 'VNKYWY'
             )
             SELECT  a.[Employerid],
             a.Organisation_Name,
@@ -88,7 +87,7 @@ namespace SFA.DAS.Data.Infrastructure.Data
             base.*
             FROM base
             ) as a
-            WHERE a.Submitted = 1
+            WHERE a.Submitted = 1 and a.SubmittedAt > " + lastRun.ToString("yyyy-MM-dd HH:mm:ss.fff") + @"
             ORDER BY a.SubmittedAt,a.Employerid,a.ReportingPeriod
             "));
         }
