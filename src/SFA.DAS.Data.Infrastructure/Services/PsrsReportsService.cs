@@ -34,9 +34,9 @@ namespace SFA.DAS.Data.Infrastructure.Services
             return Task.CompletedTask;
         }
 
-        public Task CreatePsrsSubmittedReports()
+        public Task CreatePsrsSubmittedReports(TimeSpan timeSpan)
         {
-            var lastRun = DateTime.Now.AddYears(-1);
+            var lastRun = DateTime.Now.Subtract(timeSpan);
             var reports = _psrsExternalRepository.GetSubmittedReports(lastRun).Result;
             _psrsRepository.SaveSubmittedReport(reports);
             return Task.CompletedTask;

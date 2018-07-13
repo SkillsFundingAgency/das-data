@@ -14,6 +14,7 @@ namespace SFA.DAS.Data.Functions.Statistics
         public static async Task Run([TimerTrigger("%CronSchedule%")] TimerInfo myTimer, [Inject] ILog log,
             [Inject] IPsrsReportsService psrsService)
         {
+
             psrsService.CreatePsrsReportSubmissionsSummary();
 
 

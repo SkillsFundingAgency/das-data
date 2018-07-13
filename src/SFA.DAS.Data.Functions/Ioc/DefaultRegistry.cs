@@ -47,6 +47,7 @@ namespace SFA.DAS.Data.Functions.Ioc
 
             For<IDataConfiguration>().Use(config);
             RegisterApis(config);
+    
             RegisterRepositories(config.DatabaseConnectionString, config.PsrsDatabaseConnectionString);
             AddMediatrRegistrations();
 

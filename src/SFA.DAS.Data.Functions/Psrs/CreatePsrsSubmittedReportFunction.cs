@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 using SFA.DAS.Data.Application.Interfaces;
@@ -10,10 +11,11 @@ namespace SFA.DAS.Data.Functions.Statistics
     public static class CreatePsrsSubmittedReportFunction
     {
         [FunctionName("CreatePsrsSubmittedReports")]
-        public static async Task Run([TimerTrigger("%CronSchedule%")] TimerInfo myTimer, [Inject] ILog log,
+        public static async Task Run([TimerTrigger("00:00:15")] TimerInfo myTimer, [Inject] ILog log,
             [Inject] IPsrsReportsService psrsService)
         {
-            psrsService.CreatePsrsSubmittedReports();
+            var timeSpan = TimeSpan.Parse(myTimer.Schedule.ToString().Replace("Constant: ",""));
+            await psrsService.CreatePsrsSubmittedReports(timeSpan);
 
 
         }
