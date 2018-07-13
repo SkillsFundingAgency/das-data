@@ -52,9 +52,9 @@ namespace SFA.DAS.Data.Infrastructure.Data
             From [dbo].[Report]
             WHERE JSON_VALUE([ReportingData], '$.OrganisationName') IS NOT NULL
             )
-            SELECT  a.[Employerid],
+            SELECT  a.[Employerid] DasAccountId,
             a.Organisation_Name,
-            a.Reporting_Period,
+            a.ReportingPeriod,
             a.FigureA,
             a.FigureB,
             FORMAT(ROUND(((a.FigureB)/ CONVERT(decimal, nullif(a.FigureA,0))),4),'######0.00') AS FigureE,

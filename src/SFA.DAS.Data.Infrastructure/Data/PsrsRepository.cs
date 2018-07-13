@@ -20,7 +20,7 @@ namespace SFA.DAS.Data.Infrastructure.Data
                 foreach (var report in reports)
                 {
                     var parameters = new DynamicParameters();
-                    parameters.Add("@accountId", report.AccountId, DbType.Int32);
+                    parameters.Add("@dasAccountId", report.DasAccountId, DbType.String);
                     parameters.Add("@reportingPeriod", report.ReportingPeriod, DbType.Int32);
                     parameters.Add("@figureA", report.FigureA, DbType.Int32);
                     parameters.Add("@figureB", report.FigureB, DbType.Int32);

@@ -5,9 +5,9 @@ namespace SFA.DAS.Data.Domain.Models.PSRS
     public class ReportSubmitted
     {
         public long Id { get; set; }
-        public int AccountId { get; set; }
+        public string DasAccountId { get; set; }
         public string DasAccountName { get; set; }
-        public int ReportingPeriod { get; set; }
+        public string ReportingPeriod { get; set; }
         public int FigureA { get; set; }
         public int FigureB { get; set; }
         public decimal FigureE { get; set; }

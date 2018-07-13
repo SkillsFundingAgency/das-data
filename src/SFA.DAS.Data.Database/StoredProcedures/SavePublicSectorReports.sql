@@ -1,15 +1,15 @@
 ﻿CREATE PROCEDURE [Data_Load].[SavePublicSectorReports]
-	@accountId int,
+	@dasAccountId nvarchar(6),
 	@reportingPeriod int,
 	@figureA int,
 	@figureB int,
-	@figureE decimal,
+	@figureE decimal(3,2),
 	@figureC int,
 	@figureD int,
-	@figureF decimal,
+	@figureF decimal(3,2),
 	@figureG int,
 	@figureH int,
-	@figureI decimal,
+	@figureI decimal(3,2),
 	@outlineActions nvarchar(4000),
 	@outlineActionsWordCount int,
 	@challenges nvarchar(4000),
@@ -28,7 +28,7 @@ AS
 
 	INSERT INTO [Data_Load].[DAS_PublicSector_Reports]
 	(
-		[AccountId],
+		[DasAccountId],
 		[ReportingPeriod],
 		[FigureA],
 		[FigureB],
@@ -53,7 +53,7 @@ AS
 	)
 	VALUES
 	(
-		@accountId,
+		@dasAccountId,
 		@reportingPeriod,
 		@figureA,
 		@figureB,
