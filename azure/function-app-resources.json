@@ -43,6 +43,10 @@
                     "alwaysOn": true,
                     "appSettings": [
                         {
+                            "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+                            "value": "[reference(resourceId('microsoft.insights/components/', parameters('functionAppName')), '2015-05-01').InstrumentationKey]"
+                        },
+                        {
                             "name": "AzureWebJobsStorage",
                             "value": "[parameters('storageConnectionString')]"
                         },
@@ -82,7 +86,22 @@
                     "connectionStrings": []
                 }
             },
-            "dependsOn": []
+            "dependsOn": [
+                "[resourceId('microsoft.insights/components/', parameters('functionAppName'))]"
+            ]
+        },
+        {
+            "apiVersion": "2015-05-01",
+            "name": "[variables('functionAppName')]",
+            "type": "Microsoft.Insights/components",
+            "location": "[resourceGroup().location]",
+            "kind": "web",
+            "tags": {
+                "[concat('hidden-link:', resourceId('Microsoft.Web/sites', parameters('functionAppName')))]": "Resource"
+            },
+            "properties": {
+                "Application_Type": "web"
+            }
         }
     ],
     "outputs": {}
