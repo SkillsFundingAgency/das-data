@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Dapper;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
@@ -12,9 +15,10 @@ namespace SFA.DAS.Data.Infrastructure.Data
         public PsrsExternalRepository(string connectionString) : base(connectionString)
         {
         }
+
         public async Task<IEnumerable<ReportSubmitted>> GetSubmittedReports(DateTime lastRun)
         {
-            return await WithConnection(async ctx => await ctx.QueryAsync<ReportSubmitted>(@"
+            var reports = (await WithConnection(async ctx => await ctx.QueryAsync<ReportSubmitted>(@"
             WITH base as 
             (
             Select [Employerid],[ReportingPeriod], [ReportingData],
@@ -65,14 +69,9 @@ namespace SFA.DAS.Data.Infrastructure.Data
             a.FigureH,
             FORMAT(ROUND(((a.FigureB)/ CONVERT(decimal, nullif(a.FigureH,0))),4),'######0.00') AS FigureI,
             a.Answer4_1 OutlineActions,
-            LEN(REPLACE(REPLACE(a.Answer4_1, '   ', ' '), '  ', ' ')) - LEN(REPLACE(a.Answer4_1,' ', '')) + 1 OutlineActions_wordcount,
             a.Answer5_1 Challenges,
-            LEN(REPLACE(REPLACE(a.Answer5_1, '   ', ' '), '  ', ' ')) - LEN(REPLACE(a.Answer5_1,' ', '')) + 1 Challenges_wordcount,
             a.Answer6_1 TargetPlans,
-            LEN(REPLACE(REPLACE(a.Answer6_1, '   ', ' '), '  ', ' ')) - LEN(REPLACE(a.Answer6_1,' ', '')) + 1 TargetPlans_wordcount,
             ISNULL(a.Answer7_1,'') AnythingElse,
-            (CASE WHEN a.Answer7_1 IS NULL OR a.Answer7_1 = '' THEN 0 ELSE
-            LEN(REPLACE(REPLACE(a.Answer7_1, '   ', ' '), '  ', ' ')) - LEN(REPLACE(a.Answer7_1,' ', '')) + 1 END) AnythingElse_wordcount,
             a.SubmittedAt, a.SubmittedName, a.SubmittedEmail
             FROM (
             SELECT 
@@ -89,9 +88,27 @@ namespace SFA.DAS.Data.Infrastructure.Data
             ) as a
             WHERE a.Submitted = 1 and a.SubmittedAt > '" + lastRun.ToString("yyyy-MM-dd HH:mm:ss.fff") + @"'
             ORDER BY a.SubmittedAt,a.Employerid,a.ReportingPeriod
-            "));
+            "))).ToList();
+
+            reports.ForEach(x =>
+                {
+                    x.OutlineActionsWordCount = CountWords(x.OutlineActions);
+                    x.AnythingElseWordCount = CountWords(x.AnythingElse);
+                    x.ChallengesWordCount = CountWords(x.Challenges);
+                    x.TargetPlansWordCount = CountWords(x.TargetPlans);
+                }
+            );
+
+            return reports;
         }
 
+        private int CountWords(string s)
+        {
+            MatchCollection collection = Regex.Matches(s, @"[\S]+");
+            return collection.Count;
+        }
+    
+    
         public async Task<ReportSubmissionsSummary> GetSubmissionsSummary()
         {
             return await WithConnection(async ctx => await ctx.QuerySingleAsync<ReportSubmissionsSummary>(@"SELECT CONVERT (CHAR(12), CURRENT_TIMESTAMP, 106) ToDate,
