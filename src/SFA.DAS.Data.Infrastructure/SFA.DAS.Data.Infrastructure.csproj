@@ -118,6 +118,8 @@
   <ItemGroup>
     <Compile Include="Data\EmploymentCheckRepository.cs" />
     <Compile Include="Data\EmployerAgreementRepository.cs" />
+    <Compile Include="Data\PsrsExternalRepository.cs" />
+    <Compile Include="Data\PsrsRepository.cs" />
     <Compile Include="Data\TransferRelationshipRepository.cs" />
     <Compile Include="Http\HttpClientWrapper.cs" />
     <Compile Include="Data\LevyDeclarationRepository.cs" />
@@ -136,6 +138,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Data\AccountRepository.cs" />
     <Compile Include="Services\TransferRelationshipMessageService.cs" />
+    <Compile Include="Services\PsrsReportsService.cs" />
     <Compile Include="Services\ProviderEventsService.cs" />
     <Compile Include="Services\EventsApiService.cs" />
     <Compile Include="Services\StatisticsService.cs" />
