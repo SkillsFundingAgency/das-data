@@ -5,7 +5,6 @@ using Microsoft.Azure;
 using SFA.DAS.Configuration;
 using SFA.DAS.Configuration.AzureTableStorage;
 using SFA.DAS.Data.Application.Configuration;
-using SFA.DAS.Data.Application.Handlers;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.Data.Domain.Interfaces;
 using SFA.DAS.Data.Infrastructure.Data;
@@ -13,8 +12,7 @@ using SFA.DAS.Data.Infrastructure.Http;
 using SFA.DAS.NLog.Logger;
 using SFA.DAS.Provider.Events.Api.Client;
 using StructureMap;
-using System.Linq;
-using System.Reflection;
+using SFA.DAS.Data.Application.Interfaces;
 using SFA.DAS.Data.Infrastructure.Services;
 
 namespace SFA.DAS.Data.Functions.Ioc
@@ -57,11 +55,13 @@ namespace SFA.DAS.Data.Functions.Ioc
 
             For<ITransferRelationshipRepository>().Use<TransferRelationshipRepository>().Ctor<string>().Is(connectionString);
             For<IStatisticsRepository>().Use<StatisticsRepository>().Ctor<string>().Is(connectionString);
+            For<ICommitmentsRelationshipRepository>().Use<CommitmentsRelationshipRepository>().Ctor<string>().Is(connectionString);
 
             HttpMessageHandler handler = new HttpClientHandler();
             For<IHttpClientWrapper>().Use<HttpClientWrapper>().Ctor<HttpMessageHandler>().Is(handler);
 
             For<IStatisticsService>().Use<StatisticsService>();
+            For<ICommitmentsRelationshipService>().Use<CommitmentsRelationshipService>();
 
         }
 

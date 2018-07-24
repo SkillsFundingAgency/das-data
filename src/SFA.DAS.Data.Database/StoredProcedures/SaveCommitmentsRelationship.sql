@@ -21,7 +21,7 @@ AS
 			LegalEntityId = @legalEntityId
 			AND IsLatest = 1
 
-	IF @id > 0
+	IF @id IS NOT NULL AND @id > 0
 	BEGIN
 		UPDATE  [Data_Load].[DAS_Commitments_Relationships]
 		SET		IsLatest = 0
