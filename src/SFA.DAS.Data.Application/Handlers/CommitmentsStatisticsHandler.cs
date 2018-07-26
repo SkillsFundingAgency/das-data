@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using SFA.DAS.Data.Application.Configuration;
-using SFA.DAS.Data.Domain;
+using SFA.DAS.Commitments.Api.Types;
+using SFA.DAS.Data.Application.Interfaces.Gateways;
 using SFA.DAS.Data.Domain.Interfaces;
-using SFA.DAS.Data.Domain.Models;
 using SFA.DAS.Data.Domain.Models.Statistics.Commitments;
 using SFA.DAS.NLog.Logger;
 
@@ -15,25 +11,33 @@ namespace SFA.DAS.Data.Application.Handlers
     public class CommitmentsStatisticsHandler : ICommitmentsStatisticsHandler
     {
         private readonly ILog _logger;
-        private readonly IDataConfiguration _configuration;
-        private readonly IHttpClientWrapper _httpClientWrapper;
+        private readonly ICommitmentsGateway _commitmentsGateway;
 
-        public CommitmentsStatisticsHandler(IHttpClientWrapper httpClientWrapper, IDataConfiguration configuration, ILog logger)
+        public CommitmentsStatisticsHandler(ICommitmentsGateway commitmentsGateway, ILog logger)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
-            _httpClientWrapper = httpClientWrapper ?? throw new ArgumentNullException(nameof(httpClientWrapper));
+            _commitmentsGateway = commitmentsGateway;
         }
 
         public async Task<CommitmentsExternalModel> Handle()
         {
-            _logger.Debug("Contacting the commitments statistics End point");
-            var response = await _httpClientWrapper.GetAsync(_configuration.CommitmentsStatisticsEndPoint.ToUri(), Constants.ContentTypeValue);
+            _logger.Debug("Contacting the commitments statistics end point");
 
-            _logger.Debug($"The API returned a response with status code {response.StatusCode}");
-            var model = await _httpClientWrapper.ReadResponse<CommitmentsExternalModel>(response);
+            var statistics = await _commitmentsGateway.GetStatistics();
 
-            return model;
+            return Map(statistics);
+        }
+
+        private CommitmentsExternalModel Map(ConsistencyStatistics model)
+        {
+            var externalModel = new CommitmentsExternalModel()
+            {
+                TotalApprenticeships = model.TotalApprenticeships,
+                TotalCohorts = model.TotalCohorts,
+                ActiveApprenticeships = model.ActiveApprenticeships
+            };
+
+            return externalModel;
         }
     }
 }

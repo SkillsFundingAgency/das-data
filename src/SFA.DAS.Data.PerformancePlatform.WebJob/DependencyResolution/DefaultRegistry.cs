@@ -78,7 +78,7 @@ namespace SFA.DAS.Data.PerformancePlatform.WebJob.DependencyResolution
 
         private void ConfigureLogging()
         {
-            For<ILog>().Use(x => new NLogLogger(x.ParentType, null)).AlwaysUnique();
+            For<ILog>().Use(x => new NLogLogger(x.ParentType, null,null)).AlwaysUnique();
         }
     }
 }

@@ -154,4 +154,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="RejectorUserId" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="4fa78964-a5f4-4117-8954-79b94a60aa76" ChangeDateTime="07/13/2018 13:20:58">
+    <Property Name="ElementName" Value="[Data_Load].[DAS_PublicSector_Reports].[AccountId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[Data_Load].[DAS_PublicSector_Reports]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="DasAccountId" />
+  </Operation>
 </Operations>

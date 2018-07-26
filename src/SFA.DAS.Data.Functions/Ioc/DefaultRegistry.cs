@@ -14,6 +14,14 @@ using SFA.DAS.Provider.Events.Api.Client;
 using StructureMap;
 using SFA.DAS.Data.Application.Interfaces;
 using SFA.DAS.Data.Infrastructure.Services;
+using SFA.DAS.Commitments.Api.Client;
+using SFA.DAS.Commitments.Api.Client.Configuration;
+using SFA.DAS.Commitments.Api.Client.Interfaces;
+using SFA.DAS.Data.Application.Interfaces;
+using SFA.DAS.EAS.Account.Api.Client;
+using SFA.DAS.NLog.Logger.Web.MessageHandlers;
+using SFA.DAS.Http;
+using SFA.DAS.Http.TokenGenerators;
 
 namespace SFA.DAS.Data.Functions.Ioc
 {
@@ -40,19 +48,19 @@ namespace SFA.DAS.Data.Functions.Ioc
 
             For<IDataConfiguration>().Use(config);
             RegisterApis(config);
-            RegisterRepositories(config.DatabaseConnectionString);
+    
+            RegisterRepositories(config.DatabaseConnectionString, config.PsrsDatabaseConnectionString);
             AddMediatrRegistrations();
-
-
 
             ConfigureLogging();
         }
 
 
-        private void RegisterRepositories(string connectionString)
+        private void RegisterRepositories(string connectionString, string psrsConnectionString)
         {
             // Add registrations here
-
+            For<IPsrsExternalRepository>().Use<PsrsExternalRepository>().Ctor<string>().Is(psrsConnectionString);
+            For<IPsrsRepository>().Use<PsrsRepository>().Ctor<string>().Is(connectionString);
             For<ITransferRelationshipRepository>().Use<TransferRelationshipRepository>().Ctor<string>().Is(connectionString);
             For<IStatisticsRepository>().Use<StatisticsRepository>().Ctor<string>().Is(connectionString);
             For<ICommitmentsRelationshipRepository>().Use<CommitmentsRelationshipRepository>().Ctor<string>().Is(connectionString);
@@ -61,6 +69,7 @@ namespace SFA.DAS.Data.Functions.Ioc
             For<IHttpClientWrapper>().Use<HttpClientWrapper>().Ctor<HttpMessageHandler>().Is(handler);
 
             For<IStatisticsService>().Use<StatisticsService>();
+            For<IPsrsReportsService>().Use<PsrsReportsService>();
             For<ICommitmentsRelationshipService>().Use<CommitmentsRelationshipService>();
 
         }
@@ -78,6 +87,23 @@ namespace SFA.DAS.Data.Functions.Ioc
         private void RegisterApis(DataConfiguration config)
         {
             For<IPaymentsEventsApiClient>().Use(new PaymentsEventsApiClient(config.PaymentsEvents));
+            For<IAccountApiClient>().Use<AccountApiClient>().Ctor<IAccountApiConfiguration>().Is(config.AccountsApi);
+
+            IJwtClientConfiguration clientConfig = config.CommitmentsApi;
+          
+            var bearerToken = (IGenerateBearerToken)new JwtBearerTokenGenerator(clientConfig);
+
+            var httpClient = new HttpClientBuilder()
+                .WithBearerAuthorisationHeader(bearerToken)
+                .WithHandler(new RequestIdMessageRequestHandler())
+                .WithHandler(new SessionIdMessageRequestHandler())
+                .WithDefaultHeaders()
+                .Build();
+
+            For<IEmployerCommitmentApi>().Use<EmployerCommitmentApi>()
+                .Ctor<HttpClient>().Is(httpClient)
+                .Ctor<ICommitmentsApiClientConfiguration>().Is(config.CommitmentsApi);
+            For<IStatisticsApi>().Use<StatisticsApi>().Ctor<HttpClient>().Is(httpClient).Ctor<ICommitmentsApiClientConfiguration>().Is(config.CommitmentsApi);
         }
 
         private static IConfigurationRepository GetConfigurationRepository()
@@ -87,7 +113,7 @@ namespace SFA.DAS.Data.Functions.Ioc
 
         private void ConfigureLogging()
         {
-            For<ILog>().Use(x => new NLogLogger(x.ParentType, null)).AlwaysUnique();
+            For<ILog>().Use(x => new NLogLogger(x.ParentType, null,null)).AlwaysUnique();
         }
 
         private void AddMediatrRegistrations()

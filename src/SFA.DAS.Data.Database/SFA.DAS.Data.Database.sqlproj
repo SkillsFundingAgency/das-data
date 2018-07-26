@@ -149,6 +149,13 @@
     <Build Include="StoredProcedures\GetEasStatistics.sql" />
     <Build Include="StoredProcedures\GetCommitmentStatistics.sql" />
     <Build Include="StoredProcedures\GetPaymentStatistics.sql" />
+    <Build Include="Views\DAS_ConsistancyCheck.sql" />
+    <Build Include="Tables\DAS_PublicSector_Reports.sql" />
+    <Build Include="StoredProcedures\SavePublicSectorReports.sql" />
+    <Build Include="StoredProcedures\SaveSubmissionsSummary.sql" />
+    <Build Include="Tables\DAS_PublicSector_Summary.sql" />
+    <Build Include="Views\DAS_Psrs_SubmittedReports.sql" />
+    <Build Include="Views\DAS_Psrs_Summary.sql" />
     <Build Include="Tables\DAS_Commitments_Relationships.sql" />
     <Build Include="StoredProcedures\SaveCommitmentsRelationship.sql" />
     <Build Include="Views\DAS_Commitments_Relationships.sql" />
