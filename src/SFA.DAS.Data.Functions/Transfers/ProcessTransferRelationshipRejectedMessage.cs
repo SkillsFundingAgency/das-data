@@ -28,6 +28,16 @@ namespace SFA.DAS.Data.Functions.Transfers
             logger.Info($"C# service bus trigger function executed at ProcessTransferRelationshipStartMessage: {DateTime.Now}");
         }
 
-     
+        [FunctionName("ProcessTransferRelationshipRejectedMessageDLQ")]
+        [Disable]
+        public static void RunDLQ([ServiceBusTrigger("rejected_transfer_connection_invitation", "RDS_RejectedTransferConnectionInvitiationProcessor/$DeadLetterQueue", AccessRights.Manage, Connection = "MessageBusConnectionString")] RejectedTransferConnectionInvitationEvent message, ExecutionContext executionContext, TraceWriter log, [Inject] ITransferRelationshipService transferRelationshipMessageService, [Inject] ILog logger)
+        {
+
+            transferRelationshipMessageService.SaveRejectedMessage(message);
+
+            logger.Info($"C# service bus trigger function executed at ProcessTransferRelationshipStartMessage: {DateTime.Now}");
+        }
+
+
     }
 }
