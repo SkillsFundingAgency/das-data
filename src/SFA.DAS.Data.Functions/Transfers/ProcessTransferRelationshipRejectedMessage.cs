@@ -29,13 +29,37 @@ namespace SFA.DAS.Data.Functions.Transfers
         }
 
         [FunctionName("ProcessTransferRelationshipRejectedMessageDLQ")]
-        [Disable]
-        public static void RunDLQ([ServiceBusTrigger("rejected_transfer_connection_invitation", "RDS_RejectedTransferConnectionInvitiationProcessor/$DeadLetterQueue", AccessRights.Manage, Connection = "MessageBusConnectionString")] RejectedTransferConnectionInvitationEvent message, ExecutionContext executionContext, TraceWriter log, [Inject] ITransferRelationshipService transferRelationshipMessageService, [Inject] ILog logger)
+        public static void RunDLQ([ServiceBusTrigger("rejected_transfer_connection_invitation", "RDS_RejectedTransferConnectionInvitiationProcessor/$DeadLetterQueue", AccessRights.Manage, Connection = "MessageBusConnectionString")] BrokeredMessage bMessage, ExecutionContext executionContext, TraceWriter log, [Inject] ITransferRelationshipService transferRelationshipMessageService, [Inject] ILog logger)
         {
 
-            transferRelationshipMessageService.SaveRejectedMessage(message);
+            log.Info($"Processing messageId: {bMessage.MessageId} {{ID={executionContext.InvocationId}}}");
 
-            logger.Info($"C# service bus trigger function executed at ProcessTransferRelationshipStartMessage: {DateTime.Now}");
+            RejectedTransferConnectionInvitationEvent messageBody = null;
+            try
+            {
+                messageBody = bMessage.GetBody<RejectedTransferConnectionInvitationEvent>();
+            }
+            catch (Exception e)
+            {
+                log.Error($"Unable to deserialize message body for message queue sent_transfer_connection_invitation. messageId: {bMessage.MessageId} {{ID={executionContext.InvocationId}}}", e);
+                bMessage.Defer();
+            }
+
+            if (messageBody != null)
+            {
+                try
+                {
+                    transferRelationshipMessageService.SaveRejectedMessage(messageBody);
+                    log.Info($"Processing Completed for messageId: {bMessage.MessageId} {{ID={executionContext.InvocationId}}}");
+                    bMessage.Complete();
+                }
+                catch (Exception e)
+                {
+                    log.Error($"Unable to save message for queue sent_transfer_connection_invitation DLQ. messageId: {bMessage.MessageId} {{ID={executionContext.InvocationId}}}", e);
+                    bMessage.Defer();
+                }
+
+            }
         }
 
 
