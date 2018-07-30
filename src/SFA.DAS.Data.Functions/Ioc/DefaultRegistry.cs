@@ -70,6 +70,7 @@ namespace SFA.DAS.Data.Functions.Ioc
 
             For<IStatisticsService>().Use<StatisticsService>();
             For<IPsrsReportsService>().Use<PsrsReportsService>();
+            For<ITransferRelationshipService>().Use<TransferRelationshipMessageService>();
             For<ICommitmentsRelationshipService>().Use<CommitmentsRelationshipService>();
 
         }
