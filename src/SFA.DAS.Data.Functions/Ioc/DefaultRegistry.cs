@@ -12,6 +12,7 @@ using SFA.DAS.Data.Infrastructure.Http;
 using SFA.DAS.NLog.Logger;
 using SFA.DAS.Provider.Events.Api.Client;
 using StructureMap;
+using SFA.DAS.Data.Application.Interfaces;
 using SFA.DAS.Data.Infrastructure.Services;
 using SFA.DAS.Commitments.Api.Client;
 using SFA.DAS.Commitments.Api.Client.Configuration;
@@ -62,6 +63,7 @@ namespace SFA.DAS.Data.Functions.Ioc
             For<IPsrsRepository>().Use<PsrsRepository>().Ctor<string>().Is(connectionString);
             For<ITransferRelationshipRepository>().Use<TransferRelationshipRepository>().Ctor<string>().Is(connectionString);
             For<IStatisticsRepository>().Use<StatisticsRepository>().Ctor<string>().Is(connectionString);
+            For<ICommitmentsRelationshipRepository>().Use<CommitmentsRelationshipRepository>().Ctor<string>().Is(connectionString);
 
             HttpMessageHandler handler = new HttpClientHandler();
             For<IHttpClientWrapper>().Use<HttpClientWrapper>().Ctor<HttpMessageHandler>().Is(handler);
@@ -69,6 +71,8 @@ namespace SFA.DAS.Data.Functions.Ioc
             For<IStatisticsService>().Use<StatisticsService>();
             For<IPsrsReportsService>().Use<PsrsReportsService>();
             For<ITransferRelationshipService>().Use<TransferRelationshipMessageService>();
+            For<ICommitmentsRelationshipService>().Use<CommitmentsRelationshipService>();
+
         }
 
         private DataConfiguration GetConfiguration()

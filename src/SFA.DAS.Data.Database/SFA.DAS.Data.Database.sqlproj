@@ -156,6 +156,9 @@
     <Build Include="Tables\DAS_PublicSector_Summary.sql" />
     <Build Include="Views\DAS_Psrs_SubmittedReports.sql" />
     <Build Include="Views\DAS_Psrs_Summary.sql" />
+    <Build Include="Tables\DAS_Commitments_Relationships.sql" />
+    <Build Include="StoredProcedures\SaveCommitmentsRelationship.sql" />
+    <Build Include="Views\DAS_Commitments_Relationships.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SFA.DAS.Data.Database.refactorlog" />
