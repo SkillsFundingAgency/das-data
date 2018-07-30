@@ -35,7 +35,7 @@ namespace SFA.DAS.Data.Functions.Transfers
         }
 
         [FunctionName("ProcessTransferRelationshipSentMessageDLQ")]
-        [Disable]
+        //[Disable]
         public static void RunDLQ([ServiceBusTrigger("sent_transfer_connection_invitation", "RDS_SentTransferConnectionInvitiationProcessor/$DeadLetterQueue", AccessRights.Manage, Connection = "MessageBusConnectionString")] BrokeredMessage bMessage, ExecutionContext executionContext, TraceWriter log, [Inject] ITransferRelationshipService transferRelationshipMessageService, [Inject] ILog logger)
         {
             log.Info($"Processing messageId: {bMessage.MessageId} {{ID={executionContext.InvocationId}}}");
