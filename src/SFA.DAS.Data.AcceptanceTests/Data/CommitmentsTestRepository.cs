@@ -18,7 +18,7 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
                 commandType: CommandType.Text));
         }
 
-        public async Task<int> GetNumnerOfLatestCommitmentsRelationships()
+        public async Task<int> GetNumberOfLatestCommitmentsRelationships()
         {
             return await WithConnection(async ctx =>
                 await ctx.QuerySingleAsync<int>(

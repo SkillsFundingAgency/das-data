@@ -31,7 +31,7 @@ namespace SFA.DAS.Data.AcceptanceTests.Functions.Commitments
 
         private async Task<bool> IsDatabaseInExpectedState()
         {
-            var commitmentCount = await CommitmentsTestRepository.GetNumnerOfLatestCommitmentsRelationships();
+            var commitmentCount = await CommitmentsTestRepository.GetNumberOfLatestCommitmentsRelationships();
             return commitmentCount == 1;
         }
     }
