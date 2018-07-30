@@ -68,7 +68,7 @@ namespace SFA.DAS.Data.Functions.Ioc
 
             For<IStatisticsService>().Use<StatisticsService>();
             For<IPsrsReportsService>().Use<PsrsReportsService>();
-
+            For<ITransferRelationshipService>().Use<TransferRelationshipMessageService>();
         }
 
         private DataConfiguration GetConfiguration()
