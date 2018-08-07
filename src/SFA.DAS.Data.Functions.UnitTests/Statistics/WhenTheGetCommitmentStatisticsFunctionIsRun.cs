@@ -1,6 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System.Diagnostics;
+using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
+using SFA.DAS.Data.AcceptanceTests;
 using SFA.DAS.Data.Domain.Interfaces;
 using SFA.DAS.Data.Functions.Statistics;
 using SFA.DAS.NLog.Logger;
@@ -30,7 +32,7 @@ namespace SFA.DAS.Data.Functions.UnitTests.Statistics
 
         private async Task InvokeRunMethodOnFunction()
         {
-            await GetCommitmentStatisticsFunction.Run(null, _logger.Object, _statsService.Object);
+            await GetCommitmentStatisticsFunction.Run(null, new TraceWriterStub(TraceLevel.Verbose), _logger.Object,  _statsService.Object);
         }
     }
 }

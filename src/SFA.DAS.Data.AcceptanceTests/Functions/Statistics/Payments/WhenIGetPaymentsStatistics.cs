@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using SFA.DAS.Data.Domain.Models.Statistics.Payments;
@@ -19,7 +20,9 @@ namespace SFA.DAS.Data.AcceptanceTests.Functions.Statistics.Payments
             };
             PaymentsStatisticsHandlerMock.Setup(x => x.Handle()).Returns(Task.FromResult(paymentsExternalModel));
 
-            await DAS.Data.Functions.Statistics.GetPaymentsStatisticsFunction.Run(null, Log, StatisticsService);
+            var traceLogger = new TraceWriterStub(TraceLevel.Verbose);
+
+            await DAS.Data.Functions.Statistics.GetPaymentsStatisticsFunction.Run(null, traceLogger, Log, StatisticsService);
 
             var databaseAsExpected = TestHelper.ConditionMet(IsDatabaseInExpectedState, TimeSpan.FromSeconds(60));
 
