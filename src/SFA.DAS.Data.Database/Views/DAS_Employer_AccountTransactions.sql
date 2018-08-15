@@ -4,6 +4,11 @@
           SELECT 
                LD.DasAccountId
           ,    LD.CreatedDate
+		  ,	   LD.SubmissionDate
+		  ,    LD.PayrollMonth
+		  ,    LD.PayrollYear
+		  ,    NULL AS CollectionMonth
+		  ,    NULL AS CollectionYear
           ,    'IN Levy Money from HMRC' AS TransactionType
           ,    ROUND((LD.LevyDeclaredInMonth * LD.EnglishFraction),2) AS Amount
           FROM Data_Load.DAS_LevyDeclarations AS LD
@@ -13,6 +18,11 @@
           SELECT 
                     LD.DasAccountId
                ,    LD.CreatedDate
+  	   		   ,    LD.SubmissionDate
+			   ,    LD.PayrollMonth
+			   ,    LD.PayrollYear
+			   ,    NULL AS CollectionMonth
+			   ,    NULL AS CollectionYear
                ,    'IN Levy Top Up Amount' AS TransactionType
                ,    ROUND(LD.[TopupAmount],2) AS Amount
           FROM Data_Load.DAS_LevyDeclarations AS LD
@@ -22,6 +32,11 @@
           SELECT 
                     [EA].[DasAccountId] AS DasAccountId
                ,    PS.UpdateDateTime AS CreatedDate
+			   ,    NULL as SubmissionDate
+			   ,    NULL as PayrollMonth
+			   ,	NULL as PayrollYear
+			   ,    CollectionMonth
+			   ,    CollectionYear
                ,    'OUT '+[TransactionType]  AS TransactionType
                ,    ROUND((PS.Amount*-1),2) AS Amount -- Made negative as Payment
           FROM Data_Load.DAS_Payments AS PS
