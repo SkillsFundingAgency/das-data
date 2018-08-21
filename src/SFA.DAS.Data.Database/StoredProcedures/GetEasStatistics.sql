@@ -6,9 +6,10 @@ SELECT (
 	FROM [Data_Load].[DAS_Employer_Accounts]
 	WHERE IsLatest = 1
 ) AS TotalAccounts, 
-(
+( 
 	SELECT COUNT(Id) AS TotalPayments 
 	FROM [Data_Load].[DAS_Payments]
+	WHERE EmployerAccountId IS NOT NULL
 ) AS TotalPayments ,
 (
 	SELECT COUNT(Id)
