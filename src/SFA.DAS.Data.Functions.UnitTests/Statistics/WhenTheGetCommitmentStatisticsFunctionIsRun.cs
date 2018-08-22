@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Threading.Tasks;
+using Microsoft.Azure.WebJobs.Host;
 using Moq;
 using NUnit.Framework;
 using SFA.DAS.Data.AcceptanceTests;
@@ -14,12 +15,14 @@ namespace SFA.DAS.Data.Functions.UnitTests.Statistics
     {
         private Mock<IStatisticsService> _statsService;
         private Mock<ILog> _logger;
+        private TraceWriter _traceWriter;
 
         [SetUp]
         public void Setup()
         {
             _logger = new Mock<ILog>();
             _statsService = new Mock<IStatisticsService>();
+            _traceWriter = new TraceWriterStub(TraceLevel.Verbose);
         }
 
         [Test]
@@ -27,12 +30,12 @@ namespace SFA.DAS.Data.Functions.UnitTests.Statistics
         {
             await InvokeRunMethodOnFunction();
 
-            _statsService.Verify(o => o.CollateCommitmentStatisticsMetrics(new TraceWriterStub(TraceLevel.Verbose)), Times.Once);
+            _statsService.Verify(o => o.CollateCommitmentStatisticsMetrics(_traceWriter), Times.Once);
         }
 
         private async Task InvokeRunMethodOnFunction()
         {
-            await GetCommitmentStatisticsFunction.Run(null, new TraceWriterStub(TraceLevel.Verbose), _logger.Object,  _statsService.Object);
+            await GetCommitmentStatisticsFunction.Run(null, _traceWriter, _logger.Object,  _statsService.Object);
         }
     }
 }
