@@ -27,7 +27,7 @@ namespace SFA.DAS.Data.Functions.UnitTests.Statistics
         {
             await InvokeRunMethodOnFunction();
 
-            _statsService.Verify(o => o.CollateCommitmentStatisticsMetrics(), Times.Once);
+            _statsService.Verify(o => o.CollateCommitmentStatisticsMetrics(new TraceWriterStub(TraceLevel.Verbose)), Times.Once);
         }
 
         private async Task InvokeRunMethodOnFunction()

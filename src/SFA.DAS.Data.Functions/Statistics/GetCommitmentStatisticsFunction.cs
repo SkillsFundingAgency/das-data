@@ -18,7 +18,7 @@ namespace SFA.DAS.Data.Functions.Statistics
 
             try
             {
-                var returnMessage = await statsService.CollateCommitmentStatisticsMetrics();
+                var returnMessage = await statsService.CollateCommitmentStatisticsMetrics(traceLog);
             }
             catch (Exception e)
             {
