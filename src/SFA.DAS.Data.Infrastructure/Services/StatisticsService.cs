@@ -116,6 +116,7 @@ namespace SFA.DAS.Data.Infrastructure.Services
             catch (Exception ex)
             {
                 traceLog.Error("SaveTheStatisticsToRds exception", ex);
+                throw;
             }
 
             traceLog.Info("Stats saved to RDS successfully");
@@ -203,7 +204,7 @@ namespace SFA.DAS.Data.Infrastructure.Services
             }
             catch (Exception ex)
             {
-                traceLog.Error("General exception", ex);
+                traceLog.Error("General exception" + ex.Message, ex);
                 throw;
             }
 

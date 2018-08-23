@@ -22,7 +22,7 @@ namespace SFA.DAS.Data.Functions.Statistics
             }
             catch (Exception e)
             {
-                traceLog.Error($"Error processing GetCommitmentStatisticsFunction to pull data into RDS", e);
+                traceLog.Error($"Error processing GetCommitmentStatisticsFunction to pull data into RDS: {e.Message}", e);
             }
             
        }
