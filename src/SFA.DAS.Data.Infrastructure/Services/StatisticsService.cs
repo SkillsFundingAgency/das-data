@@ -3,7 +3,6 @@ using System.Data.Common;
 using System.Net.Http;
 using System.Threading.Tasks;
 using MediatR;
-using Microsoft.Azure.WebJobs.Host;
 using SFA.DAS.Data.Application.Commands.CreateCommitmentStatistics;
 using SFA.DAS.Data.Application.Commands.CreateEasStatistics;
 using SFA.DAS.Data.Application.Commands.CreatePaymentsStatistics;
@@ -74,52 +73,31 @@ namespace SFA.DAS.Data.Infrastructure.Services
             };
         }
 
-        public async Task<IProcessingCompletedMessage> CollateCommitmentStatisticsMetrics(TraceWriter traceLog)
+        public async Task<IProcessingCompletedMessage> CollateCommitmentStatisticsMetrics()
         {
-            traceLog.Info("Calling RetrieveCommitmentsStatisticsFromTheApi", "CollateCommitmentStatisticsMetrics");
-            var statistics = await RetrieveCommitmentsStatisticsFromTheApi(traceLog);
+            var statistics = await RetrieveCommitmentsStatisticsFromTheApi();
 
             if (statistics == null)
             {
                 _log.Debug("Quitting operation as it failed to retrieve the Commitment Statistics");
-                traceLog.Info("Quitting operation as it failed to retrieve the Commitment Statistics");
                 return null;
             }
 
-            traceLog.Info("Calling RetrieveRelatedCommitmentsStatisticsFromRds");
-            var rdsStatistics = await RetrieveRelatedCommitmentsStatisticsFromRds(traceLog);
+            var rdsStatistics = await RetrieveRelatedCommitmentsStatisticsFromRds();
 
             if (rdsStatistics == null)
             {
-                _log.Debug("Quitting operation as it failed to retrieve the related Commitemtns statistics from Rds");
-                traceLog.Info("Quitting operation as it failed to retrieve the related Commitments statistics from Rds, returning null");
+                _log.Debug("Quitting operation as it failed to retrieve the related Aes statistics from Rds");
                 return null;
             }
 
-            traceLog.Info($"RDS statistics received from RDS db, TotalCohorts: {rdsStatistics.TotalCohorts}, TotalApprenticeships: {rdsStatistics.TotalApprenticeships}, ActiveApprenticeships: {rdsStatistics.ActiveApprenticeships}");
+            var savedSuccessfully = await SaveTheStatisticsToRds<CommitmentsExternalModel, CommitmentsRdsModel, CreateCommitmentStatisticsCommandResponse, CreateCommitmentStatisticsCommand>(statistics, rdsStatistics);
 
-            traceLog.Info("Calling SaveTheStatisticsToRds via mediator");
-            try
+            if (!savedSuccessfully)
             {
-                var savedSuccessfully =
-                    await SaveTheStatisticsToRds<CommitmentsExternalModel, CommitmentsRdsModel,
-                        CreateCommitmentStatisticsCommandResponse, CreateCommitmentStatisticsCommand>(statistics,
-                        rdsStatistics);
-
-                if (!savedSuccessfully)
-                {
-                    _log.Debug("Quitting operation as it failed to save the statistics");
-                    traceLog.Info("Quitting operation as it failed to save the statistics - SaveTheStatisticsToRds returned false");
-                    return null;
-                }
+                _log.Debug("Quitting operation as it failed to save the statistics");
+                return null;
             }
-            catch (Exception ex)
-            {
-                traceLog.Error("SaveTheStatisticsToRds exception", ex);
-                throw;
-            }
-
-            traceLog.Info("Stats saved to RDS successfully");
 
             return new CommitmentProcessingCompletedMessage();
         }
@@ -185,12 +163,11 @@ namespace SFA.DAS.Data.Infrastructure.Services
             return rdsStatistics;
         }
 
-        private async Task<CommitmentsRdsModel> RetrieveRelatedCommitmentsStatisticsFromRds(TraceWriter traceLog)
+        private async Task<CommitmentsRdsModel> RetrieveRelatedCommitmentsStatisticsFromRds()
         {
             CommitmentsRdsModel rdsStatistics = null;
 
             _log.Debug("Gathering statistics for the equivalent commitment stats in RDS");
-            traceLog.Info("Gathering statistics for the equivalent commitment stats in RDS");
 
             try
             {
@@ -199,13 +176,6 @@ namespace SFA.DAS.Data.Infrastructure.Services
             catch (DbException exception)
             {
                 _log.Error(exception, "Failed to retrieve the equivalent commitment stats from the RDS Database");
-                traceLog.Error("Failed to retrieve the equivalent commitment stats from the RDS Database", exception);
-                throw;
-            }
-            catch (Exception ex)
-            {
-                traceLog.Error("General exception" + ex.Message, ex);
-                throw;
             }
 
             return rdsStatistics;
@@ -246,7 +216,7 @@ namespace SFA.DAS.Data.Infrastructure.Services
             return statistics;
         }
 
-        private async Task<CommitmentsExternalModel> RetrieveCommitmentsStatisticsFromTheApi(TraceWriter traceLog)
+        private async Task<CommitmentsExternalModel> RetrieveCommitmentsStatisticsFromTheApi()
         {
             _log.Debug("Gathering statistics for the Commitments area of the system");
             CommitmentsExternalModel statistics = null;
@@ -254,20 +224,10 @@ namespace SFA.DAS.Data.Infrastructure.Services
             try
             {
                 statistics = await _commitmentsStatisticsHandler.Handle();
-                traceLog.Info(statistics == null
-                    ? "Commitments statistics returned from API was null"
-                    : $"Commitments statistics returned from API, TotalCohorts: {statistics.TotalCohorts}, TotalApprenticeships: {statistics.TotalApprenticeships}, ActiveApprenticeships: {statistics.ActiveApprenticeships}");
             }
             catch (HttpRequestException httpRequestException)
             {
                 _log.Error(httpRequestException, "Failed to retrieve commitment stats from the API");
-                traceLog.Error("Failed to retrieve commitment stats from the API, httpRequestException", httpRequestException);
-                throw;
-            }
-            catch (Exception ex)
-            {
-                traceLog.Error("Failed to retrieve commitment stats from the API", ex);
-                throw;
             }
 
             return statistics;
