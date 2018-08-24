@@ -3,6 +3,7 @@ using System.Data.Common;
 using System.Net.Http;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.Azure.WebJobs.Host;
 using SFA.DAS.Data.Application.Commands.CreateCommitmentStatistics;
 using SFA.DAS.Data.Application.Commands.CreateEasStatistics;
 using SFA.DAS.Data.Application.Commands.CreatePaymentsStatistics;
@@ -73,7 +74,7 @@ namespace SFA.DAS.Data.Infrastructure.Services
             };
         }
 
-        public async Task<IProcessingCompletedMessage> CollateCommitmentStatisticsMetrics()
+        public async Task<IProcessingCompletedMessage> CollateCommitmentStatisticsMetrics(TraceWriter traceLog)
         {
             var statistics = await RetrieveCommitmentsStatisticsFromTheApi();
 
