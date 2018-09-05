@@ -40,6 +40,7 @@ namespace SFA.DAS.Data.Infrastructure.Data
                     parameters.Add("@ProgrammeType", payment.ProgrammeType, DbType.Int32);
                     parameters.Add("@PathwayCode", payment.PathwayCode, DbType.Int32);
                     parameters.Add("@ContractType", payment.ContractType.ToString(), DbType.String);
+                    parameters.Add("@CollectionPeriodName", payment.CollectionPeriod.Id, DbType.String);
 
                     await c.ExecuteAsync(
                         sql: "[Data_Load].[SavePayment]",

@@ -46,6 +46,7 @@ SELECT
 		  ELSE '19+' END AS PaymentAgeBand
      , CM.CalendarMonthShortNameYear AS DeliveryMonthShortNameYear
      , EA.AccountName AS DASAccountName
+	 , P.CollectionPeriodName
 FROM [Data_Load].[DAS_Payments] AS P
 	--First Payment
 	LEFT JOIN 
