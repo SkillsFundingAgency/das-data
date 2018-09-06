@@ -52,6 +52,9 @@ GRANT SELECT ON [Data_Pub].[DAS_Employer_Agreements] TO Developer
 GRANT SELECT ON [Data_Pub].[DAS_Payments] TO Developer
 GRANT SELECT ON [Data_Pub].[DAS_Psrs_SubmittedReports] To Developer
 GRANT SELECT ON [Data_Pub].[DAS_Psrs_Summary] To Developer
+GRANT SELECT ON [Data_Lock].[DAS_DataLocks] TO Developer
+GRANT SELECT ON [Data_Lock].[DAS_ValidLearners] TO Developer
+GRANT SELECT ON [Data_Lock].[DAS_ValidAims] TO Developer
 
 --Data Analyst - Read all views excluding HMRC
 IF DATABASE_PRINCIPAL_ID('DataAnalyst') IS NULL
@@ -72,6 +75,11 @@ GRANT SELECT ON [Data_Pub].[DAS_Employer_Agreements] TO DataAnalyst
 GRANT SELECT ON [Data_Pub].[DAS_Payments] TO DataAnalyst
 GRANT SELECT ON [Data_Pub].[DAS_Psrs_SubmittedReports] To DataAnalyst
 GRANT SELECT ON [Data_Pub].[DAS_Psrs_Summary] To DataAnalyst
+
+--Data Analyst - Read Data_Lock tables
+GRANT SELECT ON [Data_Lock].[DAS_DataLocks] TO DataAnalyst
+GRANT SELECT ON [Data_Lock].[DAS_ValidLearners] TO DataAnalyst
+GRANT SELECT ON [Data_Lock].[DAS_ValidAims] TO DataAnalyst
 
 --HMRC MI / API Reader - read HMRC Tables / Views
 IF DATABASE_PRINCIPAL_ID('HMRCReader') IS NULL
