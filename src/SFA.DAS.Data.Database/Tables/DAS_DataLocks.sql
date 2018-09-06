@@ -1,4 +1,4 @@
-﻿CREATE TABLE [Data_Lock].[DAS_DataLock]
+﻿CREATE TABLE [Data_Lock].[DAS_DataLocks]
 (
 	[Id] [bigint] PRIMARY KEY IDENTITY(1,1) NOT NULL,
 	[Collection] NVARCHAR(10) NOT NULL,

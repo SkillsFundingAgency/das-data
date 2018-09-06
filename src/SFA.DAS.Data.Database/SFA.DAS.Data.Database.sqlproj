@@ -157,8 +157,8 @@
     <Build Include="Views\DAS_Psrs_SubmittedReports.sql" />
     <Build Include="Views\DAS_Psrs_Summary.sql" />
     <Build Include="Schemas\Data_Lock.sql" />
-    <Build Include="Tables\DAS_DataLock.sql" />
-    <Build Include="Tables\DAS_DataLock_ValidAims.sql" />
+    <Build Include="Tables\DAS_DataLocks.sql" />
+    <Build Include="Tables\DAS_ValidAims.sql" />
     <Build Include="Tables\DAS_ValidLearners.sql" />
   </ItemGroup>
   <ItemGroup>
