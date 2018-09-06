@@ -156,10 +156,6 @@
     <Build Include="Tables\DAS_PublicSector_Summary.sql" />
     <Build Include="Views\DAS_Psrs_SubmittedReports.sql" />
     <Build Include="Views\DAS_Psrs_Summary.sql" />
-    <Build Include="Schemas\Data_Lock.sql" />
-    <Build Include="Tables\DAS_DataLock.sql" />
-    <Build Include="Tables\DAS_DataLock_ValidAims.sql" />
-    <Build Include="Tables\DAS_ValidLearners.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SFA.DAS.Data.Database.refactorlog" />
