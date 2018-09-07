@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
@@ -41,6 +42,12 @@ namespace SFA.DAS.Data.Infrastructure.Data
                     parameters.Add("@PathwayCode", payment.PathwayCode, DbType.Int32);
                     parameters.Add("@ContractType", payment.ContractType.ToString(), DbType.String);
                     parameters.Add("@CollectionPeriodName", payment.CollectionPeriod.Id, DbType.String);
+                    var collectionPeriod = payment.CollectionPeriod.Id.Split('-');
+                    if (collectionPeriod.Any() && collectionPeriod.Length == 2)
+                    {
+                        parameters.Add("@CollectionPeriodMonth", collectionPeriod[1], DbType.String);
+                        parameters.Add("@CollectionPeriodYear", collectionPeriod[0], DbType.String);
+                    }
 
                     await c.ExecuteAsync(
                         sql: "[Data_Load].[SavePayment]",

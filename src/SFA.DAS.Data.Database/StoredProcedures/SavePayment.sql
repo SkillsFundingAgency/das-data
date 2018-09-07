@@ -19,7 +19,9 @@
 	@ProgrammeType INT = NULL,
 	@PathwayCode INT = NULL,
 	@ContractType NVARCHAR(50),
-	@CollectionPeriodName NVARCHAR(20)
+	@CollectionPeriodName NVARCHAR(20) = NULL,
+	@CollectionPeriodMonth NVARCHAR(10) = NULL,
+	@CollectionPeriodYear NVARCHAR(10) = NULL
 AS
 
 	IF NOT EXISTS(SELECT TOP 1 1 FROM [Data_Load].DAS_Payments WHERE PaymentId = @PaymentId)
@@ -47,7 +49,9 @@ AS
 			[ProgrammeType],
 			[PathwayCode],
 			[ContractType],
-			[CollectionPeriodName]
+			[CollectionPeriodName],
+			[CollectionPeriodMonth],
+			[CollectionPeriodYear]
 		)
 		VALUES
 		(
@@ -71,7 +75,9 @@ AS
 			@ProgrammeType,
 			@PathwayCode,
 			@ContractType,
-			@CollectionPeriodName
+			@CollectionPeriodName,
+			@CollectionPeriodMonth,
+			@CollectionPeriodYear
 		)
 
 	END
