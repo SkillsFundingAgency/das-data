@@ -160,6 +160,7 @@
     <Build Include="Tables\DAS_DataLocks.sql" />
     <Build Include="Tables\DAS_ValidAims.sql" />
     <Build Include="Tables\DAS_ValidLearners.sql" />
+    <Build Include="Views\DAS_DataLocks.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SFA.DAS.Data.Database.refactorlog" />
