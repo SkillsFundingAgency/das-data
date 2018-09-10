@@ -54,5 +54,10 @@ namespace SFA.DAS.Data.Infrastructure.Services
         {
             return !string.IsNullOrEmpty(lastProcessedPeriodId);
         }
+
+        public async Task<PageOfResults<DataLockEvent>> GetDataLocks(int pageNumber)
+        {
+            return await _eventsApi.GetDataLockEvents(page: pageNumber);
+        }
     }
 }
