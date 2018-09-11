@@ -99,6 +99,7 @@
   <ItemGroup>
     <Compile Include="CommitmentBuilder.cs" />
     <Compile Include="CommitmentsStatisticsBuilder.cs" />
+    <Compile Include="DataLockEventBuilder.cs" />
     <Compile Include="EmployerAgreementViewBuilder.cs" />
     <Compile Include="LevyDeclarationViewModelBuilder.cs" />
     <Compile Include="PayeSchemeViewModelBuilder.cs" />
