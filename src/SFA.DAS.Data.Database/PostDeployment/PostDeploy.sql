@@ -38,6 +38,9 @@ GRANT SELECT ON [Data_Load].[DAS_LoadedEvents] TO Developer
 GRANT SELECT ON [Data_Load].[DAS_Payments] TO Developer
 GRANT SELECT ON [Data_Load].[DAS_PublicSector_Reports] To Developer
 GRANT SELECT ON [Data_Load].[DAS_PublicSector_Summary] To Developer
+GRANT SELECT ON [Data_Load].[DAS_DataLocks] TO Developer
+GRANT SELECT ON [Data_Load].[DAS_ValidLearners] TO Developer
+GRANT SELECT ON [Data_Load].[DAS_ValidAims] TO Developer
 GRANT SELECT ON [PerformancePlatform].[PP_HistoricalStatistics] TO Developer
 GRANT SELECT ON [PerformancePlatform].[PP_LastRun] TO Developer
 GRANT SELECT ON [Data_Pub].[DAS_Employer_Accounts] TO Developer
@@ -53,9 +56,6 @@ GRANT SELECT ON [Data_Pub].[DAS_Payments] TO Developer
 GRANT SELECT ON [Data_Pub].[DAS_Psrs_SubmittedReports] To Developer
 GRANT SELECT ON [Data_Pub].[DAS_Psrs_Summary] To Developer
 GRANT SELECT ON [Data_Pub].[DAS_DataLocks] TO Developer
-GRANT SELECT ON [Data_Lock].[DAS_DataLocks] TO Developer
-GRANT SELECT ON [Data_Lock].[DAS_ValidLearners] TO Developer
-GRANT SELECT ON [Data_Lock].[DAS_ValidAims] TO Developer
 
 --Data Analyst - Read all views excluding HMRC
 IF DATABASE_PRINCIPAL_ID('DataAnalyst') IS NULL

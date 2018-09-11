@@ -156,11 +156,11 @@
     <Build Include="Tables\DAS_PublicSector_Summary.sql" />
     <Build Include="Views\DAS_Psrs_SubmittedReports.sql" />
     <Build Include="Views\DAS_Psrs_Summary.sql" />
-    <Build Include="Schemas\Data_Lock.sql" />
     <Build Include="Tables\DAS_DataLocks.sql" />
     <Build Include="Tables\DAS_ValidAims.sql" />
     <Build Include="Tables\DAS_ValidLearners.sql" />
     <Build Include="Views\DAS_DataLocks.sql" />
+    <Build Include="StoredProcedures\SaveDataLocksql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SFA.DAS.Data.Database.refactorlog" />

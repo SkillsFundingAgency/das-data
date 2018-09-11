@@ -1,15 +1,44 @@
-﻿CREATE TABLE [Data_Lock].[DAS_DataLocks]
+﻿CREATE TABLE [Data_Load].[DAS_DataLocks]
 (
 	[Id] [bigint] PRIMARY KEY IDENTITY(1,1) NOT NULL,
-	[Collection] NVARCHAR(10) NOT NULL,
-	[Ukprn] BIGINT NOT NULL,
-	[LearnRefNumber] NVARCHAR(12) NOT NULL,
-	[ULN] [BIGINT] NOT NULL,
+    [DataLockId] BIGINT NOT NULL,
+    [ProcessDateTime] DATETIME NOT NULL,
+    [IlrFileName] NVARCHAR(50),
+    [UkPrn] BIGINT NOT NULL,
+    [Uln] BIGINT NOT NULL,
+    [LearnRefNumber] NVARCHAR(12) NOT NULL,
 	[AimSeqNumber] BIGINT NOT NULL,
-	[RuleId] [NVARCHAR](10) NOT NULL,
-	[CollectionPeriodName] NVARCHAR(10) NOT NULL,
+    [PriceEpisodeIdentifier] VARCHAR(25) NOT NULL,
+    [ApprenticeshipId] BIGINT NOT NULL,
+    [EmployerAccountId] BIGINT NOT NULL,
+    [EventSource] INT NOT NULL,
+    --[HasErrors] BIT NOT NULL --no need to store this
+    [IlrStartDate] DATE NULL,
+    [IlrStandardCode] BIGINT NULL,
+    [IlrProgrammeType] INT NOT NULL,
+    [IlrFrameworkCode] INT NOT NULL,
+    [IlrPathwayCode] INT NOT NULL,
+    [IlrTrainingPrice] DECIMAL(12,5) NULL,
+    [IlrEndpointAssessorPrice] DECIMAL(12,5) NULL,
+    [IlrPriceEffectiveFromDate] DATE NULL,
+    [IlrPriceEffectiveToDate] DATE NULL,
+    --Errors
+	[ErrorCode] VARCHAR(15) NOT NULL,
+	[SystemDescription]	 NVARCHAR(255) NOT NULL,
+	--Periods
+	[CollectionPeriodName] VARCHAR(8) 	NOT NULL,
 	[CollectionPeriodMonth] INT NOT NULL,
 	[CollectionPeriodYear] INT NOT NULL,
-	[LastSubmission] DATETIME NULL,
-	[TNP] BIGINT NOT NULL
+	[ApprenticeshipVersion] VARCHAR(25) NOT NULL,
+	[IsPayable] BIT NOT NULL,
+	[TransactionType] INT NOT NULL,
+    --Apprenticeships
+	[Version] varchar(25) NULL,
+	[StartDate] DATE NULL,
+	[StandardCode] BIGINT NULL,
+	[ProgrammeType] INT NULL,
+	[FrameworkCode] INT NULL,
+	[PathwayCode]	 INT NULL,
+	[NegotiatedPrice] DECIMAL(15, 2) NULL,
+	[EffectiveDate] DATE NULL,
 )
