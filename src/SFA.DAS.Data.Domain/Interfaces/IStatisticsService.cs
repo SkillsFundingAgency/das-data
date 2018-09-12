@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Microsoft.Azure.WebJobs.Host;
 
 namespace SFA.DAS.Data.Domain.Interfaces
 {
@@ -10,7 +7,7 @@ namespace SFA.DAS.Data.Domain.Interfaces
     {
         Task<IProcessingCompletedMessage> CollateEasMetrics();
 
-        Task<IProcessingCompletedMessage> CollateCommitmentStatisticsMetrics();
+        Task<IProcessingCompletedMessage> CollateCommitmentStatisticsMetrics(TraceWriter traceLog);
 
         Task<IProcessingCompletedMessage> CollatePaymentStatisticsMetrics();
     }

@@ -40,14 +40,14 @@
     <Reference Include="Microsoft.Azure.KeyVault.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Azure.KeyVault.Core.2.0.4\lib\net45\Microsoft.Azure.KeyVault.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Azure.WebJobs, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Azure.WebJobs.Core.2.1.0\lib\net45\Microsoft.Azure.WebJobs.dll</HintPath>
+    <Reference Include="Microsoft.Azure.WebJobs, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.WebJobs.Core.2.2.0\lib\net45\Microsoft.Azure.WebJobs.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Azure.WebJobs.Extensions, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Azure.WebJobs.Extensions.2.1.0\lib\net45\Microsoft.Azure.WebJobs.Extensions.dll</HintPath>
+    <Reference Include="Microsoft.Azure.WebJobs.Extensions, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.WebJobs.Extensions.2.2.0\lib\net45\Microsoft.Azure.WebJobs.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Azure.WebJobs.Host, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Azure.WebJobs.2.1.0\lib\net45\Microsoft.Azure.WebJobs.Host.dll</HintPath>
+    <Reference Include="Microsoft.Azure.WebJobs.Host, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.WebJobs.2.2.0\lib\net45\Microsoft.Azure.WebJobs.Host.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Data.Edm, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Data.Edm.5.8.2\lib\net40\Microsoft.Data.Edm.dll</HintPath>
@@ -185,10 +185,18 @@
     <Compile Include="Statistics\WhenTheGetPaymentsStatisticsFunctionIsRun.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SFA.DAS.Data.AcceptanceTests\SFA.DAS.Data.AcceptanceTests.csproj">
+      <Project>{2FB7D98B-ACA6-4F8B-8B5C-EDF48778860A}</Project>
+      <Name>SFA.DAS.Data.AcceptanceTests</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SFA.DAS.Data.Application\SFA.DAS.Data.Application.csproj">
       <Project>{E2794B6D-456B-4FD2-8694-CCFB141F5A02}</Project>
       <Name>SFA.DAS.Data.Application</Name>
