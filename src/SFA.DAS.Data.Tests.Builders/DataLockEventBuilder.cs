@@ -20,6 +20,9 @@ namespace SFA.DAS.Data.Tests.Builders
         private string _ilrFileName = "ILR-123456";
         private DateTime? _ilrStartDate = new DateTime(2017, 05, 01);
         private int? _ilrStandardCode = 27;
+        private int? _ilrProgrammeType = 20;
+        private int? _ilrFrameworkCode = 550;
+        private int? _ilrPathwayCode = 6;
         private Decimal? _ilrTrainingPrice = 12000;
         private Decimal? _ilrEndpointAssessorPrice = 3000;
         private DateTime? _ilrPriceEffectiveFromDate = new DateTime(2017, 04, 01);
@@ -68,12 +71,14 @@ namespace SFA.DAS.Data.Tests.Builders
                 HasErrors = _hasErrors,
                 IlrStartDate = _ilrStartDate,
                 IlrStandardCode = _ilrStandardCode,
+                IlrProgrammeType = _ilrProgrammeType,
+                IlrFrameworkCode = _ilrFrameworkCode,
+                IlrPathwayCode   = _ilrPathwayCode,
                 IlrTrainingPrice = _ilrTrainingPrice,
                 IlrEndpointAssessorPrice = _ilrEndpointAssessorPrice,
                 IlrPriceEffectiveFromDate = _ilrPriceEffectiveFromDate,
                 IlrPriceEffectiveToDate = _ilrPriceEffectiveToDate,
-
-                Errors = new[]
+            Errors = new[]
                 {
                     new DataLockEventError
                     {
