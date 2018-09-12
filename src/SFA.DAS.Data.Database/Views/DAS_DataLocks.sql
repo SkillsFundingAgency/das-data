@@ -11,6 +11,7 @@
       lock.[ApprenticeshipId],
       lock.[EmployerAccountId],
       lock.[EventSource],
+      lock.[HasErrors],
       lock.[IlrStartDate],
       lock.[IlrStandardCode],
       lock.[IlrProgrammeType],
@@ -22,10 +23,10 @@
       lock.[IlrPriceEffectiveToDate],
       lock.[ErrorCode],
       lock.[SystemDescription],
+      lock.[ApprenticeshipVersion],
       lock.[CollectionPeriodName],
       lock.[CollectionPeriodMonth],
       lock.[CollectionPeriodYear],
-      lock.[ApprenticeshipVersion],
       lock.[IsPayable],
       lock.[TransactionType],
       lock.[Version],
@@ -36,12 +37,9 @@
       lock.[PathwayCode],
       lock.[NegotiatedPrice],
       lock.[EffectiveDate],
-	  learner.[NumberOfLearners],
       aim.[NumberOfLearnersWithACT1],
       aim.[NumberOfLearnersWithACT2]
   FROM 
 		[Data_Load].[DAS_DataLocks] lock
-		LEFT JOIN [Data_Load].[DAS_ValidLearners] learner
-		ON	lock.[UkPrn] = learner.[UkPrn]
 		LEFT JOIN  [Data_Load].[DAS_ValidAims] aim
-		ON	aim.[UkPrn] = learner.[UkPrn]
+		ON	aim.[UkPrn] = lock.[UkPrn]
