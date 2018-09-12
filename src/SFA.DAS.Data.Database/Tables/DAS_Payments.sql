@@ -22,7 +22,10 @@
 	[PathwayCode]	INT NULL,
 	[ContractType]	NVARCHAR(50) NULL, 
     [UpdateDateTime] DATETIME NOT NULL DEFAULT (GETDATE()), 
-    [FundingAccountId] BIGINT NULL
+    [FundingAccountId] BIGINT NULL,
+	[CollectionPeriodName] NVARCHAR(20) NULL,
+	[CollectionPeriodMonth] NVARCHAR(10) NULL,
+	[CollectionPeriodYear] NVARCHAR(10) NULL
 )
 GO
 CREATE INDEX [IX_Payment_FundingSource] ON [Data_Load].[DAS_Payments] ([FundingSource])

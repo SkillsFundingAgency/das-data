@@ -99,7 +99,8 @@ namespace SFA.DAS.Data.DatabaseTests.TestHelpers
             payment.CollectionPeriod = new NamedCalendarPeriod
             {
                 Month = columns.Contains("CollectionMonth") ? value.CollectionMonth : DateTime.Now.Month,
-                Year = columns.Contains("CollectionYear") ? value.CollectionYear : DateTime.Now.Year
+                Year = columns.Contains("CollectionYear") ? value.CollectionYear : DateTime.Now.Year,
+                Id = columns.Contains("Id") ? value.Id : "1718-R07"
             };
             payment.ContractType = columns.Contains("ContractType") ? Enum.Parse(typeof(ContractType), value.ContractType, true) : ContractType.ContractWithSfa;
             payment.DeliveryPeriod = new CalendarPeriod
