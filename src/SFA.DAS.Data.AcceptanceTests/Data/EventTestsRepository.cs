@@ -175,7 +175,7 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
         {
             return await WithConnection(async c =>
                 await c.QuerySingleAsync<int>(
-                    sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_DataLockEvents]",
+                    sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_DataLocks]",
                     commandType: CommandType.Text)
             );
         }

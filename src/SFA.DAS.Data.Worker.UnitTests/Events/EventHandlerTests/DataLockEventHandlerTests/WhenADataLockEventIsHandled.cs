@@ -3,10 +3,8 @@ using MediatR;
 using Moq;
 using NUnit.Framework;
 using SFA.DAS.Data.Application.Commands.CreateDataLock;
-using SFA.DAS.Data.Application.Commands.CreatePaymentsForPeriodEnd;
 using SFA.DAS.Data.Application.Configuration;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
-using SFA.DAS.Data.Worker.Events;
 using SFA.DAS.Data.Worker.Events.EventHandlers;
 using SFA.DAS.NLog.Logger;
 using SFA.DAS.Provider.Events.Api.Types;
@@ -46,9 +44,6 @@ namespace SFA.DAS.Data.Worker.UnitTests.Events.EventHandlerTests.DataLockEventHa
             //Assert
             _mediator.Verify(x => x.PublishAsync(It.IsAny<CreateDataLockCommand>()), Times.Once);
             _mediator.Verify(x => x.PublishAsync(It.Is<CreateDataLockCommand>(c => c.Event == dataLockEvent)), Times.Once);
-
-            Assert.Inconclusive();
-            Assert.Fail("Mikey");
         }
     }
 }

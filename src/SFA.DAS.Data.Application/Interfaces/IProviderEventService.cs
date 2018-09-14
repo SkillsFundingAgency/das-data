@@ -12,6 +12,6 @@ namespace SFA.DAS.Data.Application.Interfaces
 
         Task<PageOfResults<AccountTransfer>> GetTransfers(string periodId, int pageNumber);
 
-        Task<PageOfResults<DataLockEvent>> GetDataLocks(int pageNumber);
+        Task<PageOfResults<DataLockEvent>> GetUnprocessedDataLocks();
     }
 }

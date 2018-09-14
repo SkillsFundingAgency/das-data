@@ -32,7 +32,7 @@ namespace SFA.DAS.Data.Worker.Events.EventsCollectors
                 return new List<DataLockEvent>();
             }
 
-            var apiEvents = await _eventService.GetDataLocks(1);
+            var apiEvents = await _eventService.GetUnprocessedDataLocks();
 
             if (apiEvents?.Items == null)
             {

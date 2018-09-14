@@ -33,7 +33,8 @@ namespace SFA.DAS.Data.Worker.UnitTests.Events.EventCollectorsTests.DataLockEven
                 Items = new DataLockEvent[1] { dataLock }
             };
 
-            _eventService.Setup(x => x.GetDataLocks(1)).ReturnsAsync(_expectedDataLocks);
+
+            _eventService.Setup(x => x.GetUnprocessedDataLocks()).ReturnsAsync(_expectedDataLocks);
 
             _collector = new DataLockEventCollector(_eventService.Object, _logger.Object, new DataConfiguration { DataLocksEnabled = true });
         }
@@ -54,7 +55,7 @@ namespace SFA.DAS.Data.Worker.UnitTests.Events.EventCollectorsTests.DataLockEven
         public async Task ThenShouldReturnEmptyCollectionIfNoEventsFound()
         {
             //Arrange
-            _eventService.Setup(x => x.GetDataLocks(1)).ReturnsAsync(new PageOfResults<DataLockEvent>());
+            _eventService.Setup(x => x.GetUnprocessedDataLocks()).ReturnsAsync(new PageOfResults<DataLockEvent>());
 
             //Act
             var result = await _collector.GetEvents();
@@ -75,7 +76,7 @@ namespace SFA.DAS.Data.Worker.UnitTests.Events.EventCollectorsTests.DataLockEven
             //Assert
             Assert.IsEmpty(result);
 
-            _eventService.Verify(x => x.GetDataLocks(It.IsAny<int>()), Times.Never);
+            _eventService.Verify(x => x.GetUnprocessedDataLocks(), Times.Never);
         }
     }
 }
