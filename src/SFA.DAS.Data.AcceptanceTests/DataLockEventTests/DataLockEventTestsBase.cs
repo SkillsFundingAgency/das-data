@@ -6,6 +6,8 @@ namespace SFA.DAS.Data.AcceptanceTests.DataLockEventTests
 {
     public abstract class DataLockEventTestsBase : EventTestBase
     {
+        protected override string EventName => typeof(DataLockEvent).Name;
+
         protected WebApiSubstitute EventsApi => DataAcceptanceTests.ProviderEventsApi;
 
         protected override void SetupDatabase()

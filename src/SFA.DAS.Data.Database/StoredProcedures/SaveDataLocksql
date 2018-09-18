@@ -20,8 +20,8 @@
     @IlrEndpointAssessorPrice DECIMAL(12,5) = NULL,
     @IlrPriceEffectiveFromDate DATE = NULL,
     @IlrPriceEffectiveToDate DATE = NULL,
-	@ErrorCode VARCHAR(15),
-	@SystemDescription	 NVARCHAR(255),
+	@ErrorCode VARCHAR(15) = NULL,
+	@SystemDescription	NVARCHAR(255) = NULL,
 	@CollectionPeriodName VARCHAR(8),
 	@CollectionPeriodMonth INT,
 	@CollectionPeriodYear INT,
@@ -39,7 +39,9 @@
 AS
 BEGIN
 	SET NOCOUNT ON;
-	IF NOT EXISTS(SELECT TOP 1 1 FROM [Data_Load].[DAS_DataLocks] WHERE DataLockId = @DataLockId)
+	
+	--Don't check for prior existence, as the data is flattened and the id could be repeated
+	--IF NOT EXISTS(SELECT TOP 1 1 FROM [Data_Load].[DAS_DataLocks] WHERE DataLockId = @DataLockId)
 	BEGIN
 
 		INSERT INTO [Data_Load].[DAS_DataLocks]

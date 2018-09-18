@@ -7,7 +7,7 @@ namespace SFA.DAS.Data.Tests.Builders
     {
         private long _id = 1234;
         private DateTime _processDateTime = DateTime.Now;
-        private int _ukprn = 12345;
+        private int _ukPrn = 12345;
         private long _uln = 123;
 
         private string _learnRefNumber = "Lrn-001";
@@ -44,12 +44,38 @@ namespace SFA.DAS.Data.Tests.Builders
         private int? _programmeType = 20;
         private int? _frameworkCode = 550;
         private int? _pathwayCode = 6;
+
         private Decimal _negotiatedPrice = 17500;
         private DateTime _effectiveDate = new DateTime(2017, 05, 01);
+        private DataLockEventError[] _errors = null;
 
         public DataLockEventBuilder WithId(int id)
         {
             _id = id;
+            return this;
+        }
+
+        public DataLockEventBuilder WithNoErrors()
+        {
+            _hasErrors = false;
+            _errors = new DataLockEventError[0];
+
+            return this;
+        }
+        
+        public DataLockEventBuilder WithMultipleErrors(int numberOfErrors)
+        {
+            _hasErrors = true;
+            _errors = new DataLockEventError[numberOfErrors];
+            for (int i = 0; i < numberOfErrors; i++)
+            {
+                _errors[i] = new DataLockEventError
+                {
+                    ErrorCode = $"ERR-{i + 1:##}",
+                    SystemDescription = $"Description for error {i + 1:##}"
+                };
+            }
+
             return this;
         }
 
@@ -60,7 +86,7 @@ namespace SFA.DAS.Data.Tests.Builders
                 Id = _id,
                 ProcessDateTime = _processDateTime,
                 IlrFileName = _ilrFileName,
-                Ukprn = _ukprn,
+                Ukprn = _ukPrn,
                 Uln = _uln,
                 LearnRefNumber = _learnRefNumber,
                 AimSeqNumber = _aimSeqNumber,
@@ -78,7 +104,7 @@ namespace SFA.DAS.Data.Tests.Builders
                 IlrEndpointAssessorPrice = _ilrEndpointAssessorPrice,
                 IlrPriceEffectiveFromDate = _ilrPriceEffectiveFromDate,
                 IlrPriceEffectiveToDate = _ilrPriceEffectiveToDate,
-            Errors = new[]
+            Errors = _errors ?? new[]
                 {
                     new DataLockEventError
                     {

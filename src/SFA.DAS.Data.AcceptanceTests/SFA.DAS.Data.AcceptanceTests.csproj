@@ -292,6 +292,8 @@
     <Compile Include="ApiSubstitute\WebApiSubstitute.cs" />
     <Compile Include="DataLockEventTests\DataLockEventTestsBase.cs" />
     <Compile Include="DataLockEventTests\WhenADataLockEventIsCreated.cs" />
+    <Compile Include="DataLockEventTests\WhenADataLockEventWithMultipleErrorsIsCreated.cs" />
+    <Compile Include="DataLockEventTests\WhenADataLockEventWithNoErrorsIsCreated.cs" />
     <Compile Include="Data\DTOs\CommitmentsRecord.cs" />
     <Compile Include="Data\DTOs\DataLockRecord.cs" />
     <Compile Include="Data\DTOs\EmployerAccountsRecord.cs" />

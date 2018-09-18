@@ -9,10 +9,10 @@ using SFA.DAS.Provider.Events.Api.Types;
 namespace SFA.DAS.Data.AcceptanceTests.DataLockEventTests
 {
     [TestFixture]
-    public class WhenADataLockEventIsCreated : DataLockEventTestsBase
+    public class WhenADataLockEventWithMultipleErrorsIsCreated : DataLockEventTestsBase
     {
         [Test]
-        public void ThenTheDataLockEventsAreStored()
+        public void ThenTheDataLockEventsWithMultipleErrorsAreStored()
         {
             ConfigureEventsApi();
 
@@ -35,10 +35,12 @@ namespace SFA.DAS.Data.AcceptanceTests.DataLockEventTests
             }
 
             var numberOfDataLockEvents = await EventTestsRepository.GetNumberOfDataLockEvents();
-            if (numberOfDataLockEvents != 3)
+            if (numberOfDataLockEvents != 6)
             {
                 return false;
             }
+
+            //TODO: Check each event to make sure there are no errors
 
             return true;
         }
@@ -47,18 +49,18 @@ namespace SFA.DAS.Data.AcceptanceTests.DataLockEventTests
         {
             ConfigureDataLockEvents(0, 3);
         }
-        
-        private void ConfigureDataLockEvents(int sinceEventid, int numberOfDataLockEvents)
+
+        private void ConfigureDataLockEvents(int sinceEventId, int numberOfDataLockEvents)
         {
             var dataLockEvents = new List<DataLockEvent>();
             for (var i = 1; i <= numberOfDataLockEvents; i++)
             {
-                dataLockEvents.Add(new DataLockEventBuilder().WithId(i).Build());
+                dataLockEvents.Add(new DataLockEventBuilder().WithId(i).WithMultipleErrors(2).Build());
             }
             var dataLockEventsResult = new PageOfResults<DataLockEvent> { Items = dataLockEvents.ToArray(), PageNumber = 1, TotalNumberOfPages = 1 };
-            
+
             EventsApi.SetupGet($"api/datalock?page=1", dataLockEventsResult);
-            EventsApi.SetupGet($"api/datalock?page=1&inceEventId={sinceEventid}", dataLockEventsResult);
+            EventsApi.SetupGet($"api/datalock?page=1&inceEventId={sinceEventId}", dataLockEventsResult);
         }
     }
 }

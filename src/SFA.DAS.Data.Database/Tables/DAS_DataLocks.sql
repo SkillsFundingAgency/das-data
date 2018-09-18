@@ -23,8 +23,8 @@
     [IlrPriceEffectiveFromDate] DATE NULL,
     [IlrPriceEffectiveToDate] DATE NULL,
     --Errors
-	[ErrorCode] VARCHAR(15) NOT NULL,
-	[SystemDescription]	 NVARCHAR(255) NOT NULL,
+	[ErrorCode] VARCHAR(15) NULL,
+	[SystemDescription]	 NVARCHAR(255) NULL,
 	--Periods
 	[ApprenticeshipVersion] VARCHAR(25) NOT NULL,
 	[CollectionPeriodName] VARCHAR(8) 	NOT NULL,
