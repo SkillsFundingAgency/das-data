@@ -7,7 +7,7 @@ SELECT (
 	WHERE IsLatest = 1
 ) AS TotalAccounts, 
 ( 
-	SELECT DISTINCT COUNT(PaymentID) AS TotalPayments 
+	SELECT COUNT(DISTINCT PaymentID) AS TotalPayments 
 	FROM [Data_Load].[DAS_Payments]
 	WHERE EmployerAccountId IS NOT NULL
 	AND FundingSource in ('Levy', 'CoInvestedSfa', 'CoInvestedEmployer', 'LevyTransfer')
