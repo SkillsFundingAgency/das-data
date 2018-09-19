@@ -21,25 +21,31 @@
       lock.[IlrEndpointAssessorPrice],
       lock.[IlrPriceEffectiveFromDate],
       lock.[IlrPriceEffectiveToDate],
-      lock.[ErrorCode],
-      lock.[SystemDescription],
-      lock.[ApprenticeshipVersion],
-      lock.[CollectionPeriodName],
-      lock.[CollectionPeriodMonth],
-      lock.[CollectionPeriodYear],
-      lock.[IsPayable],
-      lock.[TransactionType],
-      lock.[Version],
-      lock.[StartDate],
-      lock.[StandardCode],
-      lock.[ProgrammeType],
-      lock.[FrameworkCode],
-      lock.[PathwayCode],
-      lock.[NegotiatedPrice],
-      lock.[EffectiveDate],
+      err.[ErrorCode],
+      err.[SystemDescription],
+      p.[ApprenticeshipVersion],
+      p.[CollectionPeriodName],
+      p.[CollectionPeriodMonth],
+      p.[CollectionPeriodYear],
+      p.[IsPayable],
+      p.[TransactionType],
+      app.[Version],
+      app.[StartDate],
+      app.[StandardCode],
+      app.[ProgrammeType],
+      app.[FrameworkCode],
+      app.[PathwayCode],
+      app.[NegotiatedPrice],
+      app.[EffectiveDate],
       aim.[NumberOfLearnersWithACT1],
       aim.[NumberOfLearnersWithACT2]
   FROM 
 		[Data_Load].[DAS_DataLocks] lock
+		LEFT JOIN  [Data_Load].[DAS_DataLock_Periods] p
+		ON  p.[DataLockId] = lock.[DataLockId]
+		LEFT JOIN  [Data_Load].[DAS_DataLock_Apprenticeships] app
+		ON  app.[DataLockId] = lock.[DataLockId]
+		LEFT JOIN  [Data_Load].[DAS_DataLock_Errors] err
+		ON  err.[DataLockId] = lock.[DataLockId]
 		LEFT JOIN  [Data_Load].[DAS_ValidAims] aim
 		ON	aim.[UkPrn] = lock.[UkPrn]

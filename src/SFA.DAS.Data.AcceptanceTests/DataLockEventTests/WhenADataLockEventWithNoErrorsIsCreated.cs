@@ -40,7 +40,23 @@ namespace SFA.DAS.Data.AcceptanceTests.DataLockEventTests
                 return false;
             }
 
-            //TODO: Check each event to make sure there are no errors
+            var numberOfDataLockApprenticeships = await EventTestsRepository.GetNumberOfDataLockApprenticeships();
+            if (numberOfDataLockApprenticeships != 3)
+            {
+                return false;
+            }
+
+            var numberOfDataLockErrors = await EventTestsRepository.GetNumberOfDataLockErrors();
+            if (numberOfDataLockErrors != 0)
+            {
+                return false;
+            }
+
+            var numberOfDataLockPeriods = await EventTestsRepository.GetNumberOfDataLockPeriods();
+            if (numberOfDataLockPeriods != 3)
+            {
+                return false;
+            }
 
             return true;
         }

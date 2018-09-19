@@ -19,28 +19,11 @@
     @IlrTrainingPrice DECIMAL(12,5) = NULL,
     @IlrEndpointAssessorPrice DECIMAL(12,5) = NULL,
     @IlrPriceEffectiveFromDate DATE = NULL,
-    @IlrPriceEffectiveToDate DATE = NULL,
-	@ErrorCode VARCHAR(15) = NULL,
-	@SystemDescription	NVARCHAR(255) = NULL,
-	@CollectionPeriodName VARCHAR(8),
-	@CollectionPeriodMonth INT,
-	@CollectionPeriodYear INT,
-	@ApprenticeshipVersion VARCHAR(25),
-	@IsPayable BIT,
-	@TransactionType INT,
-	@Version VARCHAR(25) = NULL,
-	@StartDate DATE = NULL,
-	@StandardCode BIGINT = NULL,
-	@ProgrammeType INT = NULL,
-	@FrameworkCode INT = NULL,
-	@PathwayCode	 INT = NULL,
-	@NegotiatedPrice DECIMAL(15, 2) = NULL,
-	@EffectiveDate DATE = NULL
+    @IlrPriceEffectiveToDate DATE = NULL
 AS
 BEGIN
 	SET NOCOUNT ON;
 	
-	--Don't check for prior existence, as the data is flattened and the id could be repeated
 	--IF NOT EXISTS(SELECT TOP 1 1 FROM [Data_Load].[DAS_DataLocks] WHERE DataLockId = @DataLockId)
 	BEGIN
 
@@ -66,23 +49,7 @@ BEGIN
 			[IlrTrainingPrice],
 			[IlrEndpointAssessorPrice],
 			[IlrPriceEffectiveFromDate],
-			[IlrPriceEffectiveToDate],
-			[ErrorCode],
-			[SystemDescription],
-			[CollectionPeriodName],
-			[CollectionPeriodMonth],
-			[CollectionPeriodYear],
-			[ApprenticeshipVersion],
-			[IsPayable],
-			[TransactionType],
-			[Version],
-			[StartDate],
-			[StandardCode],
-			[ProgrammeType],
-			[FrameworkCode],
-			[PathwayCode],
-			[NegotiatedPrice],
-			[EffectiveDate]
+			[IlrPriceEffectiveToDate]
 		)
 		VALUES
 		(
@@ -106,23 +73,7 @@ BEGIN
 			@IlrTrainingPrice,
 			@IlrEndpointAssessorPrice,
 			@IlrPriceEffectiveFromDate,
-			@IlrPriceEffectiveToDate,
-			@ErrorCode,
-			@SystemDescription,
-			@CollectionPeriodName,
-			@CollectionPeriodMonth,
-			@CollectionPeriodYear,
-			@ApprenticeshipVersion,
-			@IsPayable,
-			@TransactionType,
-			@Version,
-			@StartDate,
-			@StandardCode,
-			@ProgrammeType,
-			@FrameworkCode,
-			@PathwayCode,
-			@NegotiatedPrice,
-			@EffectiveDate
+			@IlrPriceEffectiveToDate			
 		)
 
 	END

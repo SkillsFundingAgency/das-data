@@ -12,7 +12,7 @@
     [ApprenticeshipId] BIGINT NOT NULL,
     [EmployerAccountId] BIGINT NOT NULL,
     [EventSource] INT NOT NULL,
-    [HasErrors] BIT NOT NULL,
+    [HasErrors] BIT NOT NULL DEFAULT 0,
     [IlrStartDate] DATE NULL,
     [IlrStandardCode] BIGINT NULL,
     [IlrProgrammeType] INT NULL,
@@ -21,24 +21,5 @@
     [IlrTrainingPrice] DECIMAL(12,5) NULL,
     [IlrEndpointAssessorPrice] DECIMAL(12,5) NULL,
     [IlrPriceEffectiveFromDate] DATE NULL,
-    [IlrPriceEffectiveToDate] DATE NULL,
-    --Errors
-	[ErrorCode] VARCHAR(15) NULL,
-	[SystemDescription]	 NVARCHAR(255) NULL,
-	--Periods
-	[ApprenticeshipVersion] VARCHAR(25) NOT NULL,
-	[CollectionPeriodName] VARCHAR(8) 	NOT NULL,
-	[CollectionPeriodMonth] INT NOT NULL,
-	[CollectionPeriodYear] INT NOT NULL,
-	[IsPayable] BIT NOT NULL,
-	[TransactionType] INT NOT NULL,
-    --Apprenticeships
-	[Version] varchar(25) NULL,
-	[StartDate] DATE NULL,
-	[StandardCode] BIGINT NULL,
-	[ProgrammeType] INT NULL,
-	[FrameworkCode] INT NULL,
-	[PathwayCode]	 INT NULL,
-	[NegotiatedPrice] DECIMAL(15, 2) NULL,
-	[EffectiveDate] DATE NULL,
+    [IlrPriceEffectiveToDate] DATE NULL
 )

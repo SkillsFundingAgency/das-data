@@ -110,9 +110,20 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
         {
             await WithConnection(async c =>
             {
-                return await c.ExecuteAsync(
+                await c.ExecuteAsync(
+                    sql: "TRUNCATE TABLE [Data_Load].[DAS_DataLock_Errors]",
+                    commandType: CommandType.Text);
+                await c.ExecuteAsync(
+                    sql: "TRUNCATE TABLE [Data_Load].[DAS_DataLock_Periods]",
+                    commandType: CommandType.Text);
+                await c.ExecuteAsync(
+                    sql: "TRUNCATE TABLE [Data_Load].[DAS_DataLock_Apprenticeships]",
+                    commandType: CommandType.Text);
+                await c.ExecuteAsync(
                     sql: "TRUNCATE TABLE [Data_Load].[DAS_DataLocks]",
                     commandType: CommandType.Text);
+
+                return 0;
             });
         }
 
@@ -176,6 +187,32 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
             return await WithConnection(async c =>
                 await c.QuerySingleAsync<int>(
                     sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_DataLocks]",
+                    commandType: CommandType.Text)
+            );
+        }
+
+        public async Task<int> GetNumberOfDataLockApprenticeships()
+        {
+            return await WithConnection(async c =>
+                await c.QuerySingleAsync<int>(
+                    sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_DataLock_Apprenticeships]",
+                    commandType: CommandType.Text)
+            );
+        }
+
+        public async Task<int> GetNumberOfDataLockErrors()
+        {
+            return await WithConnection(async c =>
+                await c.QuerySingleAsync<int>(
+                    sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_DataLock_Errors]",
+                    commandType: CommandType.Text)
+            );
+        }
+        public async Task<int> GetNumberOfDataLockPeriods()
+        {
+            return await WithConnection(async c =>
+                await c.QuerySingleAsync<int>(
+                    sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_DataLock_Periods]",
                     commandType: CommandType.Text)
             );
         }
