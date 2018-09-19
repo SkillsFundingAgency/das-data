@@ -111,16 +111,16 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
             await WithConnection(async c =>
             {
                 await c.ExecuteAsync(
-                    sql: "TRUNCATE TABLE [Data_Load].[DAS_DataLock_Errors]",
+                    sql: "DELETE FROM [Data_Load].[DAS_DataLock_Errors]",
                     commandType: CommandType.Text);
                 await c.ExecuteAsync(
-                    sql: "TRUNCATE TABLE [Data_Load].[DAS_DataLock_Periods]",
+                    sql: "DELETE FROM [Data_Load].[DAS_DataLock_Periods]",
                     commandType: CommandType.Text);
                 await c.ExecuteAsync(
-                    sql: "TRUNCATE TABLE [Data_Load].[DAS_DataLock_Apprenticeships]",
+                    sql: "DELETE FROM [Data_Load].[DAS_DataLock_Apprenticeships]",
                     commandType: CommandType.Text);
                 await c.ExecuteAsync(
-                    sql: "TRUNCATE TABLE [Data_Load].[DAS_DataLocks]",
+                    sql: "DELETE FROM [Data_Load].[DAS_DataLocks]",
                     commandType: CommandType.Text);
 
                 return 0;

@@ -1,7 +1,5 @@
-﻿using System;
-using System.Data;
+﻿using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
@@ -25,7 +23,7 @@ namespace SFA.DAS.Data.Infrastructure.Data
                     {
                         var parameters = new DynamicParameters();
 
-                        parameters.Add("@DataLockId", dataLock.Id, DbType.Int64);
+                        parameters.Add("@Id", dataLock.Id, DbType.Int64);
                         parameters.Add("@ProcessDateTime", dataLock.ProcessDateTime, DbType.DateTime);
                         parameters.Add("@IlrFileName", dataLock.IlrFileName, DbType.String);
                         parameters.Add("@UkPrn", dataLock.Ukprn, DbType.Int64);

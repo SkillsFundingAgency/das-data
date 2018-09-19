@@ -4,3 +4,5 @@
 	[NumberOfLearnersWithACT1] INT NOT NULL,
 	[NumberOfLearnersWithACT2] INT NOT NULL
 )
+GO
+CREATE INDEX [IX_ValidAims_UkPrn] ON [Data_Load].[DAS_ValidAims] ([UkPrn])

@@ -10,4 +10,9 @@
 	[TransactionType] INT NOT NULL
 )
 GO
+ALTER TABLE [Data_Load].[DAS_DataLock_Periods]
+	ADD CONSTRAINT FK_DataLock_Periods_DataLockId 
+	FOREIGN KEY ([DataLockId]) 
+	REFERENCES [Data_Load].[DAS_DataLocks] ([Id])
+GO
 CREATE INDEX [IX_DataLock_Periods_DataLockId] ON [Data_Load].[DAS_DataLock_Periods] ([DataLockId])

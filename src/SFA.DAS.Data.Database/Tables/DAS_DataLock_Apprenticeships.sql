@@ -12,4 +12,9 @@
 	[EffectiveDate] DATE NULL
 )
 GO
+ALTER TABLE [Data_Load].[DAS_DataLock_Apprenticeships]
+	ADD CONSTRAINT FK_DataLock_Apprenticeships_DataLockId 
+	FOREIGN KEY ([DataLockId]) 
+	REFERENCES [Data_Load].[DAS_DataLocks] ([Id])
+GO
 CREATE INDEX [IX_DataLock_Apprenticeships_DataLockId] ON [Data_Load].[DAS_DataLock_Apprenticeships] ([DataLockId])

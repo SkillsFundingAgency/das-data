@@ -1,7 +1,6 @@
 ﻿CREATE TABLE [Data_Load].[DAS_DataLocks]
 (
-	[Id] [bigint] PRIMARY KEY IDENTITY(1,1) NOT NULL,
-    [DataLockId] BIGINT NOT NULL,
+	[Id] [bigint] PRIMARY KEY NOT NULL,
     [ProcessDateTime] DATETIME NOT NULL,
     [IlrFileName] NVARCHAR(50),
     [UkPrn] BIGINT NOT NULL,

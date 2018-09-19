@@ -1,5 +1,5 @@
 ﻿CREATE PROCEDURE [Data_Load].[SaveDataLock]
-	@DataLockId BIGINT,
+	@Id BIGINT,
     @ProcessDateTime DATETIME,
     @IlrFileName NVARCHAR(50),
     @UkPrn BIGINT,
@@ -29,7 +29,7 @@ BEGIN
 
 		INSERT INTO [Data_Load].[DAS_DataLocks]
 		(
-			[DataLockId],
+			[Id],
 			[ProcessDateTime],
 			[IlrFileName],
 			[UkPrn],
@@ -53,7 +53,7 @@ BEGIN
 		)
 		VALUES
 		(
-			@DataLockId,
+			@Id,
 			@ProcessDateTime,
 			@IlrFileName,
 			@UkPrn,

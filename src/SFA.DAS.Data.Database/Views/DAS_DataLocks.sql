@@ -1,6 +1,5 @@
 ﻿CREATE VIEW [Data_Pub].[DAS_DataLocks]	AS 
 	SELECT lock.[Id],
-      lock.[DataLockId],
       lock.[ProcessDateTime],
       lock.[IlrFileName],
       lock.[UkPrn],
@@ -42,10 +41,10 @@
   FROM 
 		[Data_Load].[DAS_DataLocks] lock
 		LEFT JOIN  [Data_Load].[DAS_DataLock_Periods] p
-		ON  p.[DataLockId] = lock.[DataLockId]
+		ON  p.[DataLockId] = lock.[Id]
 		LEFT JOIN  [Data_Load].[DAS_DataLock_Apprenticeships] app
-		ON  app.[DataLockId] = lock.[DataLockId]
+		ON  app.[DataLockId] = lock.[Id]
 		LEFT JOIN  [Data_Load].[DAS_DataLock_Errors] err
-		ON  err.[DataLockId] = lock.[DataLockId]
+		ON  err.[DataLockId] = lock.[Id]
 		LEFT JOIN  [Data_Load].[DAS_ValidAims] aim
 		ON	aim.[UkPrn] = lock.[UkPrn]
