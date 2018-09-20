@@ -673,6 +673,11 @@ BEGIN
 				   (ProcessEventName, ProcessEventDescription, SourceFile_ID)
 			VALUES ('No Source File ID to load', 'No records loaded', -9999999999999)
 		END
+
+		EXEC [Data_Load].[LevySnapshot]
+		INSERT INTO [HMRC].[Process_Log]
+				(ProcessEventName, ProcessEventDescription, SourceFile_ID)
+		VALUES ('Created Levy Snapshot', '', ISNULL(@BISourceFile_ID, -9999999999999))
 	END TRY
 	BEGIN CATCH
 		IF CURSOR_STATUS('local','StringTestConfig')>=-1
