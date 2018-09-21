@@ -36,8 +36,8 @@
       app.[PathwayCode],
       app.[NegotiatedPrice],
       app.[EffectiveDate],
-      aim.[NumberOfLearnersWithACT1],
-      aim.[NumberOfLearnersWithACT2]
+      lrn.[NumberOfLearnersWithACT1],
+      lrn.[NumberOfLearnersWithACT2]
   FROM 
 		[Data_Load].[DAS_DataLocks] lock
 		LEFT JOIN  [Data_Load].[DAS_DataLock_Periods] p
@@ -46,5 +46,5 @@
 		ON  app.[DataLockId] = lock.[Id]
 		LEFT JOIN  [Data_Load].[DAS_DataLock_Errors] err
 		ON  err.[DataLockId] = lock.[Id]
-		LEFT JOIN  [Data_Load].[DAS_ValidAims] aim
-		ON	aim.[UkPrn] = lock.[UkPrn]
+		LEFT JOIN  [Data_Load].[DAS_Learners] lrn
+		ON	lrn.[UkPrn] = lock.[UkPrn]
