@@ -107,6 +107,23 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
             return await WithConnection(async c => await c.GetAllAsync<QualityLog>());
         }
 
-     
+        public async Task<IEnumerable<string>> GetLevyDeclarationSnapshotTableNames()
+        {
+            return await WithConnection(async c =>
+                await c.QueryAsync<string>("SELECT name FROM sys.tables " +
+                                           "WHERE name LIKE 'DAS_LevyDeclarations_Snapshot_%'"));
+        }
+
+        internal async Task RemoveLevyDeclarationSnapshotTable(string table)
+        {
+            var sql = "if exists (SELECT 1 FROM sys.tables " +
+                      $"WHERE name = '{table}' AND schema_id =  SCHEMA_ID('Data_Load')) " +
+                      $"    DROP TABLE Data_Load.{table}";
+
+            await WithConnection(
+                async c =>
+                    await c.ExecuteAsync(sql)
+            );
+        }
     }
 }
