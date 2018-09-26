@@ -27,7 +27,7 @@ namespace SFA.DAS.Data.Infrastructure.Data
                         parameters.Add("@ProcessDateTime", dataLock.ProcessDateTime, DbType.DateTime);
                         parameters.Add("@IlrFileName", dataLock.IlrFileName, DbType.String);
                         parameters.Add("@UkPrn", dataLock.Ukprn, DbType.Int64);
-                        parameters.Add("@Uln", dataLock.Ukprn, DbType.Int64);
+                        parameters.Add("@Uln", dataLock.Uln, DbType.Int64);
                         parameters.Add("@LearnRefNumber", dataLock.LearnRefNumber, DbType.String);
                         parameters.Add("@AimSeqNumber", dataLock.AimSeqNumber, DbType.Int64);
                         parameters.Add("@PriceEpisodeIdentifier", dataLock.PriceEpisodeIdentifier, DbType.String);
