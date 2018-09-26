@@ -120,5 +120,44 @@ namespace SFA.DAS.Data.AcceptanceTests.HmrcDataLoadTests
 
             loadControl.SourceFile_Status.Should().Be("Complete");
         }
+
+        [Test]
+        public void ThenAMessageShouldBeAddedToProcess_LogTableConfirmingLevyDeclarationSnapshotHasBeenCreated()
+        {
+            InsertPendingLoadControl();
+
+            HmrcDataTestsRepository
+                .InsertIntoStaging(new DataStagingRecord { Record_ID = 1, SchemePAYERef = "999/RD11111" }).Wait();
+
+            HmrcDataTestsRepository
+                .InsertIntoStaging(new DataStagingRecord { Record_ID = 2, SchemePAYERef = "999/RD11112" }).Wait();
+
+            HmrcDataTestsRepository.ExecuteLoadData().Wait();
+
+            var processLogContents = HmrcDataTestsRepository.GetProcessLogs().Result;
+
+            processLogContents.Any(l =>l.ProcessEventName == "Created Levy Snapshot").Should().BeTrue();
+        }
+
+        [Test]
+        public void ThenALevyDeclarationSnapshotForTheCurrentDataShouldBeCreated()
+        {
+            var expectedTableName = $"DAS_LevyDeclarations_Snapshot_{DateTime.Today:yyyyMMdd}";
+            HmrcDataTestsRepository.RemoveLevyDeclarationSnapshotTable(expectedTableName).Wait();
+
+            InsertPendingLoadControl();
+            
+            HmrcDataTestsRepository
+                .InsertIntoStaging(new DataStagingRecord { Record_ID = 1, SchemePAYERef = "999/RD11111" }).Wait();
+
+            HmrcDataTestsRepository
+                .InsertIntoStaging(new DataStagingRecord { Record_ID = 2, SchemePAYERef = "999/RD11112" }).Wait();
+
+            HmrcDataTestsRepository.ExecuteLoadData().Wait();
+
+            var tables = HmrcDataTestsRepository.GetLevyDeclarationSnapshotTableNames().Result;
+
+            tables.Any(l => l == expectedTableName).Should().BeTrue();
+        }
     }
 }
