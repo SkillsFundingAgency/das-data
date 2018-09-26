@@ -13,7 +13,7 @@ SELECT (
 	AND FundingSource in ('Levy', 'CoInvestedSfa', 'CoInvestedEmployer', 'LevyTransfer')
 ) AS TotalPayments ,
 (
-	SELECT COUNT(Id)
+	SELECT COUNT (DISTINCT DasLegalEntityId)
 	FROM [Data_Load].[DAS_Employer_LegalEntities]
 	WHERE IsLatest = 1
 ) AS TotalLegalEntities,
