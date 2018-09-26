@@ -23,7 +23,7 @@ SELECT (
 	WHERE IsLatest = 1 AND [Status] = 'signed'
 ) AS TotalAgreements,
 (
-	SELECT COUNT(Id) 
+	SELECT COUNT (DISTINCT Ref) 
 	FROM [Data_Load].[DAS_Employer_PayeSchemes]
 	WHERE IsLatest = 1
 ) AS TotalPayeSchemes
