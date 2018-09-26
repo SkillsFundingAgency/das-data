@@ -24,9 +24,10 @@ namespace SFA.DAS.Data.AcceptanceTests.HmrcDataLoadTests
             
             var processLogContents = HmrcDataTestsRepository.GetProcessLogs().Result;
 
-            processLogContents.Count().Should().Be(1);
-            processLogContents.First().ProcessEventName.Should().Be("No Source File ID to load");
-            processLogContents.First().ProcessEventDescription.Should().Be("No records loaded");
+            processLogContents.Any(l =>
+                l.ProcessEventName == "No Source File ID to load"  && 
+                l.ProcessEventDescription == "No records loaded")
+                .Should().BeTrue();
         }
 
         [Test]
