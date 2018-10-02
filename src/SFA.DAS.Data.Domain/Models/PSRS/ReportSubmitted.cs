@@ -7,6 +7,7 @@ namespace SFA.DAS.Data.Domain.Models.PSRS
         public long Id { get; set; }
         public string DasAccountId { get; set; }
         public string DasAccountName { get; set; }
+        public string OrganisationName { get; set; }
         public string ReportingPeriod { get; set; }
         public int FigureA { get; set; }
         public int FigureB { get; set; }
@@ -17,6 +18,7 @@ namespace SFA.DAS.Data.Domain.Models.PSRS
         public int FigureG { get; set; }
         public int FigureH { get; set; }
         public decimal FigureI { get; set; }
+        public int? FullTimeEquivalent { get; set; }
         public string OutlineActions { get; set; }
         public int OutlineActionsWordCount { get; set; }
         public string Challenges { get; set; }

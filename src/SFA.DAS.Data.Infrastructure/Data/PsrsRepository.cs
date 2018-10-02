@@ -5,14 +5,19 @@ using System.Threading.Tasks;
 using Dapper;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.Data.Domain.Models.PSRS;
+using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Data.Infrastructure.Data
 {
     public class PsrsRepository : BaseRepository, IPsrsRepository
     {
-        public PsrsRepository(string connectionString) : base(connectionString)
+        private ILog _log;
+
+        public PsrsRepository(string connectionString, ILog log) : base(connectionString)
         {
+            _log = log;
         }
+
         public async Task SaveSubmittedReport(IEnumerable<ReportSubmitted> reports)
         {
             await WithConnection(async c =>
@@ -21,6 +26,7 @@ namespace SFA.DAS.Data.Infrastructure.Data
                 {
                     var parameters = new DynamicParameters();
                     parameters.Add("@dasAccountId", report.DasAccountId, DbType.String);
+                    parameters.Add("@organisationName", report.OrganisationName, DbType.String);
                     parameters.Add("@reportingPeriod", report.ReportingPeriod, DbType.Int32);
                     parameters.Add("@figureA", report.FigureA, DbType.Int32);
                     parameters.Add("@figureB", report.FigureB, DbType.Int32);
@@ -31,6 +37,7 @@ namespace SFA.DAS.Data.Infrastructure.Data
                     parameters.Add("@figureG", report.FigureG, DbType.Int32);
                     parameters.Add("@figureH", report.FigureH, DbType.Int32);
                     parameters.Add("@figureI", report.FigureI, DbType.Decimal);
+                    parameters.Add("@fullTimeEquivalent", report.FullTimeEquivalent, DbType.Int32);
                     parameters.Add("@outlineActions", report.OutlineActions, DbType.String);
                     parameters.Add("@outlineActionsWordCount", report.OutlineActionsWordCount, DbType.Int32);
                     parameters.Add("@challenges", report.Challenges, DbType.String);
@@ -43,10 +50,24 @@ namespace SFA.DAS.Data.Infrastructure.Data
                     parameters.Add("@submittedName", report.SubmittedName, DbType.String);
                     parameters.Add("@submittedEmail", report.SubmittedEmail, DbType.String);
 
-                    await c.ExecuteAsync(
+try
+{
+    if (report.FigureE > 9.9999M || report.FigureF > 9.9999M || report.FigureI > 9.9999M)
+    {
+        System.Diagnostics.Debug.Print("Percentage figures too big. E={report.FigureE}. F={report.FigureF}. I={report.FigureI}");
+        //continue;
+    }
+
+                            await c.ExecuteAsync(
                         sql: "[Data_Load].[SavePublicSectorReports]",
                         param: parameters,
                         commandType: CommandType.StoredProcedure);
+}
+catch (Exception ex)
+{
+    _log.Error(ex, $"Unable to save PSR data for DasAccountId {report.DasAccountId} period {report.ReportingPeriod}");
+                        //throw;
+}
                 }
                 return 0;
             });

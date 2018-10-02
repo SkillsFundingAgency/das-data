@@ -8,11 +8,15 @@ This solution represents the Reporting Data load code base for the Digital Appre
 ## Running locally
 Create a local.settings.json file with the following schema, values will need to be populated
 {
-    "IsEncrypted": false,
+  "IsEncrypted": false,
   "Values": {
     "AzureWebJobsStorage": "UseDevelopmentStorage=true",
     "AzureWebJobsDashboard": "UseDevelopmentStorage=true",
     "CronSchedule": "0 */1 * * * *",
-    "MessageBusConnectionString": ""
+    "PsrsSchedule": "00:00:15",
+    "ConfigurationStorageConnectionString": "UseDevelopmentStorage=true",
+    "MessageBusConnectionString": "",
+    "EnvironmentName": "LOCAL",
+    "ServiceName": "SFA.DAS.Data"
   }
 }
