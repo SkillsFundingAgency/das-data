@@ -24,5 +24,8 @@
 	[AnythingElseWordCount] INT NOT NULL,
 	[SubmittedAt] DATETIME NULL,
 	[SubmittedName] NVARCHAR(250) NULL,
-	[SubmittedEmail] NVARCHAR(250) NULL
+	[SubmittedEmail] NVARCHAR(250) NULL,
+    [IsLatest] BIT NOT NULL DEFAULT 0
 )
+GO
+CREATE INDEX [IX_PublicSector_Reports_DasAccountId_ReportingPeriod_IsLatest] ON [Data_Load].[DAS_PublicSector_Reports] ([DasAccountId], [ReportingPeriod], [IsLatest])

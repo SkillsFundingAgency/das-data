@@ -6,7 +6,6 @@ SELECT
        ,PSR.[OrganisationName]
 	   ,EA.[AccountName] AS [DasOrganisationName]
        ,PSR.[ReportingPeriod]
-	   --TODO: Do we want the label?
 		--,'1 April 20' + SUBSTRING(CONVERT(char(4), PSR.[ReportingPeriod]),1,2) + ' to 31 March 20' + SUBSTRING(CONVERT(char(4), PSR.[ReportingPeriod]),3,2) AS ReportingPeriodLabel
        ,PSR.[FigureA]
        ,PSR.[FigureB]
@@ -29,6 +28,7 @@ SELECT
        ,PSR.[SubmittedAt]
        ,PSR.[SubmittedName]
        ,PSR.[SubmittedEmail]
+	   ,PSR.IsLatest AS Flag_Latest
 FROM [Data_Load].[DAS_PublicSector_Reports] PSR
      LEFT JOIN [Data_Load].[DAS_Employer_Accounts] EA
      ON EA.[DasAccountId] = PSR.[DasAccountId]
