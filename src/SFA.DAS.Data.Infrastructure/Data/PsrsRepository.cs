@@ -50,24 +50,17 @@ namespace SFA.DAS.Data.Infrastructure.Data
                     parameters.Add("@submittedName", report.SubmittedName, DbType.String);
                     parameters.Add("@submittedEmail", report.SubmittedEmail, DbType.String);
 
-try
-{
-    if (report.FigureE > 9.9999M || report.FigureF > 9.9999M || report.FigureI > 9.9999M)
-    {
-        System.Diagnostics.Debug.Print("Percentage figures too big. E={report.FigureE}. F={report.FigureF}. I={report.FigureI}");
-        //continue;
-    }
-
-                            await c.ExecuteAsync(
-                        sql: "[Data_Load].[SavePublicSectorReports]",
-                        param: parameters,
-                        commandType: CommandType.StoredProcedure);
-}
-catch (Exception ex)
-{
-    _log.Error(ex, $"Unable to save PSR data for DasAccountId {report.DasAccountId} period {report.ReportingPeriod}");
-                        //throw;
-}
+                    try
+                    {
+                        await c.ExecuteAsync(
+                            sql: "[Data_Load].[SavePublicSectorReports]",
+                            param: parameters,
+                            commandType: CommandType.StoredProcedure);
+                    }
+                    catch (Exception ex)
+                    {
+                        _log.Error(ex, $"Unable to save PSR data for DasAccountId {report.DasAccountId} period {report.ReportingPeriod}");
+                    }
                 }
                 return 0;
             });

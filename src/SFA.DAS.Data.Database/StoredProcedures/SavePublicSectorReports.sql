@@ -4,13 +4,13 @@
 	@reportingPeriod int,
 	@figureA int,
 	@figureB int,
-	@figureE decimal(7,4),
+	@figureE decimal(10,4),
 	@figureC INT,
 	@figureD INT,
-	@figureF DECIMAL(7,4),
+	@figureF DECIMAL(10,4),
 	@figureG INT,
 	@figureH INT,
-	@figureI DECIMAL(7,4),
+	@figureI DECIMAL(10,4),
 	@fullTimeEquivalent INT,
 	@outlineActions NVARCHAR(4000),
 	@outlineActionsWordCount INT,
@@ -87,6 +87,6 @@ AS
 		@anythingElseWordCount,
 		@submittedAt,
 		@submittedName,
-		@submittedEmail
-		,1
+		@submittedEmail,
+		1
 	)

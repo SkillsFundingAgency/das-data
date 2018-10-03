@@ -21,7 +21,6 @@ namespace SFA.DAS.Data.Infrastructure.Data
             WITH base as 
             (
             Select [EmployerId],[ReportingPeriod], [ReportingData],
-            --'1 April 20' + SUBSTRING([ReportingPeriod],1,2) + ' to 31 March 20' + SUBSTRING([ReportingPeriod],3,2) AS ReportingPeriodLabel,
             JSON_VALUE([ReportingData], '$.OrganisationName') AS OrganisationName, 
             JSON_VALUE([ReportingData], '$.Questions[0].SubSections[0].Id') AS Question1,
             JSON_VALUE([ReportingData], '$.Questions[0].SubSections[0].Questions[0].Answer') AS Answer1_1,
@@ -51,6 +50,9 @@ namespace SFA.DAS.Data.Infrastructure.Data
             CONVERT(datetime2, JSON_VALUE([ReportingData], '$.Submitted.SubmittedAt')) AS SubmittedAt,
             JSON_VALUE([ReportingData], '$.Submitted.SubmittedName') AS SubmittedName,
             JSON_VALUE([ReportingData], '$.Submitted.SubmittedEmail') AS SubmittedEmail,
+			JSON_VALUE([ReportingData], '$.ReportingPercentages.EmploymentStarts') AS ReportingEmploymentStarts,
+			JSON_VALUE([ReportingData], '$.ReportingPercentages.TotalHeadCount') AS ReportingTotalHeadCount,
+			JSON_VALUE([ReportingData], '$.ReportingPercentages.NewThisPeriod') AS ReportingNewThisPeriod,
             Submitted
             From [dbo].[Report]
             WHERE JSON_VALUE([ReportingData], '$.OrganisationName') IS NOT NULL
@@ -60,13 +62,13 @@ namespace SFA.DAS.Data.Infrastructure.Data
             a.ReportingPeriod,
             a.FigureA,
             a.FigureB,
-            FORMAT(ROUND(((a.FigureB)/ CONVERT(decimal, nullif(a.FigureA,0))),4),'######0.00') AS FigureE,
+			ROUND(CONVERT(decimal(9, 4), a.ReportingEmploymentStarts) / cast(100 as decimal), 4) AS FigureE,
             a.FigureC,
             a.FigureD,
-            FORMAT(ROUND(((a.FigureD)/ CONVERT(decimal, nullif(a.FigureC,0))),4),'######0.00') AS FigureF,
+			ROUND(CONVERT(decimal(9, 4), a.ReportingTotalHeadCount) / cast(100 as decimal), 4) AS FigureF,
             a.FigureG,
             a.FigureH,
-            FORMAT(ROUND(((a.FigureB)/ CONVERT(decimal, nullif(a.FigureH,0))),4),'######0.00') AS FigureI,
+			ROUND(CONVERT(decimal(9, 4), a.ReportingNewThisPeriod) / cast(100 as decimal), 4) AS FigureI,
             CASE WHEN a.Completion3 = 'COMPLETED' THEN a.Answer3_1 ELSE NULL END AS FullTimeEquivalent,
             a.Answer4_1 OutlineActions,
             a.Answer5_1 Challenges,
@@ -84,7 +86,7 @@ namespace SFA.DAS.Data.Infrastructure.Data
             base.*
             FROM base
             ) as a
-            WHERE a.Submitted = 1 and a.SubmittedAt > '" + lastRun.ToString("yyyy-MM-dd HH:mm:ss.fff") + @"'
+            WHERE a.Submitted = 1 AND a.SubmittedAt > '" + lastRun.ToString("yyyy-MM-dd HH:mm:ss.fff") + @"'
             ORDER BY a.SubmittedAt,a.EmployerId,a.ReportingPeriod
             "))).ToList();
 

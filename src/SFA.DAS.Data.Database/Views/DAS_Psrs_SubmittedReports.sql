@@ -6,7 +6,7 @@ SELECT
        ,PSR.[OrganisationName]
 	   ,EA.[AccountName] AS [DasOrganisationName]
        ,PSR.[ReportingPeriod]
-		--,'1 April 20' + SUBSTRING(CONVERT(char(4), PSR.[ReportingPeriod]),1,2) + ' to 31 March 20' + SUBSTRING(CONVERT(char(4), PSR.[ReportingPeriod]),3,2) AS ReportingPeriodLabel
+		,'1 April 20' + SUBSTRING(CONVERT(char(4), PSR.[ReportingPeriod]),1,2) + ' to 31 March 20' + SUBSTRING(CONVERT(char(4), PSR.[ReportingPeriod]),3,2) AS ReportingPeriodLabel
        ,PSR.[FigureA]
        ,PSR.[FigureB]
        ,PSR.[FIgureE]
