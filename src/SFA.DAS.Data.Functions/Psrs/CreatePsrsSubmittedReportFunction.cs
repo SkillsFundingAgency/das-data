@@ -13,11 +13,10 @@ namespace SFA.DAS.Data.Functions.Psrs
     public static class CreatePsrsSubmittedReportFunction
     {
         [FunctionName("CreatePsrsSubmittedReports")]
-        public static async Task Run([TimerTrigger("%PsrsSchedule%")] TimerInfo myTimer, [Inject] ILog log,
+        public static async Task Run([TimerTrigger("%CronSchedule%")] TimerInfo myTimer, [Inject] ILog log,
             [Inject] IPsrsReportsService psrsService)
         {
-            var timeSpan = TimeSpan.Parse(myTimer.Schedule.ToString().Replace("Constant: ",""));
-            await psrsService.CreatePsrsSubmittedReports(timeSpan);
+            await psrsService.CreatePsrsSubmittedReports();
         }
 
         [FunctionName("CreatePreviousSubmittedReports")]

@@ -18,6 +18,16 @@ namespace SFA.DAS.Data.Infrastructure.Data
             _log = log;
         }
 
+        public async Task<DateTime> GetLastSubmissionTime()
+        {
+            var result = await WithConnection(async c =>
+                await c.QuerySingleAsync<DateTime?>(
+                    sql: "[Data_Load].[GetLastPublicSectorReportSubmittedTime]",
+                    commandType: CommandType.StoredProcedure));
+
+            return result ?? DateTime.MinValue;
+        }
+
         public async Task SaveSubmittedReport(IEnumerable<ReportSubmitted> reports)
         {
             await WithConnection(async c =>

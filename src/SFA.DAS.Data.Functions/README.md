@@ -13,7 +13,6 @@ Create a local.settings.json file with the following schema, values will need to
     "AzureWebJobsStorage": "UseDevelopmentStorage=true",
     "AzureWebJobsDashboard": "UseDevelopmentStorage=true",
     "CronSchedule": "0 */1 * * * *",
-    "PsrsSchedule": "00:00:15",
     "ConfigurationStorageConnectionString": "UseDevelopmentStorage=true",
     "MessageBusConnectionString": "",
     "EnvironmentName": "LOCAL",
