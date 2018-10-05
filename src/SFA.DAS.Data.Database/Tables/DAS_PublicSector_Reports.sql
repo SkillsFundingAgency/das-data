@@ -22,7 +22,7 @@
 	[TargetPlansWordCount] INT NOT NULL,
 	[AnythingElse] NVARCHAR(4000) NOT NULL,
 	[AnythingElseWordCount] INT NOT NULL,
-	[SubmittedAt] DATETIME NULL,
+	[SubmittedAt] DATETIME2 NULL,
 	[SubmittedName] NVARCHAR(250) NULL,
 	[SubmittedEmail] NVARCHAR(250) NULL,
     [IsLatest] BIT NOT NULL DEFAULT 0

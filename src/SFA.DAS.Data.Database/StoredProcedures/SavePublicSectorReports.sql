@@ -20,7 +20,7 @@
 	@targetPlansWordCount INT,
 	@anythingElse NVARCHAR(4000),
 	@anythingElseWordCount INT,
-	@submittedAt DATETIME,
+	@submittedAt DATETIME2,
 	@submittedName NVARCHAR(250),
 	@submittedEmail NVARCHAR(250)
 AS

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -17,6 +18,9 @@ namespace SFA.DAS.Data.Infrastructure.Data
 
         public async Task<IEnumerable<ReportSubmitted>> GetSubmittedReports(DateTime lastRun)
         {
+            var parameters = new DynamicParameters();
+            parameters.Add("@lastRun", lastRun, DbType.DateTime2);
+
             var reports = (await WithConnection(async ctx => await ctx.QueryAsync<ReportSubmitted>(@"
             WITH base as 
             (
@@ -83,9 +87,11 @@ namespace SFA.DAS.Data.Infrastructure.Data
             base.*
             FROM base
             ) as a
-            WHERE a.Submitted = 1 AND a.SubmittedAt > '" + lastRun.ToString("yyyy-MM-dd HH:mm:ss.fff") + @"'
+            WHERE a.Submitted = 1 AND a.SubmittedAt > @lastRun
             ORDER BY a.SubmittedAt,a.EmployerId,a.ReportingPeriod
-            "))).ToList();
+            ",
+            param: parameters
+            ))).ToList();
 
             reports.ForEach(x =>
                 {
