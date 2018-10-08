@@ -1,14 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using SFA.DAS.Data.Application.Interfaces;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
-using SFA.DAS.Data.Domain.Enum;
-using SFA.DAS.Data.Domain.Models;
-using SFA.DAS.Data.Infrastructure.Data;
-using SFA.DAS.EmployerAccounts.Events.Messages;
-using SFA.DAS.Events.Api.Client;
-using SFA.DAS.Events.Api.Types;
 
 namespace SFA.DAS.Data.Infrastructure.Services
 {
@@ -16,9 +9,6 @@ namespace SFA.DAS.Data.Infrastructure.Services
     {
         private readonly IPsrsExternalRepository _psrsExternalRepository;
         private readonly IPsrsRepository _psrsRepository;
-       
-
-
 
         public PsrsReportsService(IPsrsExternalRepository psrsExternalRepository, IPsrsRepository psrsRepository)
         {
@@ -29,18 +19,29 @@ namespace SFA.DAS.Data.Infrastructure.Services
         public Task CreatePsrsReportSubmissionsSummary()
         {
             var summary = _psrsExternalRepository.GetSubmissionsSummary().Result;
-             _psrsRepository.SaveSubmissionsSummary(summary);
+            _psrsRepository.SaveSubmissionsSummary(summary);
 
             return Task.CompletedTask;
+        }
+
+        public Task CreatePsrsSubmittedReports()
+        {
+            var lastRun = _psrsRepository.GetLastSubmissionTime().Result;
+            return CreatePsrsSubmittedReports(lastRun);
         }
 
         public Task CreatePsrsSubmittedReports(TimeSpan timeSpan)
         {
             var lastRun = DateTime.Now.Subtract(timeSpan);
-            var reports = _psrsExternalRepository.GetSubmittedReports(lastRun).Result;
-            _psrsRepository.SaveSubmittedReport(reports);
-            return Task.CompletedTask;
+            return CreatePsrsSubmittedReports(lastRun);
+        }
 
+        public Task CreatePsrsSubmittedReports(DateTime since)
+        {
+            var reports = _psrsExternalRepository.GetSubmittedReports(since).Result;
+            _psrsRepository.SaveSubmittedReport(reports);
+
+            return Task.CompletedTask;
         }
     }
 }

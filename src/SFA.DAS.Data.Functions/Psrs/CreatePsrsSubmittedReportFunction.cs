@@ -1,27 +1,22 @@
 using System;
 using System.Net;
 using System.Net.Http;
-using System.Runtime.Remoting.Messaging;
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using SFA.DAS.Data.Application.Interfaces;
-using SFA.DAS.Data.Domain.Interfaces;
 using SFA.DAS.Data.Functions.Ioc;
 using SFA.DAS.NLog.Logger;
 
-namespace SFA.DAS.Data.Functions.Statistics
+namespace SFA.DAS.Data.Functions.Psrs
 {
     public static class CreatePsrsSubmittedReportFunction
     {
         [FunctionName("CreatePsrsSubmittedReports")]
-        public static async Task Run([TimerTrigger("00:00:15")] TimerInfo myTimer, [Inject] ILog log,
+        public static async Task Run([TimerTrigger("%CronSchedule%")] TimerInfo myTimer, [Inject] ILog log,
             [Inject] IPsrsReportsService psrsService)
         {
-            var timeSpan = TimeSpan.Parse(myTimer.Schedule.ToString().Replace("Constant: ",""));
-            await psrsService.CreatePsrsSubmittedReports(timeSpan);
-
-
+            await psrsService.CreatePsrsSubmittedReports();
         }
 
         [FunctionName("CreatePreviousSubmittedReports")]
