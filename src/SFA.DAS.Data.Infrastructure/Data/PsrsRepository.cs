@@ -56,7 +56,7 @@ namespace SFA.DAS.Data.Infrastructure.Data
                     parameters.Add("@targetPlansWordCount", report.TargetPlansWordCount, DbType.Int32);
                     parameters.Add("@anythingElse", report.AnythingElse, DbType.String);
                     parameters.Add("@anythingElseWordCount", report.AnythingElseWordCount, DbType.Int32);
-                    parameters.Add("@@submittedAt", report.SubmittedAt, DbType.DateTime);
+                    parameters.Add("@@submittedAt", report.SubmittedAt, DbType.DateTime2);
                     parameters.Add("@submittedName", report.SubmittedName, DbType.String);
                     parameters.Add("@submittedEmail", report.SubmittedEmail, DbType.String);
 
