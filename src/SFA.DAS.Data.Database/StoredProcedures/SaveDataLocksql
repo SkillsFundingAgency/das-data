@@ -1,5 +1,5 @@
 ﻿CREATE PROCEDURE [Data_Load].[SaveDataLock]
-	@Id BIGINT,
+	@DataLockId BIGINT,
     @ProcessDateTime DATETIME,
     @IlrFileName NVARCHAR(50),
     @UkPrn BIGINT,
@@ -10,6 +10,7 @@
     @ApprenticeshipId BIGINT,
     @EmployerAccountId BIGINT,
     @EventSource INT,
+    @Status INT,
 	@HasErrors BIT,
     @IlrStartDate DATE = NULL,
     @IlrStandardCode BIGINT = NULL,
@@ -24,58 +25,62 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 	
-	--IF NOT EXISTS(SELECT TOP 1 1 FROM [Data_Load].[DAS_DataLocks] WHERE DataLockId = @DataLockId)
-	BEGIN
+	UPDATE [Data_Load].[DAS_DataLocks] 	SET IsLatest = 0 	WHERE DataLockId = @DataLockId AND IsLatest = 1
+	   	 
+	INSERT INTO [Data_Load].[DAS_DataLocks]
+	(
+		[DataLockId],
+		[ProcessDateTime],
+		[IlrFileName],
+		[UkPrn],
+		[Uln],
+		[LearnRefNumber],
+		[AimSeqNumber],
+		[PriceEpisodeIdentifier],
+		[ApprenticeshipId],
+		[EmployerAccountId],
+		[EventSource],
+		[Status],
+		[HasErrors],
+		[IlrStartDate],
+		[IlrStandardCode],
+		[IlrProgrammeType],
+		[IlrFrameworkCode],
+		[IlrPathwayCode],
+		[IlrTrainingPrice],
+		[IlrEndpointAssessorPrice],
+		[IlrPriceEffectiveFromDate],
+		[IlrPriceEffectiveToDate],
+		[IsLatest]
+	)
+	VALUES
+	(
+		@DataLockId,
+		@ProcessDateTime,
+		@IlrFileName,
+		@UkPrn,
+		@Uln,
+		@LearnRefNumber,
+		@AimSeqNumber,
+		@PriceEpisodeIdentifier,
+		@ApprenticeshipId,
+		@EmployerAccountId,
+		@EventSource,
+		@Status,
+		@HasErrors,
+		@IlrStartDate,
+		@IlrStandardCode,
+		@IlrProgrammeType,
+		@IlrFrameworkCode,
+		@IlrPathwayCode,
+		@IlrTrainingPrice,
+		@IlrEndpointAssessorPrice,
+		@IlrPriceEffectiveFromDate,
+		@IlrPriceEffectiveToDate,
+		1
+	)
 
-		INSERT INTO [Data_Load].[DAS_DataLocks]
-		(
-			[Id],
-			[ProcessDateTime],
-			[IlrFileName],
-			[UkPrn],
-			[Uln],
-			[LearnRefNumber],
-			[AimSeqNumber],
-			[PriceEpisodeIdentifier],
-			[ApprenticeshipId],
-			[EmployerAccountId],
-			[EventSource],
-			[HasErrors],
-			[IlrStartDate],
-			[IlrStandardCode],
-			[IlrProgrammeType],
-			[IlrFrameworkCode],
-			[IlrPathwayCode],
-			[IlrTrainingPrice],
-			[IlrEndpointAssessorPrice],
-			[IlrPriceEffectiveFromDate],
-			[IlrPriceEffectiveToDate]
-		)
-		VALUES
-		(
-			@Id,
-			@ProcessDateTime,
-			@IlrFileName,
-			@UkPrn,
-			@Uln,
-			@LearnRefNumber,
-			@AimSeqNumber,
-			@PriceEpisodeIdentifier,
-			@ApprenticeshipId,
-			@EmployerAccountId,
-			@EventSource,
-			@HasErrors,
-			@IlrStartDate,
-			@IlrStandardCode,
-			@IlrProgrammeType,
-			@IlrFrameworkCode,
-			@IlrPathwayCode,
-			@IlrTrainingPrice,
-			@IlrEndpointAssessorPrice,
-			@IlrPriceEffectiveFromDate,
-			@IlrPriceEffectiveToDate			
-		)
+SELECT scope_identity()
 
-	END
 END
 GO

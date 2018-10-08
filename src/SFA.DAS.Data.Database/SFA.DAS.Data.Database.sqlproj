@@ -157,7 +157,6 @@
     <Build Include="Views\DAS_Psrs_SubmittedReports.sql" />
     <Build Include="Views\DAS_Psrs_Summary.sql" />
     <Build Include="Tables\DAS_DataLocks.sql" />
-    <Build Include="Tables\DAS_Learners.sql" />
     <Build Include="Views\DAS_DataLocks.sql" />
     <Build Include="StoredProcedures\SaveDataLocksql" />
     <Build Include="Tables\DAS_DataLock_Errors.sql" />

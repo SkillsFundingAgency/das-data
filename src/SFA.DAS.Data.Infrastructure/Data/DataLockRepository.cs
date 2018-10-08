@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Dapper;
@@ -22,8 +23,7 @@ namespace SFA.DAS.Data.Infrastructure.Data
                     try
                     {
                         var parameters = new DynamicParameters();
-
-                        parameters.Add("@Id", dataLock.Id, DbType.Int64);
+                        parameters.Add("@DataLockId", dataLock.Id, DbType.Int64);
                         parameters.Add("@ProcessDateTime", dataLock.ProcessDateTime, DbType.DateTime);
                         parameters.Add("@IlrFileName", dataLock.IlrFileName, DbType.String);
                         parameters.Add("@UkPrn", dataLock.Ukprn, DbType.Int64);
@@ -34,6 +34,7 @@ namespace SFA.DAS.Data.Infrastructure.Data
                         parameters.Add("@ApprenticeshipId", dataLock.ApprenticeshipId, DbType.Int64);
                         parameters.Add("@EmployerAccountId", dataLock.EmployerAccountId, DbType.Int64);
                         parameters.Add("@EventSource", dataLock.EventSource, DbType.Int32);
+                        parameters.Add("@Status", dataLock.Status, DbType.Int32);
                         parameters.Add("@HasErrors", dataLock.HasErrors, DbType.Boolean);
                         parameters.Add("@IlrStartDate", dataLock.IlrStartDate, DbType.Date);
                         parameters.Add("@IlrStandardCode", dataLock.IlrStandardCode, DbType.Int64);
@@ -45,7 +46,7 @@ namespace SFA.DAS.Data.Infrastructure.Data
                         parameters.Add("@IlrPriceEffectiveFromDate", dataLock.IlrPriceEffectiveFromDate, DbType.Date);
                         parameters.Add("@IlrPriceEffectiveToDate", dataLock.IlrPriceEffectiveToDate, DbType.Date);
 
-                        await c.ExecuteAsync(
+                        var id = await c.ExecuteScalarAsync<long>(
                             sql: "[Data_Load].[SaveDataLock]",
                             param: parameters,
                             commandType: CommandType.StoredProcedure,
@@ -53,15 +54,15 @@ namespace SFA.DAS.Data.Infrastructure.Data
 
                         if (dataLock.HasErrors)
                         {
-                            await SaveDataLockErrors(c, transaction, dataLock.Id, dataLock.Errors);
+                            await SaveDataLockErrors(c, transaction, id, dataLock.Errors);
                         }
 
-                        await SaveDataLockPeriods(c, transaction, dataLock.Id, dataLock.Periods);
-                        await SaveDataLockApprenticeships(c, transaction, dataLock.Id, dataLock.Apprenticeships);
+                        await SaveDataLockPeriods(c, transaction, id, dataLock.Periods);
+                        await SaveDataLockApprenticeships(c, transaction, id, dataLock.Apprenticeships);
 
                         transaction.Commit();
                     }
-                    catch (SqlException)
+                    catch (SqlException ex)
                     {
                         transaction.Rollback();
                         throw;

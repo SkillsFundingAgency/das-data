@@ -1,6 +1,7 @@
 ﻿CREATE TABLE [Data_Load].[DAS_DataLocks]
 (
-	[Id] [bigint] PRIMARY KEY NOT NULL,
+	[Id] BIGINT NOT NULL PRIMARY KEY IDENTITY, 
+	[DataLockId] [bigint] NOT NULL,
     [ProcessDateTime] DATETIME NOT NULL,
     [IlrFileName] NVARCHAR(50),
     [UkPrn] BIGINT NOT NULL,
@@ -11,6 +12,7 @@
     [ApprenticeshipId] BIGINT NOT NULL,
     [EmployerAccountId] BIGINT NOT NULL,
     [EventSource] INT NOT NULL,
+	[Status] INT NOT NULL,
     [HasErrors] BIT NOT NULL DEFAULT 0,
     [IlrStartDate] DATE NULL,
     [IlrStandardCode] BIGINT NULL,
@@ -20,5 +22,6 @@
     [IlrTrainingPrice] DECIMAL(12,5) NULL,
     [IlrEndpointAssessorPrice] DECIMAL(12,5) NULL,
     [IlrPriceEffectiveFromDate] DATE NULL,
-    [IlrPriceEffectiveToDate] DATE NULL
+    [IlrPriceEffectiveToDate] DATE NULL,
+    [IsLatest] BIT NOT NULL DEFAULT 0
 )

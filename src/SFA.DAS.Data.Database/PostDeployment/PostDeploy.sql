@@ -15,6 +15,7 @@ BEGIN
 	GRANT SELECT ON [Data_Pub].[DAS_LevyDeclarations] TO ViewSpecificReadOnly
 	GRANT SELECT ON [Data_Pub].[DAS_Psrs_SubmittedReports] To ViewSpecificReadOnly
 	GRANT SELECT ON [Data_Pub].[DAS_Psrs_Summary] To ViewSpecificReadOnly
+	GRANT SELECT ON [Data_Pub].[DAS_DataLocks] TO ViewSpecificReadOnly
 END
 
 --Developer - Read all tables / views excluding HMRC
@@ -39,7 +40,6 @@ GRANT SELECT ON [Data_Load].[DAS_Payments] TO Developer
 GRANT SELECT ON [Data_Load].[DAS_PublicSector_Reports] To Developer
 GRANT SELECT ON [Data_Load].[DAS_PublicSector_Summary] To Developer
 GRANT SELECT ON [Data_Load].[DAS_DataLocks] TO Developer
-GRANT SELECT ON [Data_Load].[DAS_Learners] TO Developer
 GRANT SELECT ON [PerformancePlatform].[PP_HistoricalStatistics] TO Developer
 GRANT SELECT ON [PerformancePlatform].[PP_LastRun] TO Developer
 GRANT SELECT ON [Data_Pub].[DAS_Employer_Accounts] TO Developer

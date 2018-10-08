@@ -1,5 +1,6 @@
 ﻿CREATE VIEW [Data_Pub].[DAS_DataLocks]	AS 
 	SELECT lock.[Id],
+      lock.[DataLockId],
       lock.[ProcessDateTime],
       lock.[IlrFileName],
       lock.[UkPrn],
@@ -9,7 +10,17 @@
       lock.[PriceEpisodeIdentifier],
       lock.[ApprenticeshipId],
       lock.[EmployerAccountId],
-      lock.[EventSource],
+      CASE 
+		WHEN lock.[EventSource] = 1 THEN 'Submission' 
+		WHEN lock.[EventSource] = 2 THEN 'PeriodEnd' 
+		ELSE NULL 
+	  END AS [EventSource],
+      CASE 
+		WHEN lock.[Status] = 1 THEN 'New' 
+		WHEN lock.[Status] = 2 THEN 'Updated' 
+		WHEN lock.[Status] = 3 THEN 'Removed' 
+		ELSE NULL 
+	  END AS [EventStatus],
       lock.[HasErrors],
       lock.[IlrStartDate],
       lock.[IlrStandardCode],
@@ -36,8 +47,7 @@
       app.[PathwayCode],
       app.[NegotiatedPrice],
       app.[EffectiveDate],
-      lrn.[NumberOfLearnersWithACT1],
-      lrn.[NumberOfLearnersWithACT2]
+	  lock.IsLatest AS Flag_Latest 
   FROM 
 		[Data_Load].[DAS_DataLocks] lock
 		LEFT JOIN  [Data_Load].[DAS_DataLock_Periods] p
@@ -46,5 +56,3 @@
 		ON  app.[DataLockId] = lock.[Id]
 		LEFT JOIN  [Data_Load].[DAS_DataLock_Errors] err
 		ON  err.[DataLockId] = lock.[Id]
-		LEFT JOIN  [Data_Load].[DAS_Learners] lrn
-		ON	lrn.[UkPrn] = lock.[UkPrn]
