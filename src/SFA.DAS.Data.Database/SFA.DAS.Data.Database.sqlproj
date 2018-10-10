@@ -162,6 +162,7 @@
     <Build Include="Tables\DAS_DataLock_Errors.sql" />
     <Build Include="Tables\DAS_DataLock_Periods.sql" />
     <Build Include="Tables\DAS_DataLock_Apprenticeships.sql" />
+    <Build Include="StoredProcedures\GetLastPublicSectorReportSubmittedTime.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SFA.DAS.Data.Database.refactorlog" />

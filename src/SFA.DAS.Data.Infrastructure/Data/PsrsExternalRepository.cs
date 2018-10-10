@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Dapper;
@@ -18,25 +18,24 @@ namespace SFA.DAS.Data.Infrastructure.Data
 
         public async Task<IEnumerable<ReportSubmitted>> GetSubmittedReports(DateTime lastRun)
         {
+            var parameters = new DynamicParameters();
+            parameters.Add("@lastRun", lastRun, DbType.DateTime2);
+
             var reports = (await WithConnection(async ctx => await ctx.QueryAsync<ReportSubmitted>(@"
             WITH base as 
             (
-            Select [Employerid],[ReportingPeriod], [ReportingData],
-            '1 April 20' + SUBSTRING([ReportingPeriod],1,2) + ' to 31 March 20' + SUBSTRING([ReportingPeriod],3,2) AS ReportingPeriodLabel,
+            Select [EmployerId],[ReportingPeriod], [ReportingData],
             JSON_VALUE([ReportingData], '$.OrganisationName') AS OrganisationName, 
             JSON_VALUE([ReportingData], '$.Questions[0].SubSections[0].Id') AS Question1,
-            JSON_VALUE([ReportingData], '$.Questions[0].SubSections[0].Questions[0].Answer') AS Answer1_1,
-            JSON_VALUE([ReportingData], '$.Questions[0].SubSections[0].Questions[1].Answer') AS Answer1_2,
-            JSON_VALUE([ReportingData], '$.Questions[0].SubSections[0].Questions[2].Answer') AS Answer1_3,
-            CASE JSON_VALUE([ReportingData], '$.Questions[0].SubSections[0].CompletionStatus') WHEN 2 THEN 'COMPLETED' ELSE '' END AS Completion1,
+            NULLIF(JSON_VALUE([ReportingData], '$.Questions[0].SubSections[0].Questions[0].Answer'), '') AS Answer1_1,
+            NULLIF(JSON_VALUE([ReportingData], '$.Questions[0].SubSections[0].Questions[1].Answer'), '') AS Answer1_2,
+            NULLIF(JSON_VALUE([ReportingData], '$.Questions[0].SubSections[0].Questions[2].Answer'), '') AS Answer1_3,
             JSON_VALUE([ReportingData], '$.Questions[0].SubSections[1].Id') AS Question2,
-            JSON_VALUE([ReportingData], '$.Questions[0].SubSections[1].Questions[0].Answer') AS Answer2_1,
-            JSON_VALUE([ReportingData], '$.Questions[0].SubSections[1].Questions[1].Answer') AS Answer2_2,
-            JSON_VALUE([ReportingData], '$.Questions[0].SubSections[1].Questions[2].Answer') AS Answer2_3,
-            CASE JSON_VALUE([ReportingData], '$.Questions[0].SubSections[0].CompletionStatus') WHEN 2 THEN 'COMPLETED' ELSE '' END AS Completion2,
+            NULLIF(JSON_VALUE([ReportingData], '$.Questions[0].SubSections[1].Questions[0].Answer'), '') AS Answer2_1,
+            NULLIF(JSON_VALUE([ReportingData], '$.Questions[0].SubSections[1].Questions[1].Answer'), '') AS Answer2_2,
+            NULLIF(JSON_VALUE([ReportingData], '$.Questions[0].SubSections[1].Questions[2].Answer'), '') AS Answer2_3,
             JSON_VALUE([ReportingData], '$.Questions[0].SubSections[2].Id') AS Question3,
-            JSON_VALUE([ReportingData], '$.Questions[0].SubSections[2].Questions[0].Answer') AS Answer3_1,
-            CASE JSON_VALUE([ReportingData], '$.Questions[0].SubSections[0].CompletionStatus') WHEN 2 THEN 'COMPLETED' ELSE '' END AS Completion3,
+            NULLIF(JSON_VALUE([ReportingData], '$.Questions[0].SubSections[2].Questions[0].Answer'), '') AS Answer3_1,
             JSON_VALUE([ReportingData], '$.Questions[1].SubSections[0].Questions[0].Id') AS Question4_1,
             JSON_VALUE([ReportingData], '$.Questions[1].SubSections[0].Title') AS QuestionText4_1,
             JSON_VALUE([ReportingData], '$.Questions[1].SubSections[0].Questions[0].Answer') AS Answer4_1,
@@ -52,22 +51,26 @@ namespace SFA.DAS.Data.Infrastructure.Data
             CONVERT(datetime2, JSON_VALUE([ReportingData], '$.Submitted.SubmittedAt')) AS SubmittedAt,
             JSON_VALUE([ReportingData], '$.Submitted.SubmittedName') AS SubmittedName,
             JSON_VALUE([ReportingData], '$.Submitted.SubmittedEmail') AS SubmittedEmail,
-                   Submitted
+			JSON_VALUE([ReportingData], '$.ReportingPercentages.EmploymentStarts') AS ReportingEmploymentStarts,
+			JSON_VALUE([ReportingData], '$.ReportingPercentages.TotalHeadCount') AS ReportingTotalHeadCount,
+			JSON_VALUE([ReportingData], '$.ReportingPercentages.NewThisPeriod') AS ReportingNewThisPeriod,
+            Submitted
             From [dbo].[Report]
             WHERE JSON_VALUE([ReportingData], '$.OrganisationName') IS NOT NULL
             )
-            SELECT  a.[Employerid] DasAccountId,
-            a.Organisation_Name,
+            SELECT  a.[EmployerId] DasAccountId,
+            a.OrganisationName,
             a.ReportingPeriod,
             a.FigureA,
             a.FigureB,
-            FORMAT(ROUND(((a.FigureB)/ CONVERT(decimal, nullif(a.FigureA,0))),4),'######0.00') AS FigureE,
+			ROUND(CONVERT(decimal(9, 4), a.ReportingEmploymentStarts) / cast(100 as decimal), 4) AS FigureE,
             a.FigureC,
             a.FigureD,
-            FORMAT(ROUND(((a.FigureD)/ CONVERT(decimal, nullif(a.FigureC,0))),4),'######0.00') AS FigureF,
+			ROUND(CONVERT(decimal(9, 4), a.ReportingTotalHeadCount) / cast(100 as decimal), 4) AS FigureF,
             a.FigureG,
             a.FigureH,
-            FORMAT(ROUND(((a.FigureB)/ CONVERT(decimal, nullif(a.FigureH,0))),4),'######0.00') AS FigureI,
+			ROUND(CONVERT(decimal(9, 4), a.ReportingNewThisPeriod) / cast(100 as decimal), 4) AS FigureI,
+            NULLIF(a.Answer3_1, '') AS FullTimeEquivalent,
             a.Answer4_1 OutlineActions,
             a.Answer5_1 Challenges,
             a.Answer6_1 TargetPlans,
@@ -75,8 +78,6 @@ namespace SFA.DAS.Data.Infrastructure.Data
             a.SubmittedAt, a.SubmittedName, a.SubmittedEmail
             FROM (
             SELECT 
-            [OrganisationName] AS Organisation_Name,
-            [ReportingPeriodLabel] AS Reporting_Period,
             CAST(CASE WHEN base.Answer1_3 IS NULL THEN 0 ELSE base.Answer1_3 END AS FLOAT) AS FigureA,
             CAST(CASE WHEN base.Answer2_3 IS NULL THEN 0 ELSE base.Answer2_3 END AS FLOAT) AS FigureB,
             CAST(CASE WHEN base.Answer1_2 IS NULL THEN 0 ELSE base.Answer1_2 END AS FLOAT) AS FigureC,
@@ -86,9 +87,11 @@ namespace SFA.DAS.Data.Infrastructure.Data
             base.*
             FROM base
             ) as a
-            WHERE a.Submitted = 1 and a.SubmittedAt > '" + lastRun.ToString("yyyy-MM-dd HH:mm:ss.fff") + @"'
-            ORDER BY a.SubmittedAt,a.Employerid,a.ReportingPeriod
-            "))).ToList();
+            WHERE a.Submitted = 1 AND a.SubmittedAt > @lastRun
+            ORDER BY a.SubmittedAt,a.EmployerId,a.ReportingPeriod
+            ",
+            param: parameters
+            ))).ToList();
 
             reports.ForEach(x =>
                 {

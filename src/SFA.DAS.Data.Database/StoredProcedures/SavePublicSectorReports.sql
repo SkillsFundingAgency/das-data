@@ -1,34 +1,43 @@
 ﻿CREATE PROCEDURE [Data_Load].[SavePublicSectorReports]
 	@dasAccountId nvarchar(6),
+	@organisationName NVARCHAR(100),
 	@reportingPeriod int,
 	@figureA int,
 	@figureB int,
-	@figureE decimal(3,2),
-	@figureC int,
-	@figureD int,
-	@figureF decimal(3,2),
-	@figureG int,
-	@figureH int,
-	@figureI decimal(3,2),
-	@outlineActions nvarchar(4000),
-	@outlineActionsWordCount int,
-	@challenges nvarchar(4000),
-	@challengesWordCount int,
-	@targetPlans nvarchar(4000),
-	@targetPlansWordCount int,
-	@anythingElse nvarchar(4000),
-	@anythingElseWordCount int,
-	@submittedAt datetime,
-	@submittedName nvarchar(250),
-	@submittedEmail nvarchar(250)
+	@figureE decimal(10,4),
+	@figureC INT,
+	@figureD INT,
+	@figureF DECIMAL(10,4),
+	@figureG INT,
+	@figureH INT,
+	@figureI DECIMAL(10,4),
+	@fullTimeEquivalent INT,
+	@outlineActions NVARCHAR(4000),
+	@outlineActionsWordCount INT,
+	@challenges NVARCHAR(4000),
+	@challengesWordCount INT,
+	@targetPlans NVARCHAR(4000),
+	@targetPlansWordCount INT,
+	@anythingElse NVARCHAR(4000),
+	@anythingElseWordCount INT,
+	@submittedAt DATETIME2,
+	@submittedName NVARCHAR(250),
+	@submittedEmail NVARCHAR(250)
 AS
 
 	SET NOCOUNT ON;
 	SET ANSI_NULLS OFF
 
+	UPDATE [Data_Load].[DAS_PublicSector_Reports]
+	SET IsLatest = 0
+	WHERE [DasAccountId] = @dasAccountId 
+		AND [ReportingPeriod] = @ReportingPeriod
+		AND IsLatest = 1
+
 	INSERT INTO [Data_Load].[DAS_PublicSector_Reports]
 	(
 		[DasAccountId],
+		[OrganisationName],
 		[ReportingPeriod],
 		[FigureA],
 		[FigureB],
@@ -39,6 +48,7 @@ AS
 		[FigureG],
 		[FigureH],
 		[FigureI],
+		[FullTimeEquivalent],
 		[OutlineActions],
 		[OutlineActionsWordCount],
 		[Challenges],
@@ -49,11 +59,13 @@ AS
 		[AnythingElseWordCount],
 		[SubmittedAt],
 		[SubmittedName],
-		[SubmittedEmail]
+		[SubmittedEmail],
+		[IsLatest]
 	)
 	VALUES
 	(
 		@dasAccountId,
+		@organisationName,
 		@reportingPeriod,
 		@figureA,
 		@figureB,
@@ -64,6 +76,7 @@ AS
 		@figureG,
 		@figureH,
 		@figureI,
+		@fullTimeEquivalent,
 		@outlineActions,
 		@outlineActionsWordCount,
 		@challenges,
@@ -74,6 +87,6 @@ AS
 		@anythingElseWordCount,
 		@submittedAt,
 		@submittedName,
-		@submittedEmail
-		-- todo: ADD A LAST TIME RUN?
+		@submittedEmail,
+		1
 	)
