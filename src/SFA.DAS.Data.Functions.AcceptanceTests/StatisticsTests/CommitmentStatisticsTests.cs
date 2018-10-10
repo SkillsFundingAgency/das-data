@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Dapper;
-using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Queue;
-using Newtonsoft.Json;
 using NUnit.Framework;
 
 namespace SFA.DAS.Data.Functions.AcceptanceTests.StatisticsTests
@@ -17,30 +11,34 @@ namespace SFA.DAS.Data.Functions.AcceptanceTests.StatisticsTests
     [TestFixture]
     public class CommitmentStatisticsTests : FunctionEventTestBase
     {
-      
-
         [SetUp]
         public async Task Setup()
         {
             DataTypes = "'TotalCohorts', 'TotalApprenticeships', 'ActiveApprenticeships'";
-
-          
-            
         }
 
         [Test]
-        public async Task WhenTheQueueFunctionIsRunThenTheStatisticsAreSavedToTheDatabase()
+        public async Task WhenTheTimerFunctionIsRunThenTheStatisticsAreSavedToTheDatabase()
         {
-            // sleep for a few seconds to allow the function to kick in once it detects a queue message
-            Thread.Sleep(5000);
+            var maxRetries = int.Parse(ConfigurationManager.AppSettings["MaximumRetries"] ?? "3");
+            var retryCount = 0;
+            var expected = 3;
+            int actual;
 
-            var actual = await WithConnection(async c => await c.ExecuteScalarAsync<int>(
-                sql: SqlVerificationScript(),
-                commandType: CommandType.Text));
-            
+            do
+            {
+                // sleep for a few seconds to allow the function to kick in once it detects a queue message
+                Thread.Sleep(5000);
+
+                actual = await WithConnection(async c => await c.ExecuteScalarAsync<int>(
+                    sql: SqlVerificationScript(),
+                    commandType: CommandType.Text));
+            } while (actual != expected && retryCount++ < maxRetries);
+
+            Console.WriteLine($"After {retryCount} retries result is {actual} and expected is {expected}");
             Console.WriteLine(SqlVerificationScript());
 
-            Assert.IsTrue(actual >= 3);
+            Assert.IsTrue(actual >= expected);
         }
     }
 }

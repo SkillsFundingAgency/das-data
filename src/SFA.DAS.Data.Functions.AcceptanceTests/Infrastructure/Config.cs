@@ -7,6 +7,7 @@ namespace SFA.DAS.Data.Functions.AcceptanceTests.Infrastructure
     {
         public TimeSpan TimeToWait => TimeSpan.Parse(ConfigurationManager.AppSettings["TimeToWait"] ?? "00:00:30");
         public TimeSpan TimeToPause => TimeSpan.Parse(ConfigurationManager.AppSettings["TimeToPause"] ?? "00:00:05");
+        public int MaximumRetries => Int32.Parse(ConfigurationManager.AppSettings["MaximumRetries"] ?? "3");
         public string Environment => GetAppSetting("Environment");
 
         public bool IsDevEnvironment => (Environment?.Equals("DEVELOPMENT", StringComparison.OrdinalIgnoreCase) ?? false) ||

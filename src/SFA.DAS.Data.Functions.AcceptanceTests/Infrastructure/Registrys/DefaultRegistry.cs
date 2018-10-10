@@ -10,6 +10,7 @@ using SFA.DAS.Commitments.Api.Client.Interfaces;
 using SFA.DAS.Configuration;
 using SFA.DAS.Configuration.AzureTableStorage;
 using SFA.DAS.Data.Application.Configuration;
+using SFA.DAS.Data.Application.Interfaces;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.Data.Domain.Interfaces;
 using SFA.DAS.Data.Functions.AcceptanceTests.Stubs;
@@ -57,9 +58,13 @@ namespace SFA.DAS.Data.Functions.AcceptanceTests.Infrastructure.Registrys
             SetupStubs();
             For<IHttpClientWrapper>().Use<HttpClientWrapper>().SelectConstructor(() => new HttpClientWrapper());
             For<IStatisticsService>().Use<StatisticsService>();
+            For<IPsrsReportsService>().Use<PsrsReportsService>();
 
             var config = GetConfiguration();
             For<IStatisticsRepository>().Use<StatisticsRepository>().Ctor<string>().Is(config.DatabaseConnectionString);
+            For<IPsrsExternalRepository>().Use<PsrsExternalRepository>().Ctor<string>().Is(config.DatabaseConnectionString);
+            For<IPsrsRepository>().Use<PsrsRepository>().Ctor<string>().Is(config.DatabaseConnectionString);
+
             For<IEventsApi>().Use(new EventsApi(config.EventsApi));
             For<IDataConfiguration>().Use(config);
             RegisterApis(config);
@@ -121,6 +126,5 @@ namespace SFA.DAS.Data.Functions.AcceptanceTests.Infrastructure.Registrys
                 .Ctor<ICommitmentsApiClientConfiguration>().Is(config.CommitmentsApi);
             For<IStatisticsApi>().Use<StatisticsApi>().Ctor<HttpClient>().Is(httpClient).Ctor<ICommitmentsApiClientConfiguration>().Is(config.CommitmentsApi);
         }
-
     }
 }

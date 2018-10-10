@@ -1,18 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Dapper;
-using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Queue;
-using Newtonsoft.Json;
 using NUnit.Framework;
-using SFA.DAS.Data.Application.Commands.CreatePaymentsStatistics;
-using SFA.DAS.Data.Application.Messages;
 
 namespace SFA.DAS.Data.Functions.AcceptanceTests.StatisticsTests
 {
@@ -23,23 +15,31 @@ namespace SFA.DAS.Data.Functions.AcceptanceTests.StatisticsTests
         public async Task Setup()
         {
             DataTypes = "'ProviderTotalPayments','ProviderTotalPaymentsWithRequestedPayment'";
-
-          
         }
 
         [Test]
-        public async Task WhenTheQueueFunctionIsRunThenTheStatisticsAreSavedToTheDatabase()
+        public async Task WhenTheTimerFunctionIsRunThenTheStatisticsAreSavedToTheDatabase()
         {
-            // sleep for a few seconds to allow the function to kick in once it detects a queue message
-            Thread.Sleep(2500);
+            var maxRetries = int.Parse(ConfigurationManager.AppSettings["MaximumRetries"] ?? "3");
+            var retryCount = 0;
+            var expected = 2;
+            int actual;
 
-            var actual = await WithConnection(async c => await c.ExecuteScalarAsync<int>(
-                sql: SqlVerificationScript(),
-                commandType: CommandType.Text));
+            do
+            {
+                // sleep for a few seconds to allow the function to kick in once it detects a queue message
+                Thread.Sleep(2500);
+
+                actual = await WithConnection(async c => await c.ExecuteScalarAsync<int>(
+                    sql: SqlVerificationScript(),
+                    commandType: CommandType.Text));
+            } while (actual != expected && retryCount++ < maxRetries);
+
+            Console.WriteLine($"After {retryCount} retries result is {actual} and expected is {expected}");
 
             Console.WriteLine(SqlVerificationScript());
 
-            Assert.AreEqual(2, actual);
+            Assert.AreEqual(expected, actual);
         }
     }
 }

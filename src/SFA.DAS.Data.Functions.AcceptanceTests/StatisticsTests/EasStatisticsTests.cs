@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Configuration;
 using System.Data;
-using System.Data.SqlClient;
 using System.Threading;
 using System.Threading.Tasks;
-using Dapper;
 using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Queue;
+using Dapper;
 using NUnit.Framework;
+using SFA.DAS.Data.Functions.AcceptanceTests.Infrastructure;
 
 namespace SFA.DAS.Data.Functions.AcceptanceTests.StatisticsTests
 {
@@ -20,24 +19,32 @@ namespace SFA.DAS.Data.Functions.AcceptanceTests.StatisticsTests
             var client = CloudStorageAccount
                 .Parse(ConfigurationManager.ConnectionStrings["StorageConnectionString"].ConnectionString)
                 .CreateCloudQueueClient();
-
         }
 
         [Test]
         public async Task WhenTheTimerFunctionIsRunThenTheStatisticsAreSavedToTheDatabase()
         {
-            // sleep for a few seconds to allow the timer function to kick in
-            Thread.Sleep(2500);
+            var maxRetries = int.Parse(ConfigurationManager.AppSettings["MaximumRetries"] ?? "3");
+            var retryCount = 0;
+            var expected = 5;
+            int actual;
 
-            DataTypes = "'TotalPayments', 'TotalAccounts', 'TotalAgreements', 'TotalLegalEntities', 'TotalPAYESchemes'";
+            do
+            {
+                // sleep for a few seconds to allow the timer function to kick in
+                Thread.Sleep(2500);
 
-            var actual = await WithConnection(async c => await c.ExecuteScalarAsync<int>(
-                sql: SqlVerificationScript(),
-                commandType: CommandType.Text));
-            
+                DataTypes = "'TotalPayments', 'TotalAccounts', 'TotalAgreements', 'TotalLegalEntities', 'TotalPAYESchemes'";
+
+                actual = await WithConnection(async c => await c.ExecuteScalarAsync<int>(
+                    sql: SqlVerificationScript(),
+                    commandType: CommandType.Text));
+            } while (actual != expected && retryCount++ < maxRetries);
+
+            Console.WriteLine($"After {retryCount} retries result is {actual} and expected is {expected}");
             Console.WriteLine(SqlVerificationScript());
 
-            Assert.AreEqual(5, actual);
+            Assert.AreEqual(expected, actual);
         }
     }
 }

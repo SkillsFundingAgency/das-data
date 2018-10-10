@@ -4,17 +4,13 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
-using System.IO;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using Castle.DynamicProxy.Generators.Emitters;
 using Microsoft.Azure.WebJobs;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Queue;
 using NUnit.Framework;
 using SFA.DAS.Data.Functions.AcceptanceTests.Infrastructure;
-using StructureMap;
 
 namespace SFA.DAS.Data.Functions.AcceptanceTests
 {
@@ -25,7 +21,7 @@ namespace SFA.DAS.Data.Functions.AcceptanceTests
         protected static DateTime TestOperationStartedAt;
         protected static List<Process> Processes = new List<Process>();
         protected string DataTypes;
-
+ 
         protected string SqlVerificationScript()
         {
             return "SELECT count('Id') FROM [Data_Load].[DAS_ConsistencyCheck] WHERE " +
@@ -70,6 +66,9 @@ namespace SFA.DAS.Data.Functions.AcceptanceTests
             config.UseTimers();
             config.Tracing.ConsoleLevel = TraceLevel.Verbose;
             config.UseDependencyInjection();
+            //Add custom type locator tht will stop http triggered functions from loading
+            config.AddService<ITypeLocator>(new TestFunctionTypeLocator());
+
             JobHostInstance = new JobHost(config);
             TestCancellationToken = new CancellationToken();
             
