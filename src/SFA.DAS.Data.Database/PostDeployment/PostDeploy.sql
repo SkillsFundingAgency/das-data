@@ -40,6 +40,9 @@ GRANT SELECT ON [Data_Load].[DAS_Payments] TO Developer
 GRANT SELECT ON [Data_Load].[DAS_PublicSector_Reports] To Developer
 GRANT SELECT ON [Data_Load].[DAS_PublicSector_Summary] To Developer
 GRANT SELECT ON [Data_Load].[DAS_DataLocks] TO Developer
+GRANT SELECT ON [Data_Load].[DAS_DataLock_Errors] TO Developer
+GRANT SELECT ON [Data_Load].[DAS_DataLock_Apprenticeships] TO Developer
+GRANT SELECT ON [Data_Load].[DAS_DataLock_Periods] TO Developer
 GRANT SELECT ON [PerformancePlatform].[PP_HistoricalStatistics] TO Developer
 GRANT SELECT ON [PerformancePlatform].[PP_LastRun] TO Developer
 GRANT SELECT ON [Data_Pub].[DAS_Employer_Accounts] TO Developer
