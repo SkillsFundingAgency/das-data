@@ -69,6 +69,11 @@ FROM [Data_Load].[DAS_Payments] AS P
     ---- DAS Account Name
 	LEFT JOIN [Data_Load].[DAS_Employer_Accounts] EA ON EA.AccountId = [P].[EmployerAccountId] AND EA.IsLatest = 1
 	---- Levy Transfer - Funding account
-	left join Data_Load.DAS_Employer_Account_Transfers EAT on EAT.CommitmentId = [P].ApprenticeshipId and EAT.ReceiverAccountId = P.EmployerAccountId
+	LEFT JOIN 
+		(
+			SELECT DISTINCT ReceiverAccountId, CommitmentId, SenderAccountId 
+			FROM [Data_Load].[DAS_Employer_Account_Transfers]
+		) 
+		AS EAT ON EAT.CommitmentId = [P].ApprenticeshipId AND EAT.ReceiverAccountId = [P].EmployerAccountId
 
 GO
