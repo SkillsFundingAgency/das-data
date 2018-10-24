@@ -17,7 +17,12 @@
 	@dateOfBirth date,
     @transferSenderAccountId bigint,
     @transferApprovalStatus nvarchar(50),
-    @transferApprovalDate datetime
+    @transferApprovalDate datetime,
+	@pausedOnDate datetime = null,
+	@stoppedOnDate datetime = null,
+	@priceHistoryTotalCost decimal = null,
+	@effectiveFromDate datetime = null,
+	@effectiveToDate datetime = null
 AS
 
 	UPDATE [Data_Load].[Das_Commitments] SET IsLatest = 0 WHERE ApprenticeshipID = @apprenticeshipId
@@ -43,6 +48,11 @@ AS
 		TransferSenderAccountId,
 		TransferApprovalStatus,
 		TransferApprovalDate,
+		PausedOnDate,
+		StoppedOnDate,
+		PriceHistoryTotalCost,
+		EffectiveFromDate,
+		EffectiveToDate,
 		IsLatest
 	)
 	VALUES
@@ -66,5 +76,10 @@ AS
 		@transferSenderAccountId,
 		@transferApprovalStatus,
 		@transferApprovalDate,
+		@pausedOnDate,
+		@stoppedOnDate,
+		@priceHistoryTotalCost,
+		@effectiveFromDate,
+		@effectiveToDate,
 		1
 	)

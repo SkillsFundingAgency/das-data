@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
@@ -36,6 +37,15 @@ namespace SFA.DAS.Data.Infrastructure.Data
                 parameters.Add("@transferSenderAccountId", @event.TransferSenderId, DbType.Int64);
                 parameters.Add("@transferApprovalStatus", @event.TransferApprovalStatus == null ? null : @event.TransferApprovalStatus.ToString(), DbType.String);
                 parameters.Add("@transferApprovalDate", @event.TransferApprovalActionedOn, DbType.DateTime);
+                parameters.Add("@pausedOnDate", @event.PausedOnDate, DbType.DateTime);
+                parameters.Add("@stoppedOnDate", @event.StoppedOnDate, DbType.DateTime );
+
+                if (@event.PriceHistory?.LastOrDefault() != null)
+                {
+                    parameters.Add("@priceHistoryTotalCost", @event.PriceHistory.Last().TotalCost, DbType.Decimal);
+                    parameters.Add("@effectiveFromDate", @event.PriceHistory.Last().EffectiveFrom, DbType.DateTime);
+                    parameters.Add("@effectiveToDate", @event.PriceHistory.Last().EffectiveTo, DbType.DateTime);
+                }
 
                 return await c.ExecuteAsync(
                     sql: "[Data_Load].[CreateCommitmentApprenticeship]",

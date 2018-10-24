@@ -21,7 +21,12 @@
     [IsLatest] BIT NOT NULL DEFAULT 0, 
     [TransferSenderAccountId] BIGINT NULL, 
     [TransferApprovalStatus] NVARCHAR(50) NULL,
-    [TransferApprovalDate] DATETIME NULL
+    [TransferApprovalDate] DATETIME NULL,
+	[PausedOnDate] DATETIME NULL,
+	[StoppedOnDate] DATETIME NULL,
+	[PriceHistoryTotalCost] DECIMAL NULL,
+	[EffectiveFromDate] DATETIME NULL,
+	[EffectiveToDate] DATETIME NULL
 )
 GO
 CREATE INDEX [IX_Commitment_Apprenticeship] ON [Data_Load].[Das_Commitments] ([ApprenticeshipID], [IsLatest])
