@@ -76,7 +76,7 @@ namespace SFA.DAS.Data.AcceptanceTests.DataLockEventTests
             var dataLockEventsResult = new PageOfResults<DataLockEvent> { Items = dataLockEvents.ToArray(), PageNumber = 1, TotalNumberOfPages = 1 };
             
             EventsApi.SetupGet($"api/datalock?page=1", dataLockEventsResult);
-            EventsApi.SetupGet($"api/datalock?page=1&inceEventId={sinceEventid}", dataLockEventsResult);
+            EventsApi.SetupGet($"api/datalock?page=1&sinceEventId={sinceEventid}", dataLockEventsResult);
         }
     }
 }
