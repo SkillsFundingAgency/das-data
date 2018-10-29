@@ -114,6 +114,7 @@ namespace SFA.DAS.Data.Infrastructure.Data
                     transaction: transaction);
             }
         }
+
         private static async Task SaveDataLockPeriods(IDbConnection c, IDbTransaction transaction, long dataLockId, DataLockEventPeriod[] periods)
         {
             foreach (var period in periods)
@@ -121,7 +122,7 @@ namespace SFA.DAS.Data.Infrastructure.Data
                 var parameters = new DynamicParameters();
 
                 parameters.Add("@DataLockId", dataLockId, DbType.String);
-                parameters.Add("@ApprenticeshipVersion", period.ApprenticeshipVersion, DbType.Int32);
+                parameters.Add("@ApprenticeshipVersion", period.ApprenticeshipVersion, DbType.String);
                 parameters.Add("@CollectionPeriodName", period.Period.Id, DbType.String);
                 parameters.Add("@CollectionPeriodMonth", period.Period.Month, DbType.Int32);
                 parameters.Add("@CollectionPeriodYear", period.Period.Year, DbType.Int32);
