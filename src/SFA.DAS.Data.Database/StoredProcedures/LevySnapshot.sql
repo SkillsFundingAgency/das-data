@@ -14,4 +14,6 @@ AS
 
 	EXEC(@Sql)
 
+	EXEC('GRANT SELECT ON ' + @TableName + ' TO HMRCReader')
+
 RETURN 0
