@@ -25,7 +25,13 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 	
-	UPDATE [Data_Load].[DAS_DataLocks] 	SET IsLatest = 0 	WHERE DataLockId = @DataLockId AND IsLatest = 1
+	--Set IsLatest for the URP/Learner/Price Episode if it exists
+	UPDATE [Data_Load].[DAS_DataLocks] 	
+	SET [IsLatest] = 0 	
+	WHERE [UkPrn] = @UkPrn
+		AND [Uln] = @Uln
+		AND [PriceEpisodeIdentifier] = @PriceEpisodeIdentifier
+		AND [IsLatest] = 1
 	   	 
 	INSERT INTO [Data_Load].[DAS_DataLocks]
 	(

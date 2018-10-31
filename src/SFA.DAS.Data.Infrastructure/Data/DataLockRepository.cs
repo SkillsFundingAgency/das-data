@@ -1,5 +1,4 @@
-﻿using System;
-using System.Data;
+﻿using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Dapper;
@@ -57,9 +56,6 @@ namespace SFA.DAS.Data.Infrastructure.Data
                             await SaveDataLockErrors(c, transaction, id, dataLock.Errors);
                         }
 
-                        await SaveDataLockPeriods(c, transaction, id, dataLock.Periods);
-                        await SaveDataLockApprenticeships(c, transaction, id, dataLock.Apprenticeships);
-
                         transaction.Commit();
                     }
                     catch (SqlException ex)
@@ -72,31 +68,7 @@ namespace SFA.DAS.Data.Infrastructure.Data
                 return 0;
             });
         }
-
-        private static async Task SaveDataLockApprenticeships(IDbConnection c, IDbTransaction transaction, long dataLockId, DataLockEventApprenticeship[] apprenticeships)
-        {
-            foreach (var apprenticeship in apprenticeships)
-            {
-                var parameters = new DynamicParameters();
-
-                parameters.Add("@DataLockId", dataLockId, DbType.String);
-                parameters.Add("@Version", apprenticeship.Version, DbType.String);
-                parameters.Add("@StartDate", apprenticeship.StartDate, DbType.Date);
-                parameters.Add("@StandardCode", apprenticeship.StandardCode, DbType.Int64);
-                parameters.Add("@ProgrammeType", apprenticeship.ProgrammeType, DbType.Int32);
-                parameters.Add("@FrameworkCode", apprenticeship.FrameworkCode, DbType.Int32);
-                parameters.Add("@PathwayCode", apprenticeship.PathwayCode, DbType.Int32);
-                parameters.Add("@NegotiatedPrice", apprenticeship.NegotiatedPrice, DbType.Decimal);
-                parameters.Add("@EffectiveDate", apprenticeship.EffectiveDate, DbType.Date);
-
-                await c.ExecuteAsync(
-                    sql: "[Data_Load].[SaveDataLock_Apprenticeship]",
-                    param: parameters,
-                    commandType: CommandType.StoredProcedure,
-                    transaction: transaction);
-            }
-        }
-
+        
         private static async Task SaveDataLockErrors(IDbConnection c, IDbTransaction transaction, long dataLockId, DataLockEventError[] errors)
         {
             foreach (var error in errors)
@@ -109,28 +81,6 @@ namespace SFA.DAS.Data.Infrastructure.Data
 
                 await c.ExecuteAsync(
                     sql: "[Data_Load].[SaveDataLock_Error]",
-                    param: parameters,
-                    commandType: CommandType.StoredProcedure,
-                    transaction: transaction);
-            }
-        }
-
-        private static async Task SaveDataLockPeriods(IDbConnection c, IDbTransaction transaction, long dataLockId, DataLockEventPeriod[] periods)
-        {
-            foreach (var period in periods)
-            {
-                var parameters = new DynamicParameters();
-
-                parameters.Add("@DataLockId", dataLockId, DbType.String);
-                parameters.Add("@ApprenticeshipVersion", period.ApprenticeshipVersion, DbType.String);
-                parameters.Add("@CollectionPeriodName", period.Period.Id, DbType.String);
-                parameters.Add("@CollectionPeriodMonth", period.Period.Month, DbType.Int32);
-                parameters.Add("@CollectionPeriodYear", period.Period.Year, DbType.Int32);
-                parameters.Add("@IsPayable", period.IsPayable, DbType.Boolean);
-                parameters.Add("@TransactionType", period.TransactionType, DbType.Int32);
-
-                await c.ExecuteAsync(
-                    sql: "[Data_Load].[SaveDataLock_Period]",
                     param: parameters,
                     commandType: CommandType.StoredProcedure,
                     transaction: transaction);

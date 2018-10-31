@@ -25,3 +25,9 @@
     [IlrPriceEffectiveToDate] DATE NULL,
     [IsLatest] BIT NOT NULL DEFAULT 0
 )
+GO
+CREATE INDEX [IX_DataLocks_DataLockId] ON [Data_Load].[DAS_DataLocks] ([DataLockId])
+GO
+CREATE INDEX [IX_DataLocks_UkPrn_Uln_PriceEpisodeIdentifier_IsLatest] ON [Data_Load].[DAS_DataLocks] ([UkPrn], [Uln], [PriceEpisodeIdentifier], [IsLatest])
+
+

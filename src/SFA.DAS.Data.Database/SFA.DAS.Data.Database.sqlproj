@@ -160,9 +160,8 @@
     <Build Include="Views\DAS_DataLocks.sql" />
     <Build Include="StoredProcedures\SaveDataLocksql" />
     <Build Include="Tables\DAS_DataLock_Errors.sql" />
-    <Build Include="Tables\DAS_DataLock_Periods.sql" />
-    <Build Include="Tables\DAS_DataLock_Apprenticeships.sql" />
     <Build Include="StoredProcedures\GetLastPublicSectorReportSubmittedTime.sql" />
+    <Build Include="Views\DAS_DataLock_Errors_By_Provider.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SFA.DAS.Data.Database.refactorlog" />
@@ -170,9 +169,7 @@
   <ItemGroup>
     <None Include="Database.publish.xml" />
     <Build Include="Schemas\Data_Pub.sql" />
-    <Build Include="StoredProcedures\SaveDataLock_Apprenticeship.sql" />
     <Build Include="StoredProcedures\SaveDataLock_Error.sql" />
-    <Build Include="StoredProcedures\SaveDataLock_Period.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="PostDeployment\PostDeploy.sql" />

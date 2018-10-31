@@ -190,16 +190,7 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
                     commandType: CommandType.Text)
             );
         }
-
-        public async Task<int> GetNumberOfDataLockApprenticeships()
-        {
-            return await WithConnection(async c =>
-                await c.QuerySingleAsync<int>(
-                    sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_DataLock_Apprenticeships]",
-                    commandType: CommandType.Text)
-            );
-        }
-
+        
         public async Task<int> GetNumberOfDataLockErrors()
         {
             return await WithConnection(async c =>
@@ -208,15 +199,7 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
                     commandType: CommandType.Text)
             );
         }
-        public async Task<int> GetNumberOfDataLockPeriods()
-        {
-            return await WithConnection(async c =>
-                await c.QuerySingleAsync<int>(
-                    sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_DataLock_Periods]",
-                    commandType: CommandType.Text)
-            );
-        }
-
+       
         public async Task<IEnumerable<AccountTransfer>> GetTransfers()
         {
             return await WithConnection(async c =>
