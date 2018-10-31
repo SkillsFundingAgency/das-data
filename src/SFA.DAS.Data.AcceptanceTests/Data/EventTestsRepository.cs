@@ -114,12 +114,6 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
                     sql: "DELETE FROM [Data_Load].[DAS_DataLock_Errors]",
                     commandType: CommandType.Text);
                 await c.ExecuteAsync(
-                    sql: "DELETE FROM [Data_Load].[DAS_DataLock_Periods]",
-                    commandType: CommandType.Text);
-                await c.ExecuteAsync(
-                    sql: "DELETE FROM [Data_Load].[DAS_DataLock_Apprenticeships]",
-                    commandType: CommandType.Text);
-                await c.ExecuteAsync(
                     sql: "DELETE FROM [Data_Load].[DAS_DataLocks]",
                     commandType: CommandType.Text);
 
