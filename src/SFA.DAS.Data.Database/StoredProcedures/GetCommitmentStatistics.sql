@@ -1,10 +1,7 @@
 ﻿CREATE PROCEDURE [Data_Load].[GetCommitmentStatistics]
-
 AS
-	
 
-
-WITH TA_CTE (CommitmentId, PaymentStatus) AS (
+WITH TA_CTE (CommitmentID, PaymentStatus) AS (
 	SELECT CommitmentId, PaymentStatus
 	FROM [Data_Load].[Das_Commitments]
 	WHERE IsLatest = 1
@@ -13,6 +10,7 @@ WITH TA_CTE (CommitmentId, PaymentStatus) AS (
 SELECT (
 	SELECT COUNT(CommitmentId)
 	FROM TA_CTE
+	WHERE PaymentStatus <> 'Deleted'
 ) AS TotalApprenticeships,
 (
 	SELECT COUNT(CommitmentId)
