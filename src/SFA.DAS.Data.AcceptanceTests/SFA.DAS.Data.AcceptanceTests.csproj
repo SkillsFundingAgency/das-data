@@ -295,6 +295,7 @@
     <Compile Include="DataLockEventTests\WhenADataLockEventWithMultipleErrorsIsCreated.cs" />
     <Compile Include="DataLockEventTests\WhenADataLockEventWithNoErrorsIsCreated.cs" />
     <Compile Include="Data\DTOs\CommitmentsRecord.cs" />
+    <Compile Include="Data\DTOs\DataLockErrorRecord.cs" />
     <Compile Include="Data\DTOs\DataLockRecord.cs" />
     <Compile Include="Data\DTOs\EmployerAccountsRecord.cs" />
     <Compile Include="Data\DTOs\DataStagingRecord.cs" />

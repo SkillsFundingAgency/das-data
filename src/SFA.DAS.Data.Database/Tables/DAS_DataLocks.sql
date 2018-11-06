@@ -2,7 +2,7 @@
 (
 	[Id] BIGINT NOT NULL PRIMARY KEY IDENTITY, 
 	[DataLockId] [bigint] NOT NULL,
-    [ProcessDateTime] DATETIME NOT NULL,
+    [ProcessDateTime] DATETIME2 NOT NULL,
     [IlrFileName] NVARCHAR(50),
     [UkPrn] BIGINT NOT NULL,
     [Uln] BIGINT NOT NULL,
@@ -26,8 +26,16 @@
     [IsLatest] BIT NOT NULL DEFAULT 0
 )
 GO
-CREATE INDEX [IX_DataLocks_DataLockId] ON [Data_Load].[DAS_DataLocks] ([DataLockId])
+CREATE NONCLUSTERED INDEX [IX_DataLocks_DataLockId] ON [Data_Load].[DAS_DataLocks] ([DataLockId])
 GO
-CREATE INDEX [IX_DataLocks_UkPrn_Uln_PriceEpisodeIdentifier_IsLatest] ON [Data_Load].[DAS_DataLocks] ([UkPrn], [Uln], [PriceEpisodeIdentifier], [IsLatest])
-
-
+CREATE NONCLUSTERED INDEX [IX_DataLocks_UkPrn_Uln_PriceEpisodeIdentifier_IsLatest] 
+ON [Data_Load].[DAS_DataLocks] ([UkPrn], [Uln], [PriceEpisodeIdentifier], [IsLatest])
+GO
+CREATE NONCLUSTERED INDEX [IX_DataLocks_IsLatest]
+ON [Data_Load].[DAS_DataLocks] ([IsLatest])
+INCLUDE ([UkPrn])
+GO
+CREATE NONCLUSTERED INDEX [IX_DataLocks_HasErrors_IsLatest] 
+ON [Data_Load].[DAS_DataLocks] ([HasErrors], [IsLatest])
+INCLUDE ([DataLockId], [UkPrn])
+GO

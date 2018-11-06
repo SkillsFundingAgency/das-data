@@ -23,7 +23,7 @@ namespace SFA.DAS.Data.Infrastructure.Data
                     {
                         var parameters = new DynamicParameters();
                         parameters.Add("@DataLockId", dataLock.Id, DbType.Int64);
-                        parameters.Add("@ProcessDateTime", dataLock.ProcessDateTime, DbType.DateTime);
+                        parameters.Add("@ProcessDateTime", dataLock.ProcessDateTime, DbType.DateTime2);
                         parameters.Add("@IlrFileName", dataLock.IlrFileName, DbType.String);
                         parameters.Add("@UkPrn", dataLock.Ukprn, DbType.Int64);
                         parameters.Add("@Uln", dataLock.Uln, DbType.Int64);
@@ -68,7 +68,7 @@ namespace SFA.DAS.Data.Infrastructure.Data
                 return 0;
             });
         }
-        
+
         private static async Task SaveDataLockErrors(IDbConnection c, IDbTransaction transaction, long dataLockId, DataLockEventError[] errors)
         {
             foreach (var error in errors)

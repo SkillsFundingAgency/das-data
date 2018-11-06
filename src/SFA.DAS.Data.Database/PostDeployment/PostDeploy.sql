@@ -16,6 +16,7 @@ BEGIN
 	GRANT SELECT ON [Data_Pub].[DAS_Psrs_SubmittedReports] To ViewSpecificReadOnly
 	GRANT SELECT ON [Data_Pub].[DAS_Psrs_Summary] To ViewSpecificReadOnly
 	GRANT SELECT ON [Data_Pub].[DAS_DataLocks] TO ViewSpecificReadOnly
+	GRANT SELECT ON [Data_Pub].[DAS_DataLock_Errors] TO ViewSpecificReadOnly
 	GRANT SELECT ON [Data_Pub].[DAS_DataLock_Errors_By_Provider] TO ViewSpecificReadOnly
 END
 
@@ -57,6 +58,7 @@ GRANT SELECT ON [Data_Pub].[DAS_Payments] TO Developer
 GRANT SELECT ON [Data_Pub].[DAS_Psrs_SubmittedReports] To Developer
 GRANT SELECT ON [Data_Pub].[DAS_Psrs_Summary] To Developer
 GRANT SELECT ON [Data_Pub].[DAS_DataLocks] TO Developer
+GRANT SELECT ON [Data_Pub].[DAS_DataLock_Errors] TO Developer
 GRANT SELECT ON [Data_Pub].[DAS_DataLock_Errors_By_Provider] TO Developer
 
 --Data Analyst - Read all views excluding HMRC
@@ -79,6 +81,7 @@ GRANT SELECT ON [Data_Pub].[DAS_Payments] TO DataAnalyst
 GRANT SELECT ON [Data_Pub].[DAS_Psrs_SubmittedReports] To DataAnalyst
 GRANT SELECT ON [Data_Pub].[DAS_Psrs_Summary] To DataAnalyst
 GRANT SELECT ON [Data_Pub].[DAS_DataLocks] TO DataAnalyst
+GRANT SELECT ON [Data_Pub].[DAS_DataLock_Errors] TO DataAnalyst
 GRANT SELECT ON [Data_Pub].[DAS_DataLock_Errors_By_Provider] TO DataAnalyst
 
 --HMRC MI / API Reader - read HMRC Tables / Views

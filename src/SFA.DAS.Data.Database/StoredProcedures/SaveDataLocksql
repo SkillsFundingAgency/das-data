@@ -1,6 +1,6 @@
 ﻿CREATE PROCEDURE [Data_Load].[SaveDataLock]
 	@DataLockId BIGINT,
-    @ProcessDateTime DATETIME,
+    @ProcessDateTime DATETIME2,
     @IlrFileName NVARCHAR(50),
     @UkPrn BIGINT,
     @Uln BIGINT,
