@@ -23,9 +23,7 @@ namespace SFA.DAS.Data.AcceptanceTests.Functions.Psrs
                 InProcessTotals = 1,
                 ViewedTotals = 2,
                 SubmittedTotals = 3,
-                Total = 1,
-                //TODO: Use correct total when MPD-2316
-                //Total = 6,
+                Total = 6,
             };
 
             PsrsExternalRepositoryMock.Setup(x => x.GetSubmissionsSummary())
