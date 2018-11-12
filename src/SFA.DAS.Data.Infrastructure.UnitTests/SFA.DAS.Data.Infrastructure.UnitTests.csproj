@@ -108,6 +108,8 @@
     <Compile Include="Services\ProviderEventsServiceTests\ProviderEventsServiceTestsBase.cs" />
     <Compile Include="Services\ProviderEventsServiceTests\WhenIGetPaymentsForAPeriodEnd.cs" />
     <Compile Include="Services\ProviderEventsServiceTests\WhenIGetUnprocessedPeriodEnds.cs" />
+    <Compile Include="Services\PsrsReportsServiceTests\WhenIGetPsrsSubmissionsSummary.cs" />
+    <Compile Include="Services\PsrsReportsServiceTests\WhenIGetPsrsSubmittedReports.cs" />
     <Compile Include="Services\TransferRelationshipMessageServiceTests\WhenIGetTransferRelationshipMessages.cs" />
   </ItemGroup>
   <ItemGroup>
