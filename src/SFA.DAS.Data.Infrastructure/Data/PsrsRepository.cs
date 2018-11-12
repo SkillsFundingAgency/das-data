@@ -84,7 +84,7 @@ namespace SFA.DAS.Data.Infrastructure.Data
                 parameters.Add("@submittedTotals", summary.SubmittedTotals, DbType.Int32);
                 parameters.Add("@viewedTotals", summary.ViewedTotals, DbType.Int32);
                 parameters.Add("@inProcessTotals", summary.InProcessTotals, DbType.Int32);
-                parameters.Add("@total", summary.InProcessTotals, DbType.Int32);
+                parameters.Add("@total", summary.Total, DbType.Int32);
                 parameters.Add("@reportingPeriod", summary.ReportingPeriod, DbType.String);
 
                 return await c.ExecuteAsync(
