@@ -12,6 +12,7 @@ namespace SFA.DAS.Data.Functions.Psrs
 {
     public static class CreatePreviousSubmittedReportsFunction
     {
+        [Disable]
         [FunctionName("CreatePreviousSubmittedReports")]
         public static async Task<HttpResponseMessage> RunHttp(
             [HttpTrigger(AuthorizationLevel.Function, "GET", Route = null)] HttpRequestMessage req, [Inject] ILog log,

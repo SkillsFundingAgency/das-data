@@ -8,8 +8,8 @@ namespace SFA.DAS.Data.Functions.Psrs
 {
     public static class CreatePsrsReportSubmissionsSummaryFunction
     {
+        [Disable]
         [FunctionName("CreatePsrsReportSubmissionsSummary")]
-        
         public static async Task Run([TimerTrigger("%CronSchedule%")] TimerInfo myTimer, [Inject] ILog log,
             [Inject] IPsrsReportsService psrsService)
         {

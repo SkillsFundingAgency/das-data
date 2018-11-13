@@ -40,6 +40,9 @@
     <Reference Include="Microsoft.WindowsAzure.Configuration">
       <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.3.2.3\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
     </Reference>
+    <Reference Include="SFA.DAS.PSRService.Messages">
+      <HintPath>..\..\..\das-public-sector-reporting\src\SFA.DAS.PSRService.Messages\bin\Debug\netstandard2.0\SFA.DAS.PSRService.Messages.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Update="host.json">
