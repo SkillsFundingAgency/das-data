@@ -16,7 +16,6 @@ namespace SFA.DAS.Data.Functions.Psrs
             ExecutionContext executionContext,
             [Inject] ILog log)
         {
-            //TODO: Change direct reference to SFA.DAS.PSRService.Messages.dll to NuGet package.
             try
             {
                 var reportSubmittedEvent = message.DeserializeJsonMessage<ReportSubmitted>();
