@@ -139,7 +139,7 @@
     <Compile Include="Interfaces\IPsrsReportsService.cs" />
     <Compile Include="Interfaces\Repositories\IDataLockRepository.cs" />
     <Compile Include="Interfaces\Repositories\IPsrsRepository.cs" />
-    <Compile Include="Interfaces\Repositories\IPsrsExternalepository.cs" />
+    <Compile Include="Interfaces\Repositories\IPsrsExternalRepository.cs" />
     <Compile Include="Messages\CommitmentProcessingCompletedMessage.cs" />
     <Compile Include="Commands\CreateCommitmentStatistics\CreateCommitmentStatisticsCommand.cs" />
     <Compile Include="Commands\CreateCommitmentStatistics\CreateCommitmentStatisticsCommandHandler.cs" />

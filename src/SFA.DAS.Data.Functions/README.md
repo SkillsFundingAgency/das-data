@@ -7,6 +7,7 @@ This solution represents the Reporting Data load code base for the Digital Appre
 
 ## Running locally
 Create a local.settings.json file with the following schema, values will need to be populated
+```
 {
   "IsEncrypted": false,
   "Values": {
@@ -19,3 +20,4 @@ Create a local.settings.json file with the following schema, values will need to
     "ServiceName": "SFA.DAS.Data"
   }
 }
+```
