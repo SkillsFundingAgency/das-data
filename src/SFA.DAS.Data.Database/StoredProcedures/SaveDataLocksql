@@ -24,8 +24,10 @@
 AS
 BEGIN
 	SET NOCOUNT ON;
+
+	DECLARE @newId BIGINT;
 	
-	--Set IsLatest for the URP/Learner/Price Episode if it exists
+	--Set IsLatest off for the UKPRN/Learner/Price Episode if it exists
 	UPDATE [Data_Load].[DAS_DataLocks] 	
 	SET [IsLatest] = 0 	
 	WHERE [UkPrn] = @UkPrn
@@ -56,8 +58,7 @@ BEGIN
 		[IlrTrainingPrice],
 		[IlrEndpointAssessorPrice],
 		[IlrPriceEffectiveFromDate],
-		[IlrPriceEffectiveToDate],
-		[IsLatest]
+		[IlrPriceEffectiveToDate]
 	)
 	VALUES
 	(
@@ -82,11 +83,25 @@ BEGIN
 		@IlrTrainingPrice,
 		@IlrEndpointAssessorPrice,
 		@IlrPriceEffectiveFromDate,
-		@IlrPriceEffectiveToDate,
-		1
+		@IlrPriceEffectiveToDate
 	)
 
-SELECT scope_identity()
+	SET @newId = scope_identity();
+
+	--Set IsLatest on for the UKPRN/Learner/Price Episode if it exists
+	WITH CTE_LatestDataLock AS
+	(SELECT TOP 1 [IsLatest] FROM [Data_Load].[DAS_DataLocks]
+	WHERE [UkPrn] = @UkPrn
+			AND [Uln] = @Uln
+			AND [PriceEpisodeIdentifier] = @PriceEpisodeIdentifier
+	ORDER BY [ProcessDateTime] DESC, 
+			[DataLockId]
+	)
+	UPDATE CTE_LatestDataLock
+		SET [IsLatest] = 1
+
+	--Return the id of the newly inserted row
+	SELECT @newId
 
 END
 GO
