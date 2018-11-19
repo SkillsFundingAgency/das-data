@@ -11,5 +11,6 @@ namespace SFA.DAS.Data.Application.Interfaces.Gateways
         Task<PayeSchemeViewModel> GetPayeScheme(string payeSchemeHref);
         Task<List<LevyDeclarationViewModel>> GetLevyDeclarations(string levyDeclarationsHref);
         Task<EmployerAgreementView> GetEmployerAgreement(string agreementHref);
+        Task<StatisticsViewModel> GetStatistics();
     }
 }

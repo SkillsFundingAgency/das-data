@@ -6,7 +6,7 @@ SELECT
       ,CAST([P].[UkPrn] AS BIGINT) AS UKPRN
       ,CAST([P].[Uln] AS BIGINT) AS ULN
       ,[P].[EmployerAccountId] AS EmployerAccountID
-	 ,[EA].[DASAccountID] AS DasAccountId
+	 ,[EA].[DasAccountId] AS DasAccountId
       ,[P].[ApprenticeshipId] AS CommitmentID
       ,[P].[DeliveryMonth]
       ,[P].[DeliveryYear]
@@ -16,6 +16,10 @@ SELECT
       ,[P].[EmployerAccountVersion]
       ,[P].[ApprenticeshipVersion]
       ,[P].[FundingSource]
+	  ,CASE WHEN [P].[FundingSource] = 'LevyTransfer'
+			THEN [EAT].[SenderAccountId]
+			ELSE NULL
+		END AS[FundingAccountId]
       ,[P].[TransactionType]
       ,[P].[Amount]
       ,CAST(COALESCE([P].[StandardCode],-1) AS INT) AS [StdCode]
@@ -42,17 +46,20 @@ SELECT
 		  ELSE '19+' END AS PaymentAgeBand
      , CM.CalendarMonthShortNameYear AS DeliveryMonthShortNameYear
      , EA.AccountName AS DASAccountName
+	 , P.CollectionPeriodName
+	 , P.CollectionPeriodMonth
+	 , P.CollectionPeriodYear
 FROM [Data_Load].[DAS_Payments] AS P
 	--First Payment
 	LEFT JOIN 
-		(SELECT [P].[EmployerAccountID]
+		(SELECT [P].[EmployerAccountId]
 			   ,P.ApprenticeshipId
 			   ,MIN(CAST(P.DeliveryYear AS VARCHAR(255)) + '-'+CAST(P.DeliveryMonth AS VARCHAR(255))+'-'+CONVERT(NVARCHAR(MAX), [P].[UpdateDateTime], 121)+'-'+P.PaymentId) AS [Min_FirstPayment]
 			   ,1 AS [Flag_FirstPayment]
 		 FROM [Data_Load].[DAS_Payments] AS P
-		 GROUP BY P.EmployerAccountID, P.ApprenticeshipId	
+		 GROUP BY P.EmployerAccountId, P.ApprenticeshipId	
 		 ) 
-		 AS FP ON FP.EmployerAccountID = P.EmployerAccountID
+		 AS FP ON FP.EmployerAccountId = P.EmployerAccountId
 			AND FP.ApprenticeshipId = P.ApprenticeshipId
 			AND FP.Min_FirstPayment = (CAST(P.DeliveryYear AS VARCHAR(255)) + '-'+CAST(P.DeliveryMonth AS VARCHAR(255))+'-'+CONVERT(NVARCHAR(MAX), [P].[UpdateDateTime], 121)+'-'+P.PaymentId)
 	--Payment Age
@@ -61,4 +68,12 @@ FROM [Data_Load].[DAS_Payments] AS P
 	INNER JOIN Data_Load.DAS_CalendarMonth  AS CM ON CM.CalendarMonthNumber = P.DeliveryMonth AND CM.CalendarYear = P.DeliveryYear
     ---- DAS Account Name
 	LEFT JOIN [Data_Load].[DAS_Employer_Accounts] EA ON EA.AccountId = [P].[EmployerAccountId] AND EA.IsLatest = 1
+	---- Levy Transfer - Funding account
+	LEFT JOIN 
+		(
+			SELECT DISTINCT ReceiverAccountId, CommitmentId, SenderAccountId 
+			FROM [Data_Load].[DAS_Employer_Account_Transfers]
+		) 
+		AS EAT ON EAT.CommitmentId = [P].ApprenticeshipId AND EAT.ReceiverAccountId = [P].EmployerAccountId
+
 GO

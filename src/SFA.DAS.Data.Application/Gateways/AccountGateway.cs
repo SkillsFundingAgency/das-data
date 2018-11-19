@@ -39,5 +39,10 @@ namespace SFA.DAS.Data.Application.Gateways
         {
             return await _accountApiClient.GetResource<EmployerAgreementView>(agreementHref);
         }
+
+        public async Task<StatisticsViewModel> GetStatistics()
+        {
+            return await _accountApiClient.GetStatistics();
+        }
     }
 }
