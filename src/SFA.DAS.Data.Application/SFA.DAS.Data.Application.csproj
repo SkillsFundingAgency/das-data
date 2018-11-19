@@ -131,10 +131,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\CreateDataLock\CreateDataLockCommand.cs" />
+    <Compile Include="Commands\CreateDataLock\CreateDataLockCommandHandler.cs" />
     <Compile Include="Configuration\CommitmentsApiClientConfiguration.cs" />
     <Compile Include="Gateways\CommitmentsGateway.cs" />
     <Compile Include="Interfaces\Gateways\ICommitmentsGateway.cs" />
     <Compile Include="Interfaces\IPsrsReportsService.cs" />
+    <Compile Include="Interfaces\Repositories\IDataLockRepository.cs" />
     <Compile Include="Interfaces\Repositories\IPsrsRepository.cs" />
     <Compile Include="Interfaces\Repositories\IPsrsExternalRepository.cs" />
     <Compile Include="Messages\CommitmentProcessingCompletedMessage.cs" />

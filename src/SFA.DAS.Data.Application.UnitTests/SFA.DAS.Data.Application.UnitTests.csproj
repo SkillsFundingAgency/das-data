@@ -142,6 +142,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\CreateDataLocksTests\WhenICreateADataLock.cs" />
     <Compile Include="Commands\CreateEmploymentCheckTests\WhenAnEmploymentCheckIsComplete.cs" />
     <Compile Include="Commands\CreateEmployerAgreementTests\WhenICreateAnEmployerAgreement.cs" />
     <Compile Include="Commands\CreateLevyDeclarationsTests\WhenICreateLevyDeclarations.cs" />
