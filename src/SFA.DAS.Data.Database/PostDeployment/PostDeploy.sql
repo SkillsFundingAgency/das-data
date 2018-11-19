@@ -13,6 +13,7 @@ BEGIN
 	GRANT SELECT ON [Data_Pub].[DAS_Commitments] TO ViewSpecificReadOnly
 	GRANT SELECT ON [Data_Pub].[DAS_CalendarMonth] TO ViewSpecificReadOnly
 	GRANT SELECT ON [Data_Pub].[DAS_LevyDeclarations] TO ViewSpecificReadOnly
+	GRANT SELECT ON [Data_Pub].[DAS_Payments] TO ViewSpecificReadOnly
 	GRANT SELECT ON [Data_Pub].[DAS_Psrs_SubmittedReports] To ViewSpecificReadOnly
 	GRANT SELECT ON [Data_Pub].[DAS_Psrs_Summary] To ViewSpecificReadOnly
 	GRANT SELECT ON [Data_Pub].[DAS_DataLocks] TO ViewSpecificReadOnly
