@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
@@ -40,11 +41,15 @@ namespace SFA.DAS.Data.Infrastructure.Data
                 parameters.Add("@pausedOnDate", @event.PausedOnDate, DbType.DateTime);
                 parameters.Add("@stoppedOnDate", @event.StoppedOnDate, DbType.DateTime );
 
-                if (@event.PriceHistory?.LastOrDefault() != null)
+                if (@event.PriceHistory != null && @event.PriceHistory.Any())
                 {
-                    parameters.Add("@priceHistoryTotalCost", @event.PriceHistory.Last().TotalCost, DbType.Decimal);
-                    parameters.Add("@effectiveFromDate", @event.PriceHistory.Last().EffectiveFrom, DbType.DateTime);
-                    parameters.Add("@effectiveToDate", @event.PriceHistory.Last().EffectiveTo, DbType.DateTime);
+                    var priceHistoryItem = @event.PriceHistory
+                        .OrderBy(p => p.EffectiveTo ?? DateTime.MaxValue)
+                        .ThenBy(p => p.EffectiveFrom)
+                        .Last();
+                    parameters.Add("@priceHistoryTotalCost", priceHistoryItem.TotalCost, DbType.Decimal);
+                    parameters.Add("@effectiveFromDate", priceHistoryItem.EffectiveFrom, DbType.DateTime);
+                    parameters.Add("@effectiveToDate", priceHistoryItem.EffectiveTo, DbType.DateTime);
                 }
 
                 return await c.ExecuteAsync(

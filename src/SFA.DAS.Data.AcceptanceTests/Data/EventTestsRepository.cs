@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
 using Dapper;
+using SFA.DAS.Data.AcceptanceTests.Data.DTOs;
 using SFA.DAS.Data.Infrastructure.Data;
 using SFA.DAS.Provider.Events.Api.Types;
 
@@ -148,6 +149,15 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
             return await WithConnection(async c =>
                 await c.QuerySingleAsync<int>(
                     sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_Commitments]",
+                    commandType: CommandType.Text)
+            );
+        }
+
+        public async Task<IEnumerable<CommitmentsRecord>> GetApprenticeships()
+        {
+            return await WithConnection(async c =>
+                await c.QueryAsync<CommitmentsRecord>(
+                    sql: "SELECT * FROM [Data_Load].[DAS_Commitments]",
                     commandType: CommandType.Text)
             );
         }

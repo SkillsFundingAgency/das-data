@@ -290,6 +290,7 @@
     <Compile Include="ApiSubstitute\ApiStartup.cs" />
     <Compile Include="ApiSubstitute\ApiSubstituteMessageHandler.cs" />
     <Compile Include="ApiSubstitute\WebApiSubstitute.cs" />
+    <Compile Include="ApprenticeshipEventTests\WhenAnApprenticeshipWithPriceHistoryIsSaved.cs" />
     <Compile Include="Data\DTOs\CommitmentsRecord.cs" />
     <Compile Include="Data\DTOs\EmployerAccountsRecord.cs" />
     <Compile Include="Data\DTOs\DataStagingRecord.cs" />
