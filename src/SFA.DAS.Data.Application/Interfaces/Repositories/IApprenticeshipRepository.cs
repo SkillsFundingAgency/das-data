@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks;
-using SFA.DAS.Data.Domain.Models;
+using SFA.DAS.Events.Api.Types;
 
 namespace SFA.DAS.Data.Application.Interfaces.Repositories
 {
     public interface IApprenticeshipRepository
     {
-        Task Create(ApprenticeshipEvent @event);
+        Task Create(ApprenticeshipEventView @event);
         Task<long> GetTotalNumberOfAgreedApprenticeships();
     }
 }

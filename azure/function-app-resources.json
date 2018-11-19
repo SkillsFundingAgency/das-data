@@ -1,0 +1,108 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "functionAppName": {
+            "type": "string"
+        },
+        "sharedAppServicePlanName": {
+            "type": "string"
+        },
+        "sharedAppServicePlanResourceGroup": {
+            "type": "string"
+        },
+        "configurationStorageConnectionString": {
+            "type": "string"
+        },
+        "configEnvironmentName": {
+            "type": "string"
+        },
+        "storageConnectionString": {
+            "type": "string"
+        },
+        "messageBusConnectionString": {
+            "type": "string"
+        },
+        "cronSchedule": {
+            "type": "string"
+        }
+    },
+    "variables": {
+        "sharedAppServicePlanId": "[resourceId(parameters('sharedAppServicePlanResourceGroup'), 'Microsoft.Web/serverfarms', parameters('sharedAppServicePlanName'))]"
+    },
+    "resources": [
+        {
+            "name": "[parameters('functionAppName')]",
+            "type": "Microsoft.Web/sites",
+            "apiVersion": "2016-08-01",
+            "location": "[resourceGroup().location]",
+            "kind": "functionapp",
+            "properties": {
+                "serverFarmId": "[variables('sharedAppServicePlanId')]",
+                "siteConfig": {
+                    "alwaysOn": true,
+                    "appSettings": [
+                        {
+                            "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+                            "value": "[reference(resourceId('microsoft.insights/components/', parameters('functionAppName')), '2015-05-01').InstrumentationKey]"
+                        },
+                        {
+                            "name": "AzureWebJobsStorage",
+                            "value": "[parameters('storageConnectionString')]"
+                        },
+                        {
+                            "name": "AzureWebJobsDashboard",
+                            "value": "[parameters('storageConnectionString')]"
+                        },
+                        {
+                            "name": "FUNCTIONS_EXTENSION_VERSION",
+                            "value": "~1"
+                        },
+                        {
+                            "name": "ConfigurationStorageConnectionString",
+                            "value": "[parameters('configurationStorageConnectionString')]"
+                        },
+                        {
+                            "name": "EnvironmentName",
+                            "value": "[toUpper(parameters('configEnvironmentName'))]"
+                        },
+                        {
+                            "name": "MSDEPLOY_RENAME_LOCKED_FILES",
+                            "value": "1"
+                        },
+                        {
+                            "name": "ServiceName",
+                            "value": "SFA.DAS.Data"
+                        },
+                        {
+                            "name": "MessageBusConnectionString",
+                            "value": "[parameters('messageBusConnectionString')]"
+                        },
+                        {
+                            "name": "CronSchedule",
+                            "value": "[parameters('cronSchedule')]"
+                        }
+                    ],
+                    "connectionStrings": []
+                }
+            },
+            "dependsOn": [
+                "[resourceId('microsoft.insights/components/', parameters('functionAppName'))]"
+            ]
+        },
+        {
+            "apiVersion": "2015-05-01",
+            "name": "[parameters('functionAppName')]",
+            "type": "Microsoft.Insights/components",
+            "location": "[resourceGroup().location]",
+            "kind": "web",
+            "tags": {
+                "[concat('hidden-link:', resourceId('Microsoft.Web/sites', parameters('functionAppName')))]": "Resource"
+            },
+            "properties": {
+                "Application_Type": "web"
+            }
+        }
+    ],
+    "outputs": {}
+}

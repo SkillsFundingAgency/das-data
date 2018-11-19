@@ -1,7 +1,10 @@
-﻿using System.Data;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Data;
 using System.Threading.Tasks;
 using Dapper;
 using SFA.DAS.Data.Infrastructure.Data;
+using SFA.DAS.Provider.Events.Api.Types;
 
 namespace SFA.DAS.Data.AcceptanceTests.Data
 {
@@ -43,6 +46,15 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
             {
                 return await c.ExecuteAsync(
                     sql: "TRUNCATE TABLE [Data_Load].[DAS_Payments]",
+                    commandType: CommandType.Text);
+            });
+        }
+        public async Task DeleteTransfers()
+        {
+            await WithConnection(async c =>
+            {
+                return await c.ExecuteAsync(
+                    sql: "TRUNCATE TABLE [Data_Load].[DAS_Employer_Account_Transfers]",
                     commandType: CommandType.Text);
             });
         }
@@ -145,6 +157,24 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
             return await WithConnection(async c =>
                 await c.QuerySingleAsync<int>(
                     sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_Payments]",
+                    commandType: CommandType.Text)
+            );
+        }
+
+        public async Task<IEnumerable<AccountTransfer>> GetTransfers()
+        {
+            return await WithConnection(async c =>
+                await c.QueryAsync<AccountTransfer>(
+                    sql: "SELECT * FROM [Data_Load].[DAS_Employer_Account_Transfers]",
+                    commandType: CommandType.Text)
+            );
+        }
+
+        public async Task<int> GetNumberOfTransfers()
+        {
+            return await WithConnection(async c =>
+                await c.QuerySingleAsync<int>(
+                    sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_Employer_Account_Transfers]",
                     commandType: CommandType.Text)
             );
         }

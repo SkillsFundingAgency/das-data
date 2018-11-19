@@ -1,9 +1,10 @@
 ﻿using System;
 using SFA.DAS.Data.Infrastructure.Data;
-using SFA.DAS.EAS.Account.Api.Client;
 using SFA.DAS.EAS.Account.Api.Types;
 using SFA.DAS.Provider.Events.Api.Types;
 using System.Collections.Generic;
+using SFA.DAS.Data.Domain.Enum;
+using SFA.DAS.Data.Domain.Models;
 using SFA.DAS.Events.Api.Types;
 
 namespace SFA.DAS.Data.DatabaseTests.TestHelpers
@@ -58,6 +59,21 @@ namespace SFA.DAS.Data.DatabaseTests.TestHelpers
             var employeraccoutsrepo = new AccountRepository(_connectionString);
             employeraccoutsrepo.SaveAccount(empAccounts).Wait();
         }
+        public void InsertIntoEmployerTransferRelationships(dynamic value, ICollection<string> columns)
+        {
+            var trnasferRelationship = new TransferRelationship();
+
+            trnasferRelationship.SenderAccountId = columns.Contains("SenderAccountId") ? value.SenderAccountId : null;
+            trnasferRelationship.ReceiverAccountId = columns.Contains("ReceiverAccountId") ? value.ReceiverAccountId : null;
+            trnasferRelationship.RelationshipStatus = columns.Contains("RelationshipStatus") ? Enum.Parse(typeof(TransferRelationshipStatus),value.RelationshipStatus) : null;
+            trnasferRelationship.SenderUserId = columns.Contains("SenderUserId") ? value.SenderUserId : null;
+            trnasferRelationship.ApproverUserId = columns.Contains("ApproverUserId") ? value.ApproverUserId : null;
+            trnasferRelationship.RejectorUserId = columns.Contains("RejectorUserId") ? value.RejectorUserId : DateTime.Now.AddDays(-100);
+
+
+            var employeraccoutsrepo = new TransferRelationshipRepository(_connectionString);
+            employeraccoutsrepo.SaveTransferRelationship(trnasferRelationship).Wait();
+        }
 
         public void InsertIntoEmployerPayeSchemes(dynamic value, ICollection<string> columns)
         {
@@ -83,7 +99,8 @@ namespace SFA.DAS.Data.DatabaseTests.TestHelpers
             payment.CollectionPeriod = new NamedCalendarPeriod
             {
                 Month = columns.Contains("CollectionMonth") ? value.CollectionMonth : DateTime.Now.Month,
-                Year = columns.Contains("CollectionYear") ? value.CollectionYear : DateTime.Now.Year
+                Year = columns.Contains("CollectionYear") ? value.CollectionYear : DateTime.Now.Year,
+                Id = columns.Contains("Id") ? value.Id : "1718-R07"
             };
             payment.ContractType = columns.Contains("ContractType") ? Enum.Parse(typeof(ContractType), value.ContractType, true) : ContractType.ContractWithSfa;
             payment.DeliveryPeriod = new CalendarPeriod
@@ -110,16 +127,15 @@ namespace SFA.DAS.Data.DatabaseTests.TestHelpers
 
         public void InsertIntoCommitments(dynamic value, ICollection<string> columns)
         {
-            var commitment = new SFA.DAS.Data.Domain.Models.ApprenticeshipEvent();
+            var commitment = new ApprenticeshipEventView();
             commitment.Id = columns.Contains("CommitmentID") ? ConvertToType<long>(value.CommitmentID) : null;
-            commitment.PaymentStatus = columns.Contains("PaymentStatus") ? value.PaymentStatus : null;
+            commitment.PaymentStatus = columns.Contains("PaymentStatus") ? Enum.Parse(typeof(PaymentStatus), value.PaymentStatus) : null;
             commitment.ApprenticeshipId = columns.Contains("ApprenticeshipID") ? ConvertToType<long>(value.ApprenticeshipID) : null;
-            commitment.AgreementStatus = columns.Contains("AgreementStatus") ? value.AgreementStatus : null;
+            commitment.AgreementStatus = columns.Contains("AgreementStatus") ? Enum.Parse(typeof(AgreementStatus), value.AgreementStatus) : null;
             commitment.ProviderId = columns.Contains("ProviderID") ? ConvertToType<string>(value.ProviderID) : null;
             commitment.LearnerId = columns.Contains("LearnerID") ? ConvertToType<string>(value.LearnerID) : null;
             commitment.EmployerAccountId = columns.Contains("EmployerAccountID") ? ConvertToType<string>(value.EmployerAccountID) : null;
-            commitment.TrainingType =
-                columns.Contains("TrainingTypeID") ? ConvertToType<string>(value.TrainingTypeID) : null;
+            commitment.TrainingType = Enum.Parse(typeof(TrainingTypes), value.TrainingTypeID);
             commitment.TrainingId = columns.Contains("TrainingID") ? ConvertToType<string>(value.TrainingID) : null;
             commitment.TrainingStartDate = columns.Contains("TrainingStartDate")
                 ? ConvertToType<DateTime>(value.TrainingStartDate)
@@ -130,7 +146,7 @@ namespace SFA.DAS.Data.DatabaseTests.TestHelpers
             commitment.TrainingTotalCost = columns.Contains("TrainingTotalCost")
                 ? ConvertToType<decimal>(value.TrainingTotalCost)
                 : null;
-            commitment.LegalEntityCode = columns.Contains("LegalEntityCode") ? value.LegalEntityCode : null;
+            commitment.LegalEntityId = columns.Contains("LegalEntityCode") ? value.LegalEntityCode : null;
             commitment.LegalEntityName = columns.Contains("LegalEntityName") ? value.LegalEntityName : null;
             commitment.LegalEntityOrganisationType = columns.Contains("LegalEntityOrganisationType")
                 ? value.LegalEntityOrganisationType
