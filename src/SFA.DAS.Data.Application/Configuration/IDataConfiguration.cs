@@ -10,6 +10,7 @@ namespace SFA.DAS.Data.Application.Configuration
         int FailureTolerance { get; set; }
         bool PaymentsEnabled { get; set; }
         bool TransfersEnabled { get; set; }
+        bool DataLocksEnabled { get; set; }
         PerformancePlatformConfiguration PerformancePlatform { get; set; }
         string AgreementsApiUrl { get; set; }
         string EasStatisticsEndPoint { get; set; }

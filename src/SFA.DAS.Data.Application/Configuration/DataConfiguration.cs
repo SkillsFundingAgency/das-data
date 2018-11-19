@@ -13,11 +13,13 @@ namespace SFA.DAS.Data.Application.Configuration
         public PaymentsEventsApiConfiguration PaymentsEvents { get; set; }
         public bool PaymentsEnabled { get; set; }
         public bool TransfersEnabled { get; set; }
+        public bool DataLocksEnabled { get; set; }
         public PerformancePlatformConfiguration PerformancePlatform { get; set; }
         public string AgreementsApiUrl { get; set; }
         public string EasStatisticsEndPoint { get; set; }
         public string CommitmentsStatisticsEndPoint { get; set; }
         public string PaymentsStatisticsEndPoint { get; set; }
         public CommitmentsApiClientConfiguration CommitmentsApi { get; set; }
+       
     }
 }

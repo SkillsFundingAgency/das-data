@@ -67,6 +67,7 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             For<IEventHandler<PeriodEndEvent<AccountTransfer>>>().Use<TransferEventHandler>();
             For<IEventHandler<Events.GenericEvent<EmploymentCheckCompleteEvent>>>().Use<EmploymentCheckCompleteEventHandler>();
             For<IEventHandler<AgreementEventView>>().Use<AgreementEventHandler>();
+            For<IEventHandler<DataLockEvent>>().Use<DataLockEventHandler>();
             
             //Legacy support
             For<IEventHandler<AccountEventView>>().Use<AccountEventHandler>();
@@ -85,6 +86,7 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             For<IEventsCollector<PeriodEndEvent<Payment>>>().Use<PaymentEventCollector>();
             For<IEventsCollector<PeriodEndEvent<AccountTransfer>>>().Use<TransferEventCollector>();
             For<IEventsCollector<Events.GenericEvent<EmploymentCheckCompleteEvent>>>().Use<GenericEventCollector<EmploymentCheckCompleteEvent>>();
+            For<IEventsCollector<DataLockEvent>>().Use<DataLockEventCollector>();
             // Following code commented out so that Roatp changes do not go through to live as there are some questions around the tesing - Mahinder Suniara
             // For<IEventsCollector<AgreementEventView>>().Use<AgreementEventCollector>();
 
@@ -106,6 +108,7 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             For<IEventsProcessor>().Use<EventsProcessor<PeriodEndEvent<AccountTransfer>>>();
             For<IEventsProcessor>().Use<EventsProcessor<Events.GenericEvent<EmploymentCheckCompleteEvent>>>();
             For<IEventsProcessor>().Use<EventsProcessor<AgreementEventView>>();
+            For<IEventsProcessor>().Use<EventsProcessor<DataLockEvent>>();
 
             //Legacy support
             For<IEventsProcessor>().Use<EventsProcessor<AccountEventView>>();
@@ -132,6 +135,7 @@ namespace SFA.DAS.Data.Worker.DependencyResolution
             For<IEmployerAgreementRepository>().Use<EmployerAgreementRepository>().Ctor<string>().Is(connectionString);
             For<IEmploymentCheckRepository>().Use<EmploymentCheckRepository>().Ctor<string>().Is(connectionString);
             For<IProviderRepository>().Use<ProviderRepository>().Ctor<string>().Is(connectionString);
+            For<IDataLockRepository>().Use<DataLockRepository>().Ctor<string>().Is(connectionString);
         }
 
         private void AddMediatrRegistrations()
