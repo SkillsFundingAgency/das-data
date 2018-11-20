@@ -21,3 +21,8 @@ Create a local.settings.json file with the following schema, values will need to
   }
 }
 ```
+If using exteernal extensions assembly then the following line should also be included in the Values section:
+
+```
+    "AzureWebJobs_ExtensionsPath": ".",
+```

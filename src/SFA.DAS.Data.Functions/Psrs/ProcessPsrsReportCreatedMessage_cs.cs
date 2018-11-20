@@ -20,6 +20,7 @@ namespace SFA.DAS.Data.Functions.Psrs
             {
                 var reportCreatedEvent = message.DeserializeJsonMessage<ReportCreated>();
                 log.Info($"C# ServiceBus queue trigger function processed event: {reportCreatedEvent}");
+                message.Complete();
             }
             catch (Exception ex)
             {
