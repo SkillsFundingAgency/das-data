@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.Azure.ServiceBus.Management;
+using Microsoft.Azure.WebJobs;
 
 namespace SFA.DAS.Data.Functions.Extensions
 {
@@ -11,9 +12,6 @@ namespace SFA.DAS.Data.Functions.Extensions
     {
         public async Task LoadNServiceBusConfiguration()
         {
-            string connectionStringName = "ServiceBusConnectionString";
-            string queueName = "das-test-string-messages";
-
             //Load assemblies
             //var assembly = typeof();
             var assemblies = GetUserAssemblies();
@@ -30,18 +28,63 @@ namespace SFA.DAS.Data.Functions.Extensions
                         {
                             foreach (var attribute in method.GetCustomAttributes().OfType<NServiceBusConfigurationAttribute>())
                             {
-                                CreateConfiguration((NServiceBusConfigurationAttribute)attribute);
+                                //TODO: Move into method
+                                ServiceBusTriggerAttribute triggerAttribute = null;
+
+                                //Look for the servicebus trigger attribute on the method - might get more details from there
+                                foreach (var param in method.GetParameters())
+                                {
+                                    triggerAttribute = param.GetCustomAttributes()
+                                        .OfType<ServiceBusTriggerAttribute>().FirstOrDefault();
+                                    if(triggerAttribute != null)
+                                    {
+                                        break;
+                                    }
+                                }
+
+                                //var triggerAttribute = method
+                                //    .GetCustomAttributes()
+                                //    .OfType<ServiceBusTriggerAttribute>()
+                                //    .SingleOrDefault();
+
+                                var connectionStringName = triggerAttribute?.Connection;
+
+                                await CreateConfiguration(attribute, triggerAttribute);
                             }
                         }
                     }
                 }
             }
+        }
+
+        private async Task CreateConfiguration(NServiceBusConfigurationAttribute attribute, ServiceBusTriggerAttribute triggerAttribute)
+        {
+            //TODO: Use one or the other, not both
+            var connectionStringName = triggerAttribute?.Connection ?? attribute.Connection;
+            var queueName = triggerAttribute?.QueueName ?? attribute.Queue;
+            var subscriptionName = attribute.Subscription;
+            var messageType = attribute.MessageType;
+            var messageTypeName = attribute.MessageType.Name;
+
+            var connectionString = Environment.GetEnvironmentVariable(connectionStringName, EnvironmentVariableTarget.Process);
+
+            //var tokenProvider = GetTokenProvider(attribute.Connection);
+            var managementClient = new ManagementClient(connectionString);
+
+            var queues = await managementClient.GetQueuesAsync();
+
+            var queue = await managementClient.GetQueueAsync(queueName);
+            if (queue == null)
+            {
+                queue = await managementClient.CreateQueueAsync(queueName);
+            }
+
 
             /*
-             var eventName = "MyEvent";
+            var eventName = "MyEvent";
 var functionName = "Functionname";
 var subscriptionDescription = new SubscriptionDescription("bundle-1", functionName) {
-    UserMetadata = $"Events {functionName} is subscribed to"
+   UserMetadata = $"Events {functionName} is subscribed to"
 };
 var description = await managementClient.CreateSubscriptionAsync(subscriptionDescription);
 await managementClient.DeleteRuleAsync(BundleName, description.SubscriptionName, "$Default");
@@ -49,19 +92,7 @@ var rule = new RuleDescription();
 rule.Name = eventName;
 rule.Filter = new SqlFilter($"[NServiceBus.EnclosedMessageTypes] LIKE '%{eventName}%'");
 await managementClient.CreateRuleAsync("bundle-1", description.SubscriptionName, rule);
-             */
-        }
-
-        private async Task CreateConfiguration(NServiceBusConfigurationAttribute attribute)
-        {
-            var connectionString = Environment.GetEnvironmentVariable(attribute.Connection, EnvironmentVariableTarget.Process);
-
-            //var tokenProvider = GetTokenProvider(attribute.Connection);
-
-            var managementClient = new ManagementClient(connectionString);
-
-            var queues = await managementClient.GetQueuesAsync();
-
+            */
         }
 
         private static IEnumerable<Assembly> GetUserAssemblies()

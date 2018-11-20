@@ -11,6 +11,7 @@ namespace SFA.DAS.Data.Functions.Psrs
     public static class ProcessPsrsReportCreatedMessage
     {
         [FunctionName("ProcessPsrsReportCreatedMessages")]
+        [NServiceBusConfiguration("SFA.DAS.PSRService.Messages.Events.ReportCreated", typeof(ReportCreated))]
         public static void Run([ServiceBusTrigger("sfa.das.psrservice.messages.events.reportcreated", AccessRights.Manage, Connection = "MessageBusConnectionString")]
             BrokeredMessage message,
             ExecutionContext executionContext,

@@ -14,7 +14,7 @@ namespace SFA.DAS.Data.Functions.NServiceBusExtensions
         
             //Workaround for redirecting Newtonsoft assembly
             //TODO: Use a separate extension config
-            Startup.Startup.RedirectAssembly();
+            //Startup.Startup.RedirectAssembly();
         
             //Consider doing this from the binding provider?
             //var loader = new NServiceBusConfigurationLoader();

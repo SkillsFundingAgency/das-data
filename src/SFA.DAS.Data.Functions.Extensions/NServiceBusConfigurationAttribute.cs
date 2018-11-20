@@ -13,6 +13,16 @@ namespace SFA.DAS.Data.Functions.Extensions
 
         public Type MessageType { get; private set; }
 
+        public NServiceBusConfigurationAttribute(string subscription, Type messageType)
+            : this(null, subscription, messageType, null)
+        {
+        }
+
+        public NServiceBusConfigurationAttribute(string queue, string subscription, Type messageType)
+            : this(queue, subscription, messageType, null)
+        {
+        }
+
         public NServiceBusConfigurationAttribute(string queue, string subscription, Type messageType, string connection)
         {
             Connection = connection;
@@ -20,5 +30,6 @@ namespace SFA.DAS.Data.Functions.Extensions
             Subscription = subscription;
             MessageType = messageType;
         }
+
     }
 }
