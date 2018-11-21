@@ -11,7 +11,7 @@ namespace SFA.DAS.Data.Functions.Psrs
     public static class ProcessPsrsReportSubmittedMessage
     {
         [FunctionName("ProcessPsrsReportSubmittedMessage")]
-        [NServiceBusConfiguration("SFA.DAS.PSRService.Messages.Events.ReportSubmitted", typeof(ReportCreated))]
+        [NServiceBusConfiguration("SFA.DAS.PSRService.Messages.Events.ReportSubmitted", typeof(ReportSubmitted))]
         public static void Run([ServiceBusTrigger("sfa.das.psrservice.messages.events.reportsubmitted",
                 AccessRights.Manage, Connection = "MessageBusConnectionString")]
             BrokeredMessage message,
@@ -22,7 +22,6 @@ namespace SFA.DAS.Data.Functions.Psrs
             {
                 var reportSubmittedEvent = message.DeserializeJsonMessage<ReportSubmitted>();
                 log.Info($"C# ServiceBus queue trigger function processed event: {reportSubmittedEvent}");
-                message.Complete();
             }
             catch (Exception ex)
             {
