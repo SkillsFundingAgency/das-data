@@ -242,15 +242,3 @@ UNION ALL SELECT 'HistoricAdjustmentsTaxYear6AnnualAllowanceAmount' AS ColumnNam
 -- Feed name has changed, update old values
 update [Data_Load].DAS_LoadedEvents set EventFeed = 'PeriodEnd-Payment' where EventFeed = 'PeriodEnd' and not exists(select 1 from [Data_Load].DAS_LoadedEvents where EventFeed = 'PeriodEnd-Payment')
 
---Clean up - remove obsolete Data Lock tables and schema
-IF exists (select * from sys.tables where name = 'DAS_ValidLearners' and schema_id =  SCHEMA_ID('Data_Lock'))
-	DROP TABLE [Data_Lock].[DAS_ValidLearners]
-if exists (select * from sys.tables where name = 'DAS_ValidAims' and schema_id =  SCHEMA_ID('Data_Lock'))
-	DROP TABLE [Data_Lock].[DAS_ValidAims]
-if exists (select * from sys.tables where name = 'DAS_DataLocks' and schema_id =  SCHEMA_ID('Data_Lock'))
-	DROP TABLE [Data_Lock].[DAS_DataLocks]
-if exists (select * from sys.tables where name = 'DAS_DataLock' and schema_id =  SCHEMA_ID('Data_Lock'))
-	DROP TABLE [Data_Lock].[DAS_DataLock]
-
-IF EXISTS (SELECT 1 FROM sys.schemas WHERE name = 'Data_Lock' )
-	DROP SCHEMA [Data_Lock]
