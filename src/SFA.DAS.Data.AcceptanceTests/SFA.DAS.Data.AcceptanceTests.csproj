@@ -218,6 +218,9 @@
     <Reference Include="SFA.Roatp.Api.Types, Version=0.1.119.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.Roatp.Api.Types.0.1.119\lib\net45\SFA.Roatp.Api.Types.dll</HintPath>
     </Reference>
+    <Reference Include="Sfa.Roatp.Events, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sfa.Roatp.Events.0.1.9\lib\net45\Sfa.Roatp.Events.dll</HintPath>
+    </Reference>
     <Reference Include="StructureMap, Version=4.6.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\StructureMap.4.6.1\lib\net45\StructureMap.dll</HintPath>
     </Reference>

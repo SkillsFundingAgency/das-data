@@ -118,6 +118,9 @@
     <Reference Include="SFA.DAS.PSRService.Messages, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.PSRService.Messages.1.0.0\lib\netstandard2.0\SFA.DAS.PSRService.Messages.dll</HintPath>
     </Reference>
+    <Reference Include="Sfa.Roatp.Events, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sfa.Roatp.Events.0.1.9\lib\net45\Sfa.Roatp.Events.dll</HintPath>
+    </Reference>
     <Reference Include="StructureMap, Version=4.6.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\StructureMap.4.6.1\lib\net45\StructureMap.dll</HintPath>
     </Reference>

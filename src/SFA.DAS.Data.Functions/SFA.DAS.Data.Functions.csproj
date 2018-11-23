@@ -21,6 +21,7 @@
     <PackageReference Include="SFA.DAS.NLog.Logger" Version="1.1.5" />
     <PackageReference Include="SFA.DAS.Provider.Events.Api.Client" Version="2.1.53" />
     <PackageReference Include="SFA.DAS.PSRService.Messages" Version="1.0.0" />
+    <PackageReference Include="Sfa.Roatp.Events" Version="0.1.9" />
     <PackageReference Include="StructureMap" Version="4.6.1" />
     <PackageReference Include="WindowsAzure.Storage" Version="8.7.0" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />

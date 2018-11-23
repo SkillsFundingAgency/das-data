@@ -12,8 +12,7 @@ namespace SFA.DAS.Data.Functions.Psrs
     {
         [FunctionName("ProcessPsrsReportSubmittedMessage")]
         [NServiceBusConfiguration("SFA.DAS.PSRService.Messages.Events.ReportSubmitted", typeof(ReportSubmitted))]
-        public static void Run([ServiceBusTrigger("sfa.das.psrservice.messages.events.reportsubmitted",
-                AccessRights.Manage, Connection = "MessageBusConnectionString")]
+        public static void Run([ServiceBusTrigger("sfa.das.psrservice.messages.events.reportsubmitted", AccessRights.Manage, Connection = "MessageBusConnectionString")]
             BrokeredMessage message,
             ExecutionContext executionContext,
             [Inject] ILog log)
