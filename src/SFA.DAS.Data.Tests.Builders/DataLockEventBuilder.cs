@@ -71,7 +71,7 @@ namespace SFA.DAS.Data.Tests.Builders
             {
                 _errors[i] = new DataLockEventError
                 {
-                    ErrorCode = $"ERR-{i + 1:##}",
+                    ErrorCode = $"DLOCK-{i + 1:##}",
                     SystemDescription = $"Description for error {i + 1:##}"
                 };
             }

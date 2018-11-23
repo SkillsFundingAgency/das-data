@@ -14,15 +14,15 @@
     [EventSource] INT NOT NULL,
 	[Status] INT NOT NULL,
     [HasErrors] BIT NOT NULL DEFAULT 0,
-    [IlrStartDate] DATE NULL,
+    [IlrStartDate] DATETIME2 NULL,
     [IlrStandardCode] BIGINT NULL,
     [IlrProgrammeType] INT NULL,
     [IlrFrameworkCode] INT NULL,
     [IlrPathwayCode] INT NULL,
     [IlrTrainingPrice] DECIMAL(12,5) NULL,
     [IlrEndpointAssessorPrice] DECIMAL(12,5) NULL,
-    [IlrPriceEffectiveFromDate] DATE NULL,
-    [IlrPriceEffectiveToDate] DATE NULL,
+    [IlrPriceEffectiveFromDate] DATETIME2 NULL,
+    [IlrPriceEffectiveToDate] DATETIME2 NULL,
     [IsLatest] BIT NOT NULL DEFAULT 0
 )
 GO

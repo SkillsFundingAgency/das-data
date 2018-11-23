@@ -35,15 +35,15 @@ namespace SFA.DAS.Data.Infrastructure.Data
                         parameters.Add("@EventSource", dataLock.EventSource, DbType.Int32);
                         parameters.Add("@Status", dataLock.Status, DbType.Int32);
                         parameters.Add("@HasErrors", dataLock.HasErrors, DbType.Boolean);
-                        parameters.Add("@IlrStartDate", dataLock.IlrStartDate, DbType.Date);
+                        parameters.Add("@IlrStartDate", dataLock.IlrStartDate, DbType.DateTime2);
                         parameters.Add("@IlrStandardCode", dataLock.IlrStandardCode, DbType.Int64);
                         parameters.Add("@IlrProgrammeType", dataLock.IlrProgrammeType, DbType.Int32);
                         parameters.Add("@IlrFrameworkCode", dataLock.IlrFrameworkCode, DbType.Int32);
                         parameters.Add("@IlrPathwayCode", dataLock.IlrPathwayCode, DbType.Int32);
                         parameters.Add("@IlrTrainingPrice", dataLock.IlrTrainingPrice, DbType.Decimal);
                         parameters.Add("@IlrEndpointAssessorPrice", dataLock.IlrEndpointAssessorPrice, DbType.Decimal);
-                        parameters.Add("@IlrPriceEffectiveFromDate", dataLock.IlrPriceEffectiveFromDate, DbType.Date);
-                        parameters.Add("@IlrPriceEffectiveToDate", dataLock.IlrPriceEffectiveToDate, DbType.Date);
+                        parameters.Add("@IlrPriceEffectiveFromDate", dataLock.IlrPriceEffectiveFromDate, DbType.DateTime2);
+                        parameters.Add("@IlrPriceEffectiveToDate", dataLock.IlrPriceEffectiveToDate, DbType.DateTime2);
 
                         var id = await c.ExecuteScalarAsync<long>(
                             sql: "[Data_Load].[SaveDataLock]",

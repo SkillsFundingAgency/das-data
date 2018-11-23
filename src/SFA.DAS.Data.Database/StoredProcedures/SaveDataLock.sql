@@ -12,15 +12,15 @@
     @EventSource INT,
     @Status INT,
 	@HasErrors BIT,
-    @IlrStartDate DATE = NULL,
+    @IlrStartDate DATETIME2 = NULL,
     @IlrStandardCode BIGINT = NULL,
     @IlrProgrammeType INT = NULL,
     @IlrFrameworkCode INT = NULL,
     @IlrPathwayCode INT = NULL,
     @IlrTrainingPrice DECIMAL(12,5) = NULL,
     @IlrEndpointAssessorPrice DECIMAL(12,5) = NULL,
-    @IlrPriceEffectiveFromDate DATE = NULL,
-    @IlrPriceEffectiveToDate DATE = NULL
+    @IlrPriceEffectiveFromDate DATETIME2 = NULL,
+    @IlrPriceEffectiveToDate DATETIME2 = NULL
 AS
 BEGIN
 	SET NOCOUNT ON;

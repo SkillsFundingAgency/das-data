@@ -158,7 +158,7 @@
     <Build Include="Views\DAS_Psrs_Summary.sql" />
     <Build Include="Tables\DAS_DataLocks.sql" />
     <Build Include="Views\DAS_DataLocks.sql" />
-    <Build Include="StoredProcedures\SaveDataLocksql" />
+    <Build Include="StoredProcedures\SaveDataLock.sql" />
     <Build Include="Tables\DAS_DataLock_Errors.sql" />
     <Build Include="StoredProcedures\GetLastPublicSectorReportSubmittedTime.sql" />
     <Build Include="Views\DAS_DataLock_Errors_By_Provider.sql" />
