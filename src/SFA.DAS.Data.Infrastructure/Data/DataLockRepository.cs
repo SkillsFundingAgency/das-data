@@ -22,7 +22,7 @@ namespace SFA.DAS.Data.Infrastructure.Data
                     try
                     {
                         var parameters = new DynamicParameters();
-                        parameters.Add("@DataLockId", dataLock.Id, DbType.Int64);
+                        parameters.Add("@DataLockEventId", dataLock.Id, DbType.Int64);
                         parameters.Add("@ProcessDateTime", dataLock.ProcessDateTime, DbType.DateTime2);
                         parameters.Add("@IlrFileName", dataLock.IlrFileName, DbType.String);
                         parameters.Add("@UkPrn", dataLock.Ukprn, DbType.Int64);

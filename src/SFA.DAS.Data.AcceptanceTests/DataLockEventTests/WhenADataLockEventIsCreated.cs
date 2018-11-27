@@ -31,12 +31,12 @@ namespace SFA.DAS.Data.AcceptanceTests.DataLockEventTests
 
         private async Task AreDataLockFieldsStoredCorrectly(IList<DataLockEvent> expectedDataLockEvents)
         {
-            var actualDataLocks = (await EventTestsRepository.GetDataLocks()).OrderBy(d => d.DataLockId).ToList();
+            var actualDataLocks = (await EventTestsRepository.GetDataLocks()).OrderBy(d => d.DataLockEventId).ToList();
             var actualDataLockErrors = (await EventTestsRepository.GetDataLockErrors()).OrderBy(e => e.DataLockId).ThenBy(e => e.ErrorCode).ToList();
 
             for (var i = 0; i < actualDataLocks.Count; i++)
             {
-                Assert.AreEqual(expectedDataLockEvents[i].Id, actualDataLocks[i].DataLockId);
+                Assert.AreEqual(expectedDataLockEvents[i].Id, actualDataLocks[i].DataLockEventId);
 
                 var expectedDataLock = expectedDataLockEvents[i];
                 var actualDataLock = actualDataLocks[i];

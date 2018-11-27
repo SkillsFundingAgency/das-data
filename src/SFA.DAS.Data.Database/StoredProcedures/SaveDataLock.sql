@@ -1,5 +1,5 @@
 ﻿CREATE PROCEDURE [Data_Load].[SaveDataLock]
-	@DataLockId BIGINT,
+	@DataLockEventId BIGINT,
     @ProcessDateTime DATETIME2,
     @IlrFileName NVARCHAR(50),
     @UkPrn BIGINT,
@@ -37,7 +37,7 @@ BEGIN
 	   	 
 	INSERT INTO [Data_Load].[DAS_DataLocks]
 	(
-		[DataLockId],
+		[DataLockEventId],
 		[ProcessDateTime],
 		[IlrFileName],
 		[UkPrn],
@@ -62,7 +62,7 @@ BEGIN
 	)
 	VALUES
 	(
-		@DataLockId,
+		@DataLockEventId,
 		@ProcessDateTime,
 		@IlrFileName,
 		@UkPrn,
@@ -95,7 +95,7 @@ BEGIN
 			AND [Uln] = @Uln
 			AND [PriceEpisodeIdentifier] = @PriceEpisodeIdentifier
 	ORDER BY [ProcessDateTime] DESC, 
-			[DataLockId] DESC
+			[DataLockEventId] DESC
 	)
 	UPDATE CTE_LatestDataLock
 		SET [IsLatest] = 1

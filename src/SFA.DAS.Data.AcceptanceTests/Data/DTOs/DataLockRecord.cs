@@ -8,7 +8,7 @@ namespace SFA.DAS.Data.AcceptanceTests.Data.DTOs
     public class DataLockRecord
     {
         public long Id { get; set; }
-        public long DataLockId { get; set; }
+        public long DataLockEventId { get; set; }
         public DateTime ProcessDateTime { get; set; }
         public EventStatus Status { get; set; }
         public string IlrFileName { get; set; }

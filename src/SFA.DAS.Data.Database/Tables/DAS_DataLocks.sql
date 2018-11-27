@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [Data_Load].[DAS_DataLocks]
 (
 	[Id] BIGINT NOT NULL PRIMARY KEY IDENTITY, 
-	[DataLockId] [bigint] NOT NULL,
+	[DataLockEventId] [bigint] NOT NULL,
     [ProcessDateTime] DATETIME2 NOT NULL,
     [IlrFileName] NVARCHAR(50),
     [UkPrn] BIGINT NOT NULL,
@@ -26,7 +26,7 @@
     [IsLatest] BIT NOT NULL DEFAULT 0
 )
 GO
-CREATE NONCLUSTERED INDEX [IX_DataLocks_DataLockId] ON [Data_Load].[DAS_DataLocks] ([DataLockId])
+CREATE NONCLUSTERED INDEX [IX_DataLocks_DataLockEventId] ON [Data_Load].[DAS_DataLocks] ([DataLockEventId])
 GO
 CREATE NONCLUSTERED INDEX [IX_DataLocks_UkPrn_Uln_PriceEpisodeIdentifier_IsLatest] 
 ON [Data_Load].[DAS_DataLocks] ([UkPrn], [Uln], [PriceEpisodeIdentifier], [IsLatest])
@@ -37,5 +37,5 @@ INCLUDE ([UkPrn])
 GO
 CREATE NONCLUSTERED INDEX [IX_DataLocks_HasErrors_IsLatest] 
 ON [Data_Load].[DAS_DataLocks] ([HasErrors], [IsLatest])
-INCLUDE ([DataLockId], [UkPrn])
+INCLUDE ([DataLockEventId], [UkPrn])
 GO

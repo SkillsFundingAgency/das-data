@@ -1,7 +1,7 @@
 ﻿CREATE VIEW [Data_Pub].[DAS_DataLocks]
 AS 
 SELECT lock.[Id],
-    lock.[DataLockId],
+    lock.[DataLockEventId],
     lock.[ProcessDateTime],
     CASE 
 	    WHEN lock.[Status] = 1 THEN 'New' 
