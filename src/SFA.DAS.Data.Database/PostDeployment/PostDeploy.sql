@@ -242,3 +242,8 @@ UNION ALL SELECT 'HistoricAdjustmentsTaxYear6AnnualAllowanceAmount' AS ColumnNam
 -- Feed name has changed, update old values
 update [Data_Load].DAS_LoadedEvents set EventFeed = 'PeriodEnd-Payment' where EventFeed = 'PeriodEnd' and not exists(select 1 from [Data_Load].DAS_LoadedEvents where EventFeed = 'PeriodEnd-Payment')
 
+--Reset event loading for data locks, if it was stopped
+UPDATE [Data_Load].DAS_LoadedEvents 
+SET LastProcessedEventId = convert(nvarchar(50), 0)
+WHERE EventFeed = 'DataLockEvent'
+AND LastProcessedEventId = convert(nvarchar(50), 999999999999)

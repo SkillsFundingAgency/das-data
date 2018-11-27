@@ -66,6 +66,7 @@
     <Folder Include="StoredProcedures" />
     <Folder Include="Functions" />
     <Folder Include="Types" />
+    <Folder Include="PreDeployment" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Schemas\Data_Load.sql" />
@@ -174,5 +175,8 @@
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="PostDeployment\PostDeploy.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PreDeploy Include="PreDeployment\PreDeploy.sql" />
   </ItemGroup>
 </Project>
