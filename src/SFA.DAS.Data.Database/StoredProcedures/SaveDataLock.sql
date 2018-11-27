@@ -95,7 +95,7 @@ BEGIN
 			AND [Uln] = @Uln
 			AND [PriceEpisodeIdentifier] = @PriceEpisodeIdentifier
 	ORDER BY [ProcessDateTime] DESC, 
-			[DataLockId]
+			[DataLockId] DESC
 	)
 	UPDATE CTE_LatestDataLock
 		SET [IsLatest] = 1
