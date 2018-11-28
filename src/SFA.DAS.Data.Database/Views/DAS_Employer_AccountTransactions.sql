@@ -11,7 +11,7 @@
 		  ,    NULL AS CollectionYear
 		  ,	   NULL As CollectionPeriodName	
           ,    'IN Levy Money from HMRC' AS TransactionType
-          ,    ROUND((LD.LevyDeclaredInMonth * LD.EnglishFraction),2) AS Amount
+          ,    ROUND((LD.LevyDeclaredInMonth * LD.EnglishFraction),5) AS Amount
           FROM Data_Load.DAS_LevyDeclarations AS LD
           WHERE LD.IsLatest = 1
     UNION ALL
@@ -26,7 +26,7 @@
 			   ,    NULL AS CollectionYear
 			   ,	NULL As CollectionPeriodName	
                ,    'IN Levy Top Up Amount' AS TransactionType
-               ,    ROUND(LD.[TopupAmount],2) AS Amount
+               ,    ROUND(LD.[TopupAmount],5) AS Amount
           FROM Data_Load.DAS_LevyDeclarations AS LD
 		  WHERE LD.IsLatest = 1
     UNION ALL
@@ -41,7 +41,7 @@
 			   ,    CollectionYear
 			   ,	CollectionPeriodName
                ,    'OUT '+[TransactionType]  AS TransactionType
-               ,    ROUND((PS.Amount*-1),2) AS Amount -- Made negative as Payment
+               ,    ROUND((PS.Amount*-1),5) AS Amount -- Made negative as Payment
           FROM Data_Load.DAS_Payments AS PS
           -- DAS Account Name
                LEFT JOIN 
@@ -67,7 +67,7 @@
 			   ,    CollectionYear
 			   ,	CollectionPeriodName
                ,    'TRF '+'Levy Transfer Sent'  AS TransactionType
-               ,    ROUND((PS.Amount*-1),2) AS Amount -- Made negative as Payment
+               ,    ROUND((PS.Amount*-1),5) AS Amount -- Made negative as Payment
           FROM Data_Load.DAS_Payments AS PS
           -- DAS Account Name
                LEFT JOIN 
@@ -91,7 +91,7 @@
 			   ,    CollectionYear
 			   ,	CollectionPeriodName
                ,    'TRF '+'Levy Transfer Recieved'  AS TransactionType
-               ,    ROUND((PS.Amount*-1),2) AS Amount -- Made negative as Payment
+               ,    ROUND((PS.Amount*-1),5) AS Amount -- Made negative as Payment
           FROM Data_Load.DAS_Payments 
 		  AS PS
           -- DAS Account Name
@@ -117,7 +117,7 @@
 			   ,    CollectionYear
 			   ,	CollectionPeriodName
                ,    'OUT '+'Learning Levy Transfer'  AS TransactionType
-               ,    ROUND((PS.Amount*-1),2) AS Amount -- Made negative as Payment
+               ,    ROUND((PS.Amount*-1),5) AS Amount -- Made negative as Payment
           FROM Data_Load.DAS_Payments 
 		  AS PS
           ---- DAS Account Name
