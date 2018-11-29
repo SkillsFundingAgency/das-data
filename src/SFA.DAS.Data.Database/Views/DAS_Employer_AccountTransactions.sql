@@ -79,7 +79,7 @@
                --AND  PS.IsLatest = 1
 	UNION ALL
 
----TRF Levy Transfer Recieved
+---TRF Levy Transfer Received
 
 	SELECT 
                     [EA].[DasAccountId] AS DasAccountId
@@ -90,8 +90,8 @@
 			   ,    CollectionMonth
 			   ,    CollectionYear
 			   ,	CollectionPeriodName
-               ,    'TRF '+'Levy Transfer Recieved'  AS TransactionType
-               ,    ROUND((PS.Amount*-1),5) AS Amount -- Made negative as Payment
+         ,    'TRF '+'Levy Transfer Received'  AS TransactionType
+         ,    ROUND(PS.Amount,5) AS Amount -- Keep Positive
           FROM Data_Load.DAS_Payments 
 		  AS PS
           -- DAS Account Name
