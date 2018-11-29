@@ -90,8 +90,8 @@
 			   ,    CollectionMonth
 			   ,    CollectionYear
 			   ,	CollectionPeriodName
-               ,    'TRF '+'Levy Transfer Received'  AS TransactionType
-               ,    ROUND(PS.Amount,5) AS Amount -- Keep Positive
+         ,    'TRF '+'Levy Transfer Received'  AS TransactionType
+         ,    ROUND(PS.Amount,5) AS Amount -- Keep Positive
           FROM Data_Load.DAS_Payments 
 		  AS PS
           -- DAS Account Name
