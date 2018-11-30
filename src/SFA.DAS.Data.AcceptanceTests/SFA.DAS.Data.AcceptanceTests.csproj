@@ -201,8 +201,8 @@
     <Reference Include="SFA.DAS.NLog.Logger, Version=1.1.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.NLog.Logger.1.1.5\lib\net45\SFA.DAS.NLog.Logger.dll</HintPath>
     </Reference>
-    <Reference Include="SFA.DAS.NServiceBus, Version=6.0.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.NServiceBus.6.0.4\lib\net462\SFA.DAS.NServiceBus.dll</HintPath>
+    <Reference Include="SFA.DAS.NServiceBus, Version=6.0.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.NServiceBus.6.0.7\lib\net462\SFA.DAS.NServiceBus.dll</HintPath>
     </Reference>
     <Reference Include="SFA.DAS.Provider.Events.Api.Client, Version=2.1.53.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.Provider.Events.Api.Client.2.1.53\lib\net45\SFA.DAS.Provider.Events.Api.Client.dll</HintPath>
@@ -213,7 +213,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="SFA.DAS.PSRService.Messages, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.PSRService.Messages.1.0.0\lib\netstandard2.0\SFA.DAS.PSRService.Messages.dll</HintPath>
+      <HintPath>..\packages\SFA.DAS.PSRService.Messages.0.1.6\lib\netstandard2.0\SFA.DAS.PSRService.Messages.dll</HintPath>
     </Reference>
     <Reference Include="SFA.Roatp.Api.Types, Version=0.1.119.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.Roatp.Api.Types.0.1.119\lib\net45\SFA.Roatp.Api.Types.dll</HintPath>
