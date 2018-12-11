@@ -71,4 +71,7 @@
   <ItemGroup>
     <PostDeploy Include="PostDeployment\PosttDeploy.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Database.publish.xml" />
+  </ItemGroup>
 </Project>
