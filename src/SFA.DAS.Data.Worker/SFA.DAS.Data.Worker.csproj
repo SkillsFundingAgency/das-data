@@ -205,6 +205,7 @@
   <ItemGroup>
     <Compile Include="DependencyResolution\DefaultRegistry.cs" />
     <Compile Include="Events\EventHandlers\AgreementEventHandler.cs" />
+    <Compile Include="Events\EventHandlers\DataLockEventHandler.cs" />
     <Compile Include="Events\EventHandlers\EmploymentCheckCompleteEventHandler.cs" />
     <Compile Include="Events\EventHandlers\AccountEventHandler.cs" />
     <Compile Include="Events\EventHandlers\LevyDeclarationUpdatedEventHandler.cs" />
@@ -219,6 +220,7 @@
     <Compile Include="Events\EventsCollectors\AgreementEventCollector.cs" />
     <Compile Include="Events\EventsCollectors\ApprenticeshipEventsCollector.cs" />
     <Compile Include="Events\EventsCollectors\AccountEventCollector.cs" />
+    <Compile Include="Events\EventsCollectors\DataLocksEventCollector.cs" />
     <Compile Include="Events\EventsCollectors\GenericEventCollector.cs" />
     <Compile Include="Events\EventsCollectors\IEventsCollector.cs" />
     <Compile Include="Events\EventsCollectors\TransferEventCollector.cs" />

@@ -116,6 +116,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\DataLockRepository.cs" />
     <Compile Include="Data\EmploymentCheckRepository.cs" />
     <Compile Include="Data\EmployerAgreementRepository.cs" />
     <Compile Include="Data\PsrsExternalRepository.cs" />

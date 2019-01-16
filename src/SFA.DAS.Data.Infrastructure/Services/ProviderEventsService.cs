@@ -47,12 +47,19 @@ namespace SFA.DAS.Data.Infrastructure.Services
 
         private static ICollection<PeriodEnd> GetUnprocessedPeriods(PeriodEnd[] periodEnds, string lastProcessedPeriodId)
         {
-            return periodEnds.SkipWhile(x => x.Id != lastProcessedPeriodId).Skip(1).ToList();
+            return periodEnds?.SkipWhile(x => x.Id != lastProcessedPeriodId).Skip(1).ToList();
         }
 
         private static bool HaveAnyPeriodsBeenProcessedPreviously(string lastProcessedPeriodId)
         {
             return !string.IsNullOrEmpty(lastProcessedPeriodId);
+        }
+
+        public async Task<PageOfResults<DataLockEvent>> GetUnprocessedDataLocks()
+        {
+            var eventId = await _eventRepository.GetLastProcessedEventId<long>(typeof(DataLockEvent).Name);
+
+            return await _eventsApi.GetDataLockEvents(sinceEventId: eventId);
         }
     }
 }

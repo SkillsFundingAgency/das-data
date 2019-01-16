@@ -291,7 +291,13 @@
     <Compile Include="ApiSubstitute\ApiSubstituteMessageHandler.cs" />
     <Compile Include="ApiSubstitute\WebApiSubstitute.cs" />
     <Compile Include="ApprenticeshipEventTests\WhenAnApprenticeshipWithPriceHistoryIsSaved.cs" />
+    <Compile Include="DataLockEventTests\DataLockEventTestsBase.cs" />
+    <Compile Include="DataLockEventTests\WhenADataLockEventIsCreated.cs" />
+    <Compile Include="DataLockEventTests\WhenADataLockEventWithMultipleErrorsIsCreated.cs" />
+    <Compile Include="DataLockEventTests\WhenADataLockEventWithNoErrorsIsCreated.cs" />
     <Compile Include="Data\DTOs\CommitmentsRecord.cs" />
+    <Compile Include="Data\DTOs\DataLockErrorRecord.cs" />
+    <Compile Include="Data\DTOs\DataLockRecord.cs" />
     <Compile Include="Data\DTOs\EmployerAccountsRecord.cs" />
     <Compile Include="Data\DTOs\DataStagingRecord.cs" />
     <Compile Include="Data\DTOs\EmployerAgreementsRecord.cs" />
@@ -299,10 +305,13 @@
     <Compile Include="Data\DTOs\EmployerPayeSchemesRecord.cs" />
     <Compile Include="Data\DTOs\PaymentsRecord.cs" />
     <Compile Include="Data\DTOs\QualityLog.cs" />
+    <Compile Include="Data\DTOs\ReportSubmissionsSummaryRecord.cs" />
+    <Compile Include="Data\DTOs\ReportSubmittedRecord.cs" />
     <Compile Include="Data\EventTestsRepository.cs" />
     <Compile Include="Data\HmrcDataTestsRepository.cs" />
     <Compile Include="Data\DTOs\LoadControlRecord.cs" />
     <Compile Include="Data\DTOs\ProcessLogRecord.cs" />
+    <Compile Include="Data\PsrsTestsRepository.cs" />
     <Compile Include="Data\StatisticsTestsRepository.cs" />
     <Compile Include="Data\TestsRepositoryBase.cs" />
     <Compile Include="EmploymentCheckEventTests\EmploymentCheckEventTestsBase.cs" />
@@ -315,6 +324,9 @@
     <Compile Include="Data\DTOs\DataQualityTestRecord.cs" />
     <Compile Include="EventTestBase.cs" />
     <Compile Include="Functions\DefaultRegistry.cs" />
+    <Compile Include="Functions\Psrs\PsrsTestBase.cs" />
+    <Compile Include="Functions\Psrs\WhenIGetAPublicSectorSubmissionSummary.cs" />
+    <Compile Include="Functions\Psrs\WhenIGetAPublicSectorReport.cs" />
     <Compile Include="Functions\Statistics\Accounts\AccountsTestBase.cs" />
     <Compile Include="Functions\Statistics\Accounts\WhenIGetAccountsStatistics.cs" />
     <Compile Include="Functions\Statistics\Commitments\CommitmentsTestBase.cs" />

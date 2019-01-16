@@ -13,8 +13,14 @@ BEGIN
 	GRANT SELECT ON [Data_Pub].[DAS_Commitments] TO ViewSpecificReadOnly
 	GRANT SELECT ON [Data_Pub].[DAS_CalendarMonth] TO ViewSpecificReadOnly
 	GRANT SELECT ON [Data_Pub].[DAS_LevyDeclarations] TO ViewSpecificReadOnly
+	GRANT SELECT ON [Data_Pub].[DAS_Employer_Agreements] TO ViewSpecificReadOnly
+	GRANT SELECT ON [Data_Pub].[DAS_Employer_AccountTransactions] TO ViewSpecificReadOnly
+	GRANT SELECT ON [Data_Pub].[DAS_Payments] TO ViewSpecificReadOnly
 	GRANT SELECT ON [Data_Pub].[DAS_Psrs_SubmittedReports] To ViewSpecificReadOnly
 	GRANT SELECT ON [Data_Pub].[DAS_Psrs_Summary] To ViewSpecificReadOnly
+	GRANT SELECT ON [Data_Pub].[DAS_DataLocks] TO ViewSpecificReadOnly
+	GRANT SELECT ON [Data_Pub].[DAS_DataLock_Errors] TO ViewSpecificReadOnly
+	GRANT SELECT ON [Data_Pub].[DAS_DataLock_Errors_By_Provider] TO ViewSpecificReadOnly
 END
 
 --Developer - Read all tables / views excluding HMRC
@@ -38,6 +44,8 @@ GRANT SELECT ON [Data_Load].[DAS_LoadedEvents] TO Developer
 GRANT SELECT ON [Data_Load].[DAS_Payments] TO Developer
 GRANT SELECT ON [Data_Load].[DAS_PublicSector_Reports] To Developer
 GRANT SELECT ON [Data_Load].[DAS_PublicSector_Summary] To Developer
+GRANT SELECT ON [Data_Load].[DAS_DataLocks] TO Developer
+GRANT SELECT ON [Data_Load].[DAS_DataLock_Errors] TO Developer
 GRANT SELECT ON [PerformancePlatform].[PP_HistoricalStatistics] TO Developer
 GRANT SELECT ON [PerformancePlatform].[PP_LastRun] TO Developer
 GRANT SELECT ON [Data_Pub].[DAS_Employer_Accounts] TO Developer
@@ -52,9 +60,9 @@ GRANT SELECT ON [Data_Pub].[DAS_Employer_Agreements] TO Developer
 GRANT SELECT ON [Data_Pub].[DAS_Payments] TO Developer
 GRANT SELECT ON [Data_Pub].[DAS_Psrs_SubmittedReports] To Developer
 GRANT SELECT ON [Data_Pub].[DAS_Psrs_Summary] To Developer
-GRANT SELECT ON [Data_Lock].[DAS_DataLocks] TO Developer
-GRANT SELECT ON [Data_Lock].[DAS_ValidLearners] TO Developer
-GRANT SELECT ON [Data_Lock].[DAS_ValidAims] TO Developer
+GRANT SELECT ON [Data_Pub].[DAS_DataLocks] TO Developer
+GRANT SELECT ON [Data_Pub].[DAS_DataLock_Errors] TO Developer
+GRANT SELECT ON [Data_Pub].[DAS_DataLock_Errors_By_Provider] TO Developer
 
 --Data Analyst - Read all views excluding HMRC
 IF DATABASE_PRINCIPAL_ID('DataAnalyst') IS NULL
@@ -76,11 +84,9 @@ GRANT SELECT ON [Data_Pub].[DAS_Employer_Agreements] TO DataAnalyst
 GRANT SELECT ON [Data_Pub].[DAS_Payments] TO DataAnalyst
 GRANT SELECT ON [Data_Pub].[DAS_Psrs_SubmittedReports] To DataAnalyst
 GRANT SELECT ON [Data_Pub].[DAS_Psrs_Summary] To DataAnalyst
-
---Data Analyst - Read Data_Lock tables
-GRANT SELECT ON [Data_Lock].[DAS_DataLocks] TO DataAnalyst
-GRANT SELECT ON [Data_Lock].[DAS_ValidLearners] TO DataAnalyst
-GRANT SELECT ON [Data_Lock].[DAS_ValidAims] TO DataAnalyst
+GRANT SELECT ON [Data_Pub].[DAS_DataLocks] TO DataAnalyst
+GRANT SELECT ON [Data_Pub].[DAS_DataLock_Errors] TO DataAnalyst
+GRANT SELECT ON [Data_Pub].[DAS_DataLock_Errors_By_Provider] TO DataAnalyst
 
 --HMRC MI / API Reader - read HMRC Tables / Views
 IF DATABASE_PRINCIPAL_ID('HMRCReader') IS NULL
@@ -236,3 +242,4 @@ UNION ALL SELECT 'HistoricAdjustmentsTaxYear6AnnualAllowanceAmount' AS ColumnNam
 
 -- Feed name has changed, update old values
 update [Data_Load].DAS_LoadedEvents set EventFeed = 'PeriodEnd-Payment' where EventFeed = 'PeriodEnd' and not exists(select 1 from [Data_Load].DAS_LoadedEvents where EventFeed = 'PeriodEnd-Payment')
+

@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
 using Dapper;
@@ -50,6 +49,7 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
                     commandType: CommandType.Text);
             });
         }
+
         public async Task DeleteTransfers()
         {
             await WithConnection(async c =>
@@ -105,6 +105,21 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
             await WithConnection(async c => await c.ExecuteAsync(
                 sql: "TRUNCATE TABLE [Data_Load].[Provider]",
                 commandType: CommandType.Text));
+        }
+
+        public async Task DeleteDataLocks()
+        {
+            await WithConnection(async c =>
+            {
+                await c.ExecuteAsync(
+                    sql: "DELETE FROM [Data_Load].[DAS_DataLock_Errors]",
+                    commandType: CommandType.Text);
+                await c.ExecuteAsync(
+                    sql: "DELETE FROM [Data_Load].[DAS_DataLocks]",
+                    commandType: CommandType.Text);
+
+                return 0;
+            });
         }
 
         public Task StoreLastProcessedEventId<T>(string eventFeed, T id)
@@ -167,6 +182,43 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
             return await WithConnection(async c =>
                 await c.QuerySingleAsync<int>(
                     sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_Payments]",
+                    commandType: CommandType.Text)
+            );
+        }
+
+        public async Task<IEnumerable<DataLockRecord>> GetDataLocks()
+        {
+
+            return await WithConnection(async c =>
+                await c.QueryAsync<DataLockRecord>(
+                    sql: "SELECT * FROM [Data_Load].[DAS_DataLocks]",
+                    commandType: CommandType.Text)
+            );
+        }
+
+        public async Task<IEnumerable<DataLockErrorRecord>> GetDataLockErrors()
+        {
+            return await WithConnection(async c =>
+                await c.QueryAsync<DataLockErrorRecord>(
+                    sql: "SELECT * FROM [Data_Load].[DAS_DataLock_Errors]",
+                    commandType: CommandType.Text)
+            );
+        }
+
+        public async Task<int> GetNumberOfDataLockEvents()
+        {
+            return await WithConnection(async c =>
+                await c.QuerySingleAsync<int>(
+                    sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_DataLocks]",
+                    commandType: CommandType.Text)
+            );
+        }
+
+        public async Task<int> GetNumberOfDataLockErrors()
+        {
+            return await WithConnection(async c =>
+                await c.QuerySingleAsync<int>(
+                    sql: "SELECT COUNT(*) FROM [Data_Load].[DAS_DataLock_Errors]",
                     commandType: CommandType.Text)
             );
         }
@@ -235,7 +287,7 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
                     commandType: CommandType.Text);
             });
         }
-        
+
         public async Task<int> GetNumberOfProviders()
         {
             return await WithConnection(async c =>

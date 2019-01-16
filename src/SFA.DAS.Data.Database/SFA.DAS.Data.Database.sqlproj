@@ -156,12 +156,14 @@
     <Build Include="Tables\DAS_PublicSector_Summary.sql" />
     <Build Include="Views\DAS_Psrs_SubmittedReports.sql" />
     <Build Include="Views\DAS_Psrs_Summary.sql" />
-    <Build Include="Schemas\Data_Lock.sql" />
     <Build Include="Tables\DAS_DataLocks.sql" />
-    <Build Include="Tables\DAS_ValidAims.sql" />
-    <Build Include="Tables\DAS_ValidLearners.sql" />
+    <Build Include="Views\DAS_DataLocks.sql" />
+    <Build Include="StoredProcedures\SaveDataLocksql" />
+    <Build Include="Tables\DAS_DataLock_Errors.sql" />
     <Build Include="StoredProcedures\GetLastPublicSectorReportSubmittedTime.sql" />
     <Build Include="Views\DAS_Commitments_Serco.sql" />
+    <Build Include="Views\DAS_DataLock_Errors_By_Provider.sql" />
+    <Build Include="Views\DAS_DataLock_Errors.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SFA.DAS.Data.Database.refactorlog" />
@@ -169,6 +171,7 @@
   <ItemGroup>
     <None Include="Database.publish.xml" />
     <Build Include="Schemas\Data_Pub.sql" />
+    <Build Include="StoredProcedures\SaveDataLock_Error.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="PostDeployment\PostDeploy.sql" />

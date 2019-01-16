@@ -112,10 +112,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Events\EventCollectorsTests\AgreementEventCollectorTests\WhenIGetAgreementEvents.cs" />
+    <Compile Include="Events\EventCollectorsTests\DataLockEventCollectorTests\WhenIGetDataLockEvents.cs" />
     <Compile Include="Events\EventCollectorsTests\PaymentEventCollectorTests\WhenIGetPaymentEvents.cs" />
     <Compile Include="Events\EventCollectorsTests\ApprenticeshipEventCollectorTests\WhenIGetApprenticeshipEvents.cs" />
     <Compile Include="Events\EventCollectorsTests\GenericEventCollectorTests\WhenGenericEventsAreRequested.cs" />
     <Compile Include="Events\EventHandlerTests\AgreementEventHandler\WhenAnAgreementEventIsHandled.cs" />
+    <Compile Include="Events\EventHandlerTests\DataLockEventHandlerTests\WhenADataLockEventIsHandled.cs" />
     <Compile Include="Events\EventHandlerTests\EmploymentCheckCompleteEventHandlerTests\WhenAnEmploymentCheckCompleteEventIsHandled.cs" />
     <Compile Include="Events\EventHandlerTests\AgreementSignedEventHandlerTests\WhenAnAgreementSignedEventIsHandled.cs" />
     <Compile Include="Events\EventHandlerTests\LevyDeclarationUpdatedEventHandlerTests\WhenALevyDeclarationUpdatedEventIsHandled.cs" />
