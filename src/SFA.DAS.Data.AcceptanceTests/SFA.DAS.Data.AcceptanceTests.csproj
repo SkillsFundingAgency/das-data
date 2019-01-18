@@ -152,8 +152,8 @@
     <Reference Include="SFA.DAS.Events.Api.Client, Version=2.0.0.35796, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.Events.Api.Client.2.0.0.35796\lib\net45\SFA.DAS.Events.Api.Client.dll</HintPath>
     </Reference>
-    <Reference Include="SFA.DAS.Events.Api.Types, Version=2.1.10.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.Events.Api.Types.2.1.10\lib\net45\SFA.DAS.Events.Api.Types.dll</HintPath>
+    <Reference Include="SFA.DAS.Events.Api.Types, Version=2.1.31.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Events.Api.Types.2.1.31\lib\net45\SFA.DAS.Events.Api.Types.dll</HintPath>
     </Reference>
     <Reference Include="SFA.DAS.Http, Version=1.0.0.39136, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.Http.1.0.0.39136\lib\net45\SFA.DAS.Http.dll</HintPath>
@@ -290,6 +290,7 @@
     <Compile Include="ApiSubstitute\ApiStartup.cs" />
     <Compile Include="ApiSubstitute\ApiSubstituteMessageHandler.cs" />
     <Compile Include="ApiSubstitute\WebApiSubstitute.cs" />
+    <Compile Include="ApprenticeshipEventTests\WhenAnApprenticeshipWithPriceHistoryIsSaved.cs" />
     <Compile Include="DataLockEventTests\DataLockEventTestsBase.cs" />
     <Compile Include="DataLockEventTests\WhenADataLockEventIsCreated.cs" />
     <Compile Include="DataLockEventTests\WhenADataLockEventWithMultipleErrorsIsCreated.cs" />

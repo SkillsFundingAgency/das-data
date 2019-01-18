@@ -161,6 +161,7 @@
     <Build Include="StoredProcedures\SaveDataLocksql" />
     <Build Include="Tables\DAS_DataLock_Errors.sql" />
     <Build Include="StoredProcedures\GetLastPublicSectorReportSubmittedTime.sql" />
+    <Build Include="Views\DAS_Commitments_Serco.sql" />
     <Build Include="Views\DAS_DataLock_Errors_By_Provider.sql" />
     <Build Include="Views\DAS_DataLock_Errors.sql" />
   </ItemGroup>

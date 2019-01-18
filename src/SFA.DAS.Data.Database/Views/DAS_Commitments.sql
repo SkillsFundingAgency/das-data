@@ -103,6 +103,11 @@ SELECT [C].[ID]
           , CASE WHEN C.AgreementStatus = 'BothAgreed' THEN 'Yes'
                  ELSE 'No' END AS FullyAgreedCommitment
           , ELE.LegalEntityRegisteredAddress
+		  , C.PausedOnDate
+		  , C.StoppedOnDate AS [WithdrawnDate]
+		  , C.PriceHistoryTotalCost AS [TrainingTotalCostUpdated]
+		  , C.EffectiveFromDate AS [EffectiveFrom]
+		  , C.EffectiveToDate AS [EffectiveTo]
 	FROM Data_Load.Das_Commitments AS C
 		 -- DAS Account
 		 LEFT JOIN [Data_Load].[DAS_Employer_Accounts] EAA ON EAA.AccountId = [C].[EmployerAccountID] AND EAA.IsLatest = 1

@@ -52,7 +52,7 @@ namespace SFA.DAS.Data.AcceptanceTests.Functions.Statistics.Accounts
 
             await StatisticsTestsRepository.InsertPaymentsData(new PaymentsRecord
             {
-                CollectionYear = 2018,
+                CollectionYear = DateTime.Now.Year,
                 UpdateDateTime = DateTime.Now
             });
 

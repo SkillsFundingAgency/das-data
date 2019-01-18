@@ -28,5 +28,10 @@ namespace SFA.DAS.Data.AcceptanceTests.Data.DTOs
         public long? TransferSenderAccountId { get; set; }
         public string TransferApprovalStatus { get; set; }
         public DateTime? TransferApprovalDate { get; set; }
+        public DateTime? PausedOnDate { get; set; }
+        public DateTime? StoppedOnDate { get; set; }
+        public Decimal? PriceHistoryTotalCost { get; set; }
+        public DateTime? EffectiveFromDate { get; set; }
+        public DateTime? EffectiveToDate { get; set; }
     }
 }

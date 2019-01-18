@@ -76,7 +76,7 @@ namespace SFA.DAS.Data.AcceptanceTests.ApprenticeshipEventTests
                 }
             };
 
-            EventsApi.SetupGet("api/events/apprenticeships?fromEventId=3&pageSize=1000&pageNumber=1", events);
+            EventsApi.SetupGet("api/events/apprenticeships?fromEventId=3&pageSize=10000&pageNumber=1", events);
         }
     }
 }

@@ -76,6 +76,7 @@ GRANT SELECT ON [Data_Pub].[DAS_Employer_LegalEntities] TO DataAnalyst
 GRANT SELECT ON [Data_Pub].[DAS_Employer_PayeSchemes] TO DataAnalyst
 GRANT SELECT ON [Data_Pub].[DAS_Employer_Transfer_Relationship] TO DataAnalyst
 GRANT SELECT ON [Data_Pub].[DAS_Commitments] TO DataAnalyst
+GRANT SELECT ON [Data_Pub].[DAS_Commitments_Serco] TO DataAnalyst
 GRANT SELECT ON [Data_Pub].[DAS_CalendarMonth] TO DataAnalyst
 GRANT SELECT ON [Data_Pub].[DAS_LevyDeclarations] TO DataAnalyst
 GRANT SELECT ON [Data_Pub].[DAS_Employer_AccountTransactions] TO DataAnalyst

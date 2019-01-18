@@ -168,6 +168,15 @@ namespace SFA.DAS.Data.AcceptanceTests.Data
             );
         }
 
+        public async Task<IEnumerable<CommitmentsRecord>> GetApprenticeships()
+        {
+            return await WithConnection(async c =>
+                await c.QueryAsync<CommitmentsRecord>(
+                    sql: "SELECT * FROM [Data_Load].[DAS_Commitments]",
+                    commandType: CommandType.Text)
+            );
+        }
+
         public async Task<int> GetNumberOfPayments()
         {
             return await WithConnection(async c =>
