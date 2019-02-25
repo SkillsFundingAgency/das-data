@@ -163,6 +163,8 @@
     <Build Include="StoredProcedures\GetLastPublicSectorReportSubmittedTime.sql" />
     <Build Include="Views\DAS_DataLock_Errors_By_Provider.sql" />
     <Build Include="Views\DAS_DataLock_Errors.sql" />
+    <Build Include="Tables\HMRC_EnglishFractions.sql" />
+    <Build Include="Tables\HMRC_LevyDeclarations.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SFA.DAS.Data.Database.refactorlog" />
