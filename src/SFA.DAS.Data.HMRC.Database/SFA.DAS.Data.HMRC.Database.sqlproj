@@ -67,6 +67,8 @@
     <Build Include="Schemas\HMRC.sql" />
     <Build Include="Tables\EnglishFractions.sql" />
     <Build Include="Tables\LevyDeclarations.sql" />
+    <Build Include="Tables\Stg_Load_EF.sql" />
+    <Build Include="Tables\Stg_Load_LD.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="PostDeployment\PosttDeploy.sql" />
