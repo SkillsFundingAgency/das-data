@@ -100,6 +100,10 @@ GRANT SELECT ON [HMRC].[Data_Staging] TO HMRCReader
 GRANT SELECT ON [HMRC].[DATA-Live] TO HMRCReader
 GRANT SELECT ON [HMRC].[DATA-Staging] TO HMRCReader
 GRANT SELECT ON [HMRC].[HMRC_MI_View] TO HMRCReader
+GRANT SELECT ON [HMRC].[LevyDeclarations] TO HMRCReader
+GRANT SELECT ON [HMRC].[EnglishFractions] TO HMRCReader
+GRANT SELECT ON [HMRC].[Stg_Load_EF] TO HMRCReader
+GRANT SELECT ON [HMRC].[Stg_Load_LD] TO HMRCReader
 
 Exec Data_Load.UpdateCalendarMonth
 
@@ -146,21 +150,21 @@ END
 TRUNCATE TABLE HMRC.Configuration_Data_Quality_Tests
 
 INSERT INTO HMRC.Configuration_Data_Quality_Tests
-    ( ColumnName 
-    , ColumnNullable 
+    ( ColumnName
+    , ColumnNullable
     , ColumnType
-    , ColumnLength 
-    , ColumnPrecision 
-    , ColumnDefault 
-    , RunColumnTests 
+    , ColumnLength
+    , ColumnPrecision
+    , ColumnDefault
+    , RunColumnTests
     , ColumnPatternMatching
     , ColumnMinValue
     , ColumnMaxValue
-    , StopLoadIfTestTextLength 
-    , StopLoadIfTestIsNumeric 
-    , StopLoadIfTestPatternMatch 
-    , StopLoadIfTestValueRange 
-    , StopLoadIfTestDecimalPlaces 
+    , StopLoadIfTestTextLength
+    , StopLoadIfTestIsNumeric
+    , StopLoadIfTestPatternMatch
+    , StopLoadIfTestValueRange
+    , StopLoadIfTestDecimalPlaces
     )
 SELECT 'TaxPeriodStartYear' AS ColumnName, 1 AS ColumnNullable , 'INT' AS ColumnType, '' AS ColumnLength, '' AS ColumnPrecision, '' AS ColumnDefault, 1 as RunColumnTests, '20[1-9][0-9]' AS ColumnPatternMatching, '2016' AS ColumnMinValue, '9999' AS ColumnMaxValue,0 AS StopLoadIfTestTextLength,0 AS StopLoadIfTestIsNumeric,0 AS StopLoadIfTestPatternMatch,1 AS StopLoadIfTestValueRange,0 AS StopLoadIfTestDecimalPlaces
 UNION ALL SELECT 'TaxPeriodMonth' AS ColumnName, 1 AS ColumnNullable , 'INT' AS ColumnType, '' AS ColumnLength, '' AS ColumnPrecision, '' AS ColumnDefault, 1 as RunColumnTests, '' AS ColumnPatternMatching, '1' AS ColumnMinValue, '12' AS ColumnMaxValue,0 AS StopLoadIfTestTextLength,0 AS StopLoadIfTestIsNumeric,0 AS StopLoadIfTestPatternMatch,1 AS StopLoadIfTestValueRange,0 AS StopLoadIfTestDecimalPlaces
