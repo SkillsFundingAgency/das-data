@@ -49,6 +49,7 @@ GRANT SELECT ON [Data_Load].[DAS_DataLock_Errors] TO Developer
 GRANT SELECT ON [PerformancePlatform].[PP_HistoricalStatistics] TO Developer
 GRANT SELECT ON [PerformancePlatform].[PP_LastRun] TO Developer
 GRANT SELECT ON [Data_Pub].[DAS_Employer_Accounts] TO Developer
+GRANT SELECT ON [Data_Pub].[DAS_Employer_Account_Transfers] TO DataAnalyst
 GRANT SELECT ON [Data_Pub].[DAS_Employer_LegalEntities] TO Developer
 GRANT SELECT ON [Data_Pub].[DAS_Employer_PayeSchemes] TO Developer
 GRANT SELECT ON [Data_Pub].[DAS_EmploymentCheck] TO Developer
