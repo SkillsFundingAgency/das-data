@@ -52,6 +52,7 @@ GRANT SELECT ON [Data_Pub].[DAS_Employer_Accounts] TO Developer
 GRANT SELECT ON [Data_Pub].[DAS_Employer_Account_Transfers] TO Developer
 GRANT SELECT ON [Data_Pub].[DAS_Employer_LegalEntities] TO Developer
 GRANT SELECT ON [Data_Pub].[DAS_Employer_PayeSchemes] TO Developer
+GRANT SELECT ON [Data_Pub].[DAS_Employer_Transfer_Relationship] TO Developer
 GRANT SELECT ON [Data_Pub].[DAS_EmploymentCheck] TO Developer
 GRANT SELECT ON [Data_Pub].[DAS_Commitments] TO Developer
 GRANT SELECT ON [Data_Pub].[DAS_CalendarMonth] TO Developer
