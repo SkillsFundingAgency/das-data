@@ -107,6 +107,36 @@ GRANT SELECT ON [HMRC].[EnglishFractions] TO HMRCReader
 GRANT SELECT ON [HMRC].[Stg_Load_EF] TO HMRCReader
 GRANT SELECT ON [HMRC].[Stg_Load_LD] TO HMRCReader
 
+/*
+HMRC Importer - read / write a set of HMRC Tables:
+HMRC.Stg_Load_EF
+HMRC.Stg_Load_LD
+HMRC.EnglishFractions
+HMRC.LevyDeclarations
+*/
+
+IF DATABASE_PRINCIPAL_ID('HMRCImporter') IS NULL
+BEGIN
+	CREATE ROLE [HMRCImporter]
+END
+
+GRANT SELECT ON [HMRC].[Stg_Load_EF] TO HMRCImporter
+GRANT SELECT ON [HMRC].[Stg_Load_LD] TO HMRCImporter
+GRANT SELECT ON [HMRC].[EnglishFractions] TO HMRCImporter
+GRANT SELECT ON [HMRC].[LevyDeclarations] TO HMRCImporter
+GRANT INSERT ON [HMRC].[Stg_Load_EF] TO HMRCImporter
+GRANT INSERT ON [HMRC].[Stg_Load_LD] TO HMRCImporter
+GRANT INSERT ON [HMRC].[EnglishFractions] TO HMRCImporter
+GRANT INSERT ON [HMRC].[LevyDeclarations] TO HMRCImporter
+GRANT UPDATE ON [HMRC].[Stg_Load_EF] TO HMRCImporter
+GRANT UPDATE ON [HMRC].[Stg_Load_LD] TO HMRCImporter
+GRANT UPDATE ON [HMRC].[EnglishFractions] TO HMRCImporter
+GRANT UPDATE ON [HMRC].[LevyDeclarations] TO HMRCImporter
+GRANT DELETE ON [HMRC].[Stg_Load_EF] TO HMRCImporter
+GRANT DELETE ON [HMRC].[Stg_Load_LD] TO HMRCImporter
+GRANT DELETE ON [HMRC].[EnglishFractions] TO HMRCImporter
+GRANT DELETE ON [HMRC].[LevyDeclarations] TO HMRCImporter
+
 Exec Data_Load.UpdateCalendarMonth
 
 IF (SELECT COUNT(*) FROM [Data_Load].[DAS_Employer_Accounts] WHERE IsLatest = 1) = 0
