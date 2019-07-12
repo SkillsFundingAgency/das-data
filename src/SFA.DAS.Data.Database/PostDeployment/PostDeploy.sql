@@ -106,6 +106,7 @@ GRANT SELECT ON [HMRC].[LevyDeclarations] TO HMRCReader
 GRANT SELECT ON [HMRC].[EnglishFractions] TO HMRCReader
 GRANT SELECT ON [HMRC].[Stg_Load_EF] TO HMRCReader
 GRANT SELECT ON [HMRC].[Stg_Load_LD] TO HMRCReader
+GRANT SELECT ON [HMRC].[Stg_MIData] TO HMRCReader
 
 /*
 HMRC Importer - read / write a set of HMRC Tables:
