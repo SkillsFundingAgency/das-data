@@ -34,7 +34,7 @@
         },
         "appServicePlanInstances": {
             "type": "int",
-            "defaultValue": 2
+            "defaultValue": 1
         }
     },
     "variables": {
