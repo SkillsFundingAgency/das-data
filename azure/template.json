@@ -174,7 +174,7 @@
             },
             "dependsOn": [
                 "worker-app-service-plan",
-                "function-app",
+                "function-app-insights",
                 "storage-account"
             ]
         }
