@@ -168,6 +168,10 @@
     <Build Include="Tables\HMRC_Stg_Load_EF.sql" />
     <Build Include="Tables\HMRC_Stg_Load_LD.sql" />
     <Build Include="Tables\HMRC_Stg_MIData.sql" />
+    <Build Include="Tables\HMRC_MIData_Live.sql" />
+    <Build Include="Tables\HMRC_MIData_History.sql" />
+    <Build Include="StoredProcedures\LoadFullFileToLiveAndHistoryOneOff.sql" />
+    <Build Include="StoredProcedures\LoadMIDelta.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SFA.DAS.Data.Database.refactorlog" />
