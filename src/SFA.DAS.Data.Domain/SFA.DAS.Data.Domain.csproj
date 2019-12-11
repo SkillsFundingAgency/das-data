@@ -51,7 +51,6 @@
     <Compile Include="Constants.cs" />
     <Compile Include="Interfaces\ICommitmentsStatisticsHandler.cs" />
     <Compile Include="Interfaces\IEasStatisticsHandler.cs" />
-    <Compile Include="Interfaces\IHttpClientWrapper.cs" />
     <Compile Include="Interfaces\IPaymentStatisticsHandler.cs" />
     <Compile Include="Interfaces\IProcessingCompletedMessage.cs" />
     <Compile Include="Interfaces\IStatisticsService.cs" />

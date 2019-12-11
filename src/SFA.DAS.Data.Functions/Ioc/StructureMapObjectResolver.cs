@@ -17,9 +17,11 @@ namespace SFA.DAS.Data.Functions.Ioc
 
                 lock (_lockObject)
                 {
-                    return _container ?? (_container = new Container(c => { c.AddRegistry<DefaultRegistry>(); }));
+                    return _container ?? (_container = new Container(c => {
+                        c.AddRegistry<CommitmentsRegistry>();
+                        c.AddRegistry<DefaultRegistry>();
+                    }));
                 }
-
             }
         }
 
