@@ -16,5 +16,6 @@ namespace SFA.DAS.Data.Application.Configuration
         string EasStatisticsEndPoint { get; set; }
         string CommitmentsStatisticsEndPoint { get; set; }
         string PaymentsStatisticsEndPoint { get; set; }
+        CommitmentsApiClientConfiguration CommitmentsApi { get; set; }
     }
 }

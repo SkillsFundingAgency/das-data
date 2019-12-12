@@ -8,13 +8,19 @@ using SFA.DAS.Data.Application.Configuration;
 using SFA.DAS.Data.Application.Interfaces.Repositories;
 using SFA.DAS.Data.Domain.Interfaces;
 using SFA.DAS.Data.Infrastructure.Data;
+using SFA.DAS.Data.Infrastructure.Http;
 using SFA.DAS.NLog.Logger;
 using SFA.DAS.Provider.Events.Api.Client;
 using StructureMap;
 using SFA.DAS.Data.Infrastructure.Services;
+using SFA.DAS.Commitments.Api.Client;
+using SFA.DAS.Commitments.Api.Client.Configuration;
+using SFA.DAS.Commitments.Api.Client.Interfaces;
 using SFA.DAS.Data.Application.Interfaces;
 using SFA.DAS.EAS.Account.Api.Client;
+using SFA.DAS.NLog.Logger.Web.MessageHandlers;
 using SFA.DAS.Http;
+using SFA.DAS.Http.TokenGenerators;
 
 namespace SFA.DAS.Data.Functions.Ioc
 {
@@ -79,8 +85,24 @@ namespace SFA.DAS.Data.Functions.Ioc
         {
             For<IPaymentsEventsApiClient>().Use(new PaymentsEventsApiClient(config.PaymentsEvents));
             For<IAccountApiClient>().Use<AccountApiClient>().Ctor<IAccountApiConfiguration>().Is(config.AccountsApi);
+
+            IJwtClientConfiguration clientConfig = config.CommitmentsApi;
+          
+            var bearerToken = (IGenerateBearerToken)new JwtBearerTokenGenerator(clientConfig);
+
+            var httpClient = new HttpClientBuilder()
+                .WithBearerAuthorisationHeader(bearerToken)
+                .WithHandler(new RequestIdMessageRequestHandler())
+                .WithHandler(new SessionIdMessageRequestHandler())
+                .WithDefaultHeaders()
+                .Build();
+
+            For<IEmployerCommitmentApi>().Use<EmployerCommitmentApi>()
+                .Ctor<HttpClient>().Is(httpClient)
+                .Ctor<ICommitmentsApiClientConfiguration>().Is(config.CommitmentsApi);
+            For<IStatisticsApi>().Use<StatisticsApi>().Ctor<HttpClient>().Is(httpClient).Ctor<ICommitmentsApiClientConfiguration>().Is(config.CommitmentsApi);
         }
-     
+
         private static IConfigurationRepository GetConfigurationRepository()
         {
             return new AzureTableStorageConfigurationRepository(CloudConfigurationManager.GetSetting("ConfigurationStorageConnectionString"));
@@ -99,4 +121,5 @@ namespace SFA.DAS.Data.Functions.Ioc
             For<IMediator>().Use<Mediator>();
         }
     }
+
 }

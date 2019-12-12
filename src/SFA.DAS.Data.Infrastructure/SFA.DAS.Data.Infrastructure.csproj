@@ -122,6 +122,7 @@
     <Compile Include="Data\PsrsExternalRepository.cs" />
     <Compile Include="Data\PsrsRepository.cs" />
     <Compile Include="Data\TransferRelationshipRepository.cs" />
+    <Compile Include="Http\HttpClientWrapper.cs" />
     <Compile Include="Data\LevyDeclarationRepository.cs" />
     <Compile Include="Data\ApprenticeshipRepository.cs" />
     <Compile Include="Data\PayeSchemeRepository.cs" />
