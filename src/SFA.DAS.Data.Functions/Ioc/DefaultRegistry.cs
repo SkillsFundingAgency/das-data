@@ -12,9 +12,13 @@ using SFA.DAS.NLog.Logger;
 using SFA.DAS.Provider.Events.Api.Client;
 using StructureMap;
 using SFA.DAS.Data.Infrastructure.Services;
+using SFA.DAS.Commitments.Api.Client;
+using SFA.DAS.Commitments.Api.Client.Configuration;
+using SFA.DAS.Commitments.Api.Client.Interfaces;
 using SFA.DAS.Data.Application.Interfaces;
 using SFA.DAS.EAS.Account.Api.Client;
 using SFA.DAS.Http;
+using SFA.DAS.Http.TokenGenerators;
 
 namespace SFA.DAS.Data.Functions.Ioc
 {
@@ -79,8 +83,37 @@ namespace SFA.DAS.Data.Functions.Ioc
         {
             For<IPaymentsEventsApiClient>().Use(new PaymentsEventsApiClient(config.PaymentsEvents));
             For<IAccountApiClient>().Use<AccountApiClient>().Ctor<IAccountApiConfiguration>().Is(config.AccountsApi);
+          
+            For<IEmployerCommitmentApi>().Use<EmployerCommitmentApi>()
+                .Ctor<HttpClient>().Is(ctx => GetHttpClient(ctx))
+                .Ctor<ICommitmentsApiClientConfiguration>().Is(GetCommitmentsConfiguration());
+            For<IStatisticsApi>().Use<StatisticsApi>().Ctor<HttpClient>().Is(ctx => GetHttpClient(ctx)).Ctor<ICommitmentsApiClientConfiguration>().Is(GetCommitmentsConfiguration());
         }
-     
+
+        private CommitmentsApiClientConfiguration GetCommitmentsConfiguration()
+        {
+            var environment = CloudConfigurationManager.GetSetting("EnvironmentName");
+
+            var configurationRepository = GetConfigurationRepository();
+            var configurationService = new ConfigurationService(configurationRepository, new ConfigurationOptions("SFA.DAS.CommitmentsAPI", environment, "1.0"));
+
+            return configurationService.Get<CommitmentsApiClientConfiguration>();
+        }
+
+        private HttpClient GetHttpClient(IContext context)
+        {         
+            var config = GetCommitmentsConfiguration();
+            var bearerToken = (IGenerateBearerToken)new JwtBearerTokenGenerator(config);
+
+            var httpClientBuilder = string.IsNullOrWhiteSpace(config.ClientId)
+               ? new HttpClientBuilder().WithBearerAuthorisationHeader(new JwtBearerTokenGenerator(config))
+               : new HttpClientBuilder().WithBearerAuthorisationHeader(new AzureActiveDirectoryBearerTokenGenerator(config));
+
+            return httpClientBuilder
+                .WithDefaultHeaders()
+                .Build();         
+        }
+
         private static IConfigurationRepository GetConfigurationRepository()
         {
             return new AzureTableStorageConfigurationRepository(CloudConfigurationManager.GetSetting("ConfigurationStorageConnectionString"));
@@ -99,4 +132,5 @@ namespace SFA.DAS.Data.Functions.Ioc
             For<IMediator>().Use<Mediator>();
         }
     }
+
 }
